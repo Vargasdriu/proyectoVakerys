@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url(imagenes/fondo2.png);
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    font-size: 50px;
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    text-align: justify;
+    font-family: 'Raleway', sans-serif;
+}
+
+
+.contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+
+section {
+    background-color: #bbbd9f;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 50px;
+    width: 60%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border: 2.5px solid black;
+}
+
+section:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+section img {
+    width: 160px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+
+.i {
+    width: 280px;
+    height: auto;
+    position: relative;
+    right:200px;
+}
+.y{
+     width: 280px;
+    height: auto;
+    position: relative;
+    left: 200px;
+    transform: rotate(180deg)
+}
+
+
+.contenedor:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+@media (max-width: 700px) {
+    .contenedor {
+        flex-direction: column;
+    }
+
+    section {
+        width: 90%;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    section img {
+        width: 120px;
+    }
+
+    .i {
+        width: 80px;
+    }
+}
+</style>
+<link rel="stylesheet" href="styles.css">
+<body>
+<header class="main-header">
+    
+      <label for="btn-nav" class="btn-nav">
+        <img src="imagenes/menu.png" alt="Menu">
+      </label>
+      <input type="checkbox" id="btn-nav">
+
+      <nav>
+        <ul class="menu">
+          <li><a href="paginadeinicio.html">Inicio</a></li>
+          <li><a href="">Iniciar sesión</a></li>
+          <li><a href="">Productos</a></li>
+          <li><a href="promociones.html">Promociones</a></li>
+          <li><a href="sobrevakerys1.html">Sobre Vakery's</a></li>
+        </ul>
+      </nav>
+    </header>
+    <h1>Sobre Vakerys</h1>
+<main>
+    <div class="contenedor">
+        <section>
+            <div>
+                <h1>Misión</h1>
+                <p>Elaborar productos de repostería artesanal de la más alta calidad, utilizando ingredientes frescos y naturales, para brindar a nuestros clientes experiencias dulces, deliciosas y memorables que acompañen sus momentos especiales.</p>
+            </div>
+            <img src="imagenes/cookie.png" alt="mision">
+        </section>
+    
+    </div>
+
+    <div class="contenedor">
+        <section>
+            <div>
+                <h1>Visión</h1>
+                <p>Ser una empresa líder en repostería reconocida por su innovación, excelencia en sabor y compromiso con la satisfacción del cliente, expandiéndonos a nivel regional como sinónimo de dulzura, creatividad y calidad.</p>
+            </div>
+            <img src="imagenes/browniesolo.png" alt="vision">
+        </section>
+        
+    </div>
+
+    <div class="contenedor">
+        <section>
+            <div>
+                <h1>Propósito</h1>
+                <p>Endulzar la vida de las personas creando postres que transmitan felicidad, amor y tradición, mientras impulsamos el valor del trabajo artesanal y fomentamos el consumo de productos locales.</p>
+            </div>
+            <img src="imagenes/piemanzana.png" alt="proposito">
+        </section>
+        
+    </div>
+</main>
+</body>
+</html>

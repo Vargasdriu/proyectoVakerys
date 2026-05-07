@@ -1,0 +1,590 @@
+body { 
+  display: grid; 
+  grid-template-rows: 75px 700px 1900px 700px 450px; 
+  grid-template-columns: 100%; 
+  grid-template-areas: "e" "a" "b" "h" "c"; 
+  font-family: 'Roboto', 'sans-serif'; 
+} 
+
+.espace { 
+  grid-area: e; 
+} 
+
+.a { 
+  grid-area: a; 
+  position: relative; 
+  overflow: hidden; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  text-align: center; 
+  background-image: url('imagenes/fondooo.png'); 
+  background-size: cover; 
+  background-position: center; 
+  height: 700px; 
+} 
+
+.a video, .a img { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  opacity: 0; 
+  z-index: 1; 
+} 
+
+.a video:nth-child(1) { 
+  animation: fade1 20s infinite; 
+} 
+
+.a video:nth-child(2) { 
+  animation: fade2 20s infinite; 
+} 
+
+.a h1, .a p, .a a { 
+  position: relative; 
+  z-index: 5; 
+  color: #fff; 
+} 
+
+@keyframes fade1 { 
+  0%, 49.99% { opacity: 1; } 
+  50%, 100% { opacity: 0; } 
+} 
+
+@keyframes fade2 { 
+  0%, 49.99% { opacity: 0; } 
+  50%, 100% { opacity: 1; } 
+} 
+
+section > h1 { 
+  color: #ffffff; 
+  font-size: 70px; 
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+  position: relative; 
+  font-family: 'Raleway', sans-serif; 
+} 
+
+section > p { 
+  color: #ffffff; 
+  font-size: 30px; 
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+  position: relative; 
+  font-family: 'Open Sans', sans-serif; 
+} 
+
+section > a { 
+  color: #ffffff; 
+  background-color: #1d3021; 
+  font-size: 30px; 
+  border: 2px solid #1d3021; 
+  padding: 20px; 
+  border-radius: 100px; 
+  box-shadow: none; 
+  text-decoration: none; 
+  cursor: pointer; 
+  transition: .4s ease; 
+  position: relative; 
+  top: 90px; 
+  font-family: 'Open Sans'; 
+} 
+
+section > a:hover { 
+  background: transparent; 
+  color: #1d3021; 
+  padding: 22px; 
+} 
+
+.b { 
+  background-color: rgb(255, 255, 255); 
+  grid-area: b; 
+  z-index: 2; 
+  margin: 100px; 
+} 
+
+.b > h2 { 
+  font-family: 'Raleway', sans-serif; 
+  font-size: 70px; 
+} 
+
+.pie { 
+  width: 450px; 
+  height: 670px; 
+  position: relative; 
+  left: 50px; 
+  z-index: 2; 
+  cursor: pointer; 
+} 
+
+.b1 { 
+  height: 360px; 
+  width: 100%; 
+  background-color: transparent; 
+  justify-content: space-between; 
+  justify-self: center; 
+  cursor: pointer; 
+  transition: background-color .3s ease, transform .3s ease, box-shadow .3s ease; 
+  border-radius: 100px; 
+  padding: 20px; 
+  padding-left: 600px; 
+  margin-top: -500px; 
+} 
+
+.b2 { 
+  height: 360px; 
+  width: 100%; 
+  background-color: transparent; 
+  justify-content: space-between; 
+  justify-self: center; 
+  cursor: pointer; 
+  transition: background-color .3s ease, transform .3s ease, box-shadow .3s ease; 
+  border-radius: 100px; 
+  padding-right: 300px; 
+  padding-left: 100px; 
+  padding-top: 30px; 
+  padding-bottom: 80px; 
+  margin-top: -380px; 
+} 
+
+.b3 { 
+  height: 360px; 
+  width: 100%; 
+  background-color: transparent; 
+  justify-content: space-between; 
+  justify-self: center; 
+  cursor: pointer; 
+  transition: background-color .3s ease, transform .3s ease, box-shadow .3s ease; 
+  border-radius: 100px; 
+  padding-left: 600px; 
+  padding-top: 20px; 
+  margin-top: -380px; 
+} 
+
+.b1:hover, .b2:hover, .b3:hover { 
+  background-color: #709775; 
+  transform: translateY(-5px); 
+  box-shadow: 0 8px 25px rgba(0,0,0,0.18); 
+} 
+
+.pname, .cname, .bname { 
+  font-family: 'Raleway', sans-serif; 
+  font-size: 80px; 
+  color: black; 
+} 
+
+.pdes, .cdes, .bdes { 
+  font-size: 20px; 
+  color: black; 
+  position: relative; 
+} 
+
+.b1 > a, .b2 > a, .b3 > a { 
+  color: #000000; 
+  background-color: transparent; 
+  font-size: 20px; 
+  border: 2px solid #1d3021; 
+  padding: 15px; 
+  border-radius: 100px; 
+  box-shadow: none; 
+  text-decoration: none; 
+  cursor: pointer; 
+  transition: background-color .25s ease, color .25s ease, transform .25s ease; 
+  font-family: 'Open Sans'; 
+  position: relative; 
+  top: 80px; 
+} 
+
+.b2 > a { 
+  left: 850px; 
+  top: 50px; 
+} 
+
+.b1:hover > a, .b2:hover > a, .b3:hover > a { 
+  background-color: #1d3021; 
+  color: #ffffff; 
+} 
+
+.cookie { 
+  width: 500px; 
+  height: 500px; 
+  position: relative; 
+  top: 40px; 
+  margin-left: 1100px; 
+  z-index: 120; 
+} 
+
+.brownie { 
+  position: relative; 
+  left: 40px; 
+  bottom: -40px; 
+  z-index: 120; 
+} 
+
+footer { 
+  grid-area: c; 
+  background-color: #afc194; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  flex-direction: column; 
+} 
+
+footer > img { 
+  width: 240px; 
+  height: 120px; 
+} 
+
+.der, .pri { 
+  font-family: 'Open Sans', sans-serif; 
+  font-size: 20px; 
+  position: relative; 
+  top: 40px; 
+} 
+
+footer > a { 
+  padding: 5px; 
+} 
+
+a>img{ 
+  width: 50px; 
+  height: 50px; 
+  position: relative; 
+  bottom: -100px; 
+} 
+
+.tt{ 
+  position: relative; 
+  left: 80px; 
+  bottom: 130px; 
+} 
+
+.fb{ 
+  position: relative; 
+  left: -80px; 
+  bottom: 65px; 
+} 
+.h {
+  grid-area: h;
+  background-color: #1d3021;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 80px;
+  text-align: center;
+}
+
+.titulo h1 {
+  font-size: 50px;
+}
+
+.titulo p {
+  font-size: 22px;
+}
+
+.titulo {
+  margin-bottom: 50px;
+}
+
+.contenedor-hh {
+  background-color: #1d3021;
+
+  padding: 70px;
+  border-radius: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 35px;
+
+  flex-wrap: wrap;
+}
+
+.hh {
+  background-color: #3e6546;
+
+  width: 340px;
+  min-height: 320px;
+
+  padding: 45px 35px;
+
+  border-radius: 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  transition: all 0.35s ease;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.hh:hover {
+  transform: translateY(-10px) scale(1.03);
+
+  background-color: #4d7a57;
+
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+
+.hh h2 {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.hh p {
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.ih {
+  width: 80px;
+  height: 80px;
+
+  padding: 15px;
+
+  background-color: #689771;
+
+  border-radius: 50%;
+
+  object-fit: contain;
+}
+* { 
+  padding: 0; 
+  margin: 0; 
+  box-sizing: border-box; 
+  font-family: 'Raleway', sans-serif; 
+} 
+
+.main-header{ 
+  grid-area:m; 
+  display:flex; 
+  justify-content:center; 
+  align-items:center; 
+  height:75px; 
+  background-color:#afc194; 
+  position:fixed; 
+  width:100%; 
+  z-index:10000; 
+} 
+
+.main-header img{ 
+  max-width:100%; 
+  max-height:100%; 
+  transition:transform .4s ease; 
+} 
+
+.main-header img:hover{ 
+  transform:scale(1.05); 
+} 
+
+nav{ 
+  position:absolute; 
+  left:0; 
+  top:75px; 
+  width:200px; 
+  height:calc(100vh - 75px); 
+  background-color:rgba(29,48,33,0.9); 
+  backdrop-filter:blur(8px); 
+  transform:translateX(-100%); 
+  transition:.4s ease; 
+  
+  z-index:9999; 
+} 
+
+.btn-nav{ 
+  color:azure; 
+  font-size:30px; 
+  position:absolute; 
+  left:20px; 
+  top:10px; 
+  cursor:pointer; 
+  padding:6.5px 15px; 
+  transition:.2s ease; 
+} 
+
+.btn-nav img{ 
+  width:30px; 
+  height:30px; 
+  cursor:pointer; 
+} 
+
+.menu li{ 
+  list-style:none; 
+  width:100%; 
+  border-bottom:1px solid rgb(255,255,255); 
+  opacity:0; 
+  transform:translateX(-20px); 
+  transition:opacity .4s ease,transform .4s ease; 
+} 
+
+#btn-nav:checked~nav .menu li{ 
+  opacity:1; 
+  transform:translateX(0); 
+} 
+
+.menu a{ 
+  color:aliceblue; 
+  display:block; 
+  line-height:3.5; 
+  padding:0 10px; 
+  text-decoration:none; 
+  transition:.4s ease; 
+} 
+
+.menu a:hover{ 
+  background-color:rgba(255,255,255,0.1); 
+  transform:translateX(10px); 
+  box-shadow:inset 4px 0 0 #afc194; 
+} 
+
+#btn-nav{ 
+  display:none; 
+} 
+
+#btn-nav:checked~nav{ 
+  transform:translateX(0); 
+} 
+
+@media (max-width: 992px) { 
+  body { 
+    grid-template-rows: auto auto auto auto; 
+    grid-template-columns: 100%; 
+    grid-template-areas: "e" "a" "b" "c"; 
+  } 
+  .a { 
+    background-position: center center; 
+    background-size: cover; 
+    padding: 60px 20px; 
+  } 
+  section.a > h1 { 
+    font-size: 48px; 
+    top: 200px; 
+  } 
+  section.a > p { 
+    font-size: 24px; 
+    top: 200px; 
+  } 
+  section.a > a { 
+    font-size: 22px; 
+    padding: 18px 30px; 
+    top: 260px; 
+  } 
+  .b { 
+    margin: 40px 20px; 
+  } 
+  .b1, .b2, .b3 { 
+    margin-top: 60px; 
+    padding: 20px; 
+    padding-left: 20px; 
+    padding-right: 20px; 
+    text-align: center; 
+  } 
+  .pie, .cookie, .brownie { 
+    width: 100%; 
+    height: auto; 
+    position: relative; 
+    left: 0; 
+    margin: 0 auto 30px auto; 
+  } 
+  .pname, .cname, .bname { 
+    font-size: 48px; 
+  } 
+  .pdes, .cdes, .bdes { 
+    font-size: 18px; 
+  } 
+  .b1 > a, .b2 > a, .b3 > a { 
+    position: static; 
+    display: inline-block; 
+    margin-top: 20px; 
+  } 
+  .c { 
+    padding: 40px 20px; 
+    flex-direction: column; 
+    align-items: center; 
+  } 
+  .c img { 
+    width: 180px; 
+    height: auto; 
+  } 
+  .main-header { 
+    height: auto; 
+    padding: 10px 20px; 
+  } 
+  .btn-nav img { 
+    width: 28px; 
+    height: 28px; 
+  } 
+  nav { 
+    width: 70%; 
+  } 
+} 
+
+@media (max-width: 576px) { 
+  section.a > h1 { 
+    font-size: 34px; 
+    top: 140px; 
+  } 
+  section.a > p { 
+    font-size: 18px; 
+    top: 140px; 
+  } 
+  section.a > a { 
+    font-size: 18px; 
+    padding: 14px 24px; 
+    top: 200px; 
+  } 
+  .pname, .cname, .bname { 
+    font-size: 34px; 
+  } 
+  .pdes, .cdes, .bdes { 
+    font-size: 16px; 
+  } 
+  .main-header img { 
+    width: 140px; 
+  } 
+  .btn-nav img { 
+    width: 24px; 
+    height: 24px; 
+  } 
+  nav { 
+    width: 80%; 
+  } 
+
+  .c {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .c a img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.c {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #afc194;
+  padding: 10px 0;
+  gap: 7px;
+}
+
+.c a img {
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s ease;
+}

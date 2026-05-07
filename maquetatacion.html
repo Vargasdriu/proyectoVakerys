@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<img src="imagenes/x.png" alt="Cerrar" class="close-icon">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    
+  body{
+     display : grid; 
+    grid-template-rows: 700px 900px 450px;
+     grid-template-columns:100%;
+     grid-template-areas: 
+        
+         "a"
+         "b"
+          "c"
+            ;
+     font-family:'Roboto' , 'sans-serif';
+            
+    }
+    *{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+   font-family: 'Raleway', sans-serif;
+}
+
+
+.main-header{
+    grid-area: m;
+    display: flex;
+    justify-content: center;
+    align-items: center;     
+    height: 75px;    
+    background-color: #afc194; 
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
+    
+    
+}
+.main-header img {
+    max-width: 100%;      
+   max-height: 100%;  
+}
+    
+
+nav{
+  position: absolute;
+  left:0;
+  top:0;
+  width: 200px;
+  top:75px;
+  height:calc(100vh - 50px);
+  background-color: rgb( 52, 78, 65);
+  transform:translateX(-100%);
+  transition:.4s ease;
+}
+.btn-nav img {
+    width: 30px;      
+    height: 30px;
+    cursor: pointer;
+}
+.menu li{
+  list-style:none;
+  width: 100%;
+  border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.menu a{
+  color:aliceblue;
+  display: block;
+  line-height:3.5;
+  padding: 0 10px;
+  text-decoration:none;
+  transition:.4s ease;
+}
+
+.menu a:hover{
+  transform:translateX(20%);
+}
+
+#btn-nav{
+  display: none;
+}
+
+#btn-nav:checked ~ nav{
+  transform:translateX(0);
+}
+
+.btn-nav{
+ color: azure;
+  font-size:30px;
+  position: absolute;
+  left:0;
+  top:0;
+  cursor:pointer;
+  padding:6.5px 15px;
+  transition:.2s ease;
+  
+  left: 20px;
+  top: 10px;
+
+}
+
+
+
+
+    .espace{
+      grid-area: e;
+
+    }
+    .a{
+        background-color: rgb(92, 129, 92);
+        grid-area: a;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size:cover;
+        text-align: center;
+  }
+  .b{
+        background-color: rgb(71, 92, 66);
+        grid-area: b;
+        z-index: 2;
+        
+  }
+  .c{
+        
+        grid-area: c;
+      background-color: #afc194;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    
+
+
+</style>
+</head>
+<body>
+
+    <header class="main-header">
+   
+  <label for="btn-nav" class="btn-nav">
+    <img src="imagenes/menu.png" alt="Menu">
+  </label>
+  <input type="checkbox" id="btn-nav">
+  </header>
+  <nav>
+    
+    <ul class="menu">
+     
+    </ul>
+  </nav>
+  
+</header>
+<nav class="espace"></nav>
+<section class="a">
+  
+</section>
+<section class="b">
+ 
+  
+</section>
+<section class="c">
+  
+</section >
+ 
+</body>
+</html>

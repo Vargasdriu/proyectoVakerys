@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+             display: grid;
+             grid-template-rows: 75px 300px 600px 200px  300px;
+            grid-template-columns: 40% 60%;
+            grid-template-areas: 
+            "a a "
+            "b c "
+            "b d"
+            "b e "
+            "f f"  ;
+            
+        }
+        @media(max-width:600px){
+            body{
+                grid-template-rows: 75px 250px 500px 200px 200px 200px;
+            grid-template-columns:1fr;
+            grid-template-areas: 
+            "a "
+            "b "
+            "c "
+            "d"
+            "e " 
+            "f"
+            
+            }
+        }
+        .a{
+            grid-area: a;
+            background-color: rgb(38, 97, 51);
+        }
+        .b{
+            grid-area: b;
+            background-color: rgb(148, 192, 148);
+        }
+        .c{
+            grid-area: c;
+            background-color: rgb(96, 112, 94);
+        }
+        .d{
+            grid-area: d;
+            background-color: rgb(63, 90, 66);
+        }
+        .e{
+            grid-area: e ;
+            background-color: rgb(81, 129, 76)
+        }
+        .f{
+            grid-area: f ;
+            background-color: rgb(146, 173, 143)
+        }
+        </style>
+</head>
+<body>
+    <div class="a"></div>
+    <div class="b"></div>
+    <div class="c"></div>
+    <div class="d"></div>
+    <div class="e"></div>
+    <div class="f"></div>
+</body>
+</html>
