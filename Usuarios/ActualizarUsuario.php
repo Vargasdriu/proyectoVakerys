@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <?php
 $servername  = "localhost";
 $username = "root";
@@ -13,7 +14,7 @@ $resultado=$conn->query($sql);
     if($resultado->num_rows > 0){
         while($fila=$resultado->fetch_assoc()){
             $CarnetIdentidad=$fila['CarnetIdentidad'];
-            $CarnetIdentidad=$fila['CarnetIdentidad'];
+            $NombreUsuario=$fila['NombreUsuario'];
             $DireccionUsuario=$fila['DireccionUsuario'];
             $NumeroUsuario=$fila['NumeroUsuario'];
             $RolUsuario=$fila['RolUsuario'];
@@ -22,12 +23,15 @@ $resultado=$conn->query($sql);
         }
     }
 ?>
+=======
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<<<<<<< Updated upstream
     <link rel="stylesheet" href="estilosupdate.css">
 </head>
 <body>
@@ -46,13 +50,17 @@ $resultado=$conn->query($sql);
         <input type="number" name='NumeroUsuario' value='<?=$NumeroUsuario?>'> <br>
 
         <label for="">Rol:</label>
-        <input type="number" name='RolUsuario' value='<?=$RolUsuario?>'> <br>
+        <input type="text" name='RolUsuario' value='<?=$RolUsuario?>'> <br>
 
         <label for="">Estado:</label>
-        <input type="number" name='EstadoUsuario' value='<?=$EstadoUsuario?>'> <br>
+        <input type="text" name='EstadoUsuario' value='<?=$EstadoUsuario?>'> <br>
         
         <input type ="Submit">
 </form>
+=======
+</head>
+<body>
+>>>>>>> Stashed changes
     
 </body>
 </html>

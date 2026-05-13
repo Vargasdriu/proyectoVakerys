@@ -19,6 +19,7 @@ $resultado=$conn->query($sql);
            
         }
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
