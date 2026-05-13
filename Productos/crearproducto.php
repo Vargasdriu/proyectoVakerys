@@ -4,30 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nuevo Producto</title>
-   link rel="stylesheet" href="estiloscrear.css">   
+   <link rel="stylesheet" href="estiloscrear.css">   
 </head>
 <body>
+  <video autoplay muted loop>
+    <source src="http://localhost/vakerys/imagenes/vdapplepie.mp4" type="video/mp4">
 
- <div class="tra">
-  <form action="registroproducto.php" method="post">
-    <h2>Nuevo Producto</h2>
+</video>
 
-    <label>Ingrese:</label>
-    <input type="text" placeholder="CODIGO" name="Codigo" required><br>
+<div class="capa"></div>
 
-    <input type="text" placeholder="NOMBRE" name="NombreProducto" required><br>
+<div class="tra">
 
-    <input type="number" placeholder="PRECIO DE VENTA" name="PrecioProducto" required><br>
+<form action="registroproducto.php" method="post">
 
-    <input type="text" placeholder="DETALLE" name="DetalleProducto" required><br>
+<h2>Nuevo Producto</h2>
 
-    <input type="number" placeholder="COSTO" name="CostoProducto" required><br>
+<label>Ingrese:</label>
 
-    <input type="number" placeholder="STOCK" name="Stock" required><br>
+<input type="text" placeholder="CODIGO" name="Codigo" required>
 
-    <input class="buttom" type="submit" value="Registrar">
+<input type="text" placeholder="NOMBRE" name="NombreProducto" required>
 
-  </form>
+<input type="number" placeholder="PRECIO DE VENTA" name="PrecioProducto" required>
+
+<input type="text" placeholder="DETALLE" name="DetalleProducto" required>
+
+<input type="number" placeholder="COSTO" name="CostoProducto" required>
+
+<input type="number" placeholder="STOCK" name="Stock" required>
+
+<input class="buttom" type="submit" value="Registrar">
+
+</form>
+
 </div>
+
 </body>
 </html>
