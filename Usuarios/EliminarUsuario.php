@@ -1,4 +1,5 @@
 <?php
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -16,10 +17,11 @@ if(isset($_GET['CI'])){
 
     $CI = $_GET['CI'];
 
-    $sql = "DELETE FROM GestionDeUsuarios WHERE CI = '$CI'";
+    $sql = "DELETE FROM GestionDeUsuarios WHERE CI='$CI'";
 
     $resultado = $conexion->query($sql);
 }
+
 ?>
 
 <!DOCTYPE html>
