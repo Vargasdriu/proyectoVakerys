@@ -7,25 +7,7 @@
     <link rel="stylesheet" href="../Productos/estiloscrear.css">
 </head>
 <body>
-     <form action="GestioDeUsuarios.php" method="post">
-    <h2>Bienvenido</h2>
-
-    <label>Ingrese:</label>
-    <input type="text" placeholder="CARNET IDENTIDAD" name="CI" required><br>
-
-    <input type="text" placeholder="NOMBRE(s)" name="Nombre" required><br>
-
-    <input type="text" placeholder="DIRECCIÓN" name="Direccion" required><br>
-
-    <input type="number" placeholder="CELULAR" name="Numero" required><br>
-
-    <input type="text" placeholder="ROL" name="Rol" required><br>
-
-    <input type="text" placeholder="ESTADO" name="Estado" required><br>
-
-    <input class="buttom" type="submit" value="Registrar">
-
-  </form>
+   
     
 <html lang="es">
 <head>
@@ -38,7 +20,33 @@
 
 <body>
 
-    
+    <header class="main-header">
+
+    <div class="header-logo">
+      <img src="../imagenes/logo.png" alt="Vakery's">
+    </div>
+
+    <label for="btn-nav" class="btn-nav">
+      <img src="../imagenes/menu.png" alt="Menu">
+    </label>
+
+    <input type="checkbox" id="btn-nav">
+
+    <nav>
+
+      <ul class="menu">
+        <li><a href="../paginadeinicio.html">Inicio</a></li>
+        <li><a href="#">Iniciar sesión</a></li>
+        <li><a href="../paginaproductos.html">Productos</a></li>
+        <li><a href="#">Promociones</a></li>
+        <li><a href="../sobrevakerys1.html">Sobre Vakery's</a></li>
+        <li><a href="../paginaadmin.html">Página Administrador</a></li>
+      <li><a href="paginavendedor.html">Página Vendedor</a></li>
+      </ul>
+
+    </nav>
+
+  </header>
     <video autoplay muted loop>
         <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
     </video>

@@ -24,7 +24,7 @@ $resultado=$conn->query($sql);
             $Estado=$fila['Estado'];
 
          }
-
+    }
 $CI = $_GET['CI'];
 
 $sql = "SELECT * FROM GestionDeUsuarios WHERE CI='$CI'";
@@ -87,7 +87,84 @@ body{
 
     font-family:'Raleway',sans-serif;
 }
+.main-header{
+  width:100%;
+  height:75px;
+  background:#afc194;
 
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  position:fixed;
+  top:0;
+  left:0;
+
+  z-index:1000;
+
+  box-shadow:0 4px 10px rgba(0,0,0,.06);
+}
+
+.header-logo img{
+  height:55px;
+}
+
+.btn-nav{
+  position:absolute;
+  left:20px;
+  cursor:pointer;
+}
+
+.btn-nav img{
+  width:30px;
+  transition:.3s;
+}
+
+.btn-nav img:hover{
+  transform:scale(1.08);
+}
+
+#btn-nav{
+  display:none;
+}
+nav{
+  position:fixed;
+  top:75px;
+  left:0;
+
+  width:250px;
+  height:100vh;
+
+  background:#1d3021;
+
+  transform:translateX(-100%);
+  transition:.4s;
+}
+
+#btn-nav:checked ~ nav{
+  transform:translateX(0);
+}
+
+.menu{
+  list-style:none;
+}
+
+.menu li{
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.menu a{
+  color:white;
+  text-decoration:none;
+  display:block;
+  padding:18px;
+  transition:.3s;
+}
+
+.menu a:hover{
+  background:rgba(255,255,255,.1);
+  padding-left:30px;
+}
 .contenedor{
     background:rgba(52,78,65,.95);
     width:500px;
@@ -143,37 +220,40 @@ input:focus{
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
 
+
 </style>
 
 </head>
 
 <body>
-    <form action="registroeditar.php" method="post">
-        <h2>Actualizar usuario:</h2>
-        <label for="">Carnet Identidad:</label>
-        <input type="text" name='CI' value='<?=$CI?>'> <br>
+    <header class="main-header">
 
-        <label for="">Nombre(s):</label>
-        <input type="text" name='Nombre' value='<?=$Nombre?>'> <br>
+    <div class="header-logo">
+      <img src="../imagenes/logo.png" alt="Vakery's">
+    </div>
 
-        <label for="">Direción:</label>
-        <input type="text" name='Direccion' value='<?=$Direccion?>'> <br>
+    <label for="btn-nav" class="btn-nav">
+      <img src="../imagenes/menu.png" alt="Menu">
+    </label>
 
-        <label for="">Celular:</label>
-        <input type="number" name='Numero' value='<?=$Numero?>'> <br>
+    <input type="checkbox" id="btn-nav">
 
-        <label for="">Rol:</label>
+    <nav>
 
-        <input type="number" name='Rol' value='<?=$Rol?>'> <br>
+      <ul class="menu">
+        <li><a href="../paginadeinicio.html">Inicio</a></li>
+        <li><a href="#">Iniciar sesión</a></li>
+        <li><a href="../paginaproductos.html">Productos</a></li>
+        <li><a href="#">Promociones</a></li>
+        <li><a href="../sobrevakerys1.html">Sobre Vakery's</a></li>
+        <li><a href="../paginaadmin.html">Página Administrador</a></li>
+      <li><a href="paginavendedor.html">Página Vendedor</a></li>
+      </ul>
 
-        <label for="">Estado:</label>
-        <input type="number" name='Estado' value='<?=$Estado?>'> <br>
+    </nav>
 
- 
-        
-        <input type ="Submit">
-</form>
-
+  </header>
+   
 </head>
 <body>
 
