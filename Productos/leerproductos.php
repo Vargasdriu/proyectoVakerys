@@ -22,7 +22,7 @@ $sql = "SELECT * FROM Productos";
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vakery</title>
+<title>Vakerys</title>
 
 <style>
 
