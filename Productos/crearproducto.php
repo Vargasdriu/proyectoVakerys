@@ -8,7 +8,7 @@
 </head>
 <body>
   <video autoplay muted loop>
-    <source src="http://localhost/vakerys/imagenes/vdapplepie.mp4" type="video/mp4">
+    <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
 
 </video>
 
@@ -23,17 +23,11 @@
 <label>Ingrese:</label>
 
 <input type="text" placeholder="CODIGO" name="Codigo" required>
-
 <input type="text" placeholder="NOMBRE" name="NombreProducto" required>
-
 <input type="number" placeholder="PRECIO DE VENTA" name="PrecioProducto" required>
-
 <input type="text" placeholder="DETALLE" name="DetalleProducto" required>
-
 <input type="number" placeholder="COSTO" name="CostoProducto" required>
-
 <input type="number" placeholder="STOCK" name="Stock" required>
-
 <input class="buttom" type="submit" value="Registrar">
 
 </form>
