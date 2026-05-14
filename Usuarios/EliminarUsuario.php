@@ -1,27 +1,22 @@
 <?php
-
 $servername = "localhost";
 $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
-$conexion = new mysqli($servername, $username, $password, $bdname);
+$conexion = new mysqli($servername, $username,$password,$bdname);
 
-if($conexion->connect_error){
-    die("Hubo un error en la conexión");
+if($conexion -> connect_error){
+    echo "Hubo un error";
 }
-
-$resultado = false;
-
-if(isset($_GET['CI'])){
-
-    $CI = $_GET['CI'];
-
-    $sql = "DELETE FROM GestionDeUsuarios WHERE CI='$CI'";
-
-    $resultado = $conexion->query($sql);
+$CI = $_GET['CI'];
+$sql = "DELETE FROM GestionDeUsuarios WHERE  CI = '$CI'";
+if ($conexion->query($sql) === TRUE) {
+    echo "Usuario eliminado correctamente.";
 }
-
+ else {
+    echo "Error: " . $conexion->error;
+}
 ?>
 
 <!DOCTYPE html>
@@ -131,4 +126,4 @@ $conexion->close();
 </div>
 
 </body>
-</html>
+</html> 
