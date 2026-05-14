@@ -9,7 +9,7 @@ $conexion = new mysqli($servername, $username,$password,$bdname);
 if($conexion -> connect_error){
     echo "Hubo un error";
 }
-$CorreoCliente = $_GET['CI'];
+$CI = $_GET['CI'];
 $sql = "DELETE FROM GestionDeUsuarios WHERE  CI = '$CI'";
 if ($conexion->query($sql) === TRUE) {
     echo "Usuario eliminado correctamente.";
