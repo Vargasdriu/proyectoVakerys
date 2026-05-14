@@ -1,3 +1,4 @@
+
 <?php
 $servername  = "localhost";
 $username = "root";
@@ -8,26 +9,29 @@ if($conn -> connect_error){
     die ("Conexion fallida:".$conn->connect_error);
 }
 $CI=$_GET['CI'];
-$sql="SELECT * FROM GEstionDeUsuarios WHERE CI='$CI'";
+$sql="SELECT * FROM GestionDeUsuarios WHERE CI='$CI'";
 $resultado=$conn->query($sql);
     if($resultado->num_rows > 0){
         while($fila=$resultado->fetch_assoc()){
+
             $CI=$fila['CI'];
             $Nombre=$fila['Nombre'];
             $Direccion=$fila['Direccion'];
             $Numero=$fila['Numero'];
             $Rol=$fila['Rol'];
             $Estado=$fila['Estado'];
-           
-        }
+
+         }
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
     <link rel="stylesheet" href="estilosupdate.css">
 </head>
 <body>
@@ -46,13 +50,19 @@ $resultado=$conn->query($sql);
         <input type="number" name='Numero' value='<?=$Numero?>'> <br>
 
         <label for="">Rol:</label>
+
         <input type="number" name='Rol' value='<?=$Rol?>'> <br>
 
         <label for="">Estado:</label>
         <input type="number" name='Estado' value='<?=$Estado?>'> <br>
+
+ 
         
         <input type ="Submit">
 </form>
+
+</head>
+<body>
     
 </body>
 </html>

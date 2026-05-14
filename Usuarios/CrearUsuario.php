@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../Productos/estiloscrear.css">
 </head>
 <body>
-     <form action="GestoinDeUsuarios.php" method="post">
+     <form action="GestioDeUsuarios.php" method="post">
     <h2>Bienvenido</h2>
 
     <label>Ingrese:</label>

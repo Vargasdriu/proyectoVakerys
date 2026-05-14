@@ -10,7 +10,7 @@ if($conexion -> connect_error){
     echo "Hubo un error";
 }
 $CI = $_GET['CI'];
-$sql = "DELETE FROM GestionDeusuarios WHERE  CI = '$CI'";
+$sql = "DELETE FROM GestionDeUsuarios WHERE  CI = '$CI'";
 if ($conexion->query($sql) === TRUE) {
     echo "Usuario eliminado correctamente.";
 }
