@@ -588,3 +588,132 @@ nav{
   height: 40px;
   transition: all 0.3s ease;
 }
+
+.a h1{
+  animation: aparecerArriba 1s ease;
+}
+
+.a p{
+  animation: aparecerArriba 1.4s ease;
+}
+
+.a a{
+  animation: aparecerBoton 1.8s ease;
+}
+
+
+.b1,
+.b2,
+.b3{
+  animation: aparecerAbajo linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 35%;
+}
+
+
+.hh{
+  animation: fadeCard linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+}
+
+.pie,
+.cookie,
+.brownie{
+  transition: transform .5s ease;
+}
+
+.pie:hover,
+.cookie:hover,
+.brownie:hover{
+  transform: scale(1.04) rotate(1deg);
+}
+
+
+.b > h2,
+.titulo h1{
+  animation: fadeTitulo linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+}
+
+
+section > a,
+.b1 > a,
+.b2 > a,
+.b3 > a{
+  transition: all .35s ease;
+}
+
+section > a:hover,
+.b1 > a:hover,
+.b2 > a:hover,
+.b3 > a:hover{
+  transform: scale(1.08);
+}
+
+
+.c a img:hover{
+  transform: translateY(-8px) scale(1.1);
+}
+
+
+@keyframes aparecerArriba{
+  from{
+    opacity:0;
+    transform: translateY(-40px);
+  }
+
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aparecerBoton{
+  from{
+    opacity:0;
+    transform: scale(.8);
+  }
+
+  to{
+    opacity:1;
+    transform: scale(1);
+  }
+}
+
+@keyframes aparecerAbajo{
+  from{
+    opacity:0;
+    transform: translateY(80px);
+  }
+
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeCard{
+  from{
+    opacity:0;
+    transform: scale(.9);
+  }
+
+  to{
+    opacity:1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeTitulo{
+  from{
+    opacity:0;
+    letter-spacing: 10px;
+  }
+
+  to{
+    opacity:1;
+    letter-spacing: 0;
+  }
+}

@@ -419,3 +419,134 @@ footer{
     font-size:24px;
   }
 }
+
+.ab{
+  animation:aparecerCard .9s ease;
+}
+
+.ab:nth-child(1){
+  animation-delay:.2s;
+}
+
+.ab:nth-child(2){
+  animation-delay:.4s;
+}
+
+.ab:nth-child(3){
+  animation-delay:.6s;
+}
+
+.ab:nth-child(4){
+  animation-delay:.8s;
+}
+
+.ba{
+  animation:subirPanel 1.1s ease;
+}
+
+.bf{
+  animation:aparecerFactura 1s ease;
+}
+
+.bf:nth-child(1){
+  animation-delay:.3s;
+}
+
+.bf:nth-child(2){
+  animation-delay:.5s;
+}
+
+.bf:nth-child(3){
+  animation-delay:.7s;
+}
+
+.b-boton h1{
+  animation:pulseBtn 2.5s infinite;
+}
+
+.header-logo img{
+  animation:logoFloat 3s ease-in-out infinite;
+}
+
+footer{
+  animation:fadeFooter 1.5s ease;
+}
+
+
+
+@keyframes aparecerCard{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes subirPanel{
+  from{
+    opacity:0;
+    transform:translateY(70px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes aparecerFactura{
+  from{
+    opacity:0;
+    transform:translateX(-40px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+@keyframes pulseBtn{
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.03);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+}
+
+@keyframes logoFloat{
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-4px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+}
+
+@keyframes fadeFooter{
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+}
+a{
+  text-decoration: none;
+}

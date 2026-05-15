@@ -52,7 +52,6 @@ a{
   display:none;
 }
 
-/* NAV */
 
 nav{
   position:fixed;
@@ -93,7 +92,6 @@ nav{
   padding-left:30px;
 }
 
-/* MAIN */
 
 .dashboard{
   padding:110px 30px 40px;
@@ -101,7 +99,6 @@ nav{
   margin:auto;
 }
 
-/* STATS */
 
 .stats{
   display:grid;
@@ -141,7 +138,7 @@ nav{
   opacity:.7;
 }
 
-/* GRID */
+
 
 .content-grid{
   display:grid;
@@ -150,7 +147,7 @@ nav{
   margin-bottom:30px;
 }
 
-/* PANEL */
+
 
 .panel{
   background:white;
@@ -176,7 +173,7 @@ nav{
   font-size:30px;
 }
 
-/* PEDIDOS */
+
 
 .pedidos{
   display:flex;
@@ -231,7 +228,6 @@ nav{
   cursor:pointer;
 }
 
-/* SIDEBAR */
 
 .sidebar{
   display:flex;
@@ -239,7 +235,7 @@ nav{
   gap:30px;
 }
 
-/* INVENTARIO */
+
 
 .inventario{
   display:flex;
@@ -261,7 +257,7 @@ nav{
   width:80px;
 }
 
-/* TOP */
+
 
 .topventas{
   display:flex;
@@ -285,7 +281,6 @@ nav{
   width:120px;
 }
 
-/* BUTTON */
 
 .btn{
   background:#709775;
@@ -306,7 +301,6 @@ nav{
   background:#1d3021;
 }
 
-/* ACCIONES */
 
 .acciones-panel{
   margin-bottom:30px;
@@ -344,7 +338,6 @@ nav{
   width:90px;
 }
 
-/* FOOTER */
 
 footer{
   background:#afc194;
@@ -413,3 +406,93 @@ footer{
   }
 
 }
+
+.card,
+.panel,
+.accion-card,
+.venta-card,
+.pedido-card{
+  animation: subirSuave 1s ease;
+}
+
+
+.stats .card:nth-child(1){
+  animation-delay: .1s;
+}
+
+.stats .card:nth-child(2){
+  animation-delay: .3s;
+}
+
+.stats .card:nth-child(3){
+  animation-delay: .5s;
+}
+
+.stats .card:nth-child(4){
+  animation-delay: .7s;
+}
+
+.panel{
+  animation-delay: .4s;
+}
+
+
+.accion-card:nth-child(1){
+  animation-delay: .2s;
+}
+
+.accion-card:nth-child(2){
+  animation-delay: .4s;
+}
+
+.accion-card:nth-child(3){
+  animation-delay: .6s;
+}
+
+.accion-card:nth-child(4){
+  animation-delay: .8s;
+}
+
+
+
+
+@keyframes subirSuave{
+  from{
+    opacity:0;
+    transform: translateY(40px);
+  }
+
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeFooter{
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+}
+
+@keyframes logoFloat{
+  0%{
+    transform: translateY(0px);
+  }
+
+  50%{
+    transform: translateY(-4px);
+  }
+
+  100%{
+    transform: translateY(0px);
+  }
+}
+
+
+
+
+
