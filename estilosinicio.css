@@ -455,11 +455,11 @@ nav{
   transform:translateX(0); 
 } 
 
-@media (max-width: 992px) { 
+@media (max-width: 900px) { 
   body { 
-    grid-template-rows: auto auto auto auto; 
+    grid-template-rows: auto auto auto auto auto; 
     grid-template-columns: 100%; 
-    grid-template-areas: "e" "a" "b" "c"; 
+    grid-template-areas: "e" "a" "b" "h" "c"; 
   } 
   .a { 
     background-position: center center; 
@@ -530,6 +530,16 @@ nav{
 } 
 
 @media (max-width: 576px) { 
+    body { 
+    grid-template-rows: auto auto auto auto auto; 
+    grid-template-columns: 100%; 
+    grid-template-areas: "e" "a" "b" "h" "c"; 
+  } 
+  .a { 
+    background-position: center center; 
+    background-size: cover; 
+    padding: 60px 20px; 
+  } 
   section.a > h1 { 
     font-size: 34px; 
     top: 140px; 
@@ -543,6 +553,7 @@ nav{
     padding: 14px 24px; 
     top: 200px; 
   } 
+  
   .pname, .cname, .bname { 
     font-size: 34px; 
   } 
