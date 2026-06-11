@@ -57,7 +57,7 @@
    
     <div class="tra">
 
-        <form action="registrousuario.php" method="post">
+        <form action="registrousuario.php" method="post" onsubmit="return validar()">
 
             <h2>Bienvenido</h2>
 
