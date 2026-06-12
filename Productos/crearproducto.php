@@ -67,7 +67,6 @@
     var d=document.getElementById("Detalle");
     var e=document.getElementById("Costo");
     var f=document.getElementById("Stock");
-    var ex=/^[0-9]*$/;
     var expRegNombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     function validar(){
 
