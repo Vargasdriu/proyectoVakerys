@@ -57,27 +57,27 @@
    
     <div class="tra">
 
-        <form action="registrousuario.php" method="post">
+        <form action="registrousuario.php" method="post" onsubmit="return validar()">
 
             <h2>Bienvenido</h2>
 
             <label>Carnet de Identidad</label>
-            <input type="text" placeholder="CARNET IDENTIDAD" name="CI" required>
+            <input type="text" placeholder="CARNET IDENTIDAD" name="CI" id="CI" >
 
             <label>Nombre</label>
-            <input type="text" placeholder="NOMBRE(s)" name="Nombre" required>
+            <input type="text" placeholder="NOMBRE(s)" name="Nombre" id="Nombre" >
 
             <label>Dirección</label>
-            <input type="text" placeholder="DIRECCIÓN" name="Direccion" required>
+            <input type="text" placeholder="DIRECCIÓN" name="Direccion" id="Direccion">
 
             <label>Número de Celular</label>
-            <input type="number" placeholder="NÚMERO DE CELULAR" name="Numero" required>
+            <input type="number" placeholder="NÚMERO DE CELULAR" name="Numero" id="Numero">
 
             <label>Rol</label>
-            <input type="text" placeholder="ROL" name="Rol" required>
+            <input type="text" placeholder="ROL" name="Rol" id="Rol">
 
             <label>Estado</label>
-            <input type="text" placeholder="ESTADO" name="Estado" required>
+            <input type="text" placeholder="ESTADO" name="Estado" id="Estado">
 
             <input class="button" type="submit" value="Registrar">
 
