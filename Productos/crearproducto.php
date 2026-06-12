@@ -43,7 +43,7 @@
 
 <div class="tra">
 
-<form action="registroproducto.php" method="post">
+<form action="registroproducto.php" method="post" onsubmit="return validar()">
 
 <h2>Nuevo Producto</h2>
 
