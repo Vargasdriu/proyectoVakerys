@@ -264,22 +264,22 @@ input:focus{
     <h2>Actualizar Usuario</h2>
 
     <label>Carnet de Identidad:</label>
-    <input type="text" name="CI" value="<?=$CI?>" required>
+    <input type="text" name="CI" value="<?=$CI?>" id="CI" >
 
     <label>Nombre(s):</label>
-    <input type="text" name="Nombre" value="<?=$Nombre?>" required>
+    <input type="text" name="Nombre" value="<?=$Nombre?>" id="Nombre" >
 
     <label>Dirección:</label>
-    <input type="text" name="Direccion" value="<?=$Direccion?>" required>
+    <input type="text" name="Direccion" value="<?=$Direccion?>" id="Direccion" >
 
     <label>Celular:</label>
-    <input type="number" name="Numero" value="<?=$Numero?>" required>
+    <input type="number" name="Numero" value="<?=$Numero?>" id="Numero" >
 
     <label>Rol:</label>
-    <input type="text" name="Rol" value="<?=$Rol?>" required>
+    <input type="text" name="Rol" value="<?=$Rol?>" id="Rol" >
 
     <label>Estado:</label>
-    <input type="text" name="Estado" value="<?=$Estado?>" required>
+    <input type="text" name="Estado" value="<?=$Estado?>" id="Estado">
 
     <input type="submit" value="Actualizar Usuario" class="boton">
 
