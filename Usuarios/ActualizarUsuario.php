@@ -284,6 +284,76 @@ input:focus{
     <input type="submit" value="Actualizar Usuario" class="boton">
 
 </form>
+    <script>
+     var a=document.getElementById("CI");
+            var b=document.getElementById("Nombre");
+            var c=document.getElementById("Direccion");
+            var d=document.getElementById("Numero");
+            var e=document.getElementById("Rol");
+            var f=document.getElementById("Estado");
+               var ex=/^[0-9]*$/;
+            var expRegNombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+          
+        
+
+         function validar(){
+
+            if(a.value==""){
+                alert("este campo no puede ir vacio");
+                a.focus();
+                return false;
+            }
+             if(!ex.exec(a.value)){
+                alert("introduce solo numeros");
+                a.focus();
+                return false;
+        }
+
+            if(b.value==""){
+                alert("este campo no puede ir vacio");
+                b.focus();
+                return false;
+            }
+            if(!expRegNombre.exec(b.value)){
+                alert("introduce solo letras");
+                b.focus();
+                return false;
+        }
+
+            if(c.value==""){
+                alert("este campo no puede ir vacio");
+                c.focus();
+                return false;
+            }
+
+            if(d.value==""){
+                alert("este campo no puede ir vacio");
+                d.focus();
+                return false;
+            }
+             if(!ex.exec(d.value)){
+                alert("introduce solo numeros");
+                d.focus();
+                return false;
+            }
+
+            if(e.value==""){
+                alert("este campo no puede ir vacio");
+                e.focus();
+                return false;
+            }
+            if(f.value==""){
+                alert("este campo no puede ir vacio");
+                f.focus();
+                return false;
+            }
+            else{
+            return true;
+            }
+            
+        }
+</script>
+    
 
 </div>
 </body>
