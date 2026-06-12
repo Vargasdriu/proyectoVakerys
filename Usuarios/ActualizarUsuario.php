@@ -259,7 +259,7 @@ input:focus{
 
 <div class="contenedor">
 
-<form action="registroeditar.php" method="post">
+<form action="registroeditar.php" method="post" onsubmit="return validar()">
 
     <h2>Actualizar Usuario</h2>
 
