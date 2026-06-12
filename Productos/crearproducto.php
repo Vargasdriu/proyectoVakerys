@@ -49,12 +49,12 @@
 
 <label>Ingrese:</label>
 
-<input type="text" placeholder="CODIGO" name="Codigo" required>
-<input type="text" placeholder="NOMBRE" name="NombreProducto" required>
-<input type="number" placeholder="PRECIO DE VENTA" name="PrecioProducto" required>
-<input type="text" placeholder="DETALLE" name="DetalleProducto" required>
-<input type="number" placeholder="COSTO" name="CostoProducto" required>
-<input type="number" placeholder="STOCK" name="Stock" required>
+<input type="text" placeholder="CODIGO" name="Codigo" id="Codigo" >
+<input type="text" placeholder="NOMBRE" name="NombreProducto" id="Producto" >
+<input type="number" placeholder="PRECIO DE VENTA" name="PrecioProducto" id="Precio" >
+<input type="text" placeholder="DETALLE" name="DetalleProducto" id="Detalle" >
+<input type="number" placeholder="COSTO" name="CostoProducto" id="Costo" >
+<input type="number" placeholder="STOCK" name="Stock" id="Stock" >
 <input class="buttom" type="submit" value="Registrar">
 
 </form>
