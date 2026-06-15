@@ -8,25 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-     <header class="main-header">
-   <img src="imagenes/logo.png" alt="Logo Vakerys">
-  <label for="btn-nav" class="btn-nav">
-    <img src="imagenes/menu.png" alt="Menu">
-  </label>
-  <input type="checkbox" id="btn-nav">
-  
-  <nav>
-    
-    <ul class="menu">
-      <li><a href="paginadeinicio.html">Inicio</a></li>
-      <li><a href="paginanosotros.html">Quiénes somos</a></li>
-      <li><a href="paginaproductos.html">Productos</a></li>
-      <li><a href="paginaadmin.html">Página Administrador</a></li>
-      <li><a href="paginavendedor.html">Página Vendedor</a></li>
-    </ul>
-  </nav>
-  
-</header>
+     <div id="header"></div>
+<script>
+        fetch("header.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("header").innerHTML = data;
+        });
+    </script>
 
 <div class="a">
  
