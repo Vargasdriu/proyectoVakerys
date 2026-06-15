@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Header Vakery's</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
 
 *{
@@ -135,30 +123,24 @@ nav{
 
 </style>
 
-</head>
-<body>
-
 <header class="main-header">
 
-    <img src="imagenes/logo.png" alt="Logo Vakery's">
+    <img src="/proyectovakerys/imagenes/logo.png" alt="Logo Vakery's">
 
     <label for="btn-nav" class="btn-nav">
-        <img src="imagenes/menu.png" alt="Menú">
+        <img src="/proyectovakerys/imagenes/menu.png" alt="Menú">
     </label>
 
     <input type="checkbox" id="btn-nav">
 
     <nav>
         <ul class="menu">
-            <li><a href="paginadeinicio.html">Inicio</a></li>
-            <li><a href="paginanosotros.html">Quiénes somos</a></li>
-            <li><a href="paginaproductos.html">Productos</a></li>
-            <li><a href="paginaadmin.html">Administrador</a></li>
-            <li><a href="paginavendedor.html">Vendedor</a></li>
+            <li><a href="/proyectovakerys/paginadeinicio.php">Inicio</a></li>
+            <li><a href="/proyectovakerys/paginanosotros.php">Quiénes somos</a></li>
+            <li><a href="/proyectovakerys/paginaproductos.php">Productos</a></li>
+            <li><a href="/proyectovakerys/paginaadmin.php">Administrador</a></li>
+            <li><a href="/proyectovakerys/paginavendedor.php">Vendedor</a></li>
         </ul>
     </nav>
 
 </header>
-
-</body>
-</html>

@@ -7,33 +7,7 @@
    <link rel="stylesheet" href="estiloscrear.css">   
 </head>
 <body>
-  <header class="main-header">
-
-    <div class="header-logo">
-      <img src="../imagenes/logo.png" alt="Vakery's">
-    </div>
-
-    <label for="btn-nav" class="btn-nav">
-      <img src="../imagenes/menu.png" alt="Menu">
-    </label>
-
-    <input type="checkbox" id="btn-nav">
-
-    <nav>
-
-      <ul class="menu">
-        <li><a href="../paginadeinicio.html">Inicio</a></li>
-        <li><a href="#">Iniciar sesión</a></li>
-        <li><a href="../paginaproductos.html">Productos</a></li>
-        <li><a href="#">Promociones</a></li>
-        <li><a href="../sobrevakerys1.html">Sobre Vakery's</a></li>
-        <li><a href="../paginaadmin.html">Página Administrador</a></li>
-      <li><a href="paginavendedor.html">Página Vendedor</a></li>
-      </ul>
-
-    </nav>
-
-  </header>
+ <?php include '../header.php'; ?>
   <video autoplay muted loop>
     <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
 

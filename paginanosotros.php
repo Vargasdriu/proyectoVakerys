@@ -8,27 +8,8 @@
 </head>
 <body>
 
-<header class="main-header">
+ <?php include 'header.php'; ?>
 
-    <img src="imagenes/logo.png" alt="Logo Vakery's">
-
-    <label for="btn-nav" class="btn-nav">
-        <img src="imagenes/menu.png" alt="Menú">
-    </label>
-
-    <input type="checkbox" id="btn-nav">
-
-    <nav>
-        <ul class="menu">
-            <li><a href="paginadeinicio.html">Inicio</a></li>
-            <li><a href="paginanosotros.html">Quiénes somos</a></li>
-            <li><a href="paginaproductos.html">Productos</a></li>
-            <li><a href="paginaadmin.html">Página Administrador</a></li>
-            <li><a href="paginavendedor.html">Página Vendedor</a></li>
-        </ul>
-    </nav>
-
-</header>
 <section class="extra">
 
     <div class="overlay">
@@ -186,36 +167,13 @@
     <h1 class="la">¿Listo para probar la diferencia?</h1>
     <h3>Visítanos y descubre por qué somos la elección preferida para endulzar tus momentos especiales</h3>
     <section class="botones">
-        <a href="paginaproductos.html">Nuestros Productos</a>
+        <a href="paginaproductos.php">Nuestros Productos</a>
         <a href="wasap">Contactanos</a>
     </section>
 </section>
 </section>
-<footer>
 
-    <img class="footer-logo" src="imagenes/logo.png" alt="Logo Vakery's">
-
-    <h3>© 2025 All rights reserved.</h3>
-
-    <p>Privacy Policy | Terms and Conditions</p>
-
-    <div class="socials">
-
-        <a href="https://www.instagram.com/vakerys/">
-            <img src="imagenes/instagram.png" alt="Instagram">
-        </a>
-
-        <a href="#">
-            <img src="imagenes/faceb.png" alt="Facebook">
-        </a>
-
-        <a href="#">
-            <img src="imagenes/tik-tok.png" alt="TikTok">
-        </a>
-
-    </div>
-
-</footer>
+<?php include 'footer.php'; ?>
 
 </body>
 </html>

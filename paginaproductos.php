@@ -9,13 +9,8 @@
 </head>
 <body>
      <div id="header"></div>
-<script>
-        fetch("header.html")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("header").innerHTML = data;
-        });
-    </script>
+
+     <?php include 'header.php'; ?>
 
 <div class="a">
  
@@ -308,28 +303,6 @@
 
 
 
-
-<footer>
-
-    <img class="footer-logo" src="imagenes/logo.png" alt="">
-    <h3>© 2025 All rights reserved.</h3>
-    <p>Privacy Policy | Terms and Conditions</p>
-    <div class="socials">
-
-      <a href="https://www.instagram.com/vakerys/">
-        <img src="imagenes/instagram.png" alt="">
-      </a>
-
-      <a href="#">
-        <img src="imagenes/faceb.png" alt="">
-      </a>
-
-      <a href="#">
-        <img src="imagenes/tik-tok.png" alt="">
-      </a>
-
-    </div>
-
-  </footer>
+<?php include 'footer.php'; ?>
 </body>
 </html>

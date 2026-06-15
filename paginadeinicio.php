@@ -11,32 +11,15 @@
 </head>
 <body>
 
-    <header class="main-header">
-   <img src="imagenes/logo.png" alt="Logo Vakerys">
-  <label for="btn-nav" class="btn-nav">
-    <img src="imagenes/menu.png" alt="Menu">
-  </label>
-  <input type="checkbox" id="btn-nav">
-  
-  <nav>
-    
-    <ul class="menu">
-      <li><a href="paginadeinicio.html">Inicio</a></li>
-      <li><a href="paginanosotros.html">Quiénes somos</a></li>
-      <li><a href="paginaproductos.html">Productos</a></li>
-      <li><a href="paginaadmin.html">Página Administrador</a></li>
-      <li><a href="paginavendedor.html">Página Vendedor</a></li>
-    </ul>
-  </nav>
-  
-</header>
+     <?php include 'header.php'; ?>
+
 <nav class="espace"></nav>
 <section class="a">
    <video src="imagenes/vdcookie.mp4" autoplay muted loop></video>
   <video src="imagenes/vdapplepie.mp4" autoplay muted loop></video>
   <h1>Excelencia en cada bocado</h1>
   <p>Donde el buen gusto se encuentra con el buen sabor.</p>
-  <a href="paginaproductos.html">Pedir ahora</a>
+  <a href="paginaproductos.php">Pedir ahora</a>
 </section>
 <section class="b">
   <h2>Mas Vendidos</h2>
@@ -48,7 +31,7 @@
     azúcar y canela para resaltar su dulzura natural. Todo el relleno se envuelve en una masa casera, crujiente <br>
     y dorada, que se hornea lentamente hasta alcanzar una textura perfecta. Cada bocado combina lo frutal y lo <br>
     especiado con el toque artesanal de una receta tradicional.</p>
-     <a href="paginaproductos.html">Pedir ahora</a>
+     <a href="paginaproductos.php">Pedir ahora</a>
   </div>
  <img class="cookie" src="imagenes/cookie.png" alt="">
   <div class="b2"> 
@@ -57,7 +40,7 @@
        chips <br> de chocolate que se derriten al primer mordisco. Su aroma dulce y mantecoso envuelve los sentidos, <br> mientras
        cada bocado equilibra lo tierno de la masa con el intenso sabor del chocolate. Un clásico irresistible  <br> que nunca 
        pasa de moda.</p>
-       <a href="paginaproductos.html">Pedir ahora</a>
+       <a href="paginaproductos.php">Pedir ahora</a>
   </div>
   <img class="brownie" src="imagenes/browniesolo.png" alt="">
   <div class="b3">
@@ -67,7 +50,7 @@
       profundo a cacao. Cada porción ofrece un equilibrio perfecto entre lo compacto y lo esponjoso, con un <br>toque de  dulzura 
       que se derrite en la boca. Ideal para quienes buscan una experiencia rica y reconfortante en cada <br>bocado.
     </p>
-    <a href="paginaproductos.html">Pedir ahora</a>
+    <a href="paginaproductos.php">Pedir ahora</a>
   </div>
 </section>
 
@@ -104,18 +87,7 @@
 </div>
 
 
-<footer class="c">
-     <img src="imagenes/logo.png" alt="Logo">
-     
-     <h3 class="der">© 2025 all rights reserved.</h3> 
- 
-      <h3 class="pri">Privacy policy | Terms and Conditions</h3>
-      <a class="ig" href="https://www.instagram.com/vakerys/"><img src="imagenes/instagram.png" alt=""></a> 
-      <a class="fb" href=""><img src="imagenes/faceb.png" alt=""></a> 
-      <a class="tt" href=""><img src="imagenes/tik-tok.png" alt=""></a>
-
-
-</footer >
+<?php include 'footer.php'; ?>
  
 </body>
 </html>

@@ -97,7 +97,7 @@ p{
 </head>
 
 <body>
-
+<?php include '../header.php'; ?>
 <div class="contenedor">
 
 <?php

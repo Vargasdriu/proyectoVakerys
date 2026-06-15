@@ -15,32 +15,7 @@
 
 
 
-  <header class="main-header">
-
-    <div class="header-logo">
-      <img src="imagenes/logo.png" alt="Vakery's">
-    </div>
-
-    <label for="btn-nav" class="btn-nav">
-      <img src="imagenes/menu.png" alt="Menu">
-    </label>
-
-    <input type="checkbox" id="btn-nav">
-
-    <nav>
-
-      <ul class="menu">
-        <li><a href="paginadeinicio.html">Inicio</a></li>
-        <li><a href="paginanosotros.html">Quiénes somos</a></li>
-        <li><a href="paginaproductos.html">Productos</a></li>
-        <li><a href="paginaadmin.html">Página Administrador</a></li>
-      <li><a href="paginavendedor.html">Página Vendedor</a></li>
-      </ul>
-
-    </nav>
-
-  </header>
-
+  <?php include 'header.php'; ?>
   
 
   <main class="dashboard">
@@ -262,28 +237,7 @@
 
  
 
-  <footer>
-
-    <img class="footer-logo" src="imagenes/logo.png" alt="">
-    <h3>© 2025 All rights reserved.</h3>
-    <p>Privacy Policy | Terms and Conditions</p>
-    <div class="socials">
-
-      <a href="https://www.instagram.com/vakerys/">
-        <img src="imagenes/instagram.png" alt="">
-      </a>
-
-      <a href="#">
-        <img src="imagenes/faceb.png" alt="">
-      </a>
-
-      <a href="#">
-        <img src="imagenes/tik-tok.png" alt="">
-      </a>
-
-    </div>
-
-  </footer>
+<?php include 'footer.php'; ?>
 
 </body>
 </html>
