@@ -194,7 +194,7 @@ input[type="submit"]:hover{
     
 
     <label>Nombre del Producto:</label>
-    <input type="text" name="NombreProducto" value="<?=$NombreProducto?>" id="Nombre">
+    <input type="text" name="NombreProducto" value="<?=$NombreProducto?>" id="Producto">
 
     <label>Precio del Producto:</label>
     <input type="number" name="PrecioProducto" value="<?=$PrecioProducto?>" id="Precio" >
@@ -211,6 +211,44 @@ input[type="submit"]:hover{
     <input type="submit" value="Actualizar Producto">
 
 </form>
+<script>
+    var a=document.getElementById("Producto");
+    var b=document.getElementById("Precio");
+    var c=document.getElementById("Detalle");
+    var d=document.getElementById("Stock");
+    var e=document.getElementById("Costo");
+    var expRegNombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+    function validar(){
 
+       
+         if(a.value==""){
+            alert("este campo no puede ir vacio");
+            a.focus();
+            return false;
+        }
+         if(b.value==""){
+            alert("este campo no puede ir vacio");
+            b.focus();
+            return false;
+        }
+        
+         if(c.value==""){
+            alert("este campo no puede ir vacio");
+            c.focus();
+            return false;
+        }
+         if(d.value==""){
+            alert("este campo no puede ir vacio");
+            d.focus();
+            return false;
+        }
+         if(e.value==""){
+            alert("este campo no puede ir vacio");
+            e.focus();
+            return false;
+        }
+
+    }
+</script>
 </body>
 </html>
