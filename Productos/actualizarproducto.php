@@ -187,7 +187,7 @@ input[type="submit"]:hover{
 <body>
 <?php include '../header.php'; ?>
   
-<form action="registroeditar.php" method="post">
+<form action="registroeditar.php" method="post" onsubmit="return validar()">
 
     <h2>Actualizar Producto</h2>
 
