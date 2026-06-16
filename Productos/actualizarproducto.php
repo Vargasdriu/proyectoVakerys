@@ -194,19 +194,19 @@ input[type="submit"]:hover{
     
 
     <label>Nombre del Producto:</label>
-    <input type="text" name="NombreProducto" value="<?=$NombreProducto?>">
+    <input type="text" name="NombreProducto" value="<?=$NombreProducto?>" id="Nombre">
 
     <label>Precio del Producto:</label>
-    <input type="number" name="PrecioProducto" value="<?=$PrecioProducto?>">
+    <input type="number" name="PrecioProducto" value="<?=$PrecioProducto?>" id="Precio" >
 
     <label>Detalle del Producto:</label>
-    <input type="text" name="DetalleProducto" value="<?=$DetalleProducto?>">
+    <input type="text" name="DetalleProducto" value="<?=$DetalleProducto?>" id="Detalle" >
 
     <label>Stock:</label>
-    <input type="number" name="Stock" value="<?=$Stock?>">
+    <input type="number" name="Stock" value="<?=$Stock?>" id="Stock" >
 
     <label>Costo del Producto:</label>
-    <input type="number" name="CostoProducto" value="<?=$CostoProducto?>">
+    <input type="number" name="CostoProducto" value="<?=$CostoProducto?>" id="Costo">
 
     <input type="submit" value="Actualizar Producto">
 
