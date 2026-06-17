@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+
+
+$nombre = $_SESSION['Nombre'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +14,15 @@
     <link rel="stylesheet" href="vendedor.css">
 </head>
 <body>
+    
 
+     
      <?php include 'header.php'; ?>
+
+<div class="saludo">
+    <h1>¡Hola, <?php echo $nombre; ?>!</h1>
+    <p>Bienvenido/a de nuevo.</p>
+</div>
      <div class="a">
        
             <div class="ab">

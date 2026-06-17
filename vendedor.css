@@ -17,6 +17,7 @@ body{
   grid-template-columns:1fr;
 
   grid-template-areas:
+  "s"
   "a"
   "b"
   "footer";
@@ -24,6 +25,17 @@ body{
   margin-top:75px;
 }
 
+.saludo{
+    grid-area:s;
+    margin:40px;
+    display:block;
+    width:100%;
+}
+
+.saludo h1{
+    font-size:2rem;
+    color:#1d3021;
+}
 
 /* SECCION A */
 
