@@ -134,7 +134,7 @@ input:focus{
 
 <div class="contenedor">
 
-<form action="registroeditar.php" method="post" onsubmit="return validar()">
+<form action="registroeditar.php" method="post" id="ActualizarUsuario">
 
     <h2>Actualizar Usuario</h2>
 
@@ -158,83 +158,89 @@ input:focus{
     <input type="submit" value="Actualizar Usuario" class="boton">
 
 </form>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
+    <script>
+    document.getElementById("ActualizarUsuario").addEventListener("submit", function(event) {
+        
+        event.preventDefault();
+     var a = document.getElementById("CI");
+        var b = document.getElementById("Nombre");
+        var c = document.getElementById("Direccion");
+        var d = document.getElementById("Numero");
+        var e = document.getElementById("Rol");
+        var f = document.getElementById("Estado");
+        
+        var ex = /^[0-9]*$/;
+        var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 
-var a = document.getElementById("CI");
-var b = document.getElementById("Nombre");
-var c = document.getElementById("Direccion");
-var d = document.getElementById("Numero");
-var e = document.getElementById("Rol");
-var f = document.getElementById("Estado");
-
-var ex = /^[0-9]*$/;
-var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
-
-function validar(){
-
-    if(a.value == ""){
-        alert("CI no puede ir vacío");
-        a.focus();
-        return false;
-    }
-
-    if(!ex.test(a.value)){
-        alert("CI solo números");
-        a.focus();
-        return false;
-    }
-
-    if(b.value == ""){
-        alert("Nombre no puede ir vacío");
-        b.focus();
-        return false;
-    }
-
-    if(!expRegNombre.test(b.value)){
-        alert("Nombre solo letras");
-        b.focus();
-        return false;
-    }
-
-    if(c.value == ""){
-        alert("Dirección no puede ir vacía");
-        c.focus();
-        return false;
-    }
-
-    if(d.value == ""){
-        alert("Número no puede ir vacío");
-        d.focus();
-        return false;
-    }
-
-    if(!ex.test(d.value)){
-        alert("Número solo números");
-        d.focus();
-        return false;
-    }
-
-    if(e.value == ""){
-        alert("Rol no puede ir vacío");
-        e.focus();
-        return false;
-    }
-
-    if(f.value == ""){
-        alert("Estado no puede ir vacío");
-        f.focus();
-        return false;
-    }
-     if(!expRegNombre.exec(f.value)){
-                alert("introduce solo letras");
-                f.focus();
-                return false;
+       
+        function mostrarAlerta(mensaje, elemento) {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Oops!',
+                text: mensaje,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Entendido'
+            }).then(() => {
+                elemento.focus(); 
+            });
         }
 
-    return true;
-}
+   
+        if (a.value.trim() == "") {
+            mostrarAlerta("El campo Carnet de Identidad no puede ir vacío", a);
+            return;
+        }
+        if (!ex.exec(a.value)) {
+            mostrarAlerta("Introduce solo números en el Carnet de Identidad", a);
+            return;
+        }
 
+       
+        if (b.value.trim() == "") {
+            mostrarAlerta("El campo Nombre no puede ir vacío", b);
+            return;
+        }
+        if (!expRegNombre.exec(b.value)) {
+            mostrarAlerta("Introduce solo letras en el Nombre", b);
+            return;
+        }
+
+        
+        if (c.value.trim() == "") {
+            mostrarAlerta("El campo Dirección no puede ir vacío", c);
+            return;
+        }
+
+        
+        if (d.value.trim() == "") {
+            mostrarAlerta("El campo Número de Celular no puede ir vacío", d);
+            return;
+        }
+        if (!ex.exec(d.value)) {
+            mostrarAlerta("Introduce solo números en el Celular", d);
+            return;
+        }
+
+    
+        if (e.value.trim() == "") {
+            mostrarAlerta("El campo Rol no puede ir vacío", e);
+            return;
+        }
+
+        if (f.value.trim() == "") {
+            mostrarAlerta("El campo Estado no puede ir vacío", f);
+            return;
+        }
+        if (!expRegNombre.exec(f.value)) {
+            mostrarAlerta("Introduce solo letras en el Estado", f);
+            return;
+        }
+
+       
+        this.submit();
+    });
 </script>
 
 </div>
