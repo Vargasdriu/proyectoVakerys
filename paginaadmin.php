@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+$nombre = $_SESSION['Nombre'];
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,7 +23,10 @@
 
   <main class="dashboard">
 
-    
+    <div class="saludo">
+    <h1>¡Hola, <?php echo $nombre; ?>!</h1>
+    <p>Bienvenido/a de nuevo.</p>
+</div>
 
     <section class="stats">
       <a href="">
