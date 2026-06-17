@@ -178,7 +178,9 @@ input[type="submit"]:hover{
     }
 
 }
-
+.swal2-container {
+            z-index: 99999 !important;
+        }
 
 </style>
 
@@ -211,44 +213,62 @@ input[type="submit"]:hover{
     <input type="submit" value="Actualizar Producto">
 
 </form>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    var a=document.getElementById("Producto");
-    var b=document.getElementById("Precio");
-    var c=document.getElementById("Detalle");
-    var d=document.getElementById("Stock");
-    var e=document.getElementById("Costo");
+
+    document.getElementById("CrearProducto").addEventListener("submit", function(event) {
+        
+        event.preventDefault();
+        
+
+    var b=document.getElementById("Producto");
+    var c=document.getElementById("Precio");
+    var d=document.getElementById("Detalle");
+    var e=document.getElementById("Stock");
+    var f=document.getElementById("Costo");
     var expRegNombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
-    function validar(){
+
+     function mostrarAlerta(mensaje, elemento) {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Oops!',
+                text: mensaje,
+                confirmButtonColor: '#62a38a',
+                confirmButtonText: 'Entendido'
+            }).then(() => {
+                elemento.focus(); 
+            });
+        }
+    
 
        
-         if(a.value==""){
-            alert("este campo no puede ir vacio");
-            a.focus();
-            return false;
+        if (!expRegNombre.exec(b.value)) {
+            mostrarAlerta("Introduce solo letras en el codigo", a);
+            return;
         }
-         if(b.value==""){
-            alert("este campo no puede ir vacio");
-            b.focus();
-            return false;
+           if (b.value.trim() == "") {
+            mostrarAlerta("El campo Nombre no puede ir vacío", b);
+            return;
         }
-        
-         if(c.value==""){
-            alert("este campo no puede ir vacio");
-            c.focus();
-            return false;
+           if (c.value.trim() == "") {
+            mostrarAlerta("El campo Precio de Venta no puede ir vacío", c);
+            return;
         }
-         if(d.value==""){
-            alert("este campo no puede ir vacio");
-            d.focus();
-            return false;
+        if (d.value.trim() == "") {
+            mostrarAlerta("El campo Detalle no puede ir vacío", d);
+            return;
         }
-         if(e.value==""){
-            alert("este campo no puede ir vacio");
-            e.focus();
-            return false;
+        if (e.value.trim() == "") {
+            mostrarAlerta("El campo Stock no puede ir vacío", e);
+            return;
+        }
+        if (f.value.trim() == "") {
+            mostrarAlerta("El campo Costo no puede ir vacío", f);
+            return;
         }
 
-    }
+        this.submit();
+    });
 </script>
 </body>
 </html>

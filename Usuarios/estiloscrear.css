@@ -106,3 +106,7 @@ input:focus{
     background:#DAD7CD;
     transform:scale(1.03);
 }
+
+.swal2-container {
+            z-index: 99999 !important;
+        }
