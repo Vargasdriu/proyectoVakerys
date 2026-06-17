@@ -119,6 +119,11 @@
                 f.focus();
                 return false;
             }
+                if(!expRegNombre.exec(f.value)){
+                alert("introduce solo letras");
+                f.focus();
+                return false;
+        }
             else{
             return true;
             }
