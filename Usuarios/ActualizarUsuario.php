@@ -125,6 +125,9 @@ input:focus{
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
+.swal2-container {
+            z-index: 99999 !important;
+        }
 </style>
 </head>
 
@@ -164,7 +167,7 @@ input:focus{
     document.getElementById("ActualizarUsuario").addEventListener("submit", function(event) {
         
         event.preventDefault();
-     var a = document.getElementById("CI");
+    
         var b = document.getElementById("Nombre");
         var c = document.getElementById("Direccion");
         var d = document.getElementById("Numero");
@@ -188,14 +191,6 @@ input:focus{
         }
 
    
-        if (a.value.trim() == "") {
-            mostrarAlerta("El campo Carnet de Identidad no puede ir vacío", a);
-            return;
-        }
-        if (!ex.exec(a.value)) {
-            mostrarAlerta("Introduce solo números en el Carnet de Identidad", a);
-            return;
-        }
 
        
         if (b.value.trim() == "") {
