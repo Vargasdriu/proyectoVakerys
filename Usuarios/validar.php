@@ -34,13 +34,20 @@ if ($result->num_rows > 0) {
         header("Location: ../paginavendedor.php");
         exit();
     }
-    else {
-        echo "Rol no reconocido.";
+ else {
+        echo "<script>
+                alert('Rol no reconocido.');
+                window.location.href='../iniciosesion.php';
+              </script>";
     }
 
 } else {
-    echo "Nombre o CI incorrectos.";
+    echo "<script>
+            alert('Nombre o CI incorrectos');
+            window.location.href='../iniciosesion.php';
+          </script>";
 }
 
 $conn->close();
 ?>
+
