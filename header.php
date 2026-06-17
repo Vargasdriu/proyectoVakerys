@@ -138,8 +138,7 @@ nav{
             <li><a href="/proyectovakerys/paginadeinicio.php">Inicio</a></li>
             <li><a href="/proyectovakerys/paginanosotros.php">Quiénes somos</a></li>
             <li><a href="/proyectovakerys/paginaproductos.php">Productos</a></li>
-            <li><a href="/proyectovakerys/paginaadmin.php">Administrador</a></li>
-            <li><a href="/proyectovakerys/paginavendedor.php">Vendedor</a></li>
+            
         </ul>
     </nav>
 
