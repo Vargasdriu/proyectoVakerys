@@ -31,7 +31,7 @@
    
     <div class="tra">
 
-       <form action="registrousuario.php" method="post" id="miFormulario">
+       <form action="registrousuario.php" method="post" id="CrearUsuario">
 
     <h2>Bienvenido</h2>
 
@@ -61,7 +61,7 @@
 
 <script>
    
-    document.getElementById("miFormulario").addEventListener("submit", function(event) {
+    document.getElementById("CrearUsuario").addEventListener("submit", function(event) {
         
         event.preventDefault();
 
