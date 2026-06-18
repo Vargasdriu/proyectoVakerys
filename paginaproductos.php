@@ -6,12 +6,19 @@
     <title>Document</title>
     <link rel="stylesheet" href="productos.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        a{
+            text-decoration:none;
+             color:inherit;
+        }
+    </style>
 </head>
 <body>
      <div id="header"></div>
 
      <?php include 'header.php'; ?>
 
+     
 <div class="a">
  
 
@@ -29,11 +36,14 @@
 </div>
 
 
-<div class="b">
+<div class="b" >
+    
+    <a href="/proyectovakerys/paginasproductos/cookie.php">
   <div class="proc">
 
     <img class="imgb" src="imagenes/cookieproc.png" alt="">
 
+   
     <div class="ba">
 
        
@@ -62,9 +72,10 @@
             <img class="carro" src="imagenes/carrito-de-compras.png" alt="">
             <p>Añadir</p>
         </div>
+        
 </div>
-</div>
-
+</div> </a>
+  <a href="/proyectovakerys/paginasproductos/applepie.php">
 <div class="proc">
 
     <img class="imgb" src="imagenes/applepieproc.jpg" alt="">
@@ -97,7 +108,8 @@
         </div>
 </div>
 </div>
-
+</a>
+<a href="/proyectovakerys/paginasproductos/carrotcake.php">
 <div class="proc">
 
     <img class="imgb" src="imagenes/carrotcakeproc.jpg" alt="">
@@ -132,6 +144,8 @@
 </div>
 
 </div>
+</a>
+<a href="/proyectovakerys/paginasproductos/brownie.php">
 <div class="proc">
 
     <img class="imgb" src="imagenes/brownieproc.png" alt="">
@@ -164,7 +178,8 @@
         </div>
 </div>
 </div>
-
+</a>
+<a href="/proyectovakerys/paginasproductos/cinnamonroll.php">
 <div class="proc">
 
     <img class="imgb" src="imagenes/cinnamonrollproc.png" alt="">
@@ -198,7 +213,8 @@
         </div>
 </div>
 </div>
-
+</a>
+<a href="/proyectovakerys/paginasproductos/cheesecake.php">
 <div class="proc">
 
     <img class="imgb" src="imagenes/cheesecakeproc.jpg" alt="">
@@ -231,7 +247,8 @@
         </div>
 </div>
 </div>
-
+</a>
+<a href="/proyectovakerys/paginasproductos/lemonpie.php">
 <div class="proc">
 
     <img class="imgb" src="imagenes/lemonpieproc.jpg" alt="">
@@ -265,6 +282,8 @@
         </div>
 </div>
 </div>
+</a>
+<a href="/proyectovakerys/paginasproductos/tiramisu.php">
 <div class="proc">
 
     <img class="imgb" src="imagenes/tiramisuproc.jpg" alt="">
@@ -296,8 +315,9 @@
             <p>Añadir</p>
         </div>
 </div>
-</div>
 
+</div>
+</a>
 
 </div>
 

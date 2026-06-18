@@ -29,15 +29,15 @@
 
             <section class="miniaturas">
 
-                <img src="../imagenes/cookieproc.png" onclick="cambiarImagen(this)">
-                <img src="../imagenes/cookie2.jpg" onclick="cambiarImagen(this)">
-                <img src="../imagenes/cookie3.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/cinnamonrollproc.png" onclick="cambiarImagen(this)">
+                <img src="../imagenes/roll2.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/roll3.jpg" onclick="cambiarImagen(this)">
 
             </section>
 
             <section class="imagen-principal">
 
-                <img id="imagenPrincipal" src="../imagenes/cookieproc.png" alt="Cookie">
+                <img id="imagenPrincipal" src="../imagenes/cinnamonrollproc.png" alt="Cookie">
 
             </section>
 
@@ -49,7 +49,7 @@
                 Más vendido
             </div>
 
-            <h1>Chocolate Chips Cookie</h1>
+            <h1>Cinnamon roll</h1>
 
             <div class="linea"></div>
 
@@ -65,7 +65,7 @@
 
             <section class="precio">
 
-                <h2>Bs. 6</h2>
+                <h2>Bs. 12</h2>
                 <p>por unidad</p>
 
             </section>
@@ -73,12 +73,12 @@
             <section class="stats">
 
                 <div>
-                    <h4>4.9</h4>
+                    <h4>5</h4>
                     <p>Valoración</p>
                 </div>
 
                 <div>
-                    <h4>250+</h4>
+                    <h4>180+</h4>
                     <p>Vendidas</p>
                 </div>
 
@@ -94,25 +94,31 @@
                 <h3>Descripción</h3>
 
                 <p>
-                    Deliciosa galleta artesanal preparada con mantequilla,
-                    azúcar morena, vainilla y generosas chispas de chocolate.
-                    Horneada hasta alcanzar el equilibrio perfecto entre una
-                    textura suave por dentro y ligeramente crujiente por fuera.
-                </p>
-
+    Suave rollo de canela elaborado artesanalmente con una masa 
+    esponjosa y delicadamente horneada. Enrollado con una mezcla 
+    aromática de canela y azúcar, ofrece un sabor cálido y
+     reconfortante en cada bocado. Perfecto para disfrutar r
+     ecién horneado junto a tu bebida favorita.
+</p>
             </section>
 
             <section class="ingredientes">
 
                 <h3>Ingredientes</h3>
 
-                <ul>
-                    <li>Mantequilla</li>
-                    <li>Azúcar morena</li>
-                    <li>Harina de trigo</li>
-                    <li>Vainilla</li>
-                    <li>Chispas de chocolate</li>
-                </ul>
+                
+   <ul>
+    <li>Harina de trigo</li>
+    <li>Leche</li>
+    <li>Mantequilla</li>
+    <li>Azúcar</li>
+    <li>Canela</li>
+    <li>Huevos</li>
+    <li>Levadura</li>
+    <li>Extracto de vainilla</li>
+    <li>Una pizca de sal</li>
+</ul>
+
 
             </section>
 
@@ -125,7 +131,7 @@
 
                 <div class="cuadro">
                     <span>Peso</span>
-                    <h4>100 gramos</h4>
+                    <h4>150 gramos</h4>
                 </div>
 
             </section>
@@ -141,7 +147,7 @@
                 </div>
 
                 <a href="carrito.php" class="carrito">
-                    Añadir al carrito · Bs. 6
+                    Añadir al carrito · Bs. 12
                 </a>
 
             </section>
@@ -155,26 +161,26 @@
         <h2>También te puede gustar</h2>
 
         <section class="cards">
-            <a href="brownie.php">
-            <div class="card">
-                <img src="../imagenes/brownieproc.png">
-                <h4>Brownie</h4>
-                <p>Bs. 50</p>
-            </div>
-            </a>
-
-            <a href="cinnamonroll.php">
-            <div class="card">
-                <img src="../imagenes/cinnamonrollproc.png">
-                <h4>Cinnamon Rol</h4>
-                <p>Bs. 12</p>
-            </div>
-            </a>
-
             <a href="carrotcake.php">
             <div class="card">
                 <img src="../imagenes/carrotcakeproc.jpg">
                 <h4>Carrot cake</h4>
+                <p>Bs. 60</p>
+            </div>
+            </a>
+
+            <a href="lemonpie.php">
+            <div class="card">
+                <img src="../imagenes/lemonpieproc.jpg">
+                <h4>Lemon pie</h4>
+                <p>Bs. 60</p>
+            </div>
+            </a>
+
+            <a href="cookie.php">
+            <div class="card">
+                <img src="../imagenes/cookie2.jpg">
+                <h4>Chocolate chips cookie</h4>
                 <p>Bs. 60</p>
             </div>
             </a>

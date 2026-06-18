@@ -29,15 +29,15 @@
 
             <section class="miniaturas">
 
-                <img src="../imagenes/cookieproc.png" onclick="cambiarImagen(this)">
-                <img src="../imagenes/cookie2.jpg" onclick="cambiarImagen(this)">
-                <img src="../imagenes/cookie3.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/cheesecakeproc.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/cheesecake2.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/cheesecake3.jpg" onclick="cambiarImagen(this)">
 
             </section>
 
             <section class="imagen-principal">
 
-                <img id="imagenPrincipal" src="../imagenes/cookieproc.png" alt="Cookie">
+                <img id="imagenPrincipal" src="../imagenes/cheesecakeproc.jpg" alt="Cookie">
 
             </section>
 
@@ -49,7 +49,7 @@
                 Más vendido
             </div>
 
-            <h1>Chocolate Chips Cookie</h1>
+            <h1>Passion fruit cheesecake</h1>
 
             <div class="linea"></div>
 
@@ -65,7 +65,7 @@
 
             <section class="precio">
 
-                <h2>Bs. 6</h2>
+                <h2>Bs. 65</h2>
                 <p>por unidad</p>
 
             </section>
@@ -73,12 +73,12 @@
             <section class="stats">
 
                 <div>
-                    <h4>4.9</h4>
+                    <h4>5</h4>
                     <p>Valoración</p>
                 </div>
 
                 <div>
-                    <h4>250+</h4>
+                    <h4>120+</h4>
                     <p>Vendidas</p>
                 </div>
 
@@ -94,38 +94,46 @@
                 <h3>Descripción</h3>
 
                 <p>
-                    Deliciosa galleta artesanal preparada con mantequilla,
-                    azúcar morena, vainilla y generosas chispas de chocolate.
-                    Horneada hasta alcanzar el equilibrio perfecto entre una
-                    textura suave por dentro y ligeramente crujiente por fuera.
-                </p>
-
+    Cremoso cheesecake artesanal elaborado con una suave 
+    mezcla de queso crema sobre una base de galleta 
+    dorada y crujiente. Coronado con una delicada 
+    cobertura de maracuyá, combina a la perfección la 
+    dulzura y el toque cítrico característico de esta 
+    fruta tropical, ofreciendo una experiencia fresca 
+    y equilibrada en cada bocado.
+</p>
             </section>
 
             <section class="ingredientes">
 
                 <h3>Ingredientes</h3>
 
-                <ul>
-                    <li>Mantequilla</li>
-                    <li>Azúcar morena</li>
-                    <li>Harina de trigo</li>
-                    <li>Vainilla</li>
-                    <li>Chispas de chocolate</li>
-                </ul>
+                
+  <ul>
+    <li>Queso crema</li>
+    <li>Maracuyá natural</li>
+    <li>Galletas trituradas</li>
+    <li>Mantequilla</li>
+    <li>Azúcar</li>
+    <li>Huevos</li>
+    <li>Crema de leche</li>
+    <li>Extracto de vainilla</li>
+    <li>Gelatina sin sabor (según preparación)</li>
+</ul>
+
 
             </section>
 
             <section class="detalle">
 
                 <div class="cuadro">
-                    <span>Porción</span>
-                    <h4>Individual</h4>
+                    <span>Porciones</span>
+                    <h4>8 aprox.</h4>
                 </div>
 
                 <div class="cuadro">
                     <span>Peso</span>
-                    <h4>100 gramos</h4>
+                    <h4>1300 gramos</h4>
                 </div>
 
             </section>
@@ -141,7 +149,7 @@
                 </div>
 
                 <a href="carrito.php" class="carrito">
-                    Añadir al carrito · Bs. 6
+                    Añadir al carrito · Bs. 65
                 </a>
 
             </section>
@@ -155,26 +163,26 @@
         <h2>También te puede gustar</h2>
 
         <section class="cards">
-            <a href="brownie.php">
-            <div class="card">
-                <img src="../imagenes/brownieproc.png">
-                <h4>Brownie</h4>
-                <p>Bs. 50</p>
-            </div>
-            </a>
-
-            <a href="cinnamonroll.php">
-            <div class="card">
-                <img src="../imagenes/cinnamonrollproc.png">
-                <h4>Cinnamon Rol</h4>
-                <p>Bs. 12</p>
-            </div>
-            </a>
-
             <a href="carrotcake.php">
             <div class="card">
                 <img src="../imagenes/carrotcakeproc.jpg">
                 <h4>Carrot cake</h4>
+                <p>Bs. 60</p>
+            </div>
+            </a>
+
+            <a href="lemonpie.php">
+            <div class="card">
+                <img src="../imagenes/lemonpieproc.jpg">
+                <h4>Lemon pie</h4>
+                <p>Bs. 60</p>
+            </div>
+            </a>
+
+            <a href="cookie.php">
+            <div class="card">
+                <img src="../imagenes/cookie2.jpg">
+                <h4>Chocolate chips cookie</h4>
                 <p>Bs. 60</p>
             </div>
             </a>

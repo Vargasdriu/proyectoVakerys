@@ -29,15 +29,15 @@
 
             <section class="miniaturas">
 
-                <img src="../imagenes/cookieproc.png" onclick="cambiarImagen(this)">
-                <img src="../imagenes/cookie2.jpg" onclick="cambiarImagen(this)">
-                <img src="../imagenes/cookie3.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/brownieproc.png" onclick="cambiarImagen(this)">
+                <img src="../imagenes/brownie2.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/brownie3.jpg" onclick="cambiarImagen(this)">
 
             </section>
 
             <section class="imagen-principal">
 
-                <img id="imagenPrincipal" src="../imagenes/cookieproc.png" alt="Cookie">
+                <img id="imagenPrincipal" src="../imagenes/brownieproc.png" alt="Cookie">
 
             </section>
 
@@ -49,7 +49,7 @@
                 Más vendido
             </div>
 
-            <h1>Chocolate Chips Cookie</h1>
+            <h1>Brownie</h1>
 
             <div class="linea"></div>
 
@@ -65,20 +65,20 @@
 
             <section class="precio">
 
-                <h2>Bs. 6</h2>
-                <p>por unidad</p>
+                <h2>Bs. 50</h2>
+                <p>por 6 unidades</p>
 
             </section>
 
             <section class="stats">
 
                 <div>
-                    <h4>4.9</h4>
+                    <h4>5</h4>
                     <p>Valoración</p>
                 </div>
 
                 <div>
-                    <h4>250+</h4>
+                    <h4>230+</h4>
                     <p>Vendidas</p>
                 </div>
 
@@ -94,10 +94,12 @@
                 <h3>Descripción</h3>
 
                 <p>
-                    Deliciosa galleta artesanal preparada con mantequilla,
-                    azúcar morena, vainilla y generosas chispas de chocolate.
-                    Horneada hasta alcanzar el equilibrio perfecto entre una
-                    textura suave por dentro y ligeramente crujiente por fuera.
+                Intenso brownie artesanal elaborado con cacao de calidad y 
+                chocolate cuidadosamente seleccionado. Su interior suave y
+                 húmedo contrasta con una delicada capa exterior, creando
+                  una experiencia rica y llena de sabor en cada bocado.
+                   Perfecto para los amantes del chocolate y para disfrutar
+                    en cualquier ocasión.
                 </p>
 
             </section>
@@ -106,26 +108,31 @@
 
                 <h3>Ingredientes</h3>
 
-                <ul>
-                    <li>Mantequilla</li>
-                    <li>Azúcar morena</li>
-                    <li>Harina de trigo</li>
-                    <li>Vainilla</li>
-                    <li>Chispas de chocolate</li>
-                </ul>
+                
+   <ul>
+    <li>Chocolate semiamargo</li>
+    <li>Cacao en polvo</li>
+    <li>Mantequilla</li>
+    <li>Azúcar</li>
+    <li>Harina de trigo</li>
+    <li>Huevos</li>
+    <li>Extracto de vainilla</li>
+    <li>Una pizca de sal</li>
+</ul>
+
 
             </section>
 
             <section class="detalle">
 
                 <div class="cuadro">
-                    <span>Porción</span>
-                    <h4>Individual</h4>
+                    <span>Porciones</span>
+                    <h4>6 aprox.</h4>
                 </div>
 
                 <div class="cuadro">
                     <span>Peso</span>
-                    <h4>100 gramos</h4>
+                    <h4>1000 gramos</h4>
                 </div>
 
             </section>
@@ -141,7 +148,7 @@
                 </div>
 
                 <a href="carrito.php" class="carrito">
-                    Añadir al carrito · Bs. 6
+                    Añadir al carrito · Bs. 50
                 </a>
 
             </section>
@@ -155,11 +162,11 @@
         <h2>También te puede gustar</h2>
 
         <section class="cards">
-            <a href="brownie.php">
+            <a href="carrotcake.php">
             <div class="card">
-                <img src="../imagenes/brownieproc.png">
-                <h4>Brownie</h4>
-                <p>Bs. 50</p>
+                <img src="../imagenes/carrotcakeproc.jpg">
+                <h4>Carrot cake</h4>
+                <p>Bs. 60</p>
             </div>
             </a>
 
@@ -171,10 +178,10 @@
             </div>
             </a>
 
-            <a href="carrotcake.php">
+            <a href="cookie.php">
             <div class="card">
-                <img src="../imagenes/carrotcakeproc.jpg">
-                <h4>Carrot cake</h4>
+                <img src="../imagenes/cookie2.jpg">
+                <h4>Chocolate chips cookie</h4>
                 <p>Bs. 60</p>
             </div>
             </a>

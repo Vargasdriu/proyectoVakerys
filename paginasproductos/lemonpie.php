@@ -29,15 +29,15 @@
 
             <section class="miniaturas">
 
-                <img src="../imagenes/cookieproc.png" onclick="cambiarImagen(this)">
-                <img src="../imagenes/cookie2.jpg" onclick="cambiarImagen(this)">
-                <img src="../imagenes/cookie3.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/lemonpieproc.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/lemon2.jpg" onclick="cambiarImagen(this)">
+                <img src="../imagenes/lemon3.jpg" onclick="cambiarImagen(this)">
 
             </section>
 
             <section class="imagen-principal">
 
-                <img id="imagenPrincipal" src="../imagenes/cookieproc.png" alt="Cookie">
+                <img id="imagenPrincipal" src="../imagenes/lemonpieproc.jpg" alt="Cookie">
 
             </section>
 
@@ -49,7 +49,7 @@
                 Más vendido
             </div>
 
-            <h1>Chocolate Chips Cookie</h1>
+            <h1>Lemon pie</h1>
 
             <div class="linea"></div>
 
@@ -65,7 +65,7 @@
 
             <section class="precio">
 
-                <h2>Bs. 6</h2>
+                <h2>Bs. 60</h2>
                 <p>por unidad</p>
 
             </section>
@@ -78,7 +78,7 @@
                 </div>
 
                 <div>
-                    <h4>250+</h4>
+                    <h4>130+</h4>
                     <p>Vendidas</p>
                 </div>
 
@@ -94,11 +94,12 @@
                 <h3>Descripción</h3>
 
                 <p>
-                    Deliciosa galleta artesanal preparada con mantequilla,
-                    azúcar morena, vainilla y generosas chispas de chocolate.
-                    Horneada hasta alcanzar el equilibrio perfecto entre una
-                    textura suave por dentro y ligeramente crujiente por fuera.
-                </p>
+    Delicado Lemon Pie artesanal elaborado sobre una base de masa 
+    crujiente y dorada, relleno con una suave y cremosa mezcla de
+     limón que equilibra perfectamente la dulzura y la acidez.
+      Coronado con un ligero merengue, ofrece una experiencia 
+      fresca, elegante y llena de sabor en cada bocado.
+</p>
 
             </section>
 
@@ -107,25 +108,28 @@
                 <h3>Ingredientes</h3>
 
                 <ul>
-                    <li>Mantequilla</li>
-                    <li>Azúcar morena</li>
-                    <li>Harina de trigo</li>
-                    <li>Vainilla</li>
-                    <li>Chispas de chocolate</li>
-                </ul>
-
+    <li>Harina de trigo</li>
+    <li>Mantequilla</li>
+    <li>Azúcar</li>
+    <li>Huevos</li>
+    <li>Jugo de limón natural</li>
+    <li>Ralladura de limón</li>
+    <li>Leche condensada</li>
+    <li>Claras de huevo</li>
+    <li>Una pizca de sal</li>
+</ul>
             </section>
 
             <section class="detalle">
 
                 <div class="cuadro">
-                    <span>Porción</span>
-                    <h4>Individual</h4>
+                    <span>Porciones</span>
+                    <h4>8 aprox.</h4>
                 </div>
 
                 <div class="cuadro">
                     <span>Peso</span>
-                    <h4>100 gramos</h4>
+                    <h4>1600 gramos</h4>
                 </div>
 
             </section>
@@ -141,7 +145,7 @@
                 </div>
 
                 <a href="carrito.php" class="carrito">
-                    Añadir al carrito · Bs. 6
+                    Añadir al carrito · Bs. 60
                 </a>
 
             </section>
