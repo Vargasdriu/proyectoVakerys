@@ -107,6 +107,7 @@ if($conn->query($sql) == TRUE){
 }else{
 
     echo "<h1>✕ Error</h1>";
+    echo "<p>El pedido no fue creado con éxito.</p>";
     echo "<p>".$conn->error."</p>";
 
 }
@@ -115,7 +116,7 @@ $conn->close();
 
 ?>
 
-<a class="boton" href="leerpedidos.php">Volver a Pedidos</a>
+<a class="boton" href="leerpedido.php">Volver a Pedidos</a>
 
 </div>
 

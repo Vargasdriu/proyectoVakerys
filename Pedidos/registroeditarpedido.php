@@ -107,7 +107,7 @@ if($conexion->query($sql) == TRUE){
 }
 ?>
 
-<a class="boton" href="leerpedidos.php">Volver a Pedidos</a>
+<a class="boton" href="leerpedido.php">Volver a Pedidos</a>
 
 </div>
 

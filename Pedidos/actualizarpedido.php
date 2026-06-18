@@ -135,7 +135,7 @@ input:focus{
 
 <div class="contenedor">
 
-<form action="registroeditar.php" method="post" id="ActualizarPedido">
+<form action="registroeditarpedido.php" method="post" id="ActualizarPedido">
 
     <h2>Actualizar Pedido</h2>
 
@@ -153,7 +153,7 @@ input:focus{
     <label>Nombre del Vendedor:</label>
     <input type="text" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>">
    
-    <input type="submit" value="Actualizar Usuario" class="boton">
+    <input type="submit" value="Actualizar Pedido" class="boton">
 
 </form>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
