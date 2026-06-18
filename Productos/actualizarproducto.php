@@ -242,12 +242,8 @@ input[type="submit"]:hover{
     
 
        
-        if (!expRegNombre.exec(b.value)) {
-            mostrarAlerta("Introduce solo letras en el codigo", a);
-            return;
-        }
            if (b.value.trim() == "") {
-            mostrarAlerta("El campo Nombre no puede ir vacío", b);
+            mostrarAlerta("El campo Producto no puede ir vacío", b);
             return;
         }
            if (c.value.trim() == "") {
