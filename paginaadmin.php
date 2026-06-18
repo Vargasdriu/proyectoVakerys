@@ -12,10 +12,18 @@ $nombre = $_SESSION['Nombre'];
   <link rel="stylesheet" href="admin.css">
 
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@400;500;700&display=swap" rel="stylesheet">
+ <style>
+  a{
+    text-decoration:none;
+  }
+ </style>
 </head>
 
 <body>
-
+<?php
+session_start();
+$nombre = $_SESSION['Nombre'];
+?>
 
 
   <?php include 'header.php'; ?>
@@ -225,18 +233,19 @@ $nombre = $_SESSION['Nombre'];
         </div>
         </a>
 
-        <div class="accion-card">
-          <img src="imagenes/grafico-de-barras.png" alt="">
-          <h3>Ver reportes</h3>
-        </div>
+      
 
         <div class="accion-card">
           <img src="imagenes/configuracion.png" alt="">
           <h3>Configuración</h3>
         </div>
-
+        <a href="Usuarios/cerrarsesion.php">
+          <div class="accion-card">
+          <img src="imagenes/cerrar-sesion.png" alt="">
+          <h3>Cerrar Sesión</h3>
+        </div>
       </div>
-
+</a>
     </section>
 
   </main>
@@ -247,4 +256,3 @@ $nombre = $_SESSION['Nombre'];
 
 </body>
 </html>
-```

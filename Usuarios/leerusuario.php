@@ -207,7 +207,7 @@ echo "</table>";
 
 <div class="boton-centro">
     <a href="crearusuario.php">
-        <button class="nuevo">Nuevo cliente</button>
+        <button class="nuevo">Nuevo usuario</button>
     </a>
 </div>
 

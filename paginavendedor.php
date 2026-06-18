@@ -12,6 +12,11 @@ $nombre = $_SESSION['Nombre'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="vendedor.css">
+    <style>
+        a{
+            text-decoration:none;
+        }
+    </style>
 </head>
 <body>
     
@@ -48,14 +53,15 @@ $nombre = $_SESSION['Nombre'];
                 </div>
                 <img class="imga" src="imagenes/portapapeles.png" alt="">
             </div>
+            <a href="Usuarios/cerrarsesion.php">
             <div class="ab">
                 <div class="at">
-                <p>Ingresos Total</p>
-                <h1>Bs. 567</h1>
+                
+                <h1>Cerrar Sesión</h1>
                 </div>
-                <img class="imga" src="imagenes/dinero.png" alt="">
+                <img class="imga" src="imagenes/cerrar-sesion.png" alt="">
             </div>
-        
+        </a>
      </div>
 
 
