@@ -17,7 +17,7 @@ $DetalleProducto = $_POST['DetalleProducto'];
 $Stock = $_POST['Stock'];
 $CostoProducto = $_POST['CostoProducto'];
 
-$sql = "UPDATE Productos SET 
+$sql = "UPDATE Productos SET
 Codigo='$Codigo',
 NombreProducto='$NombreProducto',
 PrecioProducto='$PrecioProducto',
@@ -92,12 +92,13 @@ p{
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
-
 </style>
 
 </head>
 <body>
+
 <?php include '../header.php'; ?>
+
 <div class="contenedor">
 
 <?php
@@ -115,3 +116,4 @@ if($conexion->query($sql) == TRUE){
 </div>
 
 </body>
+</html>

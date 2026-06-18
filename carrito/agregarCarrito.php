@@ -3,7 +3,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $contrasena = "";
-$bd = "mitienda";
+$bd = "vakeryss";
 
 $conn = new mysqli($servidor, $usuario, $contrasena, $bd);
 
@@ -11,16 +11,16 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-$codigo = $_POST["codigo"];
-$idpedido = $_POST["idpedido"];
-$cantidad = $_POST["cantidad"];
-$precio = $_POST["precio"];
-$total=$precio*$cantidad;
+$productos_Codigo = $_POST["productos_Codigo"];
+$pedidos_id = $_POST["pedidos_id"];
+$Cantidad = $_POST["Cantidad"];
+$PrecioProducto = $_POST["PrecioProducto"];
+$CostoTotal=$PrecioProducto*$Cantidad;
 
 $sql = "INSERT INTO carrito
-(Producto_codigo,Pedido_id,cantidad,costototal)
+(productos_Codigo,pedidos_id,Cantidad,CostoTotal)
 VALUES
-('$codigo','$idpedido','$cantidad','$total')";
+('$productos_Codigo','$pedidos_id','$Cantidad','$CostoTotal')";
 
 if($conn->query($sql)){
     echo "Producto agregado al carrito";

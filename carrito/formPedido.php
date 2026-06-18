@@ -9,21 +9,23 @@
     <title>Nuevo Pedido</title>
 </head>
 <body>
+    <?php include '../header.php'; ?>
 
 <h2>Generar Pedido</h2>
 
 <form action="nuevo_pedido.php" method="POST">
 
-    Nombre:
-    <input type="text" name="nombre"><br><br>
+    <label for="">Nombre:</label>:
+    <input type="text" placeholder=""name="Nombre"><br><br>
 
-    Fecha:
-    <input type="date" name="fecha" value="<?php echo date('Y-m-d'); ?>" readonly><br><br>
+    <label for="">Fecha:</label>
+    <input type="date" placeholder="" name="Fecha" value="<?php echo date('Y-m-d'); ?>" readonly><br><br>
 
-    <input type="hidden" name="estado" value="En Proceso">
+    <label for="">Estado:</label>
+    <input type="hidden" name="Estado" value="En Proceso">
 
-    Nombre Vendedor:
-    <input type="text" name="nombreVendedor" value="<?php echo $vendedor?>" readonly><br><br>
+    <label for="">Nombre Vendedor</label>
+    <input type="text" placeholder="Nombre Vendedor" name="nombreVendedor" value="<?php echo $vendedor?>" readonly><br><br>
 
     <input type="submit" value="Nuevo Pedido">
 
