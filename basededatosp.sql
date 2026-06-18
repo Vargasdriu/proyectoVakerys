@@ -1,4 +1,3 @@
-
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -45,7 +44,7 @@ ENGINE = InnoDB;
 -- Table `vakerysss`.`pedidos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `vakerysss`.`pedidos` (
-  `id` INT(45) NOT NULL,
+  `id` INT(45) NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(200) NULL,
   `Fecha` DATE NULL,
   `Estado` VARCHAR(45) NULL,
