@@ -74,6 +74,7 @@
         
         var ex = /^[0-9]*$/;
         var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+        var expRegMinuscula=/^[a-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 
        
         function mostrarAlerta(mensaje, elemento) {
@@ -127,6 +128,10 @@
     
         if (e.value.trim() == "") {
             mostrarAlerta("El campo Rol no puede ir vacío", e);
+            return;
+        }
+         if (!expRegMinuscula.exec(e.value)) {
+            mostrarAlerta("Introduce solo minusculas en el Rol", e);
             return;
         }
 
