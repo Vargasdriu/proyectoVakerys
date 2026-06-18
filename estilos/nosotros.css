@@ -45,7 +45,7 @@ a{
         rgba(29,48,33,.55),
         rgba(29,48,33,.55)
     ),
-   url('../imagenes/fondooo.png')
+   url('../imagenes/fondooo.png');
 
     background-size:cover;
     background-position:center;
