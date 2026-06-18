@@ -67,7 +67,7 @@
           mostrarAlerta("El campo Codigo no puede ir vacío", a);
             return;
         }
-        if (!expRegNombre.exec(b.value)) {
+        if (!expRegNombre.exec(a.value)) {
             mostrarAlerta("Introduce solo letras en el codigo", a);
             return;
         }

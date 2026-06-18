@@ -189,7 +189,7 @@ input[type="submit"]:hover{
 <body>
 <?php include '../header.php'; ?>
   
-<form action="registroeditar.php" method="post" onsubmit="return validar()">
+<form action="registroeditar.php" method="post"  id="ActualizarProducto">
 
     <h2>Actualizar Producto</h2>
 
@@ -216,7 +216,7 @@ input[type="submit"]:hover{
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
-    document.getElementById("CrearProducto").addEventListener("submit", function(event) {
+    document.getElementById("ActualizarProducto").addEventListener("submit", function(event) {
         
         event.preventDefault();
         
