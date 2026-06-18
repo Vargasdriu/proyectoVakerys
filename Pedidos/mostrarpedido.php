@@ -22,7 +22,7 @@ $resultado = $conexion->query($sql);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Producto</title>
+<title>Pedido</title>
 
 <style>
 *{
@@ -127,7 +127,7 @@ if($resultado->num_rows > 0){
 
 </div>
 
-<a class="boton" href="leerpedido.php">Volver a Pedidos</a>
+<a class="boton" href="crearpedido.php">Volver a Pedidos</a>
 
 </div>
 
