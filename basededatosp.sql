@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clientes`
+-- Estructura de tabla para la tabla `Clientes`
 --
 
-CREATE TABLE `clientes` (
+CREATE TABLE `Clientes` (
   `CorreoCliente` varchar(45) NOT NULL,
   `NombreCliente` varchar(45) DEFAULT NULL,
   `ApellidoCliente` varchar(45) DEFAULT NULL,
@@ -35,19 +35,19 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Volcado de datos para la tabla `clientes`
+-- Volcado de datos para la tabla `Clientes`
 --
 
-INSERT INTO `clientes` (`CorreoCliente`, `NombreCliente`, `ApellidoCliente`, `NumeroCliente`) VALUES
+INSERT INTO `Clientes` (`CorreoCliente`, `NombreCliente`, `ApellidoCliente`, `NumeroCliente`) VALUES
 ('ghm6yuj', 'uju', 'uyj', 667);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `gestiondeusuarios`
+-- Estructura de tabla para la tabla `GestionDeUsuarios`
 --
 
-CREATE TABLE `gestiondeusuarios` (
+CREATE TABLE `GestionDeUsuarios` (
   `CI` int(11) NOT NULL,
   `Nombre` varchar(45) DEFAULT NULL,
   `Direccion` varchar(45) DEFAULT NULL,
@@ -59,10 +59,10 @@ CREATE TABLE `gestiondeusuarios` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pedidos`
+-- Estructura de tabla para la tabla `Pedidos`
 --
 
-CREATE TABLE `pedidos` (
+CREATE TABLE `Pedidos` (
   `id` int(45) NOT NULL,
   `Nombre` varchar(200) NOT NULL,
   `Fecha` date NOT NULL,
@@ -73,10 +73,10 @@ CREATE TABLE `pedidos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Estructura de tabla para la tabla `Productos`
 --
 
-CREATE TABLE `productos` (
+CREATE TABLE `Productos` (
   `Codigo` varchar(45) NOT NULL,
   `NombreProducto` varchar(45) DEFAULT NULL,
   `PrecioProducto` int(11) DEFAULT NULL,
@@ -90,27 +90,27 @@ CREATE TABLE `productos` (
 --
 
 --
--- Indices de la tabla `clientes`
+-- Indices de la tabla `Clientes`
 --
-ALTER TABLE `clientes`
+ALTER TABLE `Clientes`
   ADD PRIMARY KEY (`CorreoCliente`);
 
 --
--- Indices de la tabla `gestiondeusuarios`
+-- Indices de la tabla `GestionDeUsuarios`
 --
-ALTER TABLE `gestiondeusuarios`
+ALTER TABLE `GestionDeUsuarios`
   ADD PRIMARY KEY (`CI`);
 
 --
--- Indices de la tabla `pedidos`
+-- Indices de la tabla `Pedidos`
 --
-ALTER TABLE `pedidos`
+ALTER TABLE `Pedidos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `productos`
+-- Indices de la tabla `Productos`
 --
-ALTER TABLE `productos`
+ALTER TABLE `Productos`
   ADD PRIMARY KEY (`Codigo`);
 
 --
@@ -118,9 +118,9 @@ ALTER TABLE `productos`
 --
 
 --
--- AUTO_INCREMENT de la tabla `pedidos`
+-- AUTO_INCREMENT de la tabla `Pedidos`
 --
-ALTER TABLE `pedidos`
+ALTER TABLE `Pedidos`
   MODIFY `id` int(45) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
