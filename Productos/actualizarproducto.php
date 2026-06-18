@@ -193,7 +193,6 @@ input[type="submit"]:hover{
 
     <h2>Actualizar Producto</h2>
 
-    
 
     <label>Nombre del Producto:</label>
     <input type="text" name="NombreProducto" value="<?=$NombreProducto?>" id="Producto">
