@@ -21,10 +21,21 @@
      <form action="validar.php" method="post">
 
             <h2>Bienvenido</h2>
-         <button type="button" class="google-btn">
-         <img src="../imagenes/gog.png" alt="Google">
-         <h4>Continuar con Google</h4>
-         </button>
+         <button type="button" class="google-btn" onclick="abrirGoogle()">
+    <img src="../imagenes/gog.png" alt="Google">
+    <h4>Continuar con Google</h4>
+</button>
+
+<script>
+function abrirGoogle() {
+    window.open(
+        'https://accounts.google.com/',
+        'LoginGoogle',
+        'width=500,height=650,left=200,top=100,resizable=yes,scrollbars=yes'
+    );
+}
+</script>
+
             <label>Nombre </label>
             <input type="text" placeholder="NOMBRE(S) " name="Nombre" id="nombre" >
 
@@ -32,8 +43,16 @@
             <input type="number" placeholder="CARNET DE IDENTIDAD" name="CI" id="CI">
 
              <input class="button" type="submit" value="Iniciar Sesion">
+             <div>
+                <h4>¿No tienes cuenta? <button>crea una</button></h4>
+                <a href="CrearUsuario.php"></a>
+
+             </div>
+             
 
         </form>
+
+        
 
     </div>
 
