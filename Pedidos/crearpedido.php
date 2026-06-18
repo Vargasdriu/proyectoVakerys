@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NUEVO PEDIDO</title>
-   <link rel="stylesheet" href="estiloscrear.css">   
+   <link rel="stylesheet" href="../Usuarios/estiloscrear.css">   
 </head>
 <body>
  <?php include '../header.php'; ?>
@@ -21,12 +21,15 @@
 
 <h2>Nuevo Pedido</h2>
 
-<label>Ingrese:</label>
-
+<label>Id:</label>
 <input type="number" placeholder="id" name="id" id="id" >
+<label>Nombre:</label>
 <input type="text" placeholder="NOMBRE" name="Nombre" id="Nombre" >
+<label>Fecha:</label>
 <input type="date" placeholder="FECHA" name="Fecha" id="Fecha" >
+<label>Estado:</label>
 <input type="text" placeholder="ESTADO" name="Estado" id="Estado" >
+<label>Nombre Vendedor:</label>
 <input type="text" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor" >
 <input class="buttom" type="submit" value="Registrar">
 
@@ -42,19 +45,19 @@
     var expRegNombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     function validar(){
 
-        if(a.value==""){
-            alert("este campo no puede ir vacio");
-            a.focus();
-            return false;
-        }
-        if(!expRegNombre.exec(a.value)){
-                alert("introduce solo letras");
-                a.focus();
-                return false;
-        }
-         if(b.value==""){
+        if(b.value==""){
             alert("este campo no puede ir vacio");
             b.focus();
+            return false;
+        }
+        if(!expRegNombre.exec(b.value)){
+                alert("introduce solo letras");
+                b.focus();
+                return false;
+        }
+         if(a.value==""){
+            alert("este campo no puede ir vacio");
+            a.focus();
             return false;
         }
          if(c.value==""){
@@ -71,11 +74,6 @@
          if(e.value==""){
             alert("este campo no puede ir vacio");
             e.focus();
-            return false;
-        }
-         if(f.value==""){
-            alert("este campo no puede ir vacio");
-            f.focus();
             return false;
         }
 

@@ -4,31 +4,23 @@ $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
-$conn = new mysqli($servername, $username, $password, $bdname);
+$conexion = new mysqli($servername, $username, $password, $bdname);
 
-if($conn->connect_error){
-    die("Conexion fallida: ".$conn->connect_error);
+if($conexion->connect_error){
+    die("Conexión fallida: " . $conexion->connect_error);
 }
 
-$id = $_POST['id'];
-$Nombre = $_POST['Nombre'];
-$Fecha = $_POST['Fecha'];
-$Estado = $_POST['Estado'];
-$NombreVendedor = $_POST['NombreVendedor'];
+$id = $_GET['id'];
 
-$sql = "INSERT INTO Pedidos 
-(id, Nombre, Fecha, Estado, NombreVendedor)
-
-VALUES 
-('$id','$Nombre','$Fecha','$Estado','$NombreVendedor')";
+$sql = "DELETE FROM Pedidos WHERE id='$id'";
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registrar Pedido</title>
+<title>Eliminar Pedido</title>
 
 <style>
 *{
@@ -88,31 +80,23 @@ p{
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
-
 </style>
 
 </head>
 <body>
-  <?php include '../header.php'; ?>
+
+<?php include '../header.php'; ?>
 
 <div class="contenedor">
 
 <?php
-
-if($conn->query($sql) == TRUE){
-
-    echo "<h1>✓ Pedido Registrado</h1>";
-    echo "<p>El nuevo pedido fue creado con éxito.</p>";
-
+if($conexion->query($sql) === TRUE){
+    echo "<h1>✓ Pedido Eliminado</h1>";
+    echo "<p>El pedido fue eliminado correctamente.</p>";
 }else{
-
     echo "<h1>✕ Error</h1>";
-    echo "<p>".$conn->error."</p>";
-
+    echo "<p>No se pudo eliminar el pedido.</p>";
 }
-
-$conn->close();
-
 ?>
 
 <a class="boton" href="leerpedidos.php">Volver a Pedidos</a>

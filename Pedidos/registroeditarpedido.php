@@ -4,10 +4,10 @@ $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
-$conn = new mysqli($servername, $username, $password, $bdname);
+$conexion = new mysqli($servername, $username, $password, $bdname);
 
-if($conn->connect_error){
-    die("Conexion fallida: ".$conn->connect_error);
+if($conexion->connect_error){
+    die("Conexion fallida: ".$conexion->connect_error);
 }
 
 $id = $_POST['id'];
@@ -16,11 +16,12 @@ $Fecha = $_POST['Fecha'];
 $Estado = $_POST['Estado'];
 $NombreVendedor = $_POST['NombreVendedor'];
 
-$sql = "INSERT INTO Pedidos 
-(id, Nombre, Fecha, Estado, NombreVendedor)
-
-VALUES 
-('$id','$Nombre','$Fecha','$Estado','$NombreVendedor')";
+$sql = "UPDATE Pedidos SET 
+Nombre='$Nombre',
+Fecha='$Fecha',
+Estado='$Estado',
+NombreVendedor='$NombreVendedor'
+WHERE id='$id'";
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +29,7 @@ VALUES
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registrar Pedido</title>
+<title>Actualizar Pedido</title>
 
 <style>
 *{
@@ -93,26 +94,17 @@ p{
 
 </head>
 <body>
-  <?php include '../header.php'; ?>
-
+<?php include '../header.php'; ?>
 <div class="contenedor">
 
 <?php
-
-if($conn->query($sql) == TRUE){
-
-    echo "<h1>✓ Pedido Registrado</h1>";
-    echo "<p>El nuevo pedido fue creado con éxito.</p>";
-
+if($conexion->query($sql) == TRUE){
+    echo "<h1>✓ Pedido Actualizado</h1>";
+    echo "<p>El pedido se actualizó con éxito.</p>";
 }else{
-
     echo "<h1>✕ Error</h1>";
-    echo "<p>".$conn->error."</p>";
-
+    echo "<p>No se pudo actualizar el pedido.</p>";
 }
-
-$conn->close();
-
 ?>
 
 <a class="boton" href="leerpedidos.php">Volver a Pedidos</a>
@@ -120,4 +112,3 @@ $conn->close();
 </div>
 
 </body>
-</html>

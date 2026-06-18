@@ -4,23 +4,17 @@ $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
-$conn = new mysqli($servername, $username, $password, $bdname);
+$conexion = new mysqli($servername, $username, $password, $bdname);
 
-if($conn->connect_error){
-    die("Conexion fallida: ".$conn->connect_error);
+if($conexion->connect_error){
+    die("Conexion fallida: ".$conexion->connect_error);
 }
 
-$id = $_POST['id'];
-$Nombre = $_POST['Nombre'];
-$Fecha = $_POST['Fecha'];
-$Estado = $_POST['Estado'];
-$NombreVendedor = $_POST['NombreVendedor'];
+$id = $_GET['id'];
 
-$sql = "INSERT INTO Pedidos 
-(id, Nombre, Fecha, Estado, NombreVendedor)
+$sql = "SELECT * FROM Pedidos WHERE id='$id'";
 
-VALUES 
-('$id','$Nombre','$Fecha','$Estado','$NombreVendedor')";
+$resultado = $conexion->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +22,7 @@ VALUES
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registrar Pedido</title>
+<title>Producto</title>
 
 <style>
 *{
@@ -49,10 +43,9 @@ body{
 
 .contenedor{
     background:rgba(52,78,65,.95);
-    width:500px;
+    width:550px;
     padding:50px 40px;
     border-radius:35px;
-    text-align:center;
     color:white;
     box-shadow:0 15px 35px rgba(0,0,0,.2);
     border:2px solid rgba(255,255,255,.08);
@@ -60,18 +53,32 @@ body{
 }
 
 h1{
+    text-align:center;
     font-size:35px;
-    margin-bottom:20px;
+    margin-bottom:35px;
 }
 
-p{
-    font-size:20px;
-    margin-bottom:35px;
-    opacity:.9;
+.info{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.info p{
+    background:rgba(255,255,255,.08);
+    padding:15px 18px;
+    border-radius:15px;
+    font-size:18px;
+}
+
+span{
+    font-weight:bold;
+    color:#d8f3c3;
 }
 
 .boton{
     display:inline-block;
+    margin-top:35px;
     background:#88a07a;
     color:white;
     text-decoration:none;
@@ -93,31 +100,37 @@ p{
 
 </head>
 <body>
-  <?php include '../header.php'; ?>
-
+<?php include '../header.php'; ?>
 <div class="contenedor">
 
+<h1>Información del Pedido</h1>
+
+<div class="info">
+
 <?php
+if($resultado->num_rows > 0){
 
-if($conn->query($sql) == TRUE){
+    while($fila = $resultado->fetch_assoc()){
 
-    echo "<h1>✓ Pedido Registrado</h1>";
-    echo "<p>El nuevo pedido fue creado con éxito.</p>";
+        echo "<p><span>id:</span> ".$fila['id']."</p>";
+        echo "<p><span>Nombre:</span> ".$fila['Nombre']."</p>";
+        echo "<p><span>Fecha:</span> ".$fila['Fecha']."</p>";
+        echo "<p><span>Estado:</span> ".$fila['Estado']."</p>";
+        echo "<p><span>Nombre del Vendedor:</span> ".$fila['NombreVendedor']."</p>";
+
+    }
 
 }else{
-
-    echo "<h1>✕ Error</h1>";
-    echo "<p>".$conn->error."</p>";
-
+    echo "<p>No se encontró el pedido.</p>";
 }
-
-$conn->close();
-
 ?>
 
-<a class="boton" href="leerpedidos.php">Volver a Pedidos</a>
+</div>
+
+<a class="boton" href="leerpedido.php">Volver a Pedidos</a>
 
 </div>
 
 </body>
 </html>
+
