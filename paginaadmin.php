@@ -20,10 +20,7 @@ $nombre = $_SESSION['Nombre'];
 </head>
 
 <body>
-<?php
-session_start();
-$nombre = $_SESSION['Nombre'];
-?>
+
 
 
   <?php include 'header.php'; ?>
