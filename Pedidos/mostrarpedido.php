@@ -127,7 +127,7 @@ if($resultado->num_rows > 0){
 
 </div>
 
-<a class="boton" href="crearpedido.php">Volver a Pedidos</a>
+<a class="boton" href="leerpedido.php">Volver a Pedidos</a>
 
 </div>
 
