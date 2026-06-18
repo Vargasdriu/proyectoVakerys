@@ -140,7 +140,7 @@
 
                 </div>
 
-                <a href="carrito.php" class="carrito">
+                <a href="../carrito/formPedido.php" class="carrito">
                     Añadir al carrito · Bs. 6
                 </a>
 

@@ -26,20 +26,22 @@ if ($result->num_rows > 0) {
     $_SESSION['Nombre'] = $fila['Nombre'];
     $_SESSION['Rol'] = $fila['Rol'];
 
-    if ($fila['Rol'] == 'Administrador') {
-        header("Location: ../paginaadmin.php");
-        exit();
-    }
-    elseif ($fila['Rol'] == 'Vendedor') {
-        header("Location: ../paginavendedor.php");
-        exit();
-    }
- else {
-        echo "<script>
-                alert('Rol no reconocido.');
-                window.location.href='../login.php';
-              </script>";
-    }
+   $rol = strtolower(trim($fila['Rol']));
+
+if ($rol == 'administrador') {
+    header("Location: ../paginaadmin.php");
+    exit();
+}
+elseif ($rol == 'vendedor') {
+    header("Location: ../paginavendedor.php");
+    exit();
+}
+else {
+    echo "<script>
+            alert('Rol no reconocido.');
+            window.location.href='../login.php';
+          </script>";
+}
 
 } else {
     echo "<script>
