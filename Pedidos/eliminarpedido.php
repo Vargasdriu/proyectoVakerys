@@ -10,9 +10,9 @@ if($conexion->connect_error){
     die("Conexión fallida: " . $conexion->connect_error);
 }
 
-$Codigo = $_GET['Codigo'];
+$id = $_GET['id'];
 
-$sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";
+$sql = "DELETE FROM Pedidos WHERE id='$id'";
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ $sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eliminar Producto</title>
+<title>Eliminar Pedido</title>
 
 <style>
 *{
@@ -91,15 +91,15 @@ p{
 
 <?php
 if($conexion->query($sql) === TRUE){
-    echo "<h1>✓ Producto Eliminado</h1>";
-    echo "<p>El producto fue eliminado correctamente.</p>";
+    echo "<h1>✓ Pedido Eliminado</h1>";
+    echo "<p>El pedido fue eliminado correctamente.</p>";
 }else{
     echo "<h1>✕ Error</h1>";
-    echo "<p>No se pudo eliminar el producto.</p>";
+    echo "<p>No se pudo eliminar el pedido.</p>";
 }
 ?>
 
-<a class="boton" href="leerproductos.php">Volver a Productos</a>
+<a class="boton" href="leerpedidos.php">Volver a Pedidos</a>
 
 </div>
 

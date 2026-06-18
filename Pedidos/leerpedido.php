@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die("Conexion fallida: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM GestionDeUsuarios";
+$sql = "SELECT * FROM Pedidos";
 ?>
 
 <style>
@@ -148,8 +148,8 @@ button{
 
 <div class="contenedor">
 
-    <h1>Gestión de Usuarios</h1>
-    <p class="subtitulo">Lista completa de usuarios registrados</p>
+    <h1>Gestión de Pedidos</h1>
+    <p class="subtitulo">Lista completa de pedidos registrados</p>
 
 <?php
 
@@ -157,13 +157,11 @@ echo "<table class='tabla-estilo'>";
 
 echo "
 <tr>
-    <th>CI</th>
+    <th>Id</th>
     <th>Nombre</th>
-    <th>Direccion</th>
-    <th>Celular</th>
-    <th>Rol</th>
+    <th>Fecha</th>
     <th>Estado</th>
-    <th>Acciones</th>
+    <th>Nombre Vendedor</th>
 </tr>
 ";
 
@@ -173,26 +171,24 @@ if ($resultado->num_rows > 0){
 
     while($fila = $resultado->fetch_assoc()){
 
-        $CI = $fila['CI'];
+        $id = $fila['id'];
 
         echo "<tr>";
 
         echo "
-        <td>".$fila['CI']."</td>
+        <td>".$fila['id']."</td>
         <td>".$fila['Nombre']."</td>
-        <td>".$fila['Direccion']."</td>
-        <td>".$fila['Numero']."</td>
-        <td>".$fila['Rol']."</td>
+        <td>".$fila['Fecha']."</td>
         <td>".$fila['Estado']."</td>
 
         <td>
-            <a href='actualizarusuario.php?CI=$CI'>
+            <a href='actualizarpedido.php?id=$id'>
                 <button class='editar'>Editar</button>
             </a>
 
             
 
-            <a href='mostrarusuario.php?CI=$CI'>
+            <a href='mostrarpedido.php?id=$id'>
                 <button class='mostrar'>Mostrar</button>
             </a>
         </td>
@@ -206,8 +202,8 @@ echo "</table>";
 ?>
 
 <div class="boton-centro">
-    <a href="crearusuario.php">
-        <button class="nuevo">Nuevo usuario</button>
+    <a href="crearpedido.php">
+        <button class="nuevo">Nuevo Pedido</button>
     </a>
 </div>
 

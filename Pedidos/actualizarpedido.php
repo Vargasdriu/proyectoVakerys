@@ -11,27 +11,25 @@ if ($conn->connect_error) {
     die("Conexion fallida: " . $conn->connect_error);
 }
 
-$CI = $_GET['CI'] ?? '';
+$id = $_GET['id'] ?? '';
 
 $Nombre = "";
-$Direccion = "";
-$Numero = "";
-$Rol = "";
+$Fecha = "";
 $Estado = "";
+$NombreVendedor = "";
 
-if ($CI != "") {
+if ($id != "") {
 
-    $sql = "SELECT * FROM GestionDeUsuarios WHERE CI='$CI'";
+    $sql = "SELECT * FROM Pedidos WHERE id='$id'";
     $resultado = $conn->query($sql);
 
     if ($resultado && $resultado->num_rows > 0) {
         while ($fila = $resultado->fetch_assoc()) {
-            $CI = $fila['CI'];
+            $id = $fila['id'];
             $Nombre = $fila['Nombre'];
-            $Direccion = $fila['Direccion'];
-            $Numero = $fila['Numero'];
-            $Rol = $fila['Rol'];
+            $Fecha = $fila['Fecha'];
             $Estado = $fila['Estado'];
+            $NombreVendedor = $fila['NombreVendedor'];
         }
     }
 }
@@ -43,9 +41,9 @@ if ($CI != "") {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Actualizar Usuario</title>
+<title>Actualizar Pedido</title>
 
-<link rel="stylesheet" href="estilosupdate.css">
+<link rel="stylesheet" href="../Usuarios/estilosupdate.css">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
@@ -137,42 +135,39 @@ input:focus{
 
 <div class="contenedor">
 
-<form action="registroeditar.php" method="post" id="ActualizarUsuario">
+<form action="registroeditar.php" method="post" id="ActualizarPedido">
 
-    <h2>Actualizar Usuario</h2>
+    <h2>Actualizar Pedido</h2>
 
-    <input type="hidden" name="CI" id="CI" value="<?=$CI?>">
+    <input type="number" name="id" id="id" value="<?=$id?>">
 
     <label>Nombre(s):</label>
     <input type="text" name="Nombre" id="Nombre" value="<?=$Nombre?>">
 
-    <label>Dirección:</label>
-    <input type="text" name="Direccion" id="Direccion" value="<?=$Direccion?>">
-
-    <label>Celular:</label>
-    <input type="text" name="Numero" id="Numero" value="<?=$Numero?>">
-
-    <label>Rol:</label>
-    <input type="text" name="Rol" id="Rol" value="<?=$Rol?>">
+    <label>Fecha:</label>
+    <input type="date" name="Fecha" id="Fecha" value="<?=$Fecha?>">
 
     <label>Estado:</label>
     <input type="text" name="Estado" id="Estado" value="<?=$Estado?>">
 
+    <label>Nombre del Vendedor:</label>
+    <input type="text" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>">
+   
     <input type="submit" value="Actualizar Usuario" class="boton">
 
 </form>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-    document.getElementById("ActualizarUsuario").addEventListener("submit", function(event) {
+    document.getElementById("ActualizarPedido").addEventListener("submit", function(event) {
         
         event.preventDefault();
     
         var b = document.getElementById("Nombre");
-        var c = document.getElementById("Direccion");
-        var d = document.getElementById("Numero");
-        var e = document.getElementById("Rol");
-        var f = document.getElementById("Estado");
+        var c = document.getElementById("Fecha");
+        var d = document.getElementById("Estado");
+        var e = document.getElementById("NombreVendedor");
+
         
         var ex = /^[0-9]*$/;
         var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
@@ -204,35 +199,24 @@ input:focus{
 
         
         if (c.value.trim() == "") {
-            mostrarAlerta("El campo Dirección no puede ir vacío", c);
+            mostrarAlerta("El campo Fecha no puede ir vacío", c);
             return;
         }
 
         
         if (d.value.trim() == "") {
-            mostrarAlerta("El campo Número de Celular no puede ir vacío", d);
+            mostrarAlerta("El campo estado no puede ir vacío", d);
             return;
         }
-        if (!ex.exec(d.value)) {
-            mostrarAlerta("Introduce solo números en el Celular", d);
+             if (!expRegNombre.exec(d.value)) {
+            mostrarAlerta("Introduce solo letras en el Estado", d);
             return;
         }
-
     
         if (e.value.trim() == "") {
-            mostrarAlerta("El campo Rol no puede ir vacío", e);
+            mostrarAlerta("El campo Nombre del Vendedor no puede ir vacío", e);
             return;
         }
-
-        if (f.value.trim() == "") {
-            mostrarAlerta("El campo Estado no puede ir vacío", f);
-            return;
-        }
-        if (!expRegNombre.exec(f.value)) {
-            mostrarAlerta("Introduce solo letras en el Estado", f);
-            return;
-        }
-
        
         this.submit();
     });

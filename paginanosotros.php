@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vakery's - Nosotros</title>
-    <link rel="stylesheet" href="nosotros.css">
+    <link rel="stylesheet" href="estilos/nosotros.css">
 </head>
 <body>
 

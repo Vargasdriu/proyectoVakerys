@@ -7,20 +7,29 @@ $bdname = "vakerysss";
 $conexion = new mysqli($servername, $username, $password, $bdname);
 
 if($conexion->connect_error){
-    die("Conexión fallida: " . $conexion->connect_error);
+    die("Conexion fallida: ".$conexion->connect_error);
 }
 
-$Codigo = $_GET['Codigo'];
+$id = $_POST['id'];
+$Nombre = $_POST['Nombre'];
+$Fecha = $_POST['Fecha'];
+$Estado = $_POST['Estado'];
+$NombreVendedor = $_POST['NombreVendedor'];
 
-$sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";
+$sql = "UPDATE Pedidos SET 
+Nombre='$Nombre',
+Fecha='$Fecha',
+Estado='$Estado',
+NombreVendedor='$NombreVendedor'
+WHERE id='$id'";
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eliminar Producto</title>
+<title>Actualizar Pedido</title>
 
 <style>
 *{
@@ -80,28 +89,26 @@ p{
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
+
 </style>
 
 </head>
 <body>
-
 <?php include '../header.php'; ?>
-
 <div class="contenedor">
 
 <?php
-if($conexion->query($sql) === TRUE){
-    echo "<h1>✓ Producto Eliminado</h1>";
-    echo "<p>El producto fue eliminado correctamente.</p>";
+if($conexion->query($sql) == TRUE){
+    echo "<h1>✓ Pedido Actualizado</h1>";
+    echo "<p>El pedido se actualizó con éxito.</p>";
 }else{
     echo "<h1>✕ Error</h1>";
-    echo "<p>No se pudo eliminar el producto.</p>";
+    echo "<p>No se pudo actualizar el pedido.</p>";
 }
 ?>
 
-<a class="boton" href="leerproductos.php">Volver a Productos</a>
+<a class="boton" href="leerpedidos.php">Volver a Pedidos</a>
 
 </div>
 
 </body>
-</html>

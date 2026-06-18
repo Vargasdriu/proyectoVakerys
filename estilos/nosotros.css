@@ -45,7 +45,7 @@ a{
         rgba(29,48,33,.55),
         rgba(29,48,33,.55)
     ),
-    url("imagenes/fondooo.png");
+   url('../imagenes/fondooo.png')
 
     background-size:cover;
     background-position:center;
@@ -601,34 +601,3 @@ a{
 }
 
 /* pie de página*/
-footer{
-    grid-area:footer;
-    background:#afc194;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    gap:15px;
-    padding:40px 20px;
-}
-
-.footer-logo{
-    width:220px;
-}
-
-.socials{
-    display:flex;
-    gap:20px;
-    margin-top:10px;
-}
-
-.socials img{
-    width:45px;
-    transition:.3s;
-}
-
-.socials img:hover{
-    transform:translateY(-4px);
-}

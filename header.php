@@ -124,7 +124,7 @@ nav{
 </style>
 
 <header class="main-header">
-
+    
     <img src="/proyectovakerys/imagenes/logo.png" alt="Logo Vakery's">
 
     <label for="btn-nav" class="btn-nav">
@@ -138,8 +138,8 @@ nav{
             <li><a href="/proyectovakerys/paginadeinicio.php">Inicio</a></li>
             <li><a href="/proyectovakerys/paginanosotros.php">Quiénes somos</a></li>
             <li><a href="/proyectovakerys/paginaproductos.php">Productos</a></li>
-            <li><a href="/proyectovakerys/paginaadmin.php">Administrador</a></li>
-            <li><a href="/proyectovakerys/paginavendedor.php">Vendedor</a></li>
+            <li><a href="/proyectovakerys/usuarios/login.php">Iniciar sesión</a></li>
+            
         </ul>
     </nav>
 
