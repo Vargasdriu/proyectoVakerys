@@ -37,14 +37,14 @@ if ($result->num_rows > 0) {
  else {
         echo "<script>
                 alert('Rol no reconocido.');
-                window.location.href='../iniciosesion.php';
+                window.location.href='../login.php';
               </script>";
     }
 
 } else {
     echo "<script>
             alert('Nombre o CI incorrectos');
-            window.location.href='../iniciosesion.php';
+            window.location.href='../login.php';
           </script>";
 }
 
