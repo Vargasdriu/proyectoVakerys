@@ -72,7 +72,7 @@
             return;
         }
            if (b.value.trim() == "") {
-            mostrarAlerta("El campo Nombre no puede ir vacío", b);
+            mostrarAlerta("El campo Producto no puede ir vacío", b);
             return;
         }
            if (c.value.trim() == "") {
