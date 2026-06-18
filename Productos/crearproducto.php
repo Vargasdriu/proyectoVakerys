@@ -67,12 +67,12 @@
           mostrarAlerta("El campo Codigo no puede ir vacío", a);
             return;
         }
-        if (!expRegNombre.exec(b.value)) {
+        if (!expRegNombre.exec(a.value)) {
             mostrarAlerta("Introduce solo letras en el codigo", a);
             return;
         }
            if (b.value.trim() == "") {
-            mostrarAlerta("El campo Nombre no puede ir vacío", b);
+            mostrarAlerta("El campo Producto no puede ir vacío", b);
             return;
         }
            if (c.value.trim() == "") {
