@@ -193,6 +193,7 @@ input[type="submit"]:hover{
 
     <h2>Actualizar Producto</h2>
 
+    <input type="hidden" name="Codigo" id="Codigo" value="<?=$Codigo?>">
 
     <label>Nombre del Producto:</label>
     <input type="text" name="NombreProducto" value="<?=$NombreProducto?>" id="Producto">
