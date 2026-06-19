@@ -129,8 +129,8 @@ $nombre = $_SESSION['Nombre'];
 
         </div>
 
-        <a class="btn" href="Pedidos/verpedidos.php">
-          Ver todos los pedidos
+        <a class="btn" href="carrito/nuevo_pedido.php">
+          Añadir pedidos     +
         </a>
 
       </section>
