@@ -38,7 +38,7 @@ $total = $res['total_pedido'] ?? 0;
 </head>
 <body>
 
-    <?php include '../header.php'; ?>
+    
 
     <div class="carrito-section">
         <div class="carrito-header">

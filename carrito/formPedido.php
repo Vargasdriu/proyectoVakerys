@@ -16,15 +16,15 @@
 <form action="nuevo_pedido.php" method="POST">
 
     Nombre:
-    <input type="text" name="nombre" required><br><br>
+    <input type="text" name="Nombre" required><br><br>
 
     Fecha:
-    <input type="date" name="fecha" value="<?php echo date('Y-m-d'); ?>" readonly><br><br>
+    <input type="date" name="Fecha" value="<?php echo date('Y-m-d'); ?>" readonly><br><br>
 
-    <input type="hidden" name="estado" value="En Proceso">
+    <input type="hidden" name="Estado" value="En Proceso">
 
     Nombre Vendedor:
-    <input type="text" name="nombreVendedor" value="<?php echo $vendedor; ?>" readonly><br><br>
+    <input type="text" name="NombreVendedor" value="<?php echo $vendedor; ?>" readonly><br><br>
 
     <input type="submit" value="Nuevo Pedido">
 
