@@ -3,7 +3,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $contrasena = "";
-$bd = "mitienda";
+$bd = "vakerysss";
 
 $conn = new mysqli($servidor, $usuario, $contrasena, $bd);
 
@@ -15,23 +15,19 @@ $codigo = $_POST["codigo"];
 $idpedido = $_POST["idpedido"];
 $cantidad = $_POST["cantidad"];
 $precio = $_POST["precio"];
-$total=$precio*$cantidad;
+$total = $precio * $cantidad;
 
-$sql = "INSERT INTO carrito
-(Producto_codigo,Pedido_id,cantidad,costototal)
-VALUES
-('$codigo','$idpedido','$cantidad','$total')";
+$sql = "INSERT INTO carrito(productos_Codigo, pedidos_id, Cantidad, CostoTotal) VALUES ('$codigo', '$idpedido', '$cantidad', '$total')";
 
 if($conn->query($sql)){
     echo "Producto agregado al carrito";
     header("location: miCarrito.php?idPedido=".$idpedido);
 }else{
     echo "El producto ya se agregó";
-    echo "<a href='fmiCarrito.php?idPedido=$idpedido'>
+    echo "<a href='miCarrito.php?idPedido=$idpedido'>
         <button>Volver a Pedidos</button>
       </a>";
 }
 
-
-
+$conn->close();
 ?>
