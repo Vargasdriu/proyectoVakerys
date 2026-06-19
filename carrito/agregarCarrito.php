@@ -3,7 +3,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $contrasena = "";
-$bd = "vakeryss";
+$bd = "vakerysss";
 
 $conn = new mysqli($servidor, $usuario, $contrasena, $bd);
 
@@ -11,27 +11,23 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-$productos_Codigo = $_POST["productos_Codigo"];
-$pedidos_id = $_POST["pedidos_id"];
-$Cantidad = $_POST["Cantidad"];
-$PrecioProducto = $_POST["PrecioProducto"];
-$CostoTotal=$PrecioProducto*$Cantidad;
+$codigo = $_POST["codigo"];
+$idpedido = $_POST["idpedido"];
+$cantidad = $_POST["cantidad"];
+$precio = $_POST["precio"];
+$total = $precio * $cantidad;
 
-$sql = "INSERT INTO carrito
-(productos_Codigo,pedidos_id,Cantidad,CostoTotal)
-VALUES
-('$productos_Codigo','$pedidos_id','$Cantidad','$CostoTotal')";
+$sql = "INSERT INTO carrito(productos_Codigo, pedidos_id, Cantidad, CostoTotal) VALUES ('$codigo', '$idpedido', '$cantidad', '$total')";
 
 if($conn->query($sql)){
     echo "Producto agregado al carrito";
     header("location: miCarrito.php?idPedido=".$idpedido);
 }else{
     echo "El producto ya se agregó";
-    echo "<a href='fmiCarrito.php?idPedido=$idpedido'>
+    echo "<a href='miCarrito.php?idPedido=$idpedido'>
         <button>Volver a Pedidos</button>
       </a>";
 }
 
-
-
+$conn->close();
 ?>

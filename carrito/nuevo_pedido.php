@@ -11,12 +11,12 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-$nombre = $_POST["nombre"];
-$fecha = $_POST["fecha"];
-$estado = $_POST["estado"];
-$nombreVendedor = $_POST["nombreVendedor"];
+$Nombre = $_POST["Nombre"];
+$Fecha = $_POST["Fecha"];
+$Estado = $_POST["Estado"];
+$NombreVendedor = $_POST["NombreVendedor"];
 
-$sql = "INSERT INTO pedido(Nombre, Fecha, Estado, NombreVendedor) VALUES ('$nombre', '$fecha', '$estado', '$nombreVendedor')";
+$sql = "INSERT INTO pedidos(Nombre, Fecha, Estado, NombreVendedor) VALUES ('$Nombre', '$Fecha', '$Estado', '$NombreVendedor')";
 
 if($conn->query($sql)){
     header("location: miCarrito.php?idPedido=".$conn->insert_id);

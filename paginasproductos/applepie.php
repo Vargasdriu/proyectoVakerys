@@ -145,7 +145,7 @@
 
                 </div>
 
-                <a href="carrito.php" class="carrito">
+                <a href="../carrito/formPedido.php" class="carrito">
                     Añadir al carrito · Bs. 58
                 </a>
 
@@ -195,5 +195,6 @@ function cambiarImagen(img){
 }
 </script>
 <?php include_once "../footer.php"; ?>
+
 </body>
 </html>
