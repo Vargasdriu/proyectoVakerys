@@ -1,19 +1,18 @@
 <?php
     session_start();
-    $vendedor=$_SESSION['Nombre'];
+    $vendedor = $_SESSION['Nombre'];
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Nuevo Pedido</title>
 </head>
 <body>
 
 <h2>Generar Pedido</h2>
 
-<form action="nuevo_pedido.php" method="POST">
+<form action="nuevo_Pedido.php" method="POST">
 
     Nombre:
     <input type="text" name="Nombre" required><br><br>
@@ -25,12 +24,9 @@
 
     Nombre Vendedor:
     <input type="text" name="NombreVendedor" value="<?php echo $vendedor; ?>" readonly><br><br>
-
     <input type="submit" value="Nuevo Pedido">
 
-</form>
-
-
+</form>             
 
 </body>
 </html>
