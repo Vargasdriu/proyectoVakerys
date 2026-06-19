@@ -139,7 +139,7 @@ input:focus{
 
     <h2>Actualizar Pedido</h2>
 
-    <input type="number" name="id" id="id" value="<?=$id?>">
+    <input type="hidden" name="id" id="id" value="<?=$id?>">
 
     <label>Nombre(s):</label>
     <input type="text" name="Nombre" id="Nombre" value="<?=$Nombre?>">
@@ -147,11 +147,9 @@ input:focus{
     <label>Fecha:</label>
     <input type="date" name="Fecha" id="Fecha" value="<?=$Fecha?>">
 
-    <label>Estado:</label>
-    <input type="text" name="Estado" id="Estado" value="<?=$Estado?>">
+    <input type="hidden" name="Estado" id="Estado" value="<?=$Estado?>">
 
-    <label>Nombre del Vendedor:</label>
-    <input type="text" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>">
+    <input type="hidden" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>">
    
     <input type="submit" value="Actualizar Pedido" class="boton">
 
@@ -165,9 +163,7 @@ input:focus{
     
         var b = document.getElementById("Nombre");
         var c = document.getElementById("Fecha");
-        var d = document.getElementById("Estado");
-        var e = document.getElementById("NombreVendedor");
-
+    
         
         var ex = /^[0-9]*$/;
         var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
@@ -203,21 +199,6 @@ input:focus{
             return;
         }
 
-        
-        if (d.value.trim() == "") {
-            mostrarAlerta("El campo estado no puede ir vacío", d);
-            return;
-        }
-             if (!expRegNombre.exec(d.value)) {
-            mostrarAlerta("Introduce solo letras en el Estado", d);
-            return;
-        }
-    
-        if (e.value.trim() == "") {
-            mostrarAlerta("El campo Nombre del Vendedor no puede ir vacío", e);
-            return;
-        }
-       
         this.submit();
     });
 </script>

@@ -10,17 +10,23 @@ if($conn->connect_error){
     die("Conexion fallida: ".$conn->connect_error);
 }
 
-$id = $_POST['id'];
 $Nombre = $_POST['Nombre'];
 $Fecha = $_POST['Fecha'];
 $Estado = $_POST['Estado'];
 $NombreVendedor = $_POST['NombreVendedor'];
 
 $sql = "INSERT INTO Pedidos 
-(id, Nombre, Fecha, Estado, NombreVendedor)
+(Nombre, Fecha, Estado, NombreVendedor) VALUES 
+('$Nombre','$Fecha','$Estado','$NombreVendedor')";
 
-VALUES 
-('$id','$Nombre','$Fecha','$Estado','$NombreVendedor')";
+if($conn->query($sql)){
+    header("location: ../carrito/miCarrito.php?idPedido=".$conn->insert_id);
+}else{
+    echo "Error: " . $conn->error;
+}
+
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>

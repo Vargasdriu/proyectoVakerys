@@ -1,3 +1,7 @@
+<?php
+session_start();
+$nombre = $_SESSION['Nombre'];
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,23 +25,22 @@
 
 <h2>Nuevo Pedido</h2>
 
-<label>Id:</label>
-<input type="number" placeholder="id" name="id" id="id" >
+
+<input type="hidden" placeholder="id" name="id" id="id" >
 <label>Nombre:</label>
 <input type="text" placeholder="NOMBRE" name="Nombre" id="Nombre" >
 <label>Fecha:</label>
-<input type="date" placeholder="FECHA" name="Fecha" id="Fecha" >
-<label>Estado:</label>
-<input type="text" placeholder="ESTADO" name="Estado" id="Estado" >
+<input type="date" placeholder="FECHA" name="Fecha" id="Fecha" value="<?php echo date ('Y-m-d'); ?>"readonly>
+<input type="hidden" placeholder="ESTADO" name="Estado" id="Estado" >
 <label>Nombre Vendedor:</label>
-<input type="text" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor" >
+<input type="text" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor" value="<?php echo $nombre; ?>"readonly>
 <input class="buttom" type="submit" value="Registrar">
 
 </form>
 
 </div>
 <script>
-    var a=document.getElementById("id");
+    
     var b=document.getElementById("Nombre");
     var c=document.getElementById("Fecha");
     var d=document.getElementById("Estado");
@@ -55,29 +58,12 @@
                 b.focus();
                 return false;
         }
-         if(a.value==""){
-            alert("este campo no puede ir vacio");
-            a.focus();
-            return false;
         }
          if(c.value==""){
             alert("este campo no puede ir vacio");
             c.focus();
             return false;
         }
-        
-         if(d.value==""){
-            alert("este campo no puede ir vacio");
-            d.focus();
-            return false;
-        }
-         if(e.value==""){
-            alert("este campo no puede ir vacio");
-            e.focus();
-            return false;
-        }
-
-    }
 </script>
 </body>
 </html>
