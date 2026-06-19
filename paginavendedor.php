@@ -28,12 +28,15 @@ $nombre = $_SESSION['Nombre'];
      <div class="a">
        
             <div class="ab">
-                <div class="at">
+                    <a href="Pedidos/leerpedido.php">    
+            <div class="at">
+                
                 <p>Pedidos Hoy</p>
                 <h1>5</h1>
                 </div>
                 <img class="imga" src="imagenes/bolsa-de-la-compra.png" alt="">
             </div>
+            </a>
             <a href="Productos/leerproductos.php">
             <div class="ab">
                 <div class="at">
@@ -43,6 +46,7 @@ $nombre = $_SESSION['Nombre'];
             <img class="imga" src="imagenes/galleta.png" alt="">
             </div>
             </a>
+            <a href="Pedidos/crearpedido.php">
             <div class="ab">
                 <div class="at">
                 <p>Ingresar pedidos</p>
@@ -50,6 +54,7 @@ $nombre = $_SESSION['Nombre'];
                 </div>
                 <img class="imga" src="imagenes/portapapeles.png" alt="">
             </div>
+            </a>
             <a href="Usuarios/cerrarsesion.php">
             <div class="ab">
                 <div class="at">
