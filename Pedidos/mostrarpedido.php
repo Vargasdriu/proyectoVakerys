@@ -15,6 +15,11 @@ $id = $_GET['id'];
 $sql = "SELECT * FROM Pedidos WHERE id='$id'";
 
 $resultado = $conexion->query($sql);
+
+$sqlTotal = "SELECT SUM(CostoTotal) AS total FROM carrito WHERE pedidos_id='$id'";
+$resultadoTotal = $conn->query($sqlTotal);
+$res = $resultadoTotal->fetch_assoc();
+$total = $res['total'] ?? 0;
 ?>
 
 <!DOCTYPE html>

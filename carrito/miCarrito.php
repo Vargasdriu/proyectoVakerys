@@ -12,22 +12,12 @@ if ($conn->connect_error) {
 
 session_start();
 
-// Validamos que exista el ID del pedido en la URL
-if(!isset($_GET['idPedido']) || empty($_GET['idPedido'])){
-    die("Error de flujo: No se recibió un ID de pedido válido.");
-}
-
-$id_pedido = $_GET['idPedido'];
+$id_pedido = $_GET['idPedido'] ?? 0;
 
 $sql = "SELECT * FROM productos";
 $resultado = $conn->query($sql);
 
 $sqlTotal = "SELECT SUM(CostoTotal) AS total FROM carrito WHERE pedidos_id='$id_pedido'";
-$sql = "SELECT * FROM productos";
-$resultado = $conn->query($sql);
-
-// Consulta del total usando la estructura exacta de tu tabla 'carrito' y 'pedidos_id'
-$sqlTotal = "SELECT sum(CostoTotal) FROM carrito where pedidos_id='$id_pedido'";
 $resultadoTotal = $conn->query($sqlTotal);
 $res = $resultadoTotal->fetch_assoc();
 $total = $res['total'] ?? 0;
@@ -38,7 +28,7 @@ $total = $res['total'] ?? 0;
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Productos</title>
+<title>Carrito</title>
 
 <style>
 *{
@@ -61,48 +51,6 @@ body{
     box-shadow:0px 10px 25px rgba(52,78,65,0.15);
 }
 
-echo "<h3>Total acumulado del Pedido N° ".htmlspecialchars($id_pedido).": Bs. ".$total."</h3>";
-echo "<table border='1'>";
-
-echo "<tr>
-        <th>Código</th>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Precio</th>
-        <th>Acciones</th>
-        <th colspan=2>Agregar al Carrito</th>
-      </tr>";
-
-while($fila = $resultado->fetch_assoc()){
-    echo "<form action='agregarCarrito.php' method='post'>";
-    echo "<tr>";
-        echo "<td>".htmlspecialchars($fila["Codigo"])."</td>";
-        echo "<td>".htmlspecialchars($fila["NombreProducto"])."</td>";
-        echo "<td>".htmlspecialchars($fila["DetalleProducto"])."</td>";
-        echo "<td>Bs. ".htmlspecialchars($fila["PrecioProducto"])."</td>";
-        echo "<td>
-                <a href='producto.php?codigo=".$fila["Codigo"]."'>
-                    <button type='button'>Mostrar</button>
-                </a>
-            </td>";
-        
-        // Atributos ocultos alineados con los nombres del POST
-        echo "<input type='hidden' value='".$fila["Codigo"]."' name='codigo'>";
-        echo "<input type='hidden' value='".$id_pedido."' name='idpedido'>";
-        echo "<input type='hidden' value='".$fila["PrecioProducto"]."' name='precio'>";
-        
-        // Control de cantidad (mínimo 1, máximo el Stock disponible en tu base de datos)
-        echo "<td><input type='number' name='cantidad' value='1' min='1' max='".$fila['Stock']."'></td>";
-        echo "<td><input type='submit' value='Agregar'></td>";
-    echo "</tr>";
-    echo "</form>";
-}
-
-echo "</table><br>";
-
-echo "<a href='formPedido.php'>
-        <button type='button'>Generar Nuevo Pedido</button>
-      </a><br><br>";
 h1{
     text-align:center;
     color:#344E41;
@@ -213,6 +161,13 @@ input[type="number"]{
     color:#344E41;
 }
 
+.form-agregar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+}
+
 a{
     text-decoration:none;
 }
@@ -223,7 +178,7 @@ a{
 
 <div class="contenedor">
 
-    <h1>Productos</h1>
+    <h1>Carrito</h1>
     <p class="subtitulo">Gestión de productos para pedidos</p>
 
     <h3 class="total">Total: Bs. <?php echo $total; ?></h3>
@@ -234,44 +189,51 @@ a{
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Precio</th>
-            <th>Acciones</th>
-            <th>Cantidad</th>
-            <th>Agregar</th>
+      
+            <th>Agregar al carrito</th>
         </tr>
 
         <?php while($fila = $resultado->fetch_assoc()){ ?>
-        <form action="agregarCarrito.php" method="post">
-            <tr>
-                <td><?php echo $fila["Codigo"]; ?></td>
-                <td><?php echo $fila["NombreProducto"]; ?></td>
-                <td><?php echo $fila["DetalleProducto"]; ?></td>
-                <td>Bs. <?php echo $fila["PrecioProducto"]; ?></td>
 
-                <td>
-                    <a href="producto.php?codigo=<?php echo $fila['Codigo']; ?>">
-                        <button type="button" class="mostrar">Mostrar</button>
-                    </a>
-                </td>
+        <tr>
+            <td><?php echo $fila["Codigo"]; ?></td>
+            <td><?php echo $fila["NombreProducto"]; ?></td>
+            <td><?php echo $fila["DetalleProducto"]; ?></td>
+            <td>Bs. <?php echo $fila["PrecioProducto"]; ?></td>
 
-                <input type="hidden" name="codigo" value="<?php echo $fila['Codigo']; ?>">
-                <input type="hidden" name="idpedido" value="<?php echo $id_pedido; ?>">
-                <input type="hidden" name="precio" value="<?php echo $fila['PrecioProducto']; ?>">
 
-                <td>
-                    <input type="number" name="cantidad" value="0" min="0">
-                </td>
 
-                <td>
-                    <button type="submit" class="editar">Agregar</button>
-                </td>
-            </tr>
-        </form>
+            <td>
+                <form action="agregarCarrito.php" method="post" class="form-agregar">
+
+                    <input type="hidden" name="codigo" value="<?php echo $fila['Codigo']; ?>">
+                    <input type="hidden" name="idpedido" value="<?php echo $id_pedido; ?>">
+                    <input type="hidden" name="precio" value="<?php echo $fila['PrecioProducto']; ?>">
+
+                    <input
+                        type="number"
+                        name="cantidad"
+                        value="1"
+                        min="1"
+                        required
+                    >
+
+                    <button type="submit" class="editar">
+                        Agregar
+                    </button>
+
+                </form>
+            </td>
+        </tr>
+
         <?php } ?>
     </table>
 
     <div class="boton-centro">
-        <a href="formPedido.php">
-            <button class="nuevo">Generar Nuevo Pedido</button>
+        <a href="../Pedidos/crearpedido.php">
+            <button class="nuevo">
+                Generar Nuevo Pedido
+            </button>
         </a>
     </div>
 

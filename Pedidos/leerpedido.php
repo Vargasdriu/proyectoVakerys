@@ -188,7 +188,7 @@ if ($resultado->num_rows > 0){
 
             
 
-            <a href='mostrarpedido.php?id=$id'>
+            <a href='../carrito/miCarrito.php?idPedido=$id'>
                 <button class='mostrar'>Mostrar</button>
             </a>
         </td>

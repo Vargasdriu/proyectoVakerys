@@ -20,7 +20,7 @@ $sql = "INSERT INTO Pedidos
 ('$Nombre','$Fecha','$Estado','$NombreVendedor')";
 
 if($conn->query($sql)){
-    header("location: ../carrito/miCarrito.php?idPedido=".$conn->insert_id);
+    header("location:../carrito/miCarrito.php?idPedido=".$conn->insert_id);
 }else{
     echo "Error: " . $conn->error;
 }

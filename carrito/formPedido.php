@@ -1,6 +1,6 @@
 <?php
     session_start();
-    // Validamos que exista la sesión del vendedor, si no, le asignamos un texto por defecto
+   
     $vendedor = $_SESSION['Nombre'] ?? "Vendedor Vakery's";
 ?>
 <!DOCTYPE html>
