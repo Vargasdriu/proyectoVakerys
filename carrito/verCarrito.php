@@ -12,14 +12,14 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-// Validamos que venga el ID del pedido por la URL
+
 if (!isset($_GET['idPedido']) || empty($_GET['idPedido'])) {
     die("Error: No se ha especificado un ID de pedido para revisar.");
 }
 
 $id_pedido = $_GET['idPedido'];
 
-// Consulta relacional usando INNER JOIN para juntar el carrito con la información del producto
+
 $sql = "SELECT c.Cantidad, c.CostoTotal, p.NombreProducto, p.PrecioProducto, p.DetalleProducto 
         FROM carrito c
         INNER JOIN productos p ON c.productos_Codigo = p.Codigo
@@ -27,7 +27,7 @@ $sql = "SELECT c.Cantidad, c.CostoTotal, p.NombreProducto, p.PrecioProducto, p.D
 
 $resultado = $conn->query($sql);
 
-// Consulta para sacar el gran total acumulado de este pedido
+
 $sqlTotal = "SELECT SUM(CostoTotal) AS total_general FROM carrito WHERE pedidos_id = '$id_pedido'";
 $resultadoTotal = $conn->query($sqlTotal);
 $filaTotal = $resultadoTotal->fetch_assoc();
