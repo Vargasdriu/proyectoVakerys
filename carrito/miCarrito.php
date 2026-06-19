@@ -42,7 +42,7 @@ $total = $res['total_pedido'] ?? 0;
 
     <div class="carrito-section">
         <div class="carrito-header">
-            <h2>Productos para el Pedido N° <?php echo htmlspecialchars($id_pedido); ?></h2>
+            <h1>Total del Pedido<?php echo "($total)";?></h1>
             <div class="total-badge">Total: Bs. <?php echo number_format($total, 2); ?></div>
         </div>
 
@@ -83,4 +83,4 @@ $total = $res['total_pedido'] ?? 0;
         </table>
 
         <div class="container-buttons">
-            <a href="formPedido.php" class="btn-nav-back">← Volver / Nuevo Pedido</a>
+            <a href="formPedido.php" class="btn-nav-back">Nuevo Pedido</a>
