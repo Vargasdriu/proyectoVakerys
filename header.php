@@ -63,7 +63,7 @@ nav{
 
     top:75px;
     left:0;
-
+    color:white;
     width:220px;
     height:calc(100vh - 75px);
 
@@ -103,13 +103,9 @@ nav{
 
 .menu a{
     display:block;
-
     padding:18px 15px;
-
     color:white;
-
     text-decoration:none;
-
     transition:.3s ease;
 }
 

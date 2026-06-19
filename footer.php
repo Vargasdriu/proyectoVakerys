@@ -118,7 +118,7 @@
         <!-- Redes -->
         <div class="footer-col">
             <h3>Redes sociales</h3>
-            <a href="#">Instagram</a>
+            <a href="https://www.instagram.com/vakerys?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram</a>
             <a href="#">Facebook</a>
             <a href="#">TikTok</a>
         </div>

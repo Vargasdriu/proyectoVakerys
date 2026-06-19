@@ -31,7 +31,8 @@ $nombre = $_SESSION['Nombre'];
 <input type="text" placeholder="NOMBRE" name="Nombre" id="Nombre" >
 <label>Fecha:</label>
 <input type="date" placeholder="FECHA" name="Fecha" id="Fecha" value="<?php echo date ('Y-m-d'); ?>"readonly>
-<input type="hidden" placeholder="ESTADO" name="Estado" id="Estado" >
+<label>Estado:</label>
+<input type="text" placeholder="ESTADO" name="Estado" id="Estado" >
 <label>Nombre Vendedor:</label>
 <input type="text" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor" value="<?php echo $nombre; ?>"readonly>
 <input class="buttom" type="submit" value="Registrar">

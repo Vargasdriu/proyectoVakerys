@@ -73,14 +73,16 @@ a{
     margin-bottom:20px;
 }
 
-.extra h1{
-    color:white;
+.extra h1 {
+    color: white;
+    font-size: 4.8rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
 
-    font-size:4.8rem;
+    opacity: 0;
+    transform: translateY(20px);
 
-    line-height:1.1;
 
-    margin-bottom:20px;
 }
 
 .extra h3{
@@ -599,5 +601,3 @@ a{
     color:#1d3021;
     transform:translateY(-4px);
 }
-
-/* pie de página*/

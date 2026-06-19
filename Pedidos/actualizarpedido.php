@@ -145,11 +145,13 @@ input:focus{
     <input type="text" name="Nombre" id="Nombre" value="<?=$Nombre?>">
 
     <label>Fecha:</label>
-    <input type="date" name="Fecha" id="Fecha" value="<?=$Fecha?>">
+    <input type="date" name="Fecha" id="Fecha" value="<?=$Fecha?>" readonly>
 
-    <input type="hidden" name="Estado" id="Estado" value="<?=$Estado?>">
+    <label>Estado:</label>
+    <input type="text" name="Estado" id="Estado" value="<?=$Estado?>">
 
-    <input type="hidden" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>">
+    <label>Nombre del Vendedor:</label>
+    <input type="text" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>" readonly>
    
     <input type="submit" value="Actualizar Pedido" class="boton">
 

@@ -12,6 +12,7 @@ if($conexion->connect_error){
 
 $id = $_GET['id'];
 
+$conexion->query("DELETE FROM carrito WHERE pedidos_id='$id'");
 $sql = "DELETE FROM Pedidos WHERE id='$id'";
 ?>
 

@@ -162,6 +162,7 @@ echo "
     <th>Fecha</th>
     <th>Estado</th>
     <th>Nombre Vendedor</th>
+    <th>Acciones</th>
 </tr>
 ";
 
@@ -180,6 +181,7 @@ if ($resultado->num_rows > 0){
         <td>".$fila['Nombre']."</td>
         <td>".$fila['Fecha']."</td>
         <td>".$fila['Estado']."</td>
+        <td>".$fila['NombreVendedor']."</td>
 
         <td>
             <a href='actualizarpedido.php?id=$id'>
@@ -190,6 +192,9 @@ if ($resultado->num_rows > 0){
 
             <a href='../carrito/miCarrito.php?idPedido=$id'>
                 <button class='mostrar'>Mostrar</button>
+            </a>
+             <a href='eliminarpedido.php?id=$id'>
+                <button class='eliminar'>Eliminar</button>
             </a>
         </td>
         ";

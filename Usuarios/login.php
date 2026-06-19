@@ -22,37 +22,15 @@
         <div class="tra">
             <form action="validar.php" method="post">
 
-                <h2>Bienvenido</h2>
+                <h2>Bienvenido al equipo Vakery's</h2>
 
-                <button type="button" class="google-btn" onclick="abrirGoogle()">
-                    <img src="../imagenes/gog.png" alt="Google">
-                    <h4>Continuar con Google</h4>
-                </button>
-
-                <script>
-                    function abrirGoogle() {
-                        window.open(
-                            'https://accounts.google.com/',
-                            'LoginGoogle',
-                            'width=500,height=650,left=200,top=100,resizable=yes,scrollbars=yes'
-                        );
-                    }
-                </script>
-
-                <label>Nombre</label>
+                <label>Nombre: </label>
                 <input type="text" placeholder="NOMBRE(S)" name="Nombre" id="nombre">
 
-                <label>CI</label>
+                <label>CI: </label>
                 <input type="number" placeholder="CARNET DE IDENTIDAD" name="CI" id="CI">
 
                 <input class="button" type="submit" value="Iniciar Sesion">
-
-                <h4 class="registro">
-                    ¿No tienes cuenta?
-                    <button type="button" onclick="window.location.href='CrearUsuario.php'">
-                        Crea una
-                    </button>
-                </h4>
 
             </form>
         </div>

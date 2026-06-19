@@ -12,8 +12,8 @@ if($conexion->connect_error){
 
 $Codigo = $_GET['Codigo'];
 
-$sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";
-?>
+$conexion->query("DELETE FROM carrito WHERE productos_Codigo='$Codigo'");
+$sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";?>
 
 <!DOCTYPE html>
 <html lang="es">

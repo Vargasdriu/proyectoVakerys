@@ -30,7 +30,7 @@ $nombre = $_SESSION['Nombre'];
             <div class="ab">
                     <a href="Pedidos/leerpedido.php">    
             <div class="at">
-                
+                <a href="Pedidos/leerpedido.php">
                 <p>Pedidos Hoy</p>
                 <h1>5</h1>
                 </div>

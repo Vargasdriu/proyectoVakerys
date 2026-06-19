@@ -145,7 +145,7 @@
 
                 </div>
 
-                <a href="../carrito/formPedido.php" class="carrito">
+                <a href="../Pedidos/crearpedido.php" class="carrito">
                     Añadir al carrito · Bs. 58
                 </a>
 

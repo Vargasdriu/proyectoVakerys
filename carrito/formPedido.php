@@ -13,7 +13,8 @@
 </head>
 <body>
 
- 
+  <?php include '../header.php'; ?>
+
 
 <form action="nuevo_pedido.php" method="POST" onsubmit="return validar()">
 

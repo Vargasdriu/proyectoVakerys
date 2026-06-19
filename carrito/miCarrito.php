@@ -146,6 +146,7 @@ button{
 
 .boton-centro{
     display:flex;
+    gap:20px;
     justify-content:center;
     margin-top:20px;
 }
@@ -175,6 +176,7 @@ a{
 
 </head>
 <body>
+ <?php include '../header.php'; ?>
 
 <div class="contenedor">
 
@@ -235,8 +237,12 @@ a{
                 Generar Nuevo Pedido
             </button>
         </a>
-    </div>
 
+       <a href="../Pedidos/leerpedido.php">
+            <button class="nuevo">
+                Ver Todos Los Pedidos
+            </button>
+        </a>
 </div>
 
 </body>
