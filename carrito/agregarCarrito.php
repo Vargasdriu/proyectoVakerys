@@ -19,8 +19,10 @@ $total = $precio * $cantidad;
 
 // Ajustado exactamente a tus campos: productos_Codigo, pedidos_id, Cantidad, CostoTotal
 $sql = "INSERT INTO carrito (productos_Codigo, pedidos_id, Cantidad, CostoTotal) 
-        VALUES ('$codigo', '$idpedido', '$cantidad', '$total')";
-
+        VALUES ('$codigo', '$idpedido', '$cantidad', '$total')
+        ON DUPLICATE KEY UPDATE 
+            Cantidad = Cantidad + VALUES(Cantidad),
+            CostoTotal = CostoTotal + VALUES(CostoTotal)"
 if($conn->query($sql)){
     header("location: miCarrito.php?idPedido=".$idpedido);
     exit();

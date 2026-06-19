@@ -21,8 +21,7 @@ $sql = "INSERT INTO pedidos(Nombre, Fecha, Estado, NombreVendedor) VALUES ('$Nom
 
 if($conn->query($sql)){
     // Redirige pasando el ID correcto generado
-    header("location: miCarrito.php?idPedido=".$conn->insert_id);
-    exit();
+    header("Location: miCarrito.php?idPedido=" . $conn->insert_id);    exit();
 }else{
     echo "Error: " . $conn->error;
 }

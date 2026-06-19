@@ -12,60 +12,75 @@ if ($conn->connect_error) {
 
 session_start();
 
-if(!isset($_GET['idPedido'])){
-    die("Error: No se ha especificado un ID de pedido.");
+if (!isset($_GET['idPedido']) || empty($_GET['idPedido'])) {
+    header("Location: formPedido.php");
+    exit();
 }
 
 $id_pedido = $_GET['idPedido'];
 
-// Ajustado a tu tabla 'productos'
 $sql = "SELECT * FROM productos";
 $resultado = $conn->query($sql);
 
-// Ajustado a tus columnas 'CostoTotal' y 'pedidos_id'
-$sqlTotal = "SELECT sum(CostoTotal) as total FROM carrito WHERE pedidos_id='$id_pedido'";
+$sqlTotal = "SELECT SUM(CostoTotal) AS total_pedido FROM carrito WHERE pedidos_id = '$id_pedido'";
 $resultadoTotal = $conn->query($sqlTotal);
 $res = $resultadoTotal->fetch_assoc();
-$total = $res['total'] ?? 0;
-
-echo "<h3>Total del Pedido: $".$total."</h3>";
-echo "<table border='1'>";
-
-echo "<tr>
-        <th>Código</th>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Precio</th>
-        <th>Acciones</th>
-        <th>Cantidad</th>
-        <th>Agregar al Carrito</th>
-      </tr>";
-
-while($fila = $resultado->fetch_assoc()){
-    echo "<form action='agregarCarrito.php' method='post'>";
-    echo "<tr>";
-        // Mapeo con tus columnas en la base de datos
-        echo "<td>".$fila["Codigo"]."</td>";
-        echo "<td>".$fila["NombreProducto"]."</td>";
-        echo "<td>".$fila["DetalleProducto"]."</td>";
-        echo "<td>".$fila["PrecioProducto"]."</td>";
-        echo "<td>
-                <a href='producto.php?codigo=".$fila["Codigo"]."'>Ver</a>
-            </td>";
-        
-        // Inputs ocultos para procesar la inserción
-        echo "<input type='hidden' value='".$fila["Codigo"]."' name='codigo'>";
-        echo "<input type='hidden' value='".$id_pedido."' name='idpedido'>";
-        echo "<input type='hidden' value='".$fila["PrecioProducto"]."' name='precio'>";
-        
-        echo "<td><input type='number' name='cantidad' value='1' min='1'></td>";
-        echo "<td><input type='submit' value='Agregar'></td>";
-    echo "</tr>";
-    echo "</form>";
-}
-
-echo "</table><br>";
-echo "<a href='formPedido.php'><button>Generar Nuevo Pedido</button></a>";
-
-$conn->close();
+$total = $res['total_pedido'] ?? 0;
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito de Compras - Vakery's</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@400;500;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+    <?php include '../header.php'; ?>
+
+    <div class="carrito-section">
+        <div class="carrito-header">
+            <h2>Productos para el Pedido N° <?php echo htmlspecialchars($id_pedido); ?></h2>
+            <div class="total-badge">Total: Bs. <?php echo number_format($total, 2); ?></div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre del Producto</th>
+                    <th>Descripción</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Agregar al Carrito</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while($fila = $resultado->fetch_assoc()): ?>
+                    <form action="agregarCarrito.php" method="POST">
+                        <tr>
+                            <td><?php echo htmlspecialchars($fila["Codigo"]); ?></td>
+                            <td><strong><?php echo htmlspecialchars($fila["NombreProducto"]); ?></strong></td>
+                            <td><?php echo htmlspecialchars($fila["DetalleProducto"]); ?></td>
+                            <td>Bs. <?php echo htmlspecialchars($fila["PrecioProducto"]); ?></td>
+                            
+                            <input type="hidden" value="<?php echo $fila["Codigo"]; ?>" name="codigo">
+                            <input type="hidden" value="<?php echo $id_pedido; ?>" name="idpedido">
+                            <input type="hidden" value="<?php echo $fila["PrecioProducto"]; ?>" name="precio">
+                            
+                            <td>
+                                <input type="number" name="cantidad" value="1" min="1" max="<?php echo $fila['Stock']; ?>">
+                            </td>
+                            <td>
+                                <button type="submit" class="btn-add">Agregar</button>
+                            </td>
+                        </tr>
+                    </form>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+
+        <div class="container-buttons">
+            <a href="formPedido.php" class="btn-nav-back">← Volver / Nuevo Pedido</a>
