@@ -129,7 +129,7 @@ $nombre = $_SESSION['Nombre'];
 
         </div>
 
-        <a class="btn" href="carrito/formPedido.php">
+        <a class="btn" href="Pedidos/crearpedido.php">
           Añadir pedidos     +
         </a>
 
@@ -218,11 +218,12 @@ $nombre = $_SESSION['Nombre'];
       </div>
 
       <div class="acciones-grid">
-
+<a href="Productos/crearproducto.php">
         <div class="accion-card">
           <img src="imagenes/inventario-disponible.png" alt="">
           <h3>Añadir productos</h3>
         </div>
+</a>
         <a href="Usuarios/leerusuario.php">
         <div class="accion-card">
           <img src="imagenes/nueva-cuenta.png" alt="">
