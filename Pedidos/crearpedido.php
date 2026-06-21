@@ -21,7 +21,7 @@ $nombre = $_SESSION['Nombre'];
 
 <div class="tra">
 
-<form action="registropedido.php" method="post" onsubmit="return validar()">
+<form action="registropedido.php" method="post" id="crearpedido">
 
 <h2>Nuevo Pedido</h2>
 
@@ -40,31 +40,63 @@ $nombre = $_SESSION['Nombre'];
 </form>
 
 </div>
-<script>
-    
-    var b=document.getElementById("Nombre");
-    var c=document.getElementById("Fecha");
-    var d=document.getElementById("Estado");
-    var e=document.getElementById("NombreVendedor");
-    var expRegNombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
-    function validar(){
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        if(b.value==""){
-            alert("este campo no puede ir vacio");
-            b.focus();
-            return false;
+<script>
+
+    document.getElementById("crearpedido").addEventListener("submit", function(event) {
+        
+        event.preventDefault();
+
+        var b = document.getElementById("Nombre");
+        var c = document.getElementById("Fecha");
+        var d = document.getElementById("Estado");
+        
+        var ex = /^[0-9]*$/;
+        var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+        var expRegMinuscula=/^[a-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+
+       
+        function mostrarAlerta(mensaje, elemento) {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Oops!',
+                text: mensaje,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Entendido'
+            }).then(() => {
+                elemento.focus(); 
+            });
         }
-        if(!expRegNombre.exec(b.value)){
-                alert("introduce solo letras");
-                b.focus();
-                return false;
+       
+        if (b.value.trim() == "") {
+            mostrarAlerta("El campo Nombre no puede ir vacío", b);
+            return;
         }
+        if (!expRegNombre.exec(b.value)) {
+            mostrarAlerta("Introduce solo letras en el Nombre", b);
+            return;
         }
-         if(c.value==""){
-            alert("este campo no puede ir vacio");
-            c.focus();
-            return false;
+
+        
+        if (c.value.trim() == "") {
+            mostrarAlerta("El campo Fecha no puede ir vacío", c);
+            return;
         }
+    
+
+        if (d.value.trim() == "") {
+            mostrarAlerta("El campo Estado no puede ir vacío", d);
+            return;
+        }
+        if (!expRegNombre.exec(d.value)) {
+            mostrarAlerta("Introduce solo letras en el Estado", d);
+            return;
+        }
+
+       
+        this.submit();
+    });
 </script>
 </body>
 </html>

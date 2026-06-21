@@ -121,9 +121,11 @@ $nombre = $_SESSION['Nombre'];
                 <p>Productos: <br> Brownie x5 <br> Apple pie</p>
             </div>
             </div>
-             <div class="b-boton">
+             <a href="Pedidos/leerpedido.php">
+            <div class="b-boton">
                 <h1>Ver Todos Los pedidos</h1>
         </div>
+</a>
         </div>
         
     </div>

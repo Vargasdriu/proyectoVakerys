@@ -8,26 +8,8 @@ body{
   font-family:'Raleway',sans-serif;
   background:#f5f7f2;
   color:#1d3021;
- 
- 
-    display:grid;
-    grid-template-columns:1fr;
-    grid-template-rows: auto 400px 400px auto 550px auto auto 400px 500px;
-
-    grid-template-areas:
-    "extra"
-    "a"
-    "b"
-    "h"
-    "c"
-    "d"
-    "e"
-    "f"
-    "footer";
-
-    margin-top:75px;
+  margin-top:75px;
 }
-
 
 a{
   text-decoration: none;
@@ -36,7 +18,9 @@ a{
 
 
 
-/*Conocenos*/
+/* =========================
+   CONÓCENOS
+========================= */
 .extra{
     height:500px;
 
@@ -45,7 +29,7 @@ a{
         rgba(29,48,33,.55),
         rgba(29,48,33,.55)
     ),
-   url('../imagenes/fondooo.png');
+    url('../imagenes/fondooo.png');
 
     background-size:cover;
     background-position:center;
@@ -64,34 +48,38 @@ a{
 
 .extra p{
     color:#afc194;
-
     font-size:15px;
     font-weight:700;
-
     letter-spacing:5px;
-
     margin-bottom:20px;
+
+    opacity:0;
+    transform:translateY(20px);
+    animation:aparecerTexto 1s ease-out forwards;
 }
 
-.extra h1 {
-    color: white;
-    font-size: 4.8rem;
-    line-height: 1.1;
-    margin-bottom: 20px;
+.extra h1{
+    color:white;
+    font-size:4.8rem;
+    line-height:1.1;
+    margin-bottom:20px;
 
-
-
+    opacity:0;
+    transform:translateY(30px);
+    animation:aparecerTitulo 1.4s ease-out forwards;
+    animation-delay:0.3s;
 }
-
 
 .extra h3{
     color:#f0f0f0;
-
     font-size:1.2rem;
-
     font-weight:400;
-
     line-height:1.7;
+
+    opacity:0;
+    transform:translateY(20px);
+    animation:aparecerTexto 1.2s ease-out forwards;
+    animation-delay:0.8s;
 }
 /* Historia */
 .historia{
@@ -599,4 +587,293 @@ a{
     background:#afc194;
     color:#1d3021;
     transform:translateY(-4px);
+}
+
+
+@keyframes aparecerTitulo{
+    0%{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes aparecerTexto{
+    0%{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+@media (max-width: 768px){
+
+  body{
+    display:block;
+    margin-top:75px;
+  }
+
+  /* HERO / CONÓCENOS */
+  .extra{
+    height:auto;
+    min-height:420px;
+    padding:60px 20px;
+  }
+
+  .overlay{
+    max-width:100%;
+    padding:10px;
+  }
+
+  .extra p{
+    font-size:12px;
+    letter-spacing:3px;
+    margin-bottom:14px;
+  }
+
+  .extra h1{
+    font-size:2.3rem;
+    line-height:1.15;
+    margin-bottom:16px;
+  }
+
+  .extra h3{
+    font-size:1rem;
+    line-height:1.6;
+  }
+
+  /* HISTORIA */
+  .historia{
+    flex-direction:column;
+    padding:50px 20px;
+    gap:30px;
+    text-align:center;
+  }
+
+  .texto{
+    gap:18px;
+  }
+
+  .texto h1{
+    font-size:2.1rem;
+  }
+
+  .texto h1::after{
+    margin:10px auto 0;
+  }
+
+  .texto p{
+    font-size:1rem;
+    line-height:1.8;
+    text-align:justify;
+  }
+
+  .historia img{
+    width:100%;
+    height:240px;
+    max-width:420px;
+  }
+
+  /* MISIÓN Y VISIÓN */
+  .misionvision{
+    flex-direction:column;
+    gap:25px;
+    padding:40px 20px;
+  }
+
+  .misionvision section{
+    width:100%;
+    min-height:auto;
+    padding:25px 20px;
+  }
+
+  .titulo{
+    gap:12px;
+    margin-bottom:15px;
+  }
+
+  .titulo img{
+    width:40px;
+    height:40px;
+    padding:7px;
+  }
+
+  .titulo h1{
+    font-size:1.6rem;
+  }
+
+  .misionvision p{
+    font-size:0.98rem;
+    line-height:1.7;
+    text-align:left;
+  }
+
+  /* ¿POR QUÉ VAKERY'S? */
+  .h{
+    padding:55px 20px;
+  }
+
+  .titulo-h{
+    margin-bottom:35px;
+  }
+
+  .titulo-h h1{
+    font-size:2rem;
+  }
+
+  .titulo-h p{
+    font-size:1rem;
+    line-height:1.6;
+  }
+
+  .contenedor-hh{
+    gap:20px;
+  }
+
+  .hh{
+    width:100%;
+    max-width:360px;
+    min-height:auto;
+    padding:28px 22px;
+  }
+
+  .ih{
+    width:68px;
+    height:68px;
+    padding:13px;
+  }
+
+  .hh h2{
+    font-size:1.5rem;
+    margin-top:18px;
+    margin-bottom:12px;
+  }
+
+  .hh p{
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  /* IMAGEN BANNER */
+  .img{
+    margin:25px 15px;
+  }
+
+  .img img{
+    height:220px;
+    border-radius:20px;
+  }
+
+  /* VALORES */
+  .def{
+    padding:50px 20px;
+  }
+
+  .tex{
+    margin-bottom:35px;
+  }
+
+  .tex p{
+    font-size:13px;
+    padding:7px 16px;
+  }
+
+  .tex h2{
+    font-size:2rem;
+    line-height:1.2;
+  }
+
+  .cuadros{
+    gap:18px;
+  }
+
+  .cc{
+    width:100%;
+    max-width:340px;
+    min-height:auto;
+    padding:22px 18px;
+  }
+
+  .cc h3{
+    font-size:1.3rem;
+  }
+
+  .cc p{
+    font-size:14px;
+  }
+
+  /* GALERÍA */
+
+.galeria{
+    padding:50px 0 70px;
+}
+
+.foto{
+    position:sticky;
+    top:85px;
+    width:90%;
+    height:260px;
+    margin-bottom:70px;
+    border-radius:20px;
+}
+
+.foto1{
+    transform:rotate(-4deg);
+}
+
+.foto2{
+    transform:rotate(3deg);
+}
+
+.foto3{
+    transform:rotate(-2deg);
+}
+
+.foto4{
+    transform:rotate(2deg);
+}
+
+.foto5{
+    transform:rotate(-1deg);
+}
+
+
+  .listoo{
+    margin:20px 15px 30px;
+  }
+
+  .listo{
+    border-radius:25px;
+    padding:35px 18px;
+  }
+
+  .la{
+    font-size:2rem;
+    line-height:1.2;
+    margin-bottom:16px;
+  }
+
+  .listo h3{
+    font-size:1rem;
+    line-height:1.6;
+    margin-bottom:28px;
+  }
+
+  .botones{
+    flex-direction:row;
+    gap:14px;
+    width:50%;
+  }
+
+  .botones a{
+    width:100%;
+    max-width:280px;
+    text-align:center;
+    padding:14px 22px;
+  }
 }

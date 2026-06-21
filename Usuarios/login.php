@@ -22,7 +22,7 @@
         <div class="tra">
             <form action="validar.php" method="post">
 
-                <h2>Bienvenido al equipo Vakery's</h2>
+                <h2>Bienvenido al Equipo Vakery's</h2>
 
                 <label>Nombre: </label>
                 <input type="text" placeholder="NOMBRE(S)" name="Nombre" id="nombre">
