@@ -273,7 +273,7 @@ if(isset($_GET["success"])){
 <script>
 Swal.fire({
     icon: "success",
-    title: "Producto agregado",
+    title: "Producto(s) agregado(s)",
     text: "Se agregó correctamente al carrito.",
     timer: 1500,
     showConfirmButton: false
