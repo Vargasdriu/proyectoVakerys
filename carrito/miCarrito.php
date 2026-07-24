@@ -29,7 +29,7 @@ $total = $res['total'] ?? 0;
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carrito</title>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 *{
     margin:0;
@@ -255,7 +255,33 @@ a{
             </button>
         </a>
 </div>
+<?php
+if(isset($_GET["error"]) && $_GET["error"]=="stock"){
+?>
+<script>
+Swal.fire({
+    icon: "error",
+    title: "Stock insuficiente",
+    text: "No hay suficiente stock disponible."
+});
+</script>
+<?php
+}
 
+if(isset($_GET["success"])){
+?>
+<script>
+Swal.fire({
+    icon: "success",
+    title: "Producto agregado",
+    text: "Se agregó correctamente al carrito.",
+    timer: 1500,
+    showConfirmButton: false
+});
+</script>
+<?php
+}
+?>
 </body>
 </html>
 

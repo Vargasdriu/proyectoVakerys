@@ -10,50 +10,63 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    header("Location: miCarrito.php");
+    exit();
+}
 
 $codigo = $_POST["codigo"];
-$idpedido = $_POST["idpedido"];
-$cantidad = $_POST["cantidad"];
-$precio = $_POST["precio"];
+$idpedido = (int)$_POST["idpedido"];
+$cantidad = (int)$_POST["cantidad"];
+$precio = (float)$_POST["precio"];
 $total = $precio * $cantidad;
 
-$sqlStock = "SELECT Stock FROM productos WHERE Codigo='$codigo'";
-$resultado = $conn->query($sqlStock);
+$stmt = $conn->prepare("SELECT Stock FROM productos WHERE Codigo = ?");
+$stmt->bind_param("s", $codigo);
+$stmt->execute();
+$resultado = $stmt->get_result();
+
+if ($resultado->num_rows == 0) {
+    header("Location: miCarrito.php?idPedido=$idpedido&error=producto");
+    exit();
+}
+
 $fila = $resultado->fetch_assoc();
 
-if($fila["Stock"] < $cantidad){
-    echo "No hay suficiente stock";
+if ($fila["Stock"] < $cantidad) {
+    header("Location: miCarrito.php?idPedido=$idpedido&error=stock");
     exit();
 }
 
+$stmt = $conn->prepare("
+    INSERT INTO carrito (productos_Codigo, pedidos_id, Cantidad, CostoTotal)
+    VALUES (?, ?, ?, ?)
+    ON DUPLICATE KEY UPDATE
+        Cantidad = Cantidad + VALUES(Cantidad),
+        CostoTotal = CostoTotal + VALUES(CostoTotal)
+");
 
+$stmt->bind_param("siid", $codigo, $idpedido, $cantidad, $total);
 
-$sql = "INSERT INTO carrito (productos_Codigo, pedidos_id, Cantidad, CostoTotal)
-        VALUES ('$codigo', '$idpedido', '$cantidad', '$total')
-        ON DUPLICATE KEY UPDATE
-            Cantidad = Cantidad + VALUES(Cantidad),
-            CostoTotal = CostoTotal + VALUES(CostoTotal)";
+if ($stmt->execute()) {
 
-if($conn->query($sql)){
+    $stmt = $conn->prepare("
+        UPDATE productos
+        SET Stock = Stock - ?
+        WHERE Codigo = ?
+    ");
 
-    $sql2 = "UPDATE productos
-             SET Stock = Stock - $cantidad
-             WHERE Codigo='$codigo'";
+    $stmt->bind_param("is", $cantidad, $codigo);
+    $stmt->execute();
 
-    $conn->query($sql2);
-    header("Location: miCarrito.php?idPedido=".$idpedido);
+    header("Location: miCarrito.php?idPedido=$idpedido&success=1");
     exit();
-}else{
-    echo "Error crítico en el proceso del carrito de compras: " . $conn->error;
-}
 
-
-if($conn->query($sql)){
-    
-    header("Location: miCarrito.php?idPedido=" . $idpedido);
-    exit();
 } else {
-    echo "Error crítico en el proceso del carrito de compras: " . $conn->error;
+
+    header("Location: miCarrito.php?idPedido=$idpedido&error=bd");
+    exit();
+
 }
 
 $conn->close();
