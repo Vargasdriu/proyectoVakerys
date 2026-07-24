@@ -190,6 +190,7 @@ a{
             <th>Código</th>
             <th>Nombre</th>
             <th>Descripción</th>
+            <th>Stock</th>
             <th>Precio</th>
       
             <th>Agregar al carrito</th>
@@ -201,6 +202,16 @@ a{
             <td><?php echo $fila["Codigo"]; ?></td>
             <td><?php echo $fila["NombreProducto"]; ?></td>
             <td><?php echo $fila["DetalleProducto"]; ?></td>
+            <td>
+             <?php
+            if($fila["Stock"] <= 5){
+             echo "<span style='color:#D46A6A; font-weight:bold;'>".$fila["Stock"]."</span>";
+            }else{
+            echo $fila["Stock"];
+            }
+            ?>
+</td>
+
             <td>Bs. <?php echo $fila["PrecioProducto"]; ?></td>
 
 
