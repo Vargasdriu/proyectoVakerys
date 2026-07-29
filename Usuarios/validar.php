@@ -21,6 +21,20 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 
     $fila = $result->fetch_assoc();
+    if($fila['Rol']=="Vendedor"){
+
+    if($fila['Estado']=="Bloqueado"){
+
+        echo "
+        <script>
+        alert('Su cuenta esta bloqueada.');
+        window.location.href='../login.php';
+        </script>
+        ";
+
+    }
+
+}
 
     
     $_SESSION['Nombre'] = $fila['Nombre'];

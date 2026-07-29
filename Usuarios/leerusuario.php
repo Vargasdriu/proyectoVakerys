@@ -185,18 +185,44 @@ if ($resultado->num_rows > 0){
         <td>".$fila['Rol']."</td>
         <td>".$fila['Estado']."</td>
 
-        <td>
-            <a href='actualizarusuario.php?CI=$CI'>
-                <button class='editar'>Editar</button>
-            </a>
+       <td>
 
-            
+<a href='actualizarusuario.php?CI=$CI'>
+<button class='editar'>Editar</button>
+</a>
 
-            <a href='mostrarusuario.php?CI=$CI'>
-                <button class='mostrar'>Mostrar</button>
-            </a>
-        </td>
+<a href='mostrarusuario.php?CI=$CI'>
+<button class='mostrar'>Mostrar</button>
+</a>
+
+";
+
+if($fila['Rol']=="vendedor"){
+
+    if($fila['Estado']=="activo"){
+
+        echo "
+        <a href='cambiarestado.php?CI=$CI'>
+        <button class='eliminar'>Bloquear</button>
+        </a>
         ";
+
+    }
+
+    if($fila['Estado']=="bloqueado"){
+
+        echo "
+        <a href='cambiarestado.php?CI=$CI'>
+        <button class='editar'>Desbloquear</button>
+        </a>
+        ";
+
+    }
+
+}
+
+echo "</td>
+";
 
         echo "</tr>";
     }
