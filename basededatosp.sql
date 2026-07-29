@@ -44,11 +44,13 @@ ENGINE = InnoDB;
 -- Table `vakerysss`.`pedidos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `vakerysss`.`pedidos` (
-  `id` INT(45) NOT NULL AUTO_INCREMENT,
+  `id` INT(45) NOT NULL,
   `Nombre` VARCHAR(200) NULL,
   `Fecha` DATE NULL,
   `Estado` VARCHAR(45) NULL,
   `NombreVendedor` VARCHAR(200) NULL,
+  `Direccion` VARCHAR(45) NULL,
+  `Telefono` INT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -84,6 +86,23 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`carrito` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_productos_has_pedidos_pedidos1`
+    FOREIGN KEY (`pedidos_id`)
+    REFERENCES `vakerysss`.`pedidos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `vakerysss`.`ventas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vakerysss`.`ventas` (
+  `pedidos_id` INT(45) NOT NULL,
+  `costoTotal` INT NULL,
+  `Estado` VARCHAR(45) NULL,
+  `Metodo` VARCHAR(45) NULL,
+  PRIMARY KEY (`pedidos_id`),
+  CONSTRAINT `fk_ventas_pedidos1`
     FOREIGN KEY (`pedidos_id`)
     REFERENCES `vakerysss`.`pedidos` (`id`)
     ON DELETE NO ACTION

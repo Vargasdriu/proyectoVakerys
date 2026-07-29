@@ -66,7 +66,7 @@ $nombre = $_SESSION['Nombre'];
                 confirmButtonText: 'Entendido'
             }).then(() => {
                 elemento.focus(); 
-            });
+            }); 
         }
        
         if (b.value.trim() == "") {
