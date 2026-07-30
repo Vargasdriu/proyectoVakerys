@@ -35,6 +35,10 @@ $nombre = $_SESSION['Nombre'];
 <input type="text" placeholder="ESTADO" name="Estado" id="Estado" >
 <label>Nombre Vendedor:</label>
 <input type="text" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor" value="<?php echo $nombre; ?>"readonly>
+<label>Dirección:</label>
+<input type="text" placeholder="DIRECCIÓN" name="Direccion" id="Direccion" >
+<label>Teléfono:</label>
+<input type="number" placeholder="TELÉFONO" name="Telefono" id="Telefono" >
 <input class="buttom" type="submit" value="Registrar">
 
 </form>

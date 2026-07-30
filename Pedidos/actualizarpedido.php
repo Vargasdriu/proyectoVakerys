@@ -30,6 +30,8 @@ if ($id != "") {
             $Fecha = $fila['Fecha'];
             $Estado = $fila['Estado'];
             $NombreVendedor = $fila['NombreVendedor'];
+            $Direccion=$fila['Direccion'];
+            $Telefono=$fila['Telefono'];
         }
     }
 }
@@ -152,6 +154,12 @@ input:focus{
 
     <label>Nombre del Vendedor:</label>
     <input type="text" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>" readonly>
+
+    <label>Dirección:</label>
+    <input type="text" name="Direccion" id="Direccion" value="<?=$Direccion?>" readonly>
+
+    <label>Teléfono:</label>
+    <input type="number" name="Telefono" id="Telefono" value="<?=$Telefono?>" readonly>
    
     <input type="submit" value="Actualizar Pedido" class="boton">
 
