@@ -162,8 +162,6 @@ echo "
     <th>Fecha</th>
     <th>Estado</th>
     <th>Nombre Vendedor</th>
-    <th>Direccion</th>
-    <th>Telefono</th>
     <th>Acciones</th>
 </tr>
 ";
@@ -184,10 +182,6 @@ if ($resultado->num_rows > 0){
         <td>".$fila['Fecha']."</td>
         <td>".$fila['Estado']."</td>
         <td>".$fila['NombreVendedor']."</td>
-        <td>".$fila['Direccion']."</td>
-        <td>".$fila['Telefono']."</td>
-
-
 
         <td>
             <a href='actualizarpedido.php?id=$id'>
