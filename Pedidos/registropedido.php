@@ -14,10 +14,12 @@ $Nombre = $_POST['Nombre'];
 $Fecha = $_POST['Fecha'];
 $Estado = $_POST['Estado'];
 $NombreVendedor = $_POST['NombreVendedor'];
+$Direccion = $_POST['Direccion'];
+$Telefono = $_POST['Telefono'];
 
 $sql = "INSERT INTO Pedidos 
-(Nombre, Fecha, Estado, NombreVendedor) VALUES 
-('$Nombre','$Fecha','$Estado','$NombreVendedor')";
+(Nombre, Fecha, Estado, NombreVendedor, Direccion, Telefono) VALUES 
+('$Nombre','$Fecha','$Estado','$NombreVendedor','$Direccion','$Telefono')";
 
 if($conn->query($sql)){
     header("location:../carrito/miCarrito.php?idPedido=".$conn->insert_id);
