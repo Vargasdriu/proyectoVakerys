@@ -122,6 +122,8 @@ if($resultado->num_rows > 0){
         echo "<p><span>Fecha:</span> ".$fila['Fecha']."</p>";
         echo "<p><span>Estado:</span> ".$fila['Estado']."</p>";
         echo "<p><span>Nombre del Vendedor:</span> ".$fila['NombreVendedor']."</p>";
+        echo "<p><span>Direccion:</span> ".$fila['Direccion']."</p>";
+        echo "<p><span>Telefono:</span> ".$fila['Telefono']."</p>";
 
     }
 

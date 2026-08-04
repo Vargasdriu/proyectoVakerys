@@ -15,12 +15,15 @@ $Nombre = $_POST['Nombre'];
 $Fecha = $_POST['Fecha'];
 $Estado = $_POST['Estado'];
 $NombreVendedor = $_POST['NombreVendedor'];
+$Direccion = $_POST['Direccion'];
+$Telefono = $_POST['Telefono'];
 
 $sql = "UPDATE Pedidos SET 
 Nombre='$Nombre',
 Fecha='$Fecha',
 Estado='$Estado',
 NombreVendedor='$NombreVendedor'
+Direccion='$Direccion'
 WHERE id='$id'";
 ?>
 

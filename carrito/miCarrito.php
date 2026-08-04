@@ -29,7 +29,7 @@ $total = $res['total'] ?? 0;
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carrito</title>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 *{
     margin:0;
@@ -190,6 +190,7 @@ a{
             <th>Código</th>
             <th>Nombre</th>
             <th>Descripción</th>
+            <th>Stock</th>
             <th>Precio</th>
       
             <th>Agregar al carrito</th>
@@ -201,6 +202,16 @@ a{
             <td><?php echo $fila["Codigo"]; ?></td>
             <td><?php echo $fila["NombreProducto"]; ?></td>
             <td><?php echo $fila["DetalleProducto"]; ?></td>
+            <td>
+             <?php
+            if($fila["Stock"] <= 5){
+             echo "<span style='color:#D46A6A; font-weight:bold;'>".$fila["Stock"]."</span>";
+            }else{
+            echo $fila["Stock"];
+            }
+            ?>
+</td>
+
             <td>Bs. <?php echo $fila["PrecioProducto"]; ?></td>
 
 
@@ -244,7 +255,33 @@ a{
             </button>
         </a>
 </div>
+<?php
+if(isset($_GET["error"]) && $_GET["error"]=="stock"){
+?>
+<script>
+Swal.fire({
+    icon: "error",
+    title: "Stock insuficiente",
+    text: "No hay suficiente stock disponible."
+});
+</script>
+<?php
+}
 
+if(isset($_GET["success"])){
+?>
+<script>
+Swal.fire({
+    icon: "success",
+    title: "Producto(s) agregado(s)",
+    text: "Se agregó correctamente al carrito.",
+    timer: 1500,
+    showConfirmButton: false
+});
+</script>
+<?php
+}
+?>
 </body>
 </html>
 
