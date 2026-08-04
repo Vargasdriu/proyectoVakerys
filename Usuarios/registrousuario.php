@@ -10,8 +10,6 @@ if ($conn->connect_error){
     die("Conexion fallida: " . $conn->connect_error);
 }
 
-/* VALIDAR DATOS */
-
 if(
     isset($_POST['CI']) &&
     isset($_POST['Nombre']) &&
