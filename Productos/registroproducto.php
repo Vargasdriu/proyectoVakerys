@@ -19,9 +19,9 @@ $CostoProducto = $_POST['CostoProducto'];
 
 
 $sql = "INSERT INTO productos
-(Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto, Imagen)
+(Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto )
 VALUES
-('$Codigo','$NombreProducto','$PrecioProducto','$DetalleProducto','$Stock','$CostoProducto','$Imagen')";
+('$Codigo','$NombreProducto','$PrecioProducto','$DetalleProducto','$Stock','$CostoProducto')";
 
 $conn->query($sql);
 

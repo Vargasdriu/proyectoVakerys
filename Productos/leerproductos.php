@@ -167,7 +167,6 @@ Panel de productos
 </p>
 
 <?php
-
 echo "<table class='tabla-estilo'>";
 
 echo "<tr>
@@ -177,48 +176,66 @@ echo "<tr>
 <th>Detalle</th>
 <th>Stock</th>
 <th>Costo</th>
+<th>Imágenes</th>
 <th>Acciones</th>
 </tr>";
 
 $resultado = $conn->query($sql);
 
-if($resultado->num_rows > 0){
+if ($resultado->num_rows > 0) {
 
-    while($fila = $resultado->fetch_assoc()){
+    while ($fila = $resultado->fetch_assoc()) {
 
-        $Codigo = $fila['Codigo'];
+        $Codigo = $fila["Codigo"];
 
         echo "<tr>";
 
-        echo "<td>".$fila['Codigo']."</td>";
-        echo "<td>".$fila['NombreProducto']."</td>";
-        echo "<td>Bs ".$fila['PrecioProducto']."</td>";
-        echo "<td>".$fila['DetalleProducto']."</td>";
-        echo "<td>".$fila['Stock']."</td>";
-        echo "<td>Bs ".$fila['CostoProducto']."</td>";
+        echo "<td>".$fila["Codigo"]."</td>";
+        echo "<td>".$fila["NombreProducto"]."</td>";
+        echo "<td>Bs ".$fila["PrecioProducto"]."</td>";
+        echo "<td>".$fila["DetalleProducto"]."</td>";
+        echo "<td>".$fila["Stock"]."</td>";
+        echo "<td>Bs ".$fila["CostoProducto"]."</td>";
 
         echo "<td>";
 
-        echo "<a href='actualizarproducto.php?Codigo=$Codigo'>
-        <button class='editar'>Editar</button>
-        </a>";
+        echo "<a href='verimagenes.php?codigo=".$Codigo."'>
+                <button type='button' class='mostrar'>Ver imágenes</button>
+              </a>";
 
-        echo "<a href='eliminarproducto.php?Codigo=$Codigo'>
-        <button class='eliminar'>Eliminar</button>
-        </a>";
+        echo "<a href='añadirimagen.php?codigo=".$Codigo."'>
+                <button type='button' class='editar'>Agregar</button>
+              </a>";
 
-        echo "<a href='mostrarproducto.php?Codigo=$Codigo'>
-        <button class='mostrar'>Mostrar</button>
-        </a>";
+        echo "</td>";
+
+        echo "<td>";
+
+        echo "<a href='actualizarproducto.php?Codigo=".$Codigo."'>
+                <button type='button' class='editar'>Editar</button>
+              </a>";
+
+        echo "<a href='eliminarproducto.php?Codigo=".$Codigo."'>
+                <button type='button' class='eliminar'>Eliminar</button>
+              </a>";
+
+        echo "<a href='mostrarproducto.php?Codigo=".$Codigo."'>
+                <button type='button' class='mostrar'>Mostrar</button>
+              </a>";
 
         echo "</td>";
 
         echo "</tr>";
     }
+
+} else {
+
+    echo "<tr>
+            <td colspan='8'>No hay productos registrados.</td>
+          </tr>";
 }
 
 echo "</table>";
-
 ?>
 
 <div class="boton-centro">
