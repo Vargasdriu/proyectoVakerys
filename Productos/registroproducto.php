@@ -17,11 +17,15 @@ $DetalleProducto = $_POST['DetalleProducto'];
 $Stock = $_POST['Stock'];
 $CostoProducto = $_POST['CostoProducto'];
 
-$sql = "INSERT INTO Productos 
-(Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto)
 
-VALUES 
-('$Codigo','$NombreProducto','$PrecioProducto','$DetalleProducto','$Stock','$CostoProducto')";
+$sql = "INSERT INTO productos
+(Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto, Imagen)
+VALUES
+('$Codigo','$NombreProducto','$PrecioProducto','$DetalleProducto','$Stock','$CostoProducto','$Imagen')";
+
+$conn->query($sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -89,31 +93,25 @@ p{
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
-
 </style>
 
 </head>
 <body>
-  <?php include '../header.php'; ?>
+
+<?php include '../header.php'; ?>
 
 <div class="contenedor">
 
 <?php
-
-if($conn->query($sql) == TRUE){
-
+if($conn->affected_rows > 0){
     echo "<h1>✓ Producto Registrado</h1>";
     echo "<p>El nuevo producto fue creado con éxito.</p>";
-
 }else{
-
     echo "<h1>✕ Error</h1>";
     echo "<p>".$conn->error."</p>";
-
 }
 
 $conn->close();
-
 ?>
 
 <a class="boton" href="leerproductos.php">Volver a Productos</a>

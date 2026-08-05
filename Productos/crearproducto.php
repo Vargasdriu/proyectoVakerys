@@ -29,7 +29,8 @@
 <input type="text" placeholder="DETALLE" name="DetalleProducto" id="Detalle" >
 <input type="number" placeholder="COSTO" name="CostoProducto" id="Costo" >
 <input type="number" placeholder="STOCK" name="Stock" id="Stock" >
-<input class="buttom" type="submit" value="Registrar">
+
+ <input class="buttom" type="submit" value="Registrar">
 
 </form>
 
