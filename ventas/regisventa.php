@@ -13,18 +13,18 @@ if ($conn->connect_error) {
 }
 
 // Verificar que se haya enviado un ID de pedido por URL (ejemplo: registrar_venta.php?idPedido=1)
-if (!isset($_GET['idPedido'])) {
+if (!isset($_GET['pedido_id'])) {
     die("No se especificó ningún número de pedido.");
 }
 
-$id_pedido = $_GET['idPedido'];
+$id_pedido = $_GET['pedido_id'];
 
 // ==========================================
 // PROCESAR EL FORMULARIO CUANDO SE ENVÍA (POST)
 // ==========================================
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $estado_seleccionado = $_POST['estado'];
-    $metodo_pago = $_POST['metodo_pago'];
+    $Metodo = $_POST['Metodo'];
 
     // 1. Actualizar el estado en la tabla 'pedidos'
     $sqlActualizarPedido = "UPDATE pedidos SET Estado = '$estado_seleccionado' WHERE id = '$id_pedido'";

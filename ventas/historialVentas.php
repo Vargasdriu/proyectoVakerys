@@ -76,3 +76,9 @@ $resultado = $conn->query($sql);
 </table>
 
 <?php $conn->close(); ?>
+
+///
+
+<?php
+include_once 'mostrarventa.php';
+?>

@@ -129,8 +129,77 @@ input:focus{
 
     <h2>Registrar Venta</h2>
 
-    <label>ID Pedido:</label>
-    <input type="text" name="pedidos_id" id="pedidos_id">
+    <input type="hidden" name="pedidos_id" id="pedidos_id" >
 
     <label>Costo Total:</label>
-    <input type="text" name="costoTotal" id="costo
+    <input type="number" placeholder="COSTO TOTAL" name="costoTotal" id="costoTotal" >
+
+    <label>Estado:</label>
+    <input type="text" placeholder="ESTADO"  name="Estado" id="Estado">
+
+    <label>Método de Pago:</label>
+    <input type="text" placeholder="METODO DE PAGO" name="Metodo" id="Metodo">
+
+    <input type="submit" value="Registrar Venta" class="boton">
+
+</form>
+    
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.getElementById("ActualizarVenta").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    var b = document.getElementById("costoTotal");
+    var c = document.getElementById("Estado");
+    var d = document.getElementById("Metodo");
+
+    var ex = /^[0-9]*$/;
+    var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+
+    function mostrarAlerta(mensaje, elemento) {
+        Swal.fire({
+            icon: 'error',
+            title: '¡Oops!',
+            text: mensaje,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Entendido'
+        }).then(() => {
+            elemento.focus();
+        });
+    }
+
+    if (b.value.trim() == "") {
+        mostrarAlerta("El campo Costo Total no puede ir vacío", b);
+        return;
+    }
+    if (!ex.exec(b.value)) {
+        mostrarAlerta("Introduce solo números en el Costo Total", b);
+        return;
+    }
+
+    if (c.value.trim() == "") {
+        mostrarAlerta("El campo Estado no puede ir vacío", c);
+        return;
+    }
+    if (!expRegNombre.exec(c.value)) {
+        mostrarAlerta("Introduce solo letras en el Estado", c);
+        return;
+    }
+
+    if (d.value.trim() == "") {
+        mostrarAlerta("El campo Método no puede ir vacío", d);
+        return;
+    }
+    if (!expRegNombre.exec(d.value)) {
+        mostrarAlerta("Introduce solo letras en el Método", d);
+        return;
+    }
+
+    this.submit();
+});
+</script>
+
+</div>
+</body>
+</html>
