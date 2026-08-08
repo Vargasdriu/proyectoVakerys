@@ -22,7 +22,7 @@ $sql = "SELECT * FROM Productos";
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vakerys</title>
+<title>Vakery`s</title>
 
 <style>
 
@@ -160,7 +160,7 @@ button{
 <div class="contenedor">
 
 
-<h1>Vakerys</h1>
+<h1>Vakery`s</h1>
 
 <p class="subtitulo">
 Panel de productos 
@@ -241,7 +241,7 @@ echo "</table>";
 <div class="boton-centro">
 
 <a href="crearproducto.php">
-<button class="nuevo">Nuevo Producto</button>
+<button class="nuevo">Nuevo Producto   +</button>
 </a>
 
 </div>

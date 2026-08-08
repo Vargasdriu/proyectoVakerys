@@ -1,4 +1,5 @@
 <?php
+
 $servidor = "localhost";
 $usuario = "root";
 $contrasena = "";
@@ -9,6 +10,8 @@ $conn = new mysqli($servidor, $usuario, $contrasena, $bd);
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
+
+$conn->set_charset("utf8");
 
 $CodigoProducto = $_POST["CodigoProducto"];
 
@@ -30,7 +33,9 @@ foreach ($_FILES["Imagenes"]["name"] as $i => $nombreArchivo) {
     if ($_FILES["Imagenes"]["error"][$i] == 0) {
 
         $nombreTemporal = $_FILES["Imagenes"]["tmp_name"][$i];
-        $nuevoNombre = time() . "_" . basename($nombreArchivo);
+
+        $nuevoNombre = basename($nombreArchivo);
+
         $ruta = $carpeta . $nuevoNombre;
 
         if (move_uploaded_file($nombreTemporal, $ruta)) {
@@ -44,6 +49,7 @@ foreach ($_FILES["Imagenes"]["name"] as $i => $nombreArchivo) {
 }
 
 $conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -94,7 +100,7 @@ Swal.fire({
     icon: "success",
     confirmButtonText: "Aceptar"
 }).then(() => {
-    window.location = "añadirimagen.php?codigo=<?php echo $CodigoProducto; ?>";
+    window.location = "verimagenes.php?codigo=<?php echo $CodigoProducto; ?>";
 });
 </script>
 

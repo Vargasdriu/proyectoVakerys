@@ -89,7 +89,6 @@
 
     <div class="footer-container">
 
-        <!-- Marca -->
         <div class="footer-col">
             <h2 class="logo">Vakery’s</h2>
             <p class="desc">
@@ -98,16 +97,14 @@
             </p>
         </div>
 
-        <!-- Navegación -->
         <div class="footer-col">
             <h3>Navegación</h3>
-            <a href="#">Inicio</a>
-            <a href="#">Productos</a>
-            <a href="#">Sobre nosotros</a>
+            <a href="/proyectovakerys/paginadeinicio.php">Inicio</a>
+            <a href="/proyectovakerys/paginasproductos/productos.php">Productos</a>
+            <a href="/proyectovakerys/paginanosotros.php">Quiénes somos</a>
             <a href="#">Contacto</a>
         </div>
 
-        <!-- Contacto -->
         <div class="footer-col">
             <h3>Contacto</h3>
             <p>Cochabamba, Bolivia</p>
@@ -115,7 +112,6 @@
             <p>vakerys@gmail.com</p>
         </div>
 
-        <!-- Redes -->
         <div class="footer-col">
             <h3>Redes sociales</h3>
             <a href="https://www.instagram.com/vakerys?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Instagram</a>
