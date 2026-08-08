@@ -1,6 +1,11 @@
 <?php
 session_start();
-require("php/micarrito.php");
+$servername = "localhost";
+$username = "root";
+$password = "";
+$bdname = "vakerysss";
+
+$conn = new mysqli($servername, $username, $password, $bdname);
 
 if(!isset($_SESSION["pedidos"])){
 
