@@ -27,7 +27,7 @@ $pedido=$resultado->fetch_assoc();
 <head>
     
     <title>Recibo</title>
-    <link rel="stylesheet" href="css/ticket.css">
+    <link rel="stylesheet" href="css/recibo.css">
 </head>
 <body>
     <h1> VAKERY'S</h1>
