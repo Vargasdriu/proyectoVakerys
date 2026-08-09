@@ -1,7 +1,3 @@
-<?php
-session_start();
-$nombre = $_SESSION['Nombre'];
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -51,7 +47,7 @@ $nombre = $_SESSION['Nombre'];
 
 <div class="tra">
 
-<form action="registropedido.php" method="post" id="crearpedido">
+<form action="registropedidocliente.php" method="post" id="crearpedidocliente">
 
 <h2>Nuevo Pedido</h2>
 
@@ -70,8 +66,7 @@ $nombre = $_SESSION['Nombre'];
     <option value="Completado">Completado</option>
     <option value="Cancelado">Cancelado</option>
 </select>
-<label>Nombre Vendedor:</label>
-<input type="text" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor" value="<?php echo $nombre; ?>"readonly>
+<input type="hidden" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor">
 <label>Dirección:</label>
 <input type="text" placeholder="DIRECCIÓN" name="Direccion" id="Direccion" >
 <label>Teléfono:</label>
@@ -85,7 +80,7 @@ $nombre = $_SESSION['Nombre'];
 
 <script>
 
-    document.getElementById("crearpedido").addEventListener("submit", function(event) {
+    document.getElementById("crearpedidocliente").addEventListener("submit", function(event) {
         
         event.preventDefault();
 

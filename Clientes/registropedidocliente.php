@@ -4,13 +4,12 @@ $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
-$conexion = new mysqli($servername, $username, $password, $bdname);
+$conn = new mysqli($servername, $username, $password, $bdname);
 
-if($conexion->connect_error){
-    die("Conexion fallida: ".$conexion->connect_error);
+if($conn->connect_error){
+    die("Conexion fallida: ".$conn->connect_error);
 }
 
-$id = $_POST['id'];
 $Nombre = $_POST['Nombre'];
 $Fecha = $_POST['Fecha'];
 $Estado = $_POST['Estado'];
@@ -18,14 +17,18 @@ $NombreVendedor = $_POST['NombreVendedor'];
 $Direccion = $_POST['Direccion'];
 $Telefono = $_POST['Telefono'];
 
-$sql = "UPDATE Pedidos SET 
-Nombre='$Nombre',
-Fecha='$Fecha',
-Estado='$Estado',
-NombreVendedor='$NombreVendedor',
-Direccion='$Direccion',
-Telefono='$Telefono'
-WHERE id='$id'";
+$sql = "INSERT INTO Pedidos 
+(Nombre, Fecha, Estado, NombreVendedor, Direccion, Telefono) VALUES 
+('$Nombre','$Fecha','$Estado','$NombreVendedor','$Direccion','$Telefono')";
+
+if($conn->query($sql)){
+    header("location:../carrito/miCarrito.php?idPedido=".$conn->insert_id);
+}else{
+    echo "Error: " . $conn->error;
+}
+
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +36,7 @@ WHERE id='$id'";
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Actualizar Pedido</title>
+<title>Registrar Pedido</title>
 
 <style>
 *{
@@ -98,21 +101,32 @@ p{
 
 </head>
 <body>
-<?php include '../header.php'; ?>
+  <?php include '../header.php'; ?>
+
 <div class="contenedor">
 
 <?php
-if($conexion->query($sql) == TRUE){
-    echo "<h1>✓ Pedido Actualizado</h1>";
-    echo "<p>El pedido se actualizó con éxito.</p>";
+
+if($conn->query($sql) == TRUE){
+
+    echo "<h1>✓ Pedido Registrado</h1>";
+    echo "<p>El nuevo pedido fue creado con éxito.</p>";
+
 }else{
+
     echo "<h1>✕ Error</h1>";
-    echo "<p>No se pudo actualizar el pedido.</p>";
+    echo "<p>El pedido no fue creado con éxito.</p>";
+    echo "<p>".$conn->error."</p>";
+
 }
+
+$conn->close();
+
 ?>
 
-<a class="boton" href="leerpedido.php">Volver a Pedidos</a>
+<a class="boton" href="leerpedidocliente.php">Volver a Pedidos</a>
 
 </div>
 
 </body>
+</html>

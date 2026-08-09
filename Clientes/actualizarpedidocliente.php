@@ -164,7 +164,7 @@ input:focus{
 
 <div class="contenedor">
 
-<form action="registroeditarpedido.php" method="post" id="ActualizarPedido">
+<form action="registroeditarpedidocliente.php" method="post" id="ActualizarPedidoCliente">
 
     <h2>Actualizar Pedido</h2>
 
@@ -186,8 +186,8 @@ input:focus{
     <option value="Cancelado">Cancelado</option>
 </select>
 
-    <label>Nombre del Vendedor:</label>
-    <input type="text" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>" readonly>
+<input type="hidden" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor">
+
 
     <label>Dirección:</label>
     <input type="text" name="Direccion" id="Direccion" value="<?=$Direccion?>" >
@@ -201,7 +201,7 @@ input:focus{
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-    document.getElementById("ActualizarPedido").addEventListener("submit", function(event) {
+    document.getElementById("ActualizarPedidoCliente").addEventListener("submit", function(event) {
         
         event.preventDefault();
 
