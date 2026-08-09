@@ -1,3 +1,4 @@
+
 <?php
 
 $conexion = mysqli_connect("localhost", "root", "", "vakerysss");
@@ -23,6 +24,7 @@ $sqlVentasHoy = "
 $resultVentasHoy = mysqli_query($conexion, $sqlVentasHoy);
 $ventasHoy = mysqli_fetch_assoc($resultVentasHoy)['total'];
 
+
 $sqlPedidosActivos = "
     SELECT COUNT(*) AS total
     FROM pedidos
@@ -33,6 +35,7 @@ $sqlPedidosActivos = "
 $resultPedidosActivos = mysqli_query($conexion, $sqlPedidosActivos);
 $pedidosActivos = mysqli_fetch_assoc($resultPedidosActivos)['total'];
 
+
 $sqlUsuarios = "
     SELECT COUNT(*) AS total
     FROM clientes
@@ -41,6 +44,7 @@ $sqlUsuarios = "
 $resultUsuarios = mysqli_query($conexion, $sqlUsuarios);
 $totalUsuarios = mysqli_fetch_assoc($resultUsuarios)['total'];
 
+
 $sqlProductosTotal = "
     SELECT COUNT(*) AS total
     FROM productos
@@ -48,6 +52,7 @@ $sqlProductosTotal = "
 
 $resultProductosTotal = mysqli_query($conexion, $sqlProductosTotal);
 $totalProductos = mysqli_fetch_assoc($resultProductosTotal)['total'];
+
 
 $sqlPedidos = "
     SELECT 
@@ -67,6 +72,7 @@ $sqlPedidos = "
 
 $pedidos = mysqli_query($conexion, $sqlPedidos);
 
+
 $sqlProductos = "
     SELECT 
         NombreProducto,
@@ -78,6 +84,7 @@ $sqlProductos = "
 ";
 
 $productos = mysqli_query($conexion, $sqlProductos);
+
 
 $sqlTopVentas = "
     SELECT
@@ -98,254 +105,349 @@ $topVentas = mysqli_query($conexion, $sqlTopVentas);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="estilos/admin.css">
+  <link rel="stylesheet" href="estilos/paginaadmin.css">
 </head>
 
 <body>
 
-<div class="saludo">
-  <h1>¡Hola, <?php echo $nombre; ?>!</h1>
-  <p>Bienvenido/a de nuevo.</p>
-</div>
+<div class="contenido">
 
-<section class="stats">
+  <div class="saludo">
 
-  <a href="">
-    <div class="card">
-      <img src="imagenes/dinero.png" alt="">
-      <h2>
-        Bs. <?php echo number_format($ventasHoy, 0, ',', '.'); ?>
-      </h2>
-      <p>Ventas de hoy</p>
-    </div>
-  </a>
+    <h1>
+      Bienvenido, <?php echo $_SESSION['Nombre']; ?>
+    </h1>
 
+    <p>
+      Panel de administración
+    </p>
+
+  </div>
+
+
+  <main class="dashboard">
+
+    <?php include 'header.php'; ?>
+
+
+    <section class="stats">
+
+      <div class="card">
   <a href="Pedidos/leerpedido.php">
-    <div class="card">
-      <img src="imagenes/carrito-de-compras.png" alt="">
-      <h2>
-        <?php echo $pedidosActivos; ?>
-      </h2>
-      <p>Pedidos Activos</p>
-    </div>
-  </a>
+        <img src="imagenes/bolsa-de-la-compra.png" alt="">
 
-  <a href="Usuarios/leerusuario.php">
-    <div class="card">
-      <img src="imagenes/nueva-cuenta.png" alt="">
-      <h2>
-        <?php echo $totalUsuarios; ?>
-      </h2>
-      <p>Nuevos usuarios</p>
-    </div>
-  </a>
+        <h2>24</h2>
 
-  <a href="Productos/leerproductos.php">
-    <div class="card">
-      <img src="imagenes/galleta.png" alt="">
-      <h2>
-        <?php echo $totalProductos; ?>
-      </h2>
-      <p>Productos</p>
-    </div>
-  </a>
-
-</section>
-
-<section class="content-grid">
-
-  <section class="panel pedidos">
-
-    <div class="panel-title">
-      <img src="imagenes/carrito-de-compras.png" alt="">
-      <h2>Pedidos recientes</h2>
-    </div>
-
-    <?php while ($pedido = mysqli_fetch_assoc($pedidos)) { ?>
-
-      <div class="pedido-card">
-
-        <?php if (!empty($pedido['Imagen'])) { ?>
-
-          <img 
-            class="producto-img"
-            src="<?php echo $pedido['Imagen']; ?>"
-            alt=""
-          >
-
-        <?php } else { ?>
-
-          <img 
-            class="producto-img"
-            src="imagenes/galleta.png"
-            alt=""
-          >
-
-        <?php } ?>
-
-        <div class="pedido-info">
-
-          <h3>
-            #<?php echo str_pad($pedido['id'], 4, '0', STR_PAD_LEFT); ?>
-          </h3>
-
-          <h4>
-            <?php echo $pedido['Nombre']; ?>
-          </h4>
-
-          <p>
-            x<?php echo $pedido['Cantidad']; ?>
-            <?php echo $pedido['NombreProducto']; ?>
-          </p>
-
-        </div>
-
-        <div class="acciones">
-
-          <a href="Pedidos/leerpedido.php?id=<?php echo $pedido['id']; ?>">
-            <img src="imagenes/ojo-abierto.png" alt="">
-          </a>
-
-          <a href="Pedidos/editarpedido.php?id=<?php echo $pedido['id']; ?>">
-            <img src="imagenes/editarr.png" alt="">
-          </a>
-
-        </div>
-
+        <p>
+          Pedidos realizados
+        </p>
+</a>
       </div>
 
-    <?php } ?>
 
-    <a class="btn" href="Pedidos/crearpedido.php">
-      Añadir pedidos +
-    </a>
-
-  </section>
-
-  <aside class="sidebar">
-
-    <section class="panel inventario">
-
-      <div class="panel-title">
+      <div class="card">
+        <a href="Productos/leerproductos.php">
         <img src="imagenes/inventario-disponible.png" alt="">
-        <h2>Inventario</h2>
+
+        <h2>18</h2>
+
+        <p>
+          Productos registrados
+        </p>
+        </a>
       </div>
 
-      <?php while ($producto = mysqli_fetch_assoc($productos)) { ?>
 
-        <div class="inventario-item">
+      <div class="card">
+        <a href="Usuarios/leerusuario.php">
+        <img src="imagenes/nueva-cuenta.png" alt="">
 
-          <?php if (!empty($producto['Imagen'])) { ?>
+        <h2>32</h2>
 
-            <img 
-              src="<?php echo $producto['Imagen']; ?>"
-              alt=""
-            >
+        <p>
+          Usuarios registrados
+        </p>
+</a>
+      </div>
 
-          <?php } else { ?>
 
-            <img 
-              src="imagenes/galleta.png"
-              alt=""
-            >
+      <div class="card">
 
-          <?php } ?>
+        <img src="imagenes/dinero.png" alt="">
 
-          <span>
-            <?php echo $producto['NombreProducto']; ?>
-          </span>
+        <h2>47</h2>
 
-          <span>
-            <?php echo $producto['Stock']; ?> en stock
-          </span>
+        <p>
+          Ventas realizadas
+        </p>
 
-        </div>
-
-      <?php } ?>
-
-      <a class="btn" href="Productos/leerproductos.php">
-        Actualizar inventario
-      </a>
+      </div>
 
     </section>
 
-    <section class="panel topventas">
 
-      <div class="panel-title">
-        <img src="imagenes/insignia.png" alt="">
-        <h2>Top ventas</h2>
-      </div>
+    <div class="content-grid">
 
-      <?php while ($venta = mysqli_fetch_assoc($topVentas)) { ?>
 
-        <div class="venta-card">
+      <section class="panel">
 
-          <div>
+        <div class="panel-title">
 
-            <h3>
-              <?php echo $venta['NombreProducto']; ?>
-            </h3>
+          <img src="imagenes/carrito-de-compras.png" alt="">
 
-            <p>
-              <?php echo $venta['vendidos']; ?> vendidos
-            </p>
+          <h2>
+            Pedidos recientes
+          </h2>
+
+        </div>
+
+
+        <div class="pedidos">
+
+          <?php while ($pedido = mysqli_fetch_assoc($pedidos)) { ?>
+
+            <div class="pedido-card">
+
+
+              <?php if (!empty($pedido['Imagen'])) { ?>
+
+                <img
+                  class="producto-img"
+                  src="<?php echo $pedido['Imagen']; ?>"
+                  alt=""
+                >
+
+              <?php } else { ?>
+
+                <img
+                  class="producto-img"
+                  src="imagenes/galleta.png"
+                  alt=""
+                >
+
+              <?php } ?>
+
+
+              <div class="pedido-info">
+
+                <h3>
+                  #<?php echo str_pad($pedido['id'], 4, '0', STR_PAD_LEFT); ?>
+                </h3>
+
+                <h4>
+                  <?php echo $pedido['Nombre']; ?>
+                </h4>
+
+                <p>
+                  x<?php echo $pedido['Cantidad']; ?>
+                  <?php echo $pedido['NombreProducto']; ?>
+                </p>
+
+              </div>
+
+
+              <div class="acciones">
+
+                <a href="Pedidos/leerpedido.php?id=<?php echo $pedido['id']; ?>">
+                  <img src="imagenes/ojo-abierto.png" alt="">
+                </a>
+
+                <a href="Pedidos/editarpedido.php?id=<?php echo $pedido['id']; ?>">
+                  <img src="imagenes/editarr.png" alt="">
+                </a>
+
+              </div>
+
+
+            </div>
+
+          <?php } ?>
+
+        </div>
+
+
+        <a class="btn" href="Pedidos/crearpedido.php">
+          Añadir pedidos +
+        </a>
+
+      </section>
+
+
+      <aside class="sidebar">
+
+
+        <section class="panel inventario">
+
+          <div class="panel-title">
+
+            <img src="imagenes/inventario-disponible.png" alt="">
+
+            <h2>
+              Inventario
+            </h2>
 
           </div>
 
-          <?php if (!empty($venta['Imagen'])) { ?>
 
-            <img 
-              src="<?php echo $venta['Imagen']; ?>"
-              alt=""
-            >
+          <?php while ($producto = mysqli_fetch_assoc($productos)) { ?>
 
-          <?php } else { ?>
+            <div class="inventario-item">
 
-            <img 
-              src="imagenes/galleta.png"
-              alt=""
-            >
+
+              <?php if (!empty($producto['Imagen'])) { ?>
+
+                <img
+                  src="<?php echo $producto['Imagen']; ?>"
+                  alt=""
+                >
+
+              <?php } else { ?>
+
+                <img
+                  src="imagenes/galleta.png"
+                  alt=""
+                >
+
+              <?php } ?>
+
+
+              <span>
+                <?php echo $producto['NombreProducto']; ?>
+              </span>
+
+
+              <span>
+                <?php echo $producto['Stock']; ?> en stock
+              </span>
+
+
+            </div>
 
           <?php } ?>
 
+
+          <a class="btn" href="Productos/leerproductos.php">
+            Actualizar inventario
+          </a>
+
+        </section>
+
+
+        <section class="panel topventas">
+
+          <div class="panel-title">
+
+            <img src="imagenes/insignia.png" alt="">
+
+            <h2>
+              Top ventas
+            </h2>
+
+          </div>
+
+
+          <?php while ($venta = mysqli_fetch_assoc($topVentas)) { ?>
+
+            <div class="venta-card">
+
+
+              <div>
+
+                <h3>
+                  <?php echo $venta['NombreProducto']; ?>
+                </h3>
+
+                <p>
+                  <?php echo $venta['vendidos']; ?> vendidos
+                </p>
+
+              </div>
+
+
+              <?php if (!empty($venta['Imagen'])) { ?>
+
+                <img
+                  src="<?php echo $venta['Imagen']; ?>"
+                  alt=""
+                >
+
+              <?php } else { ?>
+
+                <img
+                  src="imagenes/galleta.png"
+                  alt=""
+                >
+
+              <?php } ?>
+
+
+            </div>
+
+          <?php } ?>
+
+
+        </section>
+
+
+      </aside>
+
+
+    </div>
+
+
+    <section class="acciones-panel">
+
+      <div class="acciones-grid">
+
+
+        <div class="accion-card">
+
+          <img src="imagenes/configuracion.png" alt="">
+
+          <h3>
+            Configuración
+          </h3>
+
         </div>
 
-      <?php } ?>
+
+        <a href="Usuarios/cerrarsesion.php">
+
+          <div class="accion-card">
+
+            <img src="imagenes/cerrar-sesion.png" alt="">
+
+            <h3>
+              Cerrar Sesión
+            </h3>
+
+          </div>
+
+        </a>
+
+
+      </div>
 
     </section>
 
-  </aside>
 
-</section>
+  </main>
 
-<section class="panel acciones-panel">
+</div>
 
-  <div class="panel-title">
-    <img src="imagenes/configuracion.png" alt="">
-    <h2>Acciones rápidas</h2>
-  </div>
 
-  <div class="acciones-grid">
+<footer>
 
-    <div class="accion-card">
-      <img src="imagenes/configuracion.png" alt="">
-      <h3>Configuración</h3>
-    </div>
+  <?php include 'footer.php'; ?>
 
-    <a href="Usuarios/cerrarsesion.php">
-      <div class="accion-card">
-        <img src="imagenes/cerrar-sesion.png" alt="">
-        <h3>Cerrar Sesión</h3>
-      </div>
-    </a>
+</footer>
 
-  </div>
-
-</section>
 
 </body>
+
 </html>

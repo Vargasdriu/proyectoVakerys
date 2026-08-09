@@ -10,8 +10,6 @@ body{
     font-family:'Raleway',sans-serif;
 }
 
-/* HEADER */
-
 .main-header{
     width:100%;
     height:75px;
@@ -38,8 +36,6 @@ body{
     transform:scale(1.05);
 }
 
-/* BOTÓN MENÚ */
-
 .btn-nav{
     position:absolute;
     left:20px;
@@ -56,13 +52,12 @@ body{
     display:none;
 }
 
-/* MENÚ */
-
 nav{
     position:absolute;
 
     top:75px;
     left:0;
+
     color:white;
     width:220px;
     height:calc(100vh - 75px);
@@ -75,6 +70,33 @@ nav{
     transition:.4s ease;
 
     z-index:9999;
+}
+
+.carrito{
+    position:absolute;
+    right:20px;
+
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:8px;
+
+    transition:.3s ease;
+}
+
+.carrito img{
+    width:35px;
+    height:35px;
+    object-fit:contain;
+}
+
+.carrito:hover{
+    background:rgba(255,255,255,.18);
+    transform:scale(1.05);
 }
 
 #btn-nav:checked ~ nav{
@@ -101,6 +123,22 @@ nav{
     transform:translateX(0);
 }
 
+#btn-nav:checked ~ nav .menu li:nth-child(1){
+    transition-delay:.05s;
+}
+
+#btn-nav:checked ~ nav .menu li:nth-child(2){
+    transition-delay:.10s;
+}
+
+#btn-nav:checked ~ nav .menu li:nth-child(3){
+    transition-delay:.15s;
+}
+
+#btn-nav:checked ~ nav .menu li:nth-child(4){
+    transition-delay:.20s;
+}
+
 .menu a{
     display:block;
     padding:18px 15px;
@@ -120,23 +158,41 @@ nav{
 </style>
 
 <header class="main-header">
-    
+
     <img src="/proyectovakerys/imagenes/logo.png" alt="Logo Vakery's">
 
     <label for="btn-nav" class="btn-nav">
         <img src="/proyectovakerys/imagenes/menu.png" alt="Menú">
     </label>
 
+    <a href="#" class="carrito">
+        <img src="/proyectovakerys/imagenes/anadir-al-carrito.png" alt="Carrito">
+    </a>
+
     <input type="checkbox" id="btn-nav">
 
     <nav>
+
         <ul class="menu">
-            <li><a href="/proyectovakerys/paginadeinicio.php">Inicio</a></li>
-            <li><a href="/proyectovakerys/paginanosotros.php">Quiénes somos</a></li>
-            <li><a href="/proyectovakerys/paginasproductos/productos.php">Productos</a></li>
-            <li><a href="/proyectovakerys/usuarios/login.php">Iniciar sesión</a></li>
-            
+
+            <li>
+                <a href="/proyectovakerys/paginadeinicio.php">Inicio</a>
+            </li>
+
+            <li>
+                <a href="/proyectovakerys/paginanosotros.php">Quiénes somos</a>
+            </li>
+
+            <li>
+                <a href="/proyectovakerys/paginasproductos/productos.php">Productos</a>
+            </li>
+
+            <li>
+                <a href="/proyectovakerys/usuarios/login.php">Iniciar sesión</a>
+            </li>
+
         </ul>
+
     </nav>
 
 </header>
