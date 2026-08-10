@@ -117,7 +117,298 @@ nav{
 
     transition:.4s ease;
 }
+/* ==============================
+   FONDO DEL CARRITO
+============================== */
 
+.fondo {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: 0.3s ease;
+
+    z-index: 998;
+}
+
+.fondo.activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ==============================
+   SIDEBAR
+============================== */
+
+.sidebar {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    width: 380px;
+    max-width: 90%;
+
+    height: 100vh;
+
+    background: #f5f6f1;
+
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.15);
+
+    transform: translateX(100%);
+
+    transition: transform 0.35s ease;
+
+    z-index: 999;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.activo {
+    transform: translateX(0);
+}
+
+
+/* ==============================
+   CABECERA
+============================== */
+
+.cabeceraCarrito {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 25px;
+
+    background: #1d3021;
+
+    color: white;
+}
+
+.cabeceraCarrito h2 {
+    margin: 0;
+
+    font-family: 'Raleway', sans-serif;
+
+    font-size: 24px;
+}
+
+#cerrarCarrito {
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 32px;
+
+    cursor: pointer;
+
+    line-height: 1;
+}
+
+
+/* ==============================
+   CONTENIDO
+============================== */
+
+.contenidoCarrito {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 20px;
+}
+
+
+/* PRODUCTOS */
+
+.productoCarrito {
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 15px;
+
+    margin-bottom: 12px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.productoCarrito h3 {
+    margin: 0 0 8px;
+
+    color: #1d3021;
+
+    font-size: 17px;
+}
+
+.productoCarrito p {
+    margin: 4px 0;
+
+    color: #59645b;
+
+    font-size: 14px;
+}
+
+
+/* ==============================
+   PIE
+============================== */
+
+.pieCarrito {
+    padding: 20px;
+
+    background: #cbd1c2;
+
+    border-top: 1px solid #b5bdad;
+}
+
+
+.resumenCarrito {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+
+    color: #405044;
+
+    font-size: 14px;
+}
+
+
+#totalCarrito {
+    margin: 5px 0 18px;
+
+    color: #1d3021;
+
+    font-size: 20px;
+}
+
+
+/* ==============================
+   BOTÓN COMPRAR
+============================== */
+
+#comprar {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 14px;
+
+    background: #1d3021;
+
+    color: white;
+
+    font-family: 'Raleway', sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+#comprar:hover {
+    background: #29432d;
+
+    transform: translateY(-2px);
+}
+
+
+/* ==============================
+   BOTÓN VACIAR
+============================== */
+
+#vaciarCarrito {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 10px;
+
+    border: 1px solid #1d3021;
+
+    border-radius: 12px;
+
+    background: transparent;
+
+    color: #1d3021;
+
+    font-family: 'Raleway', sans-serif;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+#vaciarCarrito:hover {
+    background: #1d3021;
+
+    color: white;
+}
+
+
+/* ==============================
+   CARRITO DEL MENÚ
+============================== */
+
+.carrito {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.carrito img {
+    width: 32px;
+    height: 32px;
+
+    object-fit: contain;
+
+    transition: 0.3s ease;
+}
+
+.carrito:hover img {
+    transform: scale(1.1);
+}
+
+
+
+@media (max-width: 600px) {
+
+    .sidebar {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .cabeceraCarrito {
+        padding: 20px;
+    }
+
+    .contenidoCarrito {
+        padding: 15px;
+    }
+
+    .pieCarrito {
+        padding: 15px;
+    }
+}
 #btn-nav:checked ~ nav .menu li{
     opacity:1;
     transform:translateX(0);
@@ -165,7 +456,7 @@ nav{
         <img src="/proyectovakerys/imagenes/menu.png" alt="Menú">
     </label>
 
-    <a href="#" class="carrito">
+    <a href="#" name="carrito" id="carrito" class="carrito">
         <img src="/proyectovakerys/imagenes/anadir-al-carrito.png" alt="Carrito">
     </a>
 
@@ -194,5 +485,56 @@ nav{
         </ul>
 
     </nav>
+<!-- ==============================
+     CARRITO
+============================== -->
 
+<div id="fondo" class="fondo"></div>
+
+<aside id="sidebar" class="sidebar">
+
+    <div class="cabeceraCarrito">
+
+        <h2>Mi carrito</h2>
+
+        <button id="cerrarCarrito" type="button">
+            &times;
+        </button>
+
+    </div>
+
+
+    <div id="contenidoCarrito" class="contenidoCarrito">
+        <!-- Aquí aparecerán los productos -->
+    </div>
+
+
+    <div class="pieCarrito">
+
+        <div class="resumenCarrito">
+
+            <span>Productos:</span>
+
+            <span id="cantidadCarrito">0</span>
+
+        </div>
+
+
+        <h3 id="totalCarrito">
+            Total: Bs 0.00
+        </h3>
+
+
+        <button id="comprar" type="button">
+            Finalizar compra
+        </button>
+
+
+        <button id="vaciarCarrito" type="button">
+            Vaciar carrito
+        </button>
+
+    </div>
+
+</aside>
 </header>
