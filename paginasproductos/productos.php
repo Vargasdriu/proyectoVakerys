@@ -27,7 +27,7 @@
 
 </div>
 <div class="c">
-<a href="pedidocliente.php">
+<a href="crearpedidocliente.php">
    <h2>
     Nuevo pedido +
    </h2>
