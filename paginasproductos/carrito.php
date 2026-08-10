@@ -4,19 +4,34 @@ session_start();
 
 require("conexion.php");
 
-header("Content-Type: application/json; charset=UTF-8");
+header("Content-Type: application/json; charset=utf-8");
 
 
-/* ==========================================
-   VERIFICAR PEDIDO ACTIVO
-========================================== */
+// ==========================================
+// COMPROBAR CONEXIÓN
+// ==========================================
+
+if ($conn->connect_error) {
+
+    echo json_encode(array(
+        "ok" => false,
+        "mensaje" => "Error de conexión: " . $conn->connect_error
+    ));
+
+    exit;
+}
+
+
+// ==========================================
+// COMPROBAR PEDIDO
+// ==========================================
 
 if (!isset($_SESSION["pedido"])) {
 
-    echo json_encode([
+    echo json_encode(array(
         "ok" => false,
-        "mensaje" => "No existe pedido activo"
-    ]);
+        "mensaje" => "No existe un pedido activo"
+    ));
 
     exit;
 }
@@ -24,359 +39,491 @@ if (!isset($_SESSION["pedido"])) {
 
 $idPedido = $_SESSION["pedido"];
 
-$accion = $_POST["accion"] ?? "";
+
+// ==========================================
+// OBTENER ACCIÓN
+// Compatible con PHP antiguo
+// ==========================================
+
+$accion = isset($_POST["accion"]) ? $_POST["accion"] : "";
 
 
-/* ==========================================
-   ACCIONES
-========================================== */
+// ==========================================
+// AGREGAR PRODUCTO
+// ==========================================
 
-switch ($accion) {
-
-
-    /* ======================================
-       AGREGAR PRODUCTO
-    ====================================== */
-
-    case "agregar":
-
-        $codigo =
-            $_POST["codigo"] ?? "";
+if ($accion == "agregar") {
 
 
-        $cantidadAgregar =
-            intval(
-                $_POST["cantidad"] ?? 1
-            );
+    $codigo = isset($_POST["codigo"])
+        ? $_POST["codigo"]
+        : "";
+
+    $cantidadNueva = isset($_POST["cantidad"])
+        ? intval($_POST["cantidad"])
+        : 1;
 
 
-        if ($codigo == "") {
+    if ($codigo == "") {
 
-            echo json_encode([
+        echo json_encode(array(
+            "ok" => false,
+            "mensaje" => "No se recibió el código del producto"
+        ));
+
+        exit;
+    }
+
+
+    if ($cantidadNueva < 1) {
+        $cantidadNueva = 1;
+    }
+
+
+    // ======================================
+    // BUSCAR PRODUCTO
+    // ======================================
+
+    $sql = "
+        SELECT PrecioProducto, Stock
+        FROM productos
+        WHERE Codigo = ?
+    ";
+
+    $stmt = $conn->prepare($sql);
+
+
+    if (!$stmt) {
+
+        echo json_encode(array(
+            "ok" => false,
+            "mensaje" => "Error al preparar producto: " . $conn->error
+        ));
+
+        exit;
+    }
+
+
+    $stmt->bind_param("s", $codigo);
+
+    $stmt->execute();
+
+    $stmt->store_result();
+
+
+    if ($stmt->num_rows == 0) {
+
+        echo json_encode(array(
+            "ok" => false,
+            "mensaje" => "Producto no encontrado"
+        ));
+
+        $stmt->close();
+
+        exit;
+    }
+
+
+    $stmt->bind_result(
+        $precio,
+        $stock
+    );
+
+    $stmt->fetch();
+
+    $stmt->close();
+
+
+    $precio = intval($precio);
+    $stock = intval($stock);
+
+
+    // ======================================
+    // COMPROBAR STOCK
+    // ======================================
+
+    if ($cantidadNueva > $stock) {
+
+        echo json_encode(array(
+            "ok" => false,
+            "mensaje" => "No hay suficiente stock"
+        ));
+
+        exit;
+    }
+
+
+    // ======================================
+    // COMPROBAR SI YA ESTÁ EN EL CARRITO
+    // ======================================
+
+    $sql = "
+        SELECT Cantidad
+        FROM carrito
+        WHERE productos_Codigo = ?
+        AND pedidos_id = ?
+    ";
+
+
+    $stmt = $conn->prepare($sql);
+
+
+    if (!$stmt) {
+
+        echo json_encode(array(
+            "ok" => false,
+            "mensaje" => "Error al preparar carrito: " . $conn->error
+        ));
+
+        exit;
+    }
+
+
+    $stmt->bind_param(
+        "si",
+        $codigo,
+        $idPedido
+    );
+
+
+    $stmt->execute();
+
+    $stmt->store_result();
+
+
+    // ======================================
+    // YA EXISTE
+    // ======================================
+
+    if ($stmt->num_rows > 0) {
+
+
+        $stmt->bind_result($cantidadActual);
+
+        $stmt->fetch();
+
+        $stmt->close();
+
+
+        $cantidadTotal =
+            intval($cantidadActual) + $cantidadNueva;
+
+
+        // Comprobar stock total
+
+        if ($cantidadTotal > $stock) {
+
+            echo json_encode(array(
                 "ok" => false,
-                "mensaje" =>
-                    "Código de producto inválido"
-            ]);
+                "mensaje" => "No hay suficiente stock"
+            ));
 
             exit;
-
         }
 
 
-        if ($cantidadAgregar < 1) {
+        $costoTotal =
+            $cantidadTotal * $precio;
 
-            $cantidadAgregar = 1;
-
-        }
-
-
-        /* ==================================
-           BUSCAR PRODUCTO
-        ================================== */
-
-        $sqlProducto = "
-            SELECT
-                Codigo,
-                NombreProducto,
-                PrecioProducto,
-                Stock
-            FROM productos
-            WHERE Codigo = '$codigo'
-        ";
-
-
-        $resultadoProducto =
-            $conn->query($sqlProducto);
-
-
-        if (
-            !$resultadoProducto ||
-            $resultadoProducto->num_rows == 0
-        ) {
-
-            echo json_encode([
-                "ok" => false,
-                "mensaje" =>
-                    "Producto no encontrado"
-            ]);
-
-            exit;
-
-        }
-
-
-        $producto =
-            $resultadoProducto->fetch_assoc();
-
-
-        $precio =
-            intval(
-                $producto["PrecioProducto"]
-            );
-
-
-        /* ==================================
-           VERIFICAR STOCK
-        ================================== */
-
-        $stock =
-            intval(
-                $producto["Stock"]
-            );
-
-
-        if ($cantidadAgregar > $stock) {
-
-            echo json_encode([
-                "ok" => false,
-                "mensaje" =>
-                    "No hay suficiente stock"
-            ]);
-
-            exit;
-
-        }
-
-
-        /* ==================================
-           VERIFICAR SI YA ESTÁ EN CARRITO
-        ================================== */
-
-        $sqlExiste = "
-            SELECT
-                Cantidad
-            FROM carrito
-            WHERE productos_Codigo = '$codigo'
-            AND pedidos_id = '$idPedido'
-        ";
-
-
-        $resultadoExiste =
-            $conn->query($sqlExiste);
-
-
-        if (
-            $resultadoExiste &&
-            $resultadoExiste->num_rows > 0
-        ) {
-
-
-            /* ==============================
-               PRODUCTO YA EXISTE
-            ============================== */
-
-            $fila =
-                $resultadoExiste->fetch_assoc();
-
-
-            $cantidadActual =
-                intval(
-                    $fila["Cantidad"]
-                );
-
-
-            $cantidadNueva =
-                $cantidadActual +
-                $cantidadAgregar;
-
-
-            if ($cantidadNueva > $stock) {
-
-                echo json_encode([
-                    "ok" => false,
-                    "mensaje" =>
-                        "No hay suficiente stock"
-                ]);
-
-                exit;
-
-            }
-
-
-            $costoTotal =
-                $cantidadNueva *
-                $precio;
-
-
-            $sql = "
-                UPDATE carrito
-
-                SET
-                    Cantidad = '$cantidadNueva',
-                    CostoTotal = '$costoTotal'
-
-                WHERE productos_Codigo = '$codigo'
-
-                AND pedidos_id = '$idPedido'
-            ";
-
-
-        } else {
-
-
-            /* ==============================
-               PRODUCTO NUEVO
-            ============================== */
-
-            $costoTotal =
-                $cantidadAgregar *
-                $precio;
-
-
-            $sql = "
-                INSERT INTO carrito
-                (
-                    productos_Codigo,
-                    pedidos_id,
-                    Cantidad,
-                    CostoTotal
-                )
-
-                VALUES
-                (
-                    '$codigo',
-                    '$idPedido',
-                    '$cantidadAgregar',
-                    '$costoTotal'
-                )
-            ";
-
-        }
-
-
-        /* ==================================
-           EJECUTAR
-        ================================== */
-
-        if ($conn->query($sql)) {
-
-            echo json_encode([
-                "ok" => true,
-                "mensaje" =>
-                    "Producto añadido al carrito"
-            ]);
-
-        } else {
-
-            echo json_encode([
-                "ok" => false,
-                "mensaje" =>
-                    $conn->error
-            ]);
-
-        }
-
-    break;
-
-
-    /* ======================================
-       MOSTRAR CARRITO
-    ====================================== */
-
-    case "mostrar":
 
         $sql = "
-            SELECT
+            UPDATE carrito
 
-                c.productos_Codigo,
-                c.pedidos_id,
-                c.Cantidad,
-                c.CostoTotal,
+            SET
+                Cantidad = ?,
+                CostoTotal = ?
 
-                p.Codigo,
-                p.NombreProducto,
-                p.PrecioProducto,
-                p.Imagen
-
-            FROM carrito c
-
-            INNER JOIN productos p
-                ON c.productos_Codigo = p.Codigo
-
-            WHERE c.pedidos_id = '$idPedido'
-
-            ORDER BY p.NombreProducto
+            WHERE productos_Codigo = ?
+            AND pedidos_id = ?
         ";
 
 
-        $resultado =
-            $conn->query($sql);
+        $stmt = $conn->prepare($sql);
 
 
-        $carrito = [];
+        if (!$stmt) {
 
+            echo json_encode(array(
+                "ok" => false,
+                "mensaje" => $conn->error
+            ));
 
-        if ($resultado) {
-
-            while (
-                $fila =
-                $resultado->fetch_assoc()
-            ) {
-
-                $carrito[] =
-                    $fila;
-
-            }
-
+            exit;
         }
 
 
-        echo json_encode(
-            $carrito
+        $stmt->bind_param(
+            "iisi",
+            $cantidadTotal,
+            $costoTotal,
+            $codigo,
+            $idPedido
         );
 
-    break;
 
+        if ($stmt->execute()) {
 
-    /* ======================================
-       VACIAR CARRITO
-    ====================================== */
-
-    case "vaciar":
-
-        $sql = "
-            DELETE FROM carrito
-
-            WHERE pedidos_id =
-                '$idPedido'
-        ";
-
-
-        if ($conn->query($sql)) {
-
-            echo json_encode([
+            echo json_encode(array(
                 "ok" => true,
-                "mensaje" =>
-                    "Carrito vaciado correctamente"
-            ]);
+                "mensaje" => "Producto actualizado correctamente"
+            ));
 
         } else {
 
-            echo json_encode([
+            echo json_encode(array(
                 "ok" => false,
-                "mensaje" =>
-                    $conn->error
-            ]);
+                "mensaje" => $stmt->error
+            ));
 
         }
 
-    break;
+
+        $stmt->close();
+
+    }
 
 
-    /* ======================================
-       ACCIÓN NO RECONOCIDA
-    ====================================== */
+// ==========================================
+// PRODUCTO NUEVO
+// ==========================================
 
-    default:
+    else {
 
-        echo json_encode([
-            "ok" => false,
-            "mensaje" =>
-                "Acción no válida"
-        ]);
 
-    break;
+        $stmt->close();
+
+
+        $costoTotal =
+            $cantidadNueva * $precio;
+
+
+        $sql = "
+            INSERT INTO carrito
+            (
+                productos_Codigo,
+                pedidos_id,
+                Cantidad,
+                CostoTotal
+            )
+
+            VALUES
+            (
+                ?,
+                ?,
+                ?,
+                ?
+            )
+        ";
+
+
+        $stmt = $conn->prepare($sql);
+
+
+        if (!$stmt) {
+
+            echo json_encode(array(
+                "ok" => false,
+                "mensaje" => $conn->error
+            ));
+
+            exit;
+        }
+
+
+        $stmt->bind_param(
+            "siii",
+            $codigo,
+            $idPedido,
+            $cantidadNueva,
+            $costoTotal
+        );
+
+
+        if ($stmt->execute()) {
+
+            echo json_encode(array(
+                "ok" => true,
+                "mensaje" => "Producto agregado correctamente"
+            ));
+
+        } else {
+
+            echo json_encode(array(
+                "ok" => false,
+                "mensaje" => $stmt->error
+            ));
+
+        }
+
+
+        $stmt->close();
+
+    }
+
 
 }
+
+
+// ==========================================
+// MOSTRAR CARRITO
+// ==========================================
+
+elseif ($accion == "mostrar") {
+
+
+    $sql = "
+        SELECT
+            c.productos_Codigo,
+            c.Cantidad,
+            c.CostoTotal,
+            p.NombreProducto,
+            p.PrecioProducto,
+            p.Imagen
+
+        FROM carrito c
+
+        INNER JOIN productos p
+            ON c.productos_Codigo = p.Codigo
+
+        WHERE c.pedidos_id = ?
+    ";
+
+
+    $stmt = $conn->prepare($sql);
+
+
+    if (!$stmt) {
+
+        echo json_encode(array(
+            "ok" => false,
+            "mensaje" => "Error al preparar consulta: " . $conn->error
+        ));
+
+        exit;
+    }
+
+
+    $stmt->bind_param(
+        "i",
+        $idPedido
+    );
+
+
+    $stmt->execute();
+
+
+    $stmt->bind_result(
+        $codigoProducto,
+        $cantidad,
+        $costoTotal,
+        $nombreProducto,
+        $precioProducto,
+        $imagen
+    );
+
+
+    $carrito = array();
+
+
+    while ($stmt->fetch()) {
+
+        $carrito[] = array(
+
+            "productos_Codigo" => $codigoProducto,
+
+            "Cantidad" => $cantidad,
+
+            "CostoTotal" => $costoTotal,
+
+            "NombreProducto" => $nombreProducto,
+
+            "PrecioProducto" => $precioProducto,
+
+            "Imagen" => $imagen
+
+        );
+
+    }
+
+
+    echo json_encode($carrito);
+
+
+    $stmt->close();
+
+}
+
+
+// ==========================================
+// VACIAR CARRITO
+// ==========================================
+
+elseif ($accion == "vaciar") {
+
+
+    $sql = "
+        DELETE FROM carrito
+        WHERE pedidos_id = ?
+    ";
+
+
+    $stmt = $conn->prepare($sql);
+
+
+    if (!$stmt) {
+
+        echo json_encode(array(
+            "ok" => false,
+            "mensaje" => $conn->error
+        ));
+
+        exit;
+    }
+
+
+    $stmt->bind_param(
+        "i",
+        $idPedido
+    );
+
+
+    if ($stmt->execute()) {
+
+        echo json_encode(array(
+            "ok" => true,
+            "mensaje" => "Carrito vaciado correctamente"
+        ));
+
+    } else {
+
+        echo json_encode(array(
+            "ok" => false,
+            "mensaje" => $stmt->error
+        ));
+
+    }
+
+
+    $stmt->close();
+
+}
+
+
+// ==========================================
+// ACCIÓN NO RECONOCIDA
+// ==========================================
+
+else {
+
+
+    echo json_encode(array(
+        "ok" => false,
+        "mensaje" => "Acción no válida"
+    ));
+
+}
+
+
+$conn->close();
 
 ?>

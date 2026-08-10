@@ -1,3 +1,17 @@
+let listaProductos = [];
+let pedidoActivo = false;
+
+
+/* ==========================================
+   INICIAR
+========================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    mostrarProductos();
+
+});
+
 
 /* ==========================================
    MOSTRAR PRODUCTOS
@@ -5,14 +19,39 @@
 
 function mostrarProductos() {
 
-    fetch("obtenerProductos.php")
+    fetch("obtenerproductos.php")
 
-        .then(respuesta => respuesta.json())
+        .then(respuesta => {
+
+            if (!respuesta.ok) {
+                throw new Error(
+                    "Error HTTP: " + respuesta.status
+                );
+            }
+
+            return respuesta.json();
+
+        })
 
         .then(productos => {
 
+            console.log("Productos:", productos);
+
+            listaProductos = productos;
+
             let contenedor =
                 document.getElementById("productos");
+
+
+            if (!contenedor) {
+
+                console.log(
+                    "No existe el elemento #productos"
+                );
+
+                return;
+            }
+
 
             contenedor.innerHTML = "";
 
@@ -121,12 +160,12 @@ function mostrarProductos() {
                         function(event) {
 
                             event.preventDefault();
-
                             event.stopPropagation();
 
 
                             let codigo =
                                 this.dataset.codigo;
+
 
                             let cambio =
                                 parseInt(
@@ -158,7 +197,6 @@ function mostrarProductos() {
                         function(event) {
 
                             event.preventDefault();
-
                             event.stopPropagation();
 
 
@@ -205,7 +243,9 @@ function cambiarCantidad(
 
 
     if (!span) {
+
         return;
+
     }
 
 
@@ -217,7 +257,9 @@ function cambiarCantidad(
 
 
     if (cantidad < 1) {
+
         cantidad = 1;
+
     }
 
 
@@ -242,7 +284,13 @@ function anadirAlCarrito(
 
 
     if (!span) {
+
+        alert(
+            "No se encontró la cantidad del producto."
+        );
+
         return;
+
     }
 
 
@@ -250,10 +298,18 @@ function anadirAlCarrito(
         parseInt(span.textContent);
 
 
+    if (cantidad < 1) {
+
+        cantidad = 1;
+
+    }
+
+
     console.log(
         "Código:",
         codigo
     );
+
 
     console.log(
         "Cantidad:",
@@ -261,7 +317,11 @@ function anadirAlCarrito(
     );
 
 
-    fetch("php/carrito.php", {
+    /* ======================================
+       ENVIAR A carrito.php
+    ====================================== */
+
+    fetch("carrito.php", {
 
         method: "POST",
 
@@ -281,73 +341,152 @@ function anadirAlCarrito(
 
     })
 
-        .then(respuesta => {
+
+    .then(respuesta => {
+
+        console.log(
+            "Estado HTTP:",
+            respuesta.status
+        );
+
+
+        return respuesta.text();
+
+    })
+
+
+    .then(texto => {
+
+        console.log(
+            "RESPUESTA DE carrito.php:"
+        );
+
+
+        console.log(texto);
+
+
+        /* ==================================
+           CONVERTIR RESPUESTA A JSON
+        ================================== */
+
+        let datos;
+
+
+        try {
+
+            datos =
+                JSON.parse(texto);
+
+        }
+
+        catch(error) {
 
             console.log(
-                "Respuesta recibida"
+                "carrito.php NO devolvió JSON"
             );
 
-            return respuesta.json();
-
-        })
-
-        .then(datos => {
 
             console.log(
-                "Datos:",
-                datos
+                "Respuesta recibida:",
+                texto
             );
 
 
-            if (datos.ok) {
-
-                alert(
-                    "Producto añadido al carrito"
-                );
+            alert(
+                "carrito.php está devolviendo un error. Revisa F12 > Console."
+            );
 
 
-                span.textContent =
-                    "1";
+            return;
+
+        }
 
 
-                if (
-                    typeof actualizarCarrito ===
-                    "function"
-                ) {
+        console.log(
+            "Datos recibidos:",
+            datos
+        );
 
-                    actualizarCarrito();
 
-                }
+        /* ==================================
+           PRODUCTO AGREGADO
+        ================================== */
 
-            } else {
+        if (datos.ok) {
 
-                alert(
-                    datos.mensaje
-                );
+            alert(
+                datos.mensaje
+            );
+
+
+            /* Reiniciar cantidad */
+
+            span.textContent = "1";
+
+
+            /* Actualizar carrito */
+
+            if (
+                typeof actualizarCarrito ===
+                "function"
+            ) {
+
+                actualizarCarrito();
 
             }
 
-        })
+        }
 
-        .catch(error => {
 
-            console.log(
-                "ERROR:",
-                error
-            );
+        /* ==================================
+           ERROR
+        ================================== */
+
+        else {
 
             alert(
-                "Error al conectar con carrito.php"
+                datos.mensaje
             );
 
-        });
+        }
+
+    })
+
+
+    .catch(error => {
+
+        console.log(
+            "ERROR REAL AL CONECTAR CON carrito.php:"
+        );
+
+
+        console.log(error);
+
+
+        alert(
+            "Error al conectar con carrito.php"
+        );
+
+    });
 
 }
 
 
 /* ==========================================
-   INICIAR
+   HABILITAR COMPRA
 ========================================== */
 
-mostrarProductos();
+function habilitarCompra() {
 
+    pedidoActivo = true;
+
+
+    document
+        .querySelectorAll(".anadir")
+        .forEach(boton => {
+
+            boton.disabled = false;
+
+        });
+
+}
