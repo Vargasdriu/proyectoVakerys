@@ -1,0 +1,490 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    margin: 300px;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background: #f5f7f2;
+    color: #1d3021;
+    margin: 100px;
+}
+
+.contenido {
+    margin: 1000px;
+    gap: 40px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.saludo {
+    width: 100%;
+    max-width: 1600px;
+    margin: 30px auto;
+    padding: 0 30px;
+}
+
+.saludo h1 {
+    font-size: 2.3rem;
+    color: #1d3021;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.saludo p {
+    font-size: 1.1rem;
+    color: #709775;
+}
+
+#btn-nav {
+    display: none;
+}
+
+#btn-nav:checked ~ nav {
+    transform: translateX(0);
+}
+
+.dashboard {
+    padding: 0 30px 40px;
+    max-width: 1600px;
+    margin: 100px auto;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+    padding: 0 30px;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+    transition: .3s;
+    border: 3px solid #709775;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: #dfe8dc;
+}
+
+.card img {
+    width: 70px;
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.card p {
+    opacity: .7;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin: 0 30px 30px;
+}
+
+.panel {
+    background: white;
+    border-radius: 25px;
+    padding: 25px;
+    border: 3px solid #709775;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+}
+
+.panel-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.panel-title img {
+    width: 40px;
+}
+
+.panel-title h2 {
+    font-size: 30px;
+}
+
+.pedidos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pedido-card {
+    background: #fff;
+    border: 3px solid #709775;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    transition: .3s;
+}
+
+.pedido-card:hover {
+    transform: translateY(-3px);
+    background: #f5f7f2;
+}
+
+.pedido-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.pedido-info h3 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.pedido-info h4 {
+    margin: 8px 0;
+}
+
+.pedido-info p {
+    margin-top: 5px;
+    color: #555;
+}
+
+.pedido-productos {
+    flex: 1;
+    min-width: 180px;
+    padding-left: 20px;
+    border-left: 2px solid #dfe8dc;
+}
+
+.pedido-productos h4 {
+    margin-bottom: 8px;
+    color: #1d3021;
+}
+
+.pedido-productos p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.acciones img {
+    width: 28px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.acciones img:hover {
+    transform: scale(1.1);
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.inventario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inventario-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f6f6f6;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.inventario-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.inventario-item span:first-of-type {
+    flex: 1;
+}
+
+.topventas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.venta-card {
+    background: #fff;
+    border: 3px solid #709775;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.venta-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.btn {
+    display: block;
+    background: #709775;
+    color: white;
+    text-decoration: none;
+    padding: 15px 25px;
+    border-radius: 12px;
+    text-align: center;
+    transition: .3s;
+}
+
+.btn:hover {
+    background: #557b5b;
+}
+
+.acciones-panel {
+    margin: 0 30px 30px;
+}
+
+.acciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.accion-card {
+    background: white;
+    border: 3px solid #709775;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    transition: .3s;
+}
+
+.accion-card:hover {
+    background: #dfe8dc;
+    transform: translateY(-5px);
+}
+
+.accion-card img {
+    width: 90px;
+}
+
+footer {
+    width: 100%;
+    margin: 0;
+    background: #afc194;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card,
+.panel,
+.accion-card,
+.venta-card,
+.pedido-card {
+    animation: subirSuave 1s ease;
+}
+
+.stats .card:nth-child(1) {
+    animation-delay: .1s;
+}
+
+.stats .card:nth-child(2) {
+    animation-delay: .3s;
+}
+
+.stats .card:nth-child(3) {
+    animation-delay: .5s;
+}
+
+.stats .card:nth-child(4) {
+    animation-delay: .7s;
+}
+
+.panel {
+    animation-delay: .4s;
+}
+
+.accion-card:nth-child(1) {
+    animation-delay: .2s;
+}
+
+.accion-card:nth-child(2) {
+    animation-delay: .4s;
+}
+
+.accion-card:nth-child(3) {
+    animation-delay: .6s;
+}
+
+.accion-card:nth-child(4) {
+    animation-delay: .8s;
+}
+
+@keyframes subirSuave {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeFooter {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes logoFloat {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1100px) {
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contenido {
+        margin: 70px;
+    }
+
+    .dashboard {
+        margin: 70px auto;
+    }
+
+    .pedido-card {
+        flex-wrap: wrap;
+    }
+
+    .pedido-info {
+        min-width: 250px;
+    }
+
+    .pedido-productos {
+        min-width: 250px;
+    }
+
+    .acciones {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .contenido {
+        margin: 30px 15px;
+    }
+
+    .dashboard {
+        padding: 50px 15px 30px;
+        margin: 30px auto;
+    }
+
+    .saludo {
+        padding: 0 15px;
+        margin: 30px auto;
+    }
+
+    .stats {
+        padding: 0 15px;
+    }
+
+    .content-grid {
+        margin: 0 15px 30px;
+    }
+
+    .pedido-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .pedido-info {
+        width: 100%;
+    }
+
+    .pedido-productos {
+        width: 100%;
+        border-left: none;
+        border-top: 2px solid #dfe8dc;
+        padding-left: 0;
+        padding-top: 15px;
+    }
+
+    .acciones {
+        flex-direction: row;
+    }
+
+    .venta-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .panel-title h2 {
+        font-size: 24px;
+    }
+
+    .card h2 {
+        font-size: 26px;
+    }
+
+    .acciones-panel {
+        margin: 0 15px 30px;
+    }
+
+    footer {
+        padding: 35px 15px;
+    }
+}
