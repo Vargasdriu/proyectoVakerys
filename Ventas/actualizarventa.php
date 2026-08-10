@@ -1,4 +1,3 @@
-
 <?php
 $servername = "localhost";
 $username = "root";
@@ -11,10 +10,7 @@ if ($conn->connect_error) {
     die("Conexion fallida: " . $conn->connect_error);
 }
 
-$pedidos_id = "";
-if (isset($_GET['id'])) {
-    $pedidos_id = $_GET['id'];
-}
+$pedidos_id = $_GET['pedidos_id'] ?? '';
 
 $costoTotal = "";
 $Estado = "";
@@ -33,22 +29,6 @@ if ($pedidos_id != "") {
         }
     }
 }
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $pedidos_id = $_POST['pedidos_id'];
-    $costoTotal = $_POST['costoTotal'];
-    $Estado = $_POST['Estado'];
-    $Metodo = $_POST['Metodo'];
-
-    $sqlUpdate = "UPDATE ventas SET costoTotal='$costoTotal', Estado='$Estado', Metodo='$Metodo' WHERE pedidos_id='$pedidos_id'";
-
-    if ($conn->query($sqlUpdate) === TRUE) {
-        header("Location: mostrarventa.php");
-        exit();
-    } else {
-        echo "Error al actualizar: " . $conn->error;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Actualizar Venta</title>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
@@ -135,92 +114,71 @@ input:focus{
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
-
-.swal2-container {
-    z-index: 99999 !important;
-}
 </style>
 </head>
-
 <body>
 
 <?php include_once "../header.php"; ?>
 
 <div class="contenedor">
 
-<form action="actualizarventa.php" method="post" id="ActualizarVenta">
+<form action="actualizarventa_proc.php" method="post" id="ActualizarVenta">
 
     <h2>Actualizar Venta</h2>
 
-    <input type="hidden" name="pedidos_id" id="pedidos_id" value="<?php echo $pedidos_id; ?>">
+    <input type="hidden" name="pedidos_id" id="pedidos_id" value="<?=$pedidos_id?>">
 
     <label>Costo Total:</label>
-    <input type="text" name="costoTotal" id="costoTotal" value="<?php echo $costoTotal; ?>">
+    <input type="number" name="costoTotal" id="costoTotal" value="<?=$costoTotal?>">
 
     <label>Estado:</label>
-    <input type="text" name="Estado" id="Estado" value="<?php echo $Estado; ?>">
+    <input type="text" name="Estado" id="Estado" value="<?=$Estado?>">
 
     <label>Método de Pago:</label>
-    <input type="text" name="Metodo" id="Metodo" value="<?php echo $Metodo; ?>">
+    <input type="text" name="Metodo" id="Metodo" value="<?=$Metodo?>">
 
     <input type="submit" value="Actualizar Venta" class="boton">
 
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-document.getElementById("ActualizarVenta").addEventListener("submit", function(event) {
-    event.preventDefault();
+    document.getElementById("ActualizarVenta").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        var b = document.getElementById("costoTotal");
+        var c = document.getElementById("Estado");
+        var d = document.getElementById("Metodo");
+        
+        function mostrarAlerta(mensaje, elemento) {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Oops!',
+                text: mensaje,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Entendido'
+            }).then(() => {
+                elemento.focus(); 
+            });
+        }
 
-    var b = document.getElementById("costoTotal");
-    var c = document.getElementById("Estado");
-    var d = document.getElementById("Metodo");
+        if (b.value.trim() == "") {
+            mostrarAlerta("El campo Costo Total no puede ir vacío", b);
+            return;
+        }
 
-    var ex = /^[0-9]*$/;
-    var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+        if (c.value.trim() == "") {
+            mostrarAlerta("El campo Estado no puede ir vacío", c);
+            return;
+        }
 
-    function mostrarAlerta(mensaje, elemento) {
-        Swal.fire({
-            icon: 'error',
-            title: '¡Oops!',
-            text: mensaje,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Entendido'
-        }).then(() => {
-            elemento.focus();
-        });
-    }
+        if (d.value.trim() == "") {
+            mostrarAlerta("El campo Método no puede ir vacío", d);
+            return;
+        }
 
-    if (b.value.trim() == "") {
-        mostrarAlerta("El campo Costo Total no puede ir vacío", b);
-        return;
-    }
-    if (!ex.exec(b.value)) {
-        mostrarAlerta("Introduce solo números en el Costo Total", b);
-        return;
-    }
-
-    if (c.value.trim() == "") {
-        mostrarAlerta("El campo Estado no puede ir vacío", c);
-        return;
-    }
-    if (!expRegNombre.exec(c.value)) {
-        mostrarAlerta("Introduce solo letras en el Estado", c);
-        return;
-    }
-
-    if (d.value.trim() == "") {
-        mostrarAlerta("El campo Método no puede ir vacío", d);
-        return;
-    }
-    if (!expRegNombre.exec(d.value)) {
-        mostrarAlerta("Introduce solo letras en el Método", d);
-        return;
-    }
-
-    this.submit();
-});
+        this.submit();
+    });
 </script>
 
 </div>

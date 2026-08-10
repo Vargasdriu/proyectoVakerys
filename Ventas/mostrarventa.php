@@ -4,14 +4,23 @@ $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
-$conn = new mysqli($servername, $username, $password, $bdname);
+$conexion = new mysqli($servername, $username, $password, $bdname);
 
-if ($conn->connect_error) {
-    die("Conexion fallida: " . $conn->connect_error);
+if ($conexion->connect_error){
+    die("Conexion fallida: " . $conexion->connect_error);
 }
 
-$sql = "SELECT * FROM ventas";
-$resultado = $conn->query($sql);
+$venta = null;
+
+if(isset($_GET['pedidos_id'])){
+    $pedidos_id = $_GET['pedidos_id'];
+    $sql = "SELECT * FROM ventas WHERE pedidos_id='$pedidos_id'";
+    $resultado = $conexion->query($sql);
+
+    if($resultado && $resultado->num_rows > 0){
+        $venta = $resultado->fetch_assoc();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,11 +28,8 @@ $resultado = $conn->query($sql);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lista de Ventas</title>
-
+<title>Mostrar Venta</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
 *{
     margin:0;
     padding:0;
@@ -31,130 +37,97 @@ $resultado = $conn->query($sql);
 }
 
 body{
-    background-image:url("../imagenes/fondooo.png");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
+    background:linear-gradient(135deg,#A3B18A,#588157);
     display:flex;
-    flex-direction:column;
+    justify-content:center;
     align-items:center;
     min-height:100vh;
+    font-family:'Poppins',sans-serif;
     padding:30px;
-    font-family:'Raleway',sans-serif;
 }
 
-.contenedor-tabla{
+.contenedor{
     background:rgba(52,78,65,.95);
-    width:80%;
-    max-width:900px;
-    padding:35px;
-    border-radius:25px;
-    box-shadow:0 15px 35px rgba(0,0,0,.2);
+    width:550px;
+    padding:45px;
+    border-radius:35px;
     color:white;
-    margin-top:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
 }
 
-h2{
+h1{
     text-align:center;
-    margin-bottom:20px;
-    font-size:32px;
+    margin-bottom:35px;
+    font-size:35px;
 }
 
-.btn-crear{
-    display:inline-block;
-    background:#A3B18A;
-    color:#344E41;
-    padding:10px 20px;
-    border-radius:12px;
-    text-decoration:none;
-    font-weight:bold;
-    margin-bottom:20px;
-    transition:.3s;
-}
-
-.btn-crear:hover{
-    background:white;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    text-align:center;
-}
-
-th, td{
-    padding:12px;
-    border-bottom:1px solid #A3B18A;
-}
-
-th{
-    color:#DAD7CD;
+.dato{
+    background:rgba(255,255,255,.08);
+    padding:15px 20px;
+    border-radius:15px;
+    margin-bottom:15px;
     font-size:18px;
 }
 
-a.accion{
-    color:#A3B18A;
-    text-decoration:none;
+.dato span{
     font-weight:bold;
-    margin:0 5px;
+    color:#DAD7CD;
 }
 
-a.accion:hover{
-    color:white;
+.boton-centro{
+    display:flex;
+    justify-content:center;
+    margin-top:30px;
 }
 
-a.eliminar{
-    color:#ff6b6b;
+.boton{
+    display:inline-block;
+    background:#A3B18A;
+    color:#344E41;
+    text-decoration:none;
+    padding:14px 30px;
+    border-radius:18px;
+    font-size:17px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.boton:hover{
+    background:white;
+    transform:translateY(-4px);
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+.error{
+    text-align:center;
+    font-size:20px;
+    color:#ffb3b3;
 }
 </style>
 </head>
-
 <body>
 
-<?php include_once "../header.php"; ?>
+<?php include_once '../header.php'; ?>
 
-<div class="contenedor-tabla">
-    <h2>Historial de Ventas</h2>
-    <a href="resgisventa.php" class="btn-crear">+ Nueva Venta</a>
+<div class="contenedor">
+<?php
+if($venta){
+    echo "<h1>Datos de la Venta</h1>";
+    echo "<div class='dato'><span>ID Pedido:</span> " . $venta['pedidos_id'] . "</div>";
+    echo "<div class='dato'><span>Costo Total:</span> Bs. " . $venta['costoTotal'] . "</div>";
+    echo "<div class='dato'><span>Estado:</span> " . $venta['Estado'] . "</div>";
+    echo "<div class='dato'><span>Método de Pago:</span> " . $venta['Metodo'] . "</div>";
+}else{
+    echo "<h1 class='error'>Venta no encontrada</h1>";
+}
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID Pedido</th>
-                <th>Costo Total</th>
-                <th>Estado</th>
-                <th>Método</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php 
-            if ($resultado && $resultado->num_rows > 0) {
-                while ($fila = $resultado->fetch_assoc()) {
-            ?>
-                <tr>
-                    <td><?php echo $fila['pedidos_id']; ?></td>
-                    <td><?php echo $fila['costoTotal']; ?></td>
-                    <td><?php echo $fila['Estado']; ?></td>
-                    <td><?php echo $fila['Metodo']; ?></td>
-                    <td>
-                        <a href="actualizarventa.php?id=<?php echo $fila['pedidos_id']; ?>" class="accion">Editar</a> | 
-                        <a href="eliminarventa.php?id=<?php echo $fila['pedidos_id']; ?>" class="accion eliminar" onclick="return confirm('¿Deseas eliminar esta venta?')">Eliminar</a>
-                    </td>
-                </tr>
-            <?php 
-                }
-            } else {
-            ?>
-                <tr>
-                    <td colspan="5">No hay ventas registradas</td>
-                </tr>
-            <?php 
-            }
-            ?>
-        </tbody>
-    </table>
+$conexion->close();
+?>
+
+<div class="boton-centro">
+    <a class="boton" href="leerventa.php">Volver</a>
+</div>
+
 </div>
 
 </body>

@@ -4,30 +4,24 @@ $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
-$conn = new mysqli($servername, $username, $password, $bdname);
+$conexion = new mysqli($servername, $username, $password, $bdname);
 
-if ($conn->connect_error){
-    die("Conexion fallida: " . $conn->connect_error);
+if ($conexion->connect_error){
+    die("Conexion fallida: " . $conexion->connect_error);
 }
 
-if(
-    isset($_POST['pedidos_id']) &&
-    isset($_POST['costoTotal']) &&
-    isset($_POST['Estado']) &&
-    isset($_POST['Metodo'])
-){
-    $pedidos_id = $_POST['pedidos_id'];
-    $costoTotal = $_POST['costoTotal'];
-    $Estado = $_POST['Estado'];
-    $Metodo = $_POST['Metodo'];
+$pedidos_id = $_POST['pedidos_id'];
+$costoTotal = $_POST['costoTotal'];
+$Estado = $_POST['Estado'];
+$Metodo = $_POST['Metodo'];
 
-    $sql = "INSERT INTO ventas (pedidos_id, costoTotal, Estado, Metodo) 
-            VALUES ('$pedidos_id', '$costoTotal', '$Estado', '$Metodo')";
+$sql = "UPDATE ventas SET 
+    costoTotal='$costoTotal',
+    Estado='$Estado',
+    Metodo='$Metodo'
+    WHERE pedidos_id='$pedidos_id'";
 
-    $resultado = $conn->query($sql);
-}else{
-    $resultado = false;
-}
+$resultado = $conexion->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +29,7 @@ if(
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registrar Venta</title>
+<title>Actualizar Venta</title>
 <style>
 *{
     margin:0;
@@ -44,19 +38,19 @@ if(
 }
 
 body{
+    font-family:'Poppins',sans-serif;
     background:linear-gradient(135deg,#A3B18A,#588157);
     display:flex;
     justify-content:center;
     align-items:center;
     min-height:100vh;
-    font-family:'Poppins',sans-serif;
     padding:30px;
 }
 
 .contenedor{
     background:rgba(52,78,65,.95);
     width:500px;
-    padding:50px 40px;
+    padding:50px;
     border-radius:35px;
     text-align:center;
     color:white;
@@ -70,7 +64,7 @@ h1{
 
 p{
     font-size:18px;
-    margin-bottom:35px;
+    margin-bottom:30px;
 }
 
 .boton{
@@ -78,9 +72,8 @@ p{
     background:#A3B18A;
     color:#344E41;
     text-decoration:none;
-    padding:16px 35px;
+    padding:14px 30px;
     border-radius:18px;
-    font-size:18px;
     font-weight:bold;
     transition:.3s;
 }
@@ -107,17 +100,15 @@ p{
 <div class="contenedor">
 <?php
 if($resultado){
-    echo "<h1 class='exito'>✓ Venta Registrada</h1>";
-    echo "<p>La venta fue registrada con éxito.</p>";
+    echo "<h1 class='exito'>✓ Venta actualizada</h1>";
+    echo "<p>Los datos fueron actualizados correctamente.</p>";
 }else{
     echo "<h1 class='error'>✕ Error</h1>";
-    echo "<p>No se pudo registrar la venta.</p>";
-    if($conn->error){
-        echo "<p class='error'>" . $conn->error . "</p>";
-    }
+    echo "<p>No se pudo actualizar la venta.</p>";
+    echo "<p class='error'>" . $conexion->error . "</p>";
 }
 
-$conn->close();
+$conexion->close();
 ?>
 
 <a class="boton" href="leerventa.php">Volver</a>
