@@ -14,7 +14,6 @@ $sql = "SELECT * FROM GestionDeUsuarios";
 ?>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 *{
@@ -29,7 +28,6 @@ body{
     padding:35px;
     margin-top:75px
 }
-
 
 .contenedor{
     background:white;
@@ -92,7 +90,6 @@ button{
 }
 
 /* BOTONES */
-
 .editar{
     background:#A3B18A;
     color:#344E41;
@@ -142,9 +139,9 @@ button{
     justify-content:center;
     margin-top:20px;
 }
-
 </style>
- <?php include '../header.php'; ?>
+
+<?php include '../header.php'; ?>
 
 <div class="contenedor">
 
@@ -152,9 +149,7 @@ button{
     <p class="subtitulo">Lista completa de usuarios registrados</p>
 
 <?php
-
 echo "<table class='tabla-estilo'>";
-
 echo "
 <tr>
     <th>CI</th>
@@ -170,13 +165,10 @@ echo "
 $resultado = $conn->query($sql);
 
 if ($resultado->num_rows > 0){
-
     while($fila = $resultado->fetch_assoc()){
-
         $CI = $fila['CI'];
 
         echo "<tr>";
-
         echo "
         <td>".$fila['CI']."</td>
         <td>".$fila['Nombre']."</td>
@@ -184,46 +176,25 @@ if ($resultado->num_rows > 0){
         <td>".$fila['Numero']."</td>
         <td>".$fila['Rol']."</td>
         <td>".$fila['Estado']."</td>
-
-       <td>
-
-<a href='actualizarusuario.php?CI=$CI'>
-<button class='editar'>Editar</button>
-</a>
-
-<a href='mostrarusuario.php?CI=$CI'>
-<button class='mostrar'>Mostrar</button>
-</a>
-
-";
-
-if($fila['Rol']=="vendedor"){
-
-    if($fila['Estado']=="activo"){
-
-        echo "
-        <a href='cambiarestado.php?CI=$CI'>
-        <button class='eliminar'>Bloquear</button>
-        </a>
+        <td>
+            <a href='actualizarusuario.php?CI=$CI'><button class='editar'>Editar</button></a>
+            <a href='mostrarusuario.php?CI=$CI'><button class='mostrar'>Mostrar</button></a>
         ";
 
-    }
+        // Muestra BLOQUEAR si está activo, o DESBLOQUEAR si está bloqueado
+        if ($fila['Estado'] == "activo") {
+            echo "
+            <a href='bloquear.php?CI=$CI'>
+                <button class='eliminar'>Bloquear</button>
+            </a>";
+        } elseif ($fila['Estado'] == "bloqueado") {
+            echo "
+            <a href='desbloquear.php?CI=$CI'>
+                <button class='editar'>Desbloquear</button>
+            </a>";
+        }
 
-    if($fila['Estado']=="bloqueado"){
-
-        echo "
-        <a href='cambiarestado.php?CI=$CI'>
-        <button class='editar'>Desbloquear</button>
-        </a>
-        ";
-
-    }
-
-}
-
-echo "</td>
-";
-
+        echo "</td>";
         echo "</tr>";
     }
 }
@@ -231,10 +202,10 @@ echo "</td>
 echo "</table>";
 ?>
 
-<div class="boton-centro">
-    <a href="crearusuario.php">
-        <button class="nuevo">Nuevo usuario</button>
-    </a>
-</div>
+    <div class="boton-centro">
+        <a href="crearusuario.php">
+            <button class="nuevo">Nuevo usuario</button>
+        </a>
+    </div>
 
 </div>

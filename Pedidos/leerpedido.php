@@ -197,9 +197,16 @@ if ($resultado->num_rows > 0){
             <a href='../carrito/miCarrito.php?idPedido=$id'>
                 <button class='mostrar'>Mostrar</button>
             </a>
+
              <a href='eliminarpedido.php?id=$id'>
                 <button class='eliminar'>Eliminar</button>
             </a>
+
+            <a href='mostrardetalle.php?id=$id'>
+                <button class='mostrar'>Ver Detalle</button>
+             </a>
+
+
         </td>
         ";
 
