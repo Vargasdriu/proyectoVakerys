@@ -1,328 +1,167 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="estilos/productos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        a{
-            text-decoration:none;
-             color:inherit;
-        }
-    </style>
+
+    <title>Mi Tienda</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+
 </head>
+
 <body>
-     <div id="header"></div>
 
-     <?php include 'header.php'; ?>
+    <!--================== CABECERA ==================-->
 
-     
-<div class="a">
- 
+    <header>
 
-    <span class="subtitulo">
-        VAKERY'S · REPOSTERÍA ARTESANAL
-    </span>
+        <div class="logo">
 
-    <h1>¿Qué se te antoja?</h1>
+            🛍 <span>MI TIENDA</span>
 
-    <p>
-        Repostería artesanal elaborada con ingredientes seleccionados
-        para transformar cada momento en una experiencia inolvidable.
-    </p>
+        </div>
+
+        <div class="busqueda">
+
+            <input
+                type="text"
+                id="buscar"
+                placeholder="Buscar producto...">
+
+        </div>
+
+        <div id="carritoIcono">
+
+            🛒 <span id="cantidadCarrito">0</span>
+
+        </div>
+
+    </header>
+
+    <!--================== PRODUCTOS ==================-->
+
+    <main>
+
+        <h2 class="titulo">
+            Productos Disponibles
+        </h2>
+
+        <section id="productos">
+
+        </section>
+
+    </main>
+    
+   <button id="generarPedido">
+Generar Pedido
+</button>
+
 
 </div>
+<!--================== FONDO OSCURO ==================-->
+
+    <div id="fondo"></div>
+
+    <!--================== SIDEBAR ==================-->
+
+    <aside id="sidebar">
+
+        <div class="sidebarHeader">
+
+            <h2>🛒 Mi Carrito</h2>
+
+            <button id="cerrarCarrito">✖</button>
+
+        </div>
+
+        <div id="contenidoCarrito">
+
+        </div>
+
+        <div class="sidebarFooter">
+
+            <h3 id="totalCarrito">
+
+                Total: Bs 0
+
+            </h3>
+
+            <button id="vaciarCarrito">
+
+                Vaciar carrito
+
+            </button>
+
+            <button id="comprar">
+
+                Comprar
+
+            </button>
+
+        </div>
+
+    </aside>
+ 
 
 
-<div class="b" >
-    
-    <a href="/proyectovakerys/paginasproductos/cookie.php">
-  <div class="proc">
 
-    <img class="imgb" src="imagenes/cookieproc.png" alt="">
+<!--================== MODAL COMPRA ==================-->
 
-   
-    <div class="ba">
+<div id="modalCompra" class="modal">
 
-       
+    <div class="modalContenido">
 
-        <h1>Chocolate Chips Cookie</h1>
+        <h2>🛍 Finalizar Compra</h2>
 
-        <p>
-            Galleta artesanal con trozos de chocolate
-            premium y textura suave por dentro.
-        </p>
+        <input type="text"
+               id="nombre"
+               placeholder="Nombre completo">
 
+        <input type="text"
+               id="telefono"
+               placeholder="Teléfono">
+
+        <input type="text"
+               id="direccion"
+               placeholder="Dirección">
+
+        <select id="metodoPago">
+
+            <option value="QR">Pago mediante QR</option>
+
+            <option value="Efectivo">Pago en efectivo</option>
+
+        </select>
+
+        <div class="botonesModal">
+
+            <button id="confirmarPedido">
+                Confirmar Compra
+            </button>
+
+            <button id="cancelarCompra">
+                Cancelar
+            </button>
+
+        </div>
 
     </div>
 
-    <div class="bb">
-
-        <h1 class="precio">Bs. 6</h1>
-
-        <div class="cantidad">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-        </div>
-
-        <div class="anadir">
-            <img class="carro" src="imagenes/carrito-de-compras.png" alt="">
-            <p>Añadir</p>
-        </div>
-        
-</div>
-</div> </a>
-  <a href="/proyectovakerys/paginasproductos/applepie.php">
-<div class="proc">
-
-    <img class="imgb" src="imagenes/applepieproc.jpg" alt="">
-
-    <div class="ba">
-
-       <h1>Apple pie</h1>
-
-        <p>
-           Clásico pie de manzana con jugosas manzanas 
-           caramelizadas, un toque de canela y una base de 
-           mantequilla horneada a la perfección.
-        </p>
-
-       </div>
-
-    <div class="bb">
-
-        <h1 class="precio">Bs. 56</h1>
-
-        <div class="cantidad">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-        </div>
-
-        <div class="anadir">
-            <img class="carro" src="imagenes/carrito-de-compras.png" alt="">
-            <p>Añadir</p>
-        </div>
-</div>
-</div>
-</a>
-<a href="/proyectovakerys/paginasproductos/carrotcake.php">
-<div class="proc">
-
-    <img class="imgb" src="imagenes/carrotcakeproc.jpg" alt="">
-
-    <div class="ba">
-
-       <h1>Carrot cake</h1>
-
-        <p>
-           Suave y esponjoso carrot cake elaborado con 
-           zanahorias frescas, especias aromáticas y 
-           cubierto con un cremoso frosting de queso crema 
-           que realza cada bocado.
-        </p>
-
-       </div>
-
-    <div class="bb">
-
-        <h1 class="precio">Bs. 60</h1>
-
-        <div class="cantidad">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-        </div>
-
-        <div class="anadir">
-            <img class="carro" src="imagenes/carrito-de-compras.png" alt="">
-            <p>Añadir</p>
-        </div>
 </div>
 
 </div>
-</a>
-<a href="/proyectovakerys/paginasproductos/brownie.php">
-<div class="proc">
-
-    <img class="imgb" src="imagenes/brownieproc.png" alt="">
-
-    <div class="ba">
-
-       <h1>Brownie</h1>
-
-        <p>
-           Caja de 6 unidades de brownie artesanal preparado 
-           con chocolate premium, de textura suave y húmeda,
-           con un intenso sabor que conquista en cada bocado. 
-        </p>
-
-       </div>
-
-    <div class="bb">
-
-        <h1 class="precio">Bs. 50</h1>
-
-        <div class="cantidad">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-        </div>
-
-        <div class="anadir">
-            <img class="carro" src="imagenes/carrito-de-compras.png" alt="">
-            <p>Añadir</p>
-        </div>
-</div>
-</div>
-</a>
-<a href="/proyectovakerys/paginasproductos/cinnamonroll.php">
-<div class="proc">
-
-    <img class="imgb" src="imagenes/cinnamonrollproc.png" alt="">
-
-    <div class="ba">
-
-       <h1>Cinamon Roll</h1>
-
-        <p>
-          Cinnamon roll artesanal de textura suave y esponjosa, 
-          relleno con canela y azúcar morena, y terminado con
-           un cremoso glaseado para una experiencia cálida y 
-           reconfortante.
-        </p>
-
-       </div>
-
-    <div class="bb">
-
-        <h1 class="precio">Bs. 12</h1>
-
-        <div class="cantidad">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-        </div>
-
-        <div class="anadir">
-            <img class="carro" src="imagenes/carrito-de-compras.png" alt="">
-            <p>Añadir</p>
-        </div>
-</div>
-</div>
-</a>
-<a href="/proyectovakerys/paginasproductos/cheesecake.php">
-<div class="proc">
-
-    <img class="imgb" src="imagenes/cheesecakeproc.jpg" alt="">
-
-    <div class="ba">
-
-       <h1>Passion fruit cheesecake</h1>
-
-        <p>
-          Cremoso cheesecake con base de galleta y cobertura 
-          de maracuyá, con un equilibrio perfecto entre dulce
-           y ácido.
-        </p>
-
-       </div>
-
-    <div class="bb">
-
-        <h1 class="precio">Bs. 65</h1>
-
-        <div class="cantidad">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-        </div>
-
-        <div class="anadir">
-            <img class="carro" src="imagenes/carrito-de-compras.png" alt="">
-            <p>Añadir</p>
-        </div>
-</div>
-</div>
-</a>
-<a href="/proyectovakerys/paginasproductos/lemonpie.php">
-<div class="proc">
-
-    <img class="imgb" src="imagenes/lemonpieproc.jpg" alt="">
-
-    <div class="ba">
-
-       <h1>Lemon pie</h1>
-
-        <p>
-          Delicioso postre con base de masa crujiente,
-           relleno suave y cítrico de limón, y cubierto 
-           con una capa de merengue ligero y dorado. 
-           Un equilibrio perfecto entre dulzura y acidez.
-        </p>
-
-       </div>
-
-    <div class="bb">
-
-        <h1 class="precio">Bs. 60</h1>
-
-        <div class="cantidad">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-        </div>
-
-        <div class="anadir">
-            <img class="carro" src="imagenes/carrito-de-compras.png" alt="">
-            <p>Añadir</p>
-        </div>
-</div>
-</div>
-</a>
-<a href="/proyectovakerys/paginasproductos/tiramisu.php">
-<div class="proc">
-
-    <img class="imgb" src="imagenes/tiramisuproc.jpg" alt="">
-
-    <div class="ba">
-
-       <h1>Tiramisú</h1>
-
-        <p>
-          Postre italiano cremoso con capas de bizcocho empapado
-           en café, suave crema de mascarpone y un toque de 
-           cacao en polvo. Dulce, ligero y elegante.
-        </p>
-
-       </div>
-
-    <div class="bb">
-
-        <h1 class="precio">Bs. 68</h1>
-
-        <div class="cantidad">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-        </div>
-
-        <div class="anadir">
-            <img class="carro" src="imagenes/carrito-de-compras.png" alt="">
-            <p>Añadir</p>
-        </div>
-</div>
-
-</div>
-</a>
-
-</div>
+    
 
 
+<script src="js/productos.js"></script>
+<script src="js/pedido.js"></script>
+<script src="js/carrito.js"></script>
 
-<?php include 'footer.php'; ?>
 </body>
+
 </html>

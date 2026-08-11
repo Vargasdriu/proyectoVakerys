@@ -24,7 +24,6 @@ $conn->set_charset("utf8");
 $codigo = $_GET["codigo"];
 
 
-/* BUSCAR PRODUCTO */
 
 $sql = "SELECT *
         FROM productos
@@ -47,7 +46,6 @@ if ($resultado->num_rows == 0) {
 $producto = $resultado->fetch_assoc();
 
 
-/* BUSCAR IMÁGENES */
 
 $sqlImagenes = "SELECT Imagen
                 FROM imagenes
