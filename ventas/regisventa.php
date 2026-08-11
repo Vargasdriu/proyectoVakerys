@@ -12,6 +12,8 @@ if (!isset($_GET['pedido_id']) || empty($_GET['pedido_id'])) {
 }
 
 $id_pedido = $_GET['pedido_id'];
+$mensaje_alerta = "";
+$tipo_alerta = "";
 
 // ==========================================
 // PROCESAR BOTONES (ACEPTAR / RECHAZAR)
@@ -20,34 +22,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $accion = $_POST['accion'];
 
     if ($accion == 'aceptar') {
-        // 1. Cambiar estado a 'Aceptado'
+
+        // 1. Cambiar estado del pedido a 'Aceptado'
         $conn->query("UPDATE pedidos SET Estado = 'Aceptado' WHERE id = '$id_pedido'");
 
-        // 2. Descontar Stock de los productos
-        $carrito = $conn->query("SELECT productos_Codigo, Cantidad FROM carrito WHERE pedidos_id = '$id_pedido'");
+        // 2. Descontar Stock de forma segura (sin pasar a números negativos)
+        $productosAgotados = [];
+        $carrito = $conn->query("SELECT c.productos_Codigo, c.Cantidad, p.NombreProducto 
+                                  FROM carrito c 
+                                  INNER JOIN productos p ON c.productos_Codigo = p.Codigo 
+                                  WHERE c.pedidos_id = '$id_pedido'");
+
         if ($carrito) {
             while ($item = $carrito->fetch_assoc()) {
                 $codigo = $item['productos_Codigo'];
-                $cant = $item['Cantidad'];
-                $conn->query("UPDATE productos SET Stock = Stock - $cant WHERE Codigo = '$codigo'");
+                $cant = (int)$item['Cantidad'];
+                $nombreProd = $item['NombreProducto'];
+
+                // GREATEST(0, Stock - $cant) evita que el stock sea menor que 0
+                $conn->query("UPDATE productos SET Stock = GREATEST(0, Stock - $cant) WHERE Codigo = '$codigo'");
+
+                // Consultar el stock actualizado después de la resta
+                $resNuevoStock = $conn->query("SELECT Stock FROM productos WHERE Codigo = '$codigo'");
+                if ($resNuevoStock) {
+                    $nuevoStock = (int)$resNuevoStock->fetch_assoc()['Stock'];
+                    if ($nuevoStock === 0) {
+                        $productosAgotados[] = $nombreProd;
+                    }
+                }
             }
         }
 
-        // 3. Registrar la Venta con estado 'Aceptado'
+        // 3. Registrar la Venta
         $costoTotal = $_POST['costoTotal'];
         $conn->query("INSERT INTO ventas (pedidos_id, costoTotal, Estado, Metodo) VALUES ('$id_pedido', '$costoTotal', 'Aceptado', 'Efectivo')");
+
+        // 4. Si el stock llegó a 0, mostrar mensaje CSS de advertencia
+        if (!empty($productosAgotados)) {
+            $listaAgotados = implode(", ", $productosAgotados);
+            $mensaje_alerta = "¡Pedido #$id_pedido aceptado y guardado exitosamente! Atención: Se completó la venta del/los último(s) producto(s) en stock: $listaAgotados.";
+            $tipo_alerta = "advertencia";
+        } else {
+            header("Location: ../paginavendedor.php");
+            exit();
+        }
 
     } elseif ($accion == 'rechazar') {
         // Cambiar estado a Cancelado
         $conn->query("UPDATE pedidos SET Estado = 'Cancelado' WHERE id = '$id_pedido'");
+        header("Location: ../paginavendedor.php");
+        exit();
     }
-
-    header("Location: ../paginavendedor.php");
-    exit();
 }
 
 // ==========================================
-// CONSULTAR DATOS DEL PEDIDO Y PRODUCTOS
+// CONSULTAR DATOS DEL PEDIDO Y PRODUCTOS (STOCK EN VIVO)
 // ==========================================
 $resPedido = $conn->query("SELECT * FROM pedidos WHERE id = '$id_pedido'");
 $pedido = $resPedido ? $resPedido->fetch_assoc() : null;
@@ -56,7 +85,7 @@ if (!$pedido) {
     die("El pedido #$id_pedido no existe.");
 }
 
-$sqlCarrito = "SELECT c.Cantidad, c.CostoTotal, p.NombreProducto, p.PrecioProducto 
+$sqlCarrito = "SELECT c.Cantidad, c.CostoTotal, p.NombreProducto, p.PrecioProducto, p.Stock 
                FROM carrito c 
                INNER JOIN productos p ON c.productos_Codigo = p.Codigo 
                WHERE c.pedidos_id = '$id_pedido'";
@@ -70,119 +99,75 @@ $total = 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atender Pedido #<?php echo $id_pedido; ?> - Vakery's</title>
-    
+    <link rel="stylesheet" href="../estilos/vendedor.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        body {
-            background-color: #f8f9fa;
-            color: #1f2d25;
-            padding-top: 20px;
-        }
-
-        .contenedor-detalle {
-            max-width: 850px;
-            margin: 30px auto 50px auto;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            overflow: hidden;
-            border: 1px solid #e0e0e0;
-        }
-
-        .header-detalle {
-            background: #1f2d25;
-            color: #ffffff;
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-detalle h2 {
-            font-size: 20px;
-            color: #afc194;
-        }
-
-        .estado-tag {
-            background: #afc194;
-            color: #1f2d25;
-            padding: 6px 14px;
-            border-radius: 15px;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .body-detalle {
-            padding: 30px;
-        }
-
-        .btn-volver {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #1f2d25;
+        a {
             text-decoration: none;
+            color: inherit;
+        }
+
+        .btn-volver-link {
+            display: inline-block;
+            margin-bottom: 15px;
             font-weight: bold;
+            color: #1f2d25;
             font-size: 14px;
         }
 
-        .grid-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-            background: #f4f6f4;
-            padding: 18px;
-            border-radius: 6px;
-        }
-
-        .info-item h4 {
-            font-size: 12px;
-            text-transform: uppercase;
-            color: #666;
-            margin-bottom: 4px;
-        }
-
-        .info-item p {
-            font-size: 15px;
+        .caja-alerta {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
             font-weight: bold;
-            color: #1f2d25;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .alerta-advertencia {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        .btn-cerrar-alerta {
+            background: none;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            color: inherit;
+            margin-left: 15px;
         }
 
         .tabla-productos {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-            margin-bottom: 25px;
+            margin: 15px 0;
         }
 
         .tabla-productos th {
-            background: #afc194;
+            background-color: #afc194;
             color: #1f2d25;
+            padding: 10px;
             text-align: left;
-            padding: 12px;
             font-size: 14px;
         }
 
         .tabla-productos td {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
             font-size: 14px;
+            color: #333;
         }
 
-        .tabla-productos tr:last-child td {
-            border-bottom: none;
-        }
-
-        .total-row {
-            background: #f9fbf8;
+        .total-row td {
             font-weight: bold;
             font-size: 15px;
+            background-color: #f9fbf8;
+            color: #1f2d25;
         }
 
         .acciones-form {
@@ -193,7 +178,7 @@ $total = 0;
         }
 
         .btn-accion {
-            padding: 12px 28px;
+            padding: 10px 24px;
             border: none;
             border-radius: 6px;
             font-size: 14px;
@@ -220,81 +205,113 @@ $total = 0;
         .btn-rechazar:hover {
             background: #c9302c;
         }
+
+        .estado-tag-badge {
+            background: #afc194;
+            color: #1f2d25;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .stock-alerta {
+            color: #d9534f;
+            font-weight: bold;
+        }
+        
+        .stock-normal {
+            color: #2e7d32;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
 <?php include_once "../header.php"; ?>
 
-<div class="contenedor-detalle">
-    <div class="header-detalle">
-        <h2>Pedido #<?php echo sprintf('%03d', $pedido['id']); ?></h2>
-        <span class="estado-tag"><?php echo $pedido['Estado'] ? $pedido['Estado'] : 'Pendiente'; ?></span>
-    </div>
+<div class="b" style="margin-top: 20px;">
+    <div class="ba">
 
-    <div class="body-detalle">
-        <a href="../paginavendedor.php" class="btn-volver">&larr; Volver a lista de pedidos</a>
+        <?php if (!empty($mensaje_alerta)): ?>
+            <div class="caja-alerta alerta-<?php echo $tipo_alerta; ?>">
+                <span><?php echo $mensaje_alerta; ?></span>
+                <a href="../paginavendedor.php" class="btn-cerrar-alerta" style="text-decoration:none;">&times; Volver al Panel</a>
+            </div>
+        <?php endif; ?>
 
-        <div class="grid-info">
-            <div class="info-item">
-                <h4>Cliente</h4>
-                <p><?php echo htmlspecialchars($pedido['Nombre']); ?></p>
-            </div>
-            <div class="info-item">
-                <h4>Fecha</h4>
-                <p><?php echo $pedido['Fecha']; ?></p>
-            </div>
-            <div class="info-item">
-                <h4>Teléfono</h4>
-                <p><?php echo htmlspecialchars($pedido['Telefono']); ?></p>
-            </div>
-            <div class="info-item">
-                <h4>Dirección</h4>
-                <p><?php echo htmlspecialchars($pedido['Direccion']); ?></p>
+        <div class="bb">
+            <h1>Atender Pedido #<?php echo sprintf('%03d', $pedido['id']); ?></h1>
+            <span class="estado-tag-badge"><?php echo $pedido['Estado'] ? $pedido['Estado'] : 'Pendiente'; ?></span>
+        </div>
+
+        <a href="../paginavendedor.php" class="btn-volver-link">&larr; Volver a lista de pedidos</a>
+
+        <div class="bf" style="margin-bottom: 20px;">
+            <div class="bg">
+                <div class="bc">
+                    <h2>Cliente: <?php echo htmlspecialchars($pedido['Nombre']); ?></h2>
+                    <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($pedido['Telefono']); ?></p>
+                    <p><strong>Dirección:</strong> <?php echo htmlspecialchars($pedido['Direccion']); ?></p>
+                </div>
+                <div class="bd">
+                    <p><strong>Fecha:</strong> <?php echo date('d M Y', strtotime($pedido['Fecha'])); ?></p>
+                    <p><strong>Hora:</strong> <?php echo date('h:i A', strtotime($pedido['Fecha'])); ?></p>
+                </div>
             </div>
         </div>
 
-        <h3 style="color:#1f2d25; margin-bottom: 10px; font-size: 18px;">Productos Solicitados</h3>
+        <div class="be">
+            <h3 style="color:#1f2d25; margin-bottom: 10px; font-size: 16px;">Productos Solicitados</h3>
 
-        <table class="tabla-productos">
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio Unitario</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                if ($resCarrito && $resCarrito->num_rows > 0) {
-                    while ($prod = $resCarrito->fetch_assoc()) { 
-                        $total += $prod['CostoTotal']; 
-                ?>
+            <table class="tabla-productos">
+                <thead>
                     <tr>
-                        <td><?php echo htmlspecialchars($prod['NombreProducto']); ?></td>
-                        <td>Bs. <?php echo number_format($prod['PrecioProducto'], 2); ?></td>
-                        <td><?php echo $prod['Cantidad']; ?></td>
-                        <td>Bs. <?php echo number_format($prod['CostoTotal'], 2); ?></td>
+                        <th>Producto</th>
+                        <th>Stock Actualizado</th>
+                        <th>Precio Unitario</th>
+                        <th>Cantidad Solicitada</th>
+                        <th>Subtotal</th>
                     </tr>
-                <?php 
-                    } 
-                } else {
-                    echo "<tr><td colspan='4' style='text-align:center;'>No hay productos asociados a este pedido.</td></tr>";
-                }
-                ?>
-                <tr class="total-row">
-                    <td colspan="3" style="text-align: right;">Total General:</td>
-                    <td>Bs. <?php echo number_format($total, 2); ?></td>
-                </tr>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php 
+                    if ($resCarrito && $resCarrito->num_rows > 0) {
+                        while ($prod = $resCarrito->fetch_assoc()) { 
+                            $total += $prod['CostoTotal']; 
+                            $esUltimoStock = ($prod['Stock'] <= $prod['Cantidad']);
+                    ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($prod['NombreProducto']); ?></td>
+                            <td class="<?php echo $esUltimoStock ? 'stock-alerta' : 'stock-normal'; ?>">
+                                <?php echo $prod['Stock']; ?> unids. 
+                                <?php if ($esUltimoStock) echo "<br><small style='color:#d9534f;'>(Último(s) producto(s) en stock)</small>"; ?>
+                            </td>
+                            <td>Bs. <?php echo number_format($prod['PrecioProducto'], 2); ?></td>
+                            <td><?php echo $prod['Cantidad']; ?></td>
+                            <td>Bs. <?php echo number_format($prod['CostoTotal'], 2); ?></td>
+                        </tr>
+                    <?php 
+                        } 
+                    } else {
+                        echo "<tr><td colspan='5' style='text-align:center;'>No hay productos asociados a este pedido.</td></tr>";
+                    }
+                    ?>
+                    <tr class="total-row">
+                        <td colspan="4" style="text-align: right;">Total General:</td>
+                        <td>Bs. <?php echo number_format($total, 2); ?></td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <form method="post" class="acciones-form">
-            <input type="hidden" name="costoTotal" value="<?php echo $total; ?>">
-            <button type="submit" name="accion" value="rechazar" class="btn-accion btn-rechazar">RECHAZAR</button>
-            <button type="submit" name="accion" value="aceptar" class="btn-accion btn-aceptar">ACEPTAR</button>
-        </form>
+            <form method="post" class="acciones-form">
+                <input type="hidden" name="costoTotal" value="<?php echo $total; ?>">
+                <button type="submit" name="accion" value="rechazar" class="btn-accion btn-rechazar">RECHAZAR</button>
+                <button type="submit" name="accion" value="aceptar" class="btn-accion btn-aceptar">ACEPTAR</button>
+            </form>
+        </div>
+
     </div>
 </div>
 

@@ -13,7 +13,6 @@ function cargarProducto() {
             if (producto.error) {
 
                 console.log(producto.error);
-
                 return;
             }
 
@@ -22,11 +21,8 @@ function cargarProducto() {
             document.getElementById("nombreProducto").textContent =
                 producto.NombreProducto;
 
-
-
             document.getElementById("precioProducto").textContent =
                 "Bs. " + producto.PrecioProducto;
-
 
 
             document.getElementById("descripcionProducto").textContent =
@@ -42,7 +38,7 @@ function cargarProducto() {
 
             if (producto.imagenes.length > 0) {
 
-                /* IMAGEN PRINCIPAL */
+              
 
                 document.getElementById("imagenPrincipal").src =
                     "../Productos/" + producto.imagenes[0];

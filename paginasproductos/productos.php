@@ -39,8 +39,8 @@
 
 </div>
 
-<script src="productos.js"></script>
-<script src="carrito.js"></script>
+<script src="js/productos.js"></script>
+<script src="js/carrito.js"></script>
 <?php include '../footer.php'; ?>
 
 </body>

@@ -1,13 +1,21 @@
 <?php
 session_start();
-$nombre = isset($_SESSION['Nombre']) ?$_SESSION['Nombre'] : "Vendedor";
+$nombre = isset($_SESSION['Nombre']) ? $_SESSION['Nombre'] : "Vendedor";
 
 $conn = new mysqli("localhost", "root", "", "vakerysss");
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-// Consultar pedidos pendientes o activos (excluyendo Aceptado y Cancelado)
+// 1. Contar pedidos pendientes (excluyendo Aceptado y Cancelado)
+$resTotalPedidos = $conn->query("SELECT COUNT(*) AS total FROM pedidos WHERE Estado IS NULL OR Estado NOT IN ('Aceptado', 'Cancelado')");
+$totalPedidosHoy = ($resTotalPedidos) ? $resTotalPedidos->fetch_assoc()['total'] : 0;
+
+// 2. Sumar el Stock total disponible en productos
+$resStockTotal = $conn->query("SELECT SUM(Stock) AS total_stock FROM productos");
+$stockTotal = ($resStockTotal) ? $resStockTotal->fetch_assoc()['total_stock'] : 0;
+
+// 3. Consultar pedidos pendientes o activos
 $sqlPedidos = "SELECT p.*, 
                GROUP_CONCAT(CONCAT(pr.NombreProducto, ' x', c.Cantidad) SEPARATOR '<br>') AS resumen_productos,
                SUM(c.CostoTotal) AS total_calculado
@@ -26,190 +34,132 @@ $resPedidos = $conn->query($sqlPedidos);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Vendedor - Vakery's</title>
-    
+    <link rel="stylesheet" href="estilos/vendedor.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
-        body {
-            background-color: #f8f9fa;
-            color: #1f2d25;
-            padding-top: 20px;
-        }
-
-        .saludo {
-            padding: 20px 40px;
-            background: #afc194;
-            color: #1f2d25;
-            margin-bottom: 30px;
-        }
-
-        .saludo h1 {
-            font-size: 26px;
-            font-weight: bold;
-        }
-
-        .saludo p {
-            font-size: 15px;
-            margin-top: 4px;
-        }
-
-        .contenedor-pedidos {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px 40px 20px;
-        }
-
-        .titulo-seccion {
-            font-size: 22px;
-            color: #1f2d25;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #afc194;
-            padding-bottom: 8px;
-        }
-
-        .grid-pedidos {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-        }
-
-        .bf {
-            background: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .bg {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 1px solid #f0f0f0;
-            padding-bottom: 12px;
-            margin-bottom: 12px;
-        }
-
-        .bc h2 {
-            font-size: 18px;
-            color: #1f2d25;
-        }
-
-        .bc p {
-            font-size: 14px;
-            color: #555;
-            margin-top: 4px;
-        }
-
-        .bd {
-            text-align: right;
-        }
-
-        .bd h3 {
-            font-size: 18px;
-            color: #1f2d25;
-        }
-
-        .bd p {
-            font-size: 12px;
-            color: #777;
-        }
-
-        .be {
-            font-size: 14px;
-            color: #444;
-            line-height: 1.5;
-            margin-bottom: 16px;
-            min-height: 50px;
-        }
-
-        .be strong {
-            color: #1f2d25;
-        }
-
+        /* Estilo para el botón Atender Pedido */
         .btn-atender {
             display: block;
             width: 100%;
             text-align: center;
-            background: #afc194;
-            color: #1f2d25;
-            text-decoration: none;
+            background-color: #1f2d25;
+            color: #ffffff;
             padding: 10px 0;
             border-radius: 6px;
             font-weight: bold;
             font-size: 14px;
-            transition: background 0.3s ease;
+            margin-top: 12px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none;
         }
 
         .btn-atender:hover {
-            background: #1f2d25;
-            color: #ffffff;
-        }
-
-        .sin-pedidos {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 40px;
-            background: #ffffff;
-            border-radius: 8px;
-            color: #666;
+            background-color: #afc194;
+            color: #1f2d25;
         }
     </style>
 </head>
 <body>
 
-<?php include 'header.php'; ?>
+    <?php include 'header.php'; ?>
 
-<div class="saludo">
-    <h1>¡Hola, <?php echo htmlspecialchars($nombre); ?>!</h1>
-   
-</div>
+    <div class="saludo">
+        <h1>¡Hola, <?php echo htmlspecialchars($nombre); ?>!</h1>
+        <p>Bienvenido/a de nuevo.</p>
+    </div>
 
-<div class="contenedor-pedidos">
-    <h2 class="titulo-seccion">Pedidos Pendientes por Atender</h2>
+    <div class="a">
+        <a href="Pedidos/leerpedido.php">    
+            <div class="ab">
+                <div class="at">
+                    <p>Pedidos Hoy</p>
+                    <h1><?php echo $totalPedidosHoy; ?></h1>
+                </div>
+                <img class="imga" src="imagenes/bolsa-de-la-compra.png" alt="Pedidos">
+            </div>
+        </a>
 
-    <div class="grid-pedidos">
-        <?php if ($resPedidos &&$resPedidos->num_rows > 0) { ?>
-            <?php while ($ped =$resPedidos->fetch_assoc()) { ?>
-                <div class="bf">
-                    <div class="bg">
-                        <div class="bc">
-                            <h2>Pedido #<?php echo sprintf('%03d', $ped['id']); ?></h2>
-                            <p><?php echo htmlspecialchars($ped['Nombre']); ?></p>
+        <a href="Productos/leerproductos.php">
+            <div class="ab">
+                <div class="at">
+                    <p>Stock</p>
+                    <h1><?php echo $stockTotal ? $stockTotal : 0; ?></h1>
+                </div>
+                <img class="imga" src="imagenes/galleta.png" alt="Stock">
+            </div>
+        </a>
+
+        <a href="Pedidos/crearpedido.php">
+            <div class="ab">
+                <div class="at">
+                    <p>Ingresar pedidos</p>
+                    <h1>+</h1>
+                </div>
+                <img class="imga" src="imagenes/portapapeles.png" alt="Ingresar">
+            </div>
+        </a>
+
+        <a href="Usuarios/cerrarsesion.php">
+            <div class="ab">
+                <div class="at">
+                    <h1>Cerrar Sesión</h1>
+                </div>
+                <img class="imga" src="imagenes/cerrar-sesion.png" alt="Cerrar Sesión">
+            </div>
+        </a>
+    </div>
+
+    <div class="b">
+        <div class="ba">
+            <div class="bb">
+                <h1>Pedidos</h1>
+                <img class="bb-img" src="imagenes/bolsa-de-la-compra.png" alt="Ícono Pedidos">
+            </div>
+
+            <?php if ($resPedidos && $resPedidos->num_rows > 0) { ?>
+                <?php while ($ped = $resPedidos->fetch_assoc()) { ?>
+                    <div class="bf">
+                        <div class="bg">
+                            <div class="bc">
+                                <h2>Pedido #<?php echo sprintf('%03d', $ped['id']); ?></h2>
+                                <p><?php echo htmlspecialchars($ped['Nombre']); ?></p>
+                            </div>
+                            <div class="bd">
+                                <h3>Bs <?php echo number_format($ped['total_calculado'] ? $ped['total_calculado'] : 0, 2); ?></h3>
+                                <p><?php echo date('d M Y', strtotime($ped['Fecha'])); ?></p>
+                                <p><?php echo date('h:i A', strtotime($ped['Fecha'])); ?></p>
+                            </div>
                         </div>
-                        <div class="bd">
-                            <h3>Bs. <?php echo number_format($ped['total_calculado'] ?$ped['total_calculado'] : 0, 2); ?></h3>
-                            <p><?php echo $ped['Fecha']; ?></p>
+                        <div class="be">
+                            <p><strong>Productos:</strong><br>
+                            <?php echo $ped['resumen_productos'] ? $ped['resumen_productos'] : "Sin productos asociados"; ?>
+                            </p>
                         </div>
-                    </div>
 
-                    <div class="be">
-                        <p><strong>Productos:</strong></p>
-                        <p><?php echo $ped['resumen_productos'] ?$ped['resumen_productos'] : "Sin productos asociados"; ?></p>
+                        <a href="Ventas/regisventa.php?pedido_id=<?php echo $ped['id']; ?>" class="btn-atender">
+                            Atender Pedido
+                        </a>
                     </div>
-
-                    <a href="Ventas/regisventa.php?pedido_id=<?php echo $ped['id']; ?>" class="btn-atender">
-                        Atender Pedido
-                    </a>
+                <?php } ?>
+            <?php } else { ?>
+                <div class="bf" style="text-align: center; padding: 20px;">
+                    <p>No hay pedidos pendientes en este momento.</p>
                 </div>
             <?php } ?>
-        <?php } else { ?>
-            <div class="sin-pedidos">
-                <h3>No hay pedidos pendientes en este momento.</h3>
-            </div>
-        <?php } ?>
-    </div>
-</div>
 
-<?php include 'footer.php'; ?>
+            <a href="Pedidos/leerpedido.php">
+                <div class="b-boton">
+                    <h1>Ver Todos Los pedidos</h1>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <?php include 'footer.php'; ?>
 
 </body>
 </html>
