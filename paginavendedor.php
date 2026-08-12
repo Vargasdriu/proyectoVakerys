@@ -46,9 +46,9 @@ $resPedidos = $conn->query($sqlPedidos);
             display: block;
             width: 100%;
             text-align: center;
-            background-color: #1f2d25;
+            background-color: #709775;
             color: #ffffff;
-            padding: 10px 0;
+            padding: 13px 0;
             border-radius: 6px;
             font-weight: bold;
             font-size: 14px;
@@ -60,6 +60,7 @@ $resPedidos = $conn->query($sqlPedidos);
         .btn-atender:hover {
             background-color: #afc194;
             color: #1f2d25;
+           transform:scale(1.03);
         }
     </style>
 </head>
