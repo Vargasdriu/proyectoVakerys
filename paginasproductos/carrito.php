@@ -496,7 +496,6 @@ if ($accion == "agregar") {
 
 elseif ($accion == "mostrar") {
 
-
     $sql = "
         SELECT
 

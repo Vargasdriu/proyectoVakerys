@@ -100,50 +100,12 @@ function cerrarSidebar() {
 
 
 //==============================
-// OBTENER ID DEL PEDIDO
-//==============================
-
-function obtenerIdPedido() {
-
-    const parametros =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    return parametros.get("idPedido");
-
-}
-
-
-//==============================
 // ACTUALIZAR CARRITO
 //==============================
 
 function actualizarCarrito() {
 
-    const idPedido =
-        obtenerIdPedido();
-
-
-    console.log(
-        "ID pedido para carrito:",
-        idPedido
-    );
-
-
-    if (!idPedido) {
-
-        console.log(
-            "No se encontró idPedido en la URL"
-        );
-
-        return;
-
-    }
-
-
-    fetch("../carrito.php", {
+    fetch("../paginasproductos/carrito.php", {
 
         method: "POST",
 
@@ -155,9 +117,7 @@ function actualizarCarrito() {
         },
 
         body:
-            "accion=mostrar" +
-            "&idPedido=" +
-            encodeURIComponent(idPedido)
+            "accion=mostrar"
 
     })
 
@@ -168,7 +128,6 @@ function actualizarCarrito() {
                 "Estado carrito:",
                 res.status
             );
-
 
             return res.text();
 
@@ -422,22 +381,7 @@ function vaciarCarrito() {
     }
 
 
-    const idPedido =
-        obtenerIdPedido();
-
-
-    if (!idPedido) {
-
-        alert(
-            "No se encontró el pedido."
-        );
-
-        return;
-
-    }
-
-
-    fetch("../carrito.php", {
+    fetch("../paginasproductos/carrito.php", {
 
         method: "POST",
 
@@ -449,9 +393,7 @@ function vaciarCarrito() {
         },
 
         body:
-            "accion=vaciar" +
-            "&idPedido=" +
-            encodeURIComponent(idPedido)
+            "accion=vaciar"
 
     })
 
@@ -503,7 +445,7 @@ document.addEventListener(
         ) {
 
             fetch(
-                "php/finalizar_pedido.php"
+                "../paginasproductos/finalizarpedido.php"
             )
 
                 .then(
@@ -516,7 +458,7 @@ document.addEventListener(
                         if (data.ok) {
 
                             window.location.href =
-                                "recibo.php";
+                                "proyectovakerys/recibo.php";
 
                         }
 

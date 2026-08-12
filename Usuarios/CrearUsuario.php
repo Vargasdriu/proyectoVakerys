@@ -50,8 +50,8 @@
     <label>Rol</label>
     <input type="text" placeholder="ROL" name="Rol" id="Rol">
 
-    <label>Estado</label>
-    <input type="text" placeholder="ESTADO" name="Estado" id="Estado">
+    
+    <input type="hidden" placeholder="ESTADO" name="Estado" id="Estado" value="activo">
 
     <input class="button" type="submit" value="Registrar">
 

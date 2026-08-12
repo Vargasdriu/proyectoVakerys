@@ -23,8 +23,8 @@ $idPedido=$_SESSION["pedido"];
 
 
 $sql="
-UPDATE pedido
-SET Estado='Pendiente'
+UPDATE Pedido
+
 WHERE id='$idPedido'
 ";
 
