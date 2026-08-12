@@ -9,9 +9,6 @@ header(
 );
 
 
-// ==========================================
-// COMPROBAR CONEXIÓN
-// ==========================================
 
 if ($conn->connect_error) {
 
@@ -30,12 +27,7 @@ if ($conn->connect_error) {
 }
 
 
-// ==========================================
-// OBTENER PEDIDO
-// ==========================================
-
-// Primero intentamos obtenerlo
-// desde idPedido enviado por POST
+/ desde idPedido enviado por POST
 
 if (
     isset($_POST["idPedido"]) &&
@@ -46,16 +38,12 @@ if (
         intval($_POST["idPedido"]);
 
 
-    // Guardarlo también en la sesión
-
     $_SESSION["pedido"] =
         $idPedido;
 
 }
 
 
-// Si no vino por POST,
-// usamos la sesión
 
 elseif (
     isset($_SESSION["pedido"])
@@ -66,8 +54,6 @@ elseif (
 
 }
 
-
-// Si no existe de ninguna manera
 
 else {
 
@@ -85,19 +71,12 @@ else {
 }
 
 
-// ==========================================
-// OBTENER ACCIÓN
-// ==========================================
 
 $accion =
     isset($_POST["accion"])
     ? $_POST["accion"]
     : "";
 
-
-// ==========================================
-// AGREGAR PRODUCTO
-// ==========================================
 
 if ($accion == "agregar") {
 
@@ -136,10 +115,6 @@ if ($accion == "agregar") {
 
     }
 
-
-    // ======================================
-    // BUSCAR PRODUCTO
-    // ======================================
 
     $sql = "
         SELECT PrecioProducto, Stock
@@ -216,9 +191,6 @@ if ($accion == "agregar") {
         intval($stock);
 
 
-    // ======================================
-    // COMPROBAR STOCK
-    // ======================================
 
     if ($cantidadNueva > $stock) {
 
@@ -236,9 +208,6 @@ if ($accion == "agregar") {
     }
 
 
-    // ======================================
-    // COMPROBAR SI YA ESTÁ EN EL CARRITO
-    // ======================================
 
     $sql = "
         SELECT Cantidad
@@ -280,10 +249,6 @@ if ($accion == "agregar") {
 
     $stmt->store_result();
 
-
-    // ======================================
-    // YA EXISTE
-    // ======================================
 
     if ($stmt->num_rows > 0) {
 

@@ -440,51 +440,135 @@ document.addEventListener(
     "click",
     function(e) {
 
-        if (
-            e.target.id === "comprar"
-        ) {
+        if (e.target.id !== "comprar") {
+            return;
+        }
 
-            fetch(
-                "../paginasproductos/finalizarpedido.php"
-            )
 
-                .then(
-                    res => res.json()
-                )
+        // Obtener idPedido de la URL
 
-                .then(
-                    data => {
+        const url =
+            new URLSearchParams(
+                window.location.search
+            );
 
-                        if (data.ok) {
+        const idPedido =
+            url.get("idPedido");
 
-                            window.location.href =
-                                "proyectovakerys/recibo.php";
 
-                        }
+        console.log(
+            "ID DEL PEDIDO:",
+            idPedido
+        );
 
-                        else {
 
-                            alert(
-                                data.mensaje
-                            );
+        if (!idPedido) {
 
-                        }
+            alert(
+                "No se encontró el ID del pedido."
+            );
 
-                    }
-                )
+            return;
+        }
 
-                .catch(
-                    error => {
 
-                        console.log(
-                            "Error al finalizar pedido:",
-                            error
-                        );
+        // Enviar pedido a PHP
 
-                    }
+        fetch(
+            "../paginasproductos/finalizarpedido.php",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/x-www-form-urlencoded"
+                },
+
+                body:
+                    "idPedido=" +
+                    encodeURIComponent(idPedido)
+            }
+        )
+
+        .then(
+            respuesta => {
+
+                console.log(
+                    "Estado:",
+                    respuesta.status
                 );
 
-        }
+                return respuesta.text();
+            }
+        )
+
+        .then(
+            texto => {
+
+                console.log(
+                    "Respuesta PHP:",
+                    texto
+                );
+
+
+                let datos;
+
+                try {
+
+                    datos =
+                        JSON.parse(texto);
+
+                } catch(error) {
+
+                    console.log(
+                        "PHP no devolvió JSON"
+                    );
+
+                    console.log(texto);
+
+                    alert(
+                        "Hubo un error en el servidor."
+                    );
+
+                    return;
+                }
+
+
+                if (datos.ok) {
+
+                    // Ir al recibo
+
+                    window.location.href =
+                        "recibo.php?idPedido=" +
+                        encodeURIComponent(idPedido);
+
+                }
+
+                else {
+
+                    alert(
+                        datos.mensaje
+                    );
+
+                }
+
+            }
+        )
+
+        .catch(
+            error => {
+
+                console.log(
+                    "Error al finalizar:",
+                    error
+                );
+
+                alert(
+                    "No se pudo finalizar el pedido."
+                );
+
+            }
+        );
 
     }
 );
