@@ -2,9 +2,9 @@ let listaProductos = [];
 let pedidoActivo = false;
 
 
-/* ==========================================
-   INICIAR
-========================================== */
+// ==========================================
+// INICIAR
+// ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/* ==========================================
-   MOSTRAR PRODUCTOS
-========================================== */
+// ==========================================
+// MOSTRAR PRODUCTOS
+// ==========================================
 
 function mostrarProductos() {
 
@@ -24,9 +24,11 @@ function mostrarProductos() {
         .then(respuesta => {
 
             if (!respuesta.ok) {
+
                 throw new Error(
                     "Error HTTP: " + respuesta.status
                 );
+
             }
 
             return respuesta.json();
@@ -50,6 +52,7 @@ function mostrarProductos() {
                 );
 
                 return;
+
             }
 
 
@@ -147,9 +150,9 @@ function mostrarProductos() {
             });
 
 
-            /* ==================================
-               BOTONES + Y -
-            ================================== */
+            // ==================================
+            // BOTONES + Y -
+            // ==================================
 
             document
                 .querySelectorAll(".btnCantidad")
@@ -184,9 +187,9 @@ function mostrarProductos() {
                 });
 
 
-            /* ==================================
-               BOTONES AÑADIR
-            ================================== */
+            // ==================================
+            // BOTONES AÑADIR
+            // ==================================
 
             document
                 .querySelectorAll(".anadir")
@@ -227,9 +230,9 @@ function mostrarProductos() {
 }
 
 
-/* ==========================================
-   CAMBIAR CANTIDAD
-========================================== */
+// ==========================================
+// CAMBIAR CANTIDAD
+// ==========================================
 
 function cambiarCantidad(
     codigo,
@@ -250,7 +253,9 @@ function cambiarCantidad(
 
 
     let cantidad =
-        parseInt(span.textContent);
+        parseInt(
+            span.textContent
+        );
 
 
     cantidad += cambio;
@@ -269,9 +274,9 @@ function cambiarCantidad(
 }
 
 
-/* ==========================================
-   AÑADIR AL CARRITO
-========================================== */
+// ==========================================
+// AÑADIR AL CARRITO
+// ==========================================
 
 function anadirAlCarrito(
     codigo
@@ -295,7 +300,9 @@ function anadirAlCarrito(
 
 
     let cantidad =
-        parseInt(span.textContent);
+        parseInt(
+            span.textContent
+        );
 
 
     if (cantidad < 1) {
@@ -303,6 +310,20 @@ function anadirAlCarrito(
         cantidad = 1;
 
     }
+
+
+    // ==========================================
+    // OBTENER ID DEL PEDIDO DE LA URL
+    // ==========================================
+
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const idPedido =
+        parametros.get("idPedido");
 
 
     console.log(
@@ -317,9 +338,30 @@ function anadirAlCarrito(
     );
 
 
-    /* ======================================
-       ENVIAR A carrito.php
-    ====================================== */
+    console.log(
+        "ID DEL PEDIDO:",
+        idPedido
+    );
+
+
+    // ==========================================
+    // COMPROBAR ID DEL PEDIDO
+    // ==========================================
+
+    if (!idPedido) {
+
+        alert(
+            "No se encontró el ID del pedido."
+        );
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // ENVIAR A carrito.php
+    // ==========================================
 
     fetch("carrito.php", {
 
@@ -337,7 +379,9 @@ function anadirAlCarrito(
             "&codigo=" +
             encodeURIComponent(codigo) +
             "&cantidad=" +
-            encodeURIComponent(cantidad)
+            encodeURIComponent(cantidad) +
+            "&idPedido=" +
+            encodeURIComponent(idPedido)
 
     })
 
@@ -365,9 +409,9 @@ function anadirAlCarrito(
         console.log(texto);
 
 
-        /* ==================================
-           CONVERTIR RESPUESTA A JSON
-        ================================== */
+        // ==================================
+        // CONVERTIR RESPUESTA A JSON
+        // ==================================
 
         let datos;
 
@@ -408,9 +452,9 @@ function anadirAlCarrito(
         );
 
 
-        /* ==================================
-           PRODUCTO AGREGADO
-        ================================== */
+        // ==================================
+        // PRODUCTO AGREGADO
+        // ==================================
 
         if (datos.ok) {
 
@@ -419,12 +463,12 @@ function anadirAlCarrito(
             );
 
 
-            /* Reiniciar cantidad */
+            // Reiniciar cantidad
 
             span.textContent = "1";
 
 
-            /* Actualizar carrito */
+            // Actualizar carrito
 
             if (
                 typeof actualizarCarrito ===
@@ -438,9 +482,9 @@ function anadirAlCarrito(
         }
 
 
-        /* ==================================
-           ERROR
-        ================================== */
+        // ==================================
+        // ERROR
+        // ==================================
 
         else {
 
@@ -472,9 +516,9 @@ function anadirAlCarrito(
 }
 
 
-/* ==========================================
-   HABILITAR COMPRA
-========================================== */
+// ==========================================
+// HABILITAR COMPRA
+// ==========================================
 
 function habilitarCompra() {
 

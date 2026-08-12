@@ -4,7 +4,9 @@ session_start();
 
 require("conexion.php");
 
-header("Content-Type: application/json; charset=utf-8");
+header(
+    "Content-Type: application/json; charset=utf-8"
+);
 
 
 // ==========================================
@@ -14,38 +16,83 @@ header("Content-Type: application/json; charset=utf-8");
 if ($conn->connect_error) {
 
     echo json_encode(array(
+
         "ok" => false,
-        "mensaje" => "Error de conexión: " . $conn->connect_error
+
+        "mensaje" =>
+            "Error de conexión: " .
+            $conn->connect_error
+
     ));
 
     exit;
+
 }
 
 
 // ==========================================
-// COMPROBAR PEDIDO
+// OBTENER PEDIDO
 // ==========================================
 
-if (!isset($_SESSION["pedido"])) {
+// Primero intentamos obtenerlo
+// desde idPedido enviado por POST
+
+if (
+    isset($_POST["idPedido"]) &&
+    $_POST["idPedido"] != ""
+) {
+
+    $idPedido =
+        intval($_POST["idPedido"]);
+
+
+    // Guardarlo también en la sesión
+
+    $_SESSION["pedido"] =
+        $idPedido;
+
+}
+
+
+// Si no vino por POST,
+// usamos la sesión
+
+elseif (
+    isset($_SESSION["pedido"])
+) {
+
+    $idPedido =
+        intval($_SESSION["pedido"]);
+
+}
+
+
+// Si no existe de ninguna manera
+
+else {
 
     echo json_encode(array(
+
         "ok" => false,
-        "mensaje" => "No existe un pedido activo"
+
+        "mensaje" =>
+            "No existe un pedido activo"
+
     ));
 
     exit;
+
 }
-
-
-$idPedido = $_SESSION["pedido"];
 
 
 // ==========================================
 // OBTENER ACCIÓN
-// Compatible con PHP antiguo
 // ==========================================
 
-$accion = isset($_POST["accion"]) ? $_POST["accion"] : "";
+$accion =
+    isset($_POST["accion"])
+    ? $_POST["accion"]
+    : "";
 
 
 // ==========================================
@@ -55,11 +102,14 @@ $accion = isset($_POST["accion"]) ? $_POST["accion"] : "";
 if ($accion == "agregar") {
 
 
-    $codigo = isset($_POST["codigo"])
+    $codigo =
+        isset($_POST["codigo"])
         ? $_POST["codigo"]
         : "";
 
-    $cantidadNueva = isset($_POST["cantidad"])
+
+    $cantidadNueva =
+        isset($_POST["cantidad"])
         ? intval($_POST["cantidad"])
         : 1;
 
@@ -67,16 +117,23 @@ if ($accion == "agregar") {
     if ($codigo == "") {
 
         echo json_encode(array(
+
             "ok" => false,
-            "mensaje" => "No se recibió el código del producto"
+
+            "mensaje" =>
+                "No se recibió el código del producto"
+
         ));
 
         exit;
+
     }
 
 
     if ($cantidadNueva < 1) {
+
         $cantidadNueva = 1;
+
     }
 
 
@@ -90,21 +147,33 @@ if ($accion == "agregar") {
         WHERE Codigo = ?
     ";
 
-    $stmt = $conn->prepare($sql);
+
+    $stmt =
+        $conn->prepare($sql);
 
 
     if (!$stmt) {
 
         echo json_encode(array(
+
             "ok" => false,
-            "mensaje" => "Error al preparar producto: " . $conn->error
+
+            "mensaje" =>
+                "Error al preparar producto: " .
+                $conn->error
+
         ));
 
         exit;
+
     }
 
 
-    $stmt->bind_param("s", $codigo);
+    $stmt->bind_param(
+        "s",
+        $codigo
+    );
+
 
     $stmt->execute();
 
@@ -114,13 +183,18 @@ if ($accion == "agregar") {
     if ($stmt->num_rows == 0) {
 
         echo json_encode(array(
+
             "ok" => false,
-            "mensaje" => "Producto no encontrado"
+
+            "mensaje" =>
+                "Producto no encontrado"
+
         ));
 
         $stmt->close();
 
         exit;
+
     }
 
 
@@ -129,13 +203,17 @@ if ($accion == "agregar") {
         $stock
     );
 
+
     $stmt->fetch();
 
     $stmt->close();
 
 
-    $precio = intval($precio);
-    $stock = intval($stock);
+    $precio =
+        intval($precio);
+
+    $stock =
+        intval($stock);
 
 
     // ======================================
@@ -145,11 +223,16 @@ if ($accion == "agregar") {
     if ($cantidadNueva > $stock) {
 
         echo json_encode(array(
+
             "ok" => false,
-            "mensaje" => "No hay suficiente stock"
+
+            "mensaje" =>
+                "No hay suficiente stock"
+
         ));
 
         exit;
+
     }
 
 
@@ -165,17 +248,24 @@ if ($accion == "agregar") {
     ";
 
 
-    $stmt = $conn->prepare($sql);
+    $stmt =
+        $conn->prepare($sql);
 
 
     if (!$stmt) {
 
         echo json_encode(array(
+
             "ok" => false,
-            "mensaje" => "Error al preparar carrito: " . $conn->error
+
+            "mensaje" =>
+                "Error al preparar carrito: " .
+                $conn->error
+
         ));
 
         exit;
+
     }
 
 
@@ -198,7 +288,10 @@ if ($accion == "agregar") {
     if ($stmt->num_rows > 0) {
 
 
-        $stmt->bind_result($cantidadActual);
+        $stmt->bind_result(
+            $cantidadActual
+        );
+
 
         $stmt->fetch();
 
@@ -206,7 +299,8 @@ if ($accion == "agregar") {
 
 
         $cantidadTotal =
-            intval($cantidadActual) + $cantidadNueva;
+            intval($cantidadActual) +
+            $cantidadNueva;
 
 
         // Comprobar stock total
@@ -214,11 +308,16 @@ if ($accion == "agregar") {
         if ($cantidadTotal > $stock) {
 
             echo json_encode(array(
+
                 "ok" => false,
-                "mensaje" => "No hay suficiente stock"
+
+                "mensaje" =>
+                    "No hay suficiente stock"
+
             ));
 
             exit;
+
         }
 
 
@@ -238,17 +337,23 @@ if ($accion == "agregar") {
         ";
 
 
-        $stmt = $conn->prepare($sql);
+        $stmt =
+            $conn->prepare($sql);
 
 
         if (!$stmt) {
 
             echo json_encode(array(
+
                 "ok" => false,
-                "mensaje" => $conn->error
+
+                "mensaje" =>
+                    $conn->error
+
             ));
 
             exit;
+
         }
 
 
@@ -264,15 +369,23 @@ if ($accion == "agregar") {
         if ($stmt->execute()) {
 
             echo json_encode(array(
+
                 "ok" => true,
-                "mensaje" => "Producto actualizado correctamente"
+
+                "mensaje" =>
+                    "Producto actualizado correctamente"
+
             ));
 
         } else {
 
             echo json_encode(array(
+
                 "ok" => false,
-                "mensaje" => $stmt->error
+
+                "mensaje" =>
+                    $stmt->error
+
             ));
 
         }
@@ -283,9 +396,9 @@ if ($accion == "agregar") {
     }
 
 
-// ==========================================
-// PRODUCTO NUEVO
-// ==========================================
+    // ======================================
+    // PRODUCTO NUEVO
+    // ======================================
 
     else {
 
@@ -316,17 +429,23 @@ if ($accion == "agregar") {
         ";
 
 
-        $stmt = $conn->prepare($sql);
+        $stmt =
+            $conn->prepare($sql);
 
 
         if (!$stmt) {
 
             echo json_encode(array(
+
                 "ok" => false,
-                "mensaje" => $conn->error
+
+                "mensaje" =>
+                    $conn->error
+
             ));
 
             exit;
+
         }
 
 
@@ -342,15 +461,23 @@ if ($accion == "agregar") {
         if ($stmt->execute()) {
 
             echo json_encode(array(
+
                 "ok" => true,
-                "mensaje" => "Producto agregado correctamente"
+
+                "mensaje" =>
+                    "Producto agregado correctamente"
+
             ));
 
         } else {
 
             echo json_encode(array(
+
                 "ok" => false,
-                "mensaje" => $stmt->error
+
+                "mensaje" =>
+                    $stmt->error
+
             ));
 
         }
@@ -359,7 +486,6 @@ if ($accion == "agregar") {
         $stmt->close();
 
     }
-
 
 }
 
@@ -373,33 +499,48 @@ elseif ($accion == "mostrar") {
 
     $sql = "
         SELECT
+
             c.productos_Codigo,
+
             c.Cantidad,
+
             c.CostoTotal,
+
             p.NombreProducto,
+
             p.PrecioProducto,
+
             p.Imagen
 
         FROM carrito c
 
         INNER JOIN productos p
-            ON c.productos_Codigo = p.Codigo
+
+            ON c.productos_Codigo =
+               p.Codigo
 
         WHERE c.pedidos_id = ?
     ";
 
 
-    $stmt = $conn->prepare($sql);
+    $stmt =
+        $conn->prepare($sql);
 
 
     if (!$stmt) {
 
         echo json_encode(array(
+
             "ok" => false,
-            "mensaje" => "Error al preparar consulta: " . $conn->error
+
+            "mensaje" =>
+                "Error al preparar consulta: " .
+                $conn->error
+
         ));
 
         exit;
+
     }
 
 
@@ -413,12 +554,19 @@ elseif ($accion == "mostrar") {
 
 
     $stmt->bind_result(
+
         $codigoProducto,
+
         $cantidad,
+
         $costoTotal,
+
         $nombreProducto,
+
         $precioProducto,
+
         $imagen
+
     );
 
 
@@ -429,24 +577,32 @@ elseif ($accion == "mostrar") {
 
         $carrito[] = array(
 
-            "productos_Codigo" => $codigoProducto,
+            "productos_Codigo" =>
+                $codigoProducto,
 
-            "Cantidad" => $cantidad,
+            "Cantidad" =>
+                $cantidad,
 
-            "CostoTotal" => $costoTotal,
+            "CostoTotal" =>
+                $costoTotal,
 
-            "NombreProducto" => $nombreProducto,
+            "NombreProducto" =>
+                $nombreProducto,
 
-            "PrecioProducto" => $precioProducto,
+            "PrecioProducto" =>
+                $precioProducto,
 
-            "Imagen" => $imagen
+            "Imagen" =>
+                $imagen
 
         );
 
     }
 
 
-    echo json_encode($carrito);
+    echo json_encode(
+        $carrito
+    );
 
 
     $stmt->close();
@@ -463,21 +619,28 @@ elseif ($accion == "vaciar") {
 
     $sql = "
         DELETE FROM carrito
+
         WHERE pedidos_id = ?
     ";
 
 
-    $stmt = $conn->prepare($sql);
+    $stmt =
+        $conn->prepare($sql);
 
 
     if (!$stmt) {
 
         echo json_encode(array(
+
             "ok" => false,
-            "mensaje" => $conn->error
+
+            "mensaje" =>
+                $conn->error
+
         ));
 
         exit;
+
     }
 
 
@@ -490,15 +653,23 @@ elseif ($accion == "vaciar") {
     if ($stmt->execute()) {
 
         echo json_encode(array(
+
             "ok" => true,
-            "mensaje" => "Carrito vaciado correctamente"
+
+            "mensaje" =>
+                "Carrito vaciado correctamente"
+
         ));
 
     } else {
 
         echo json_encode(array(
+
             "ok" => false,
-            "mensaje" => $stmt->error
+
+            "mensaje" =>
+                $stmt->error
+
         ));
 
     }
@@ -515,10 +686,13 @@ elseif ($accion == "vaciar") {
 
 else {
 
-
     echo json_encode(array(
+
         "ok" => false,
-        "mensaje" => "Acción no válida"
+
+        "mensaje" =>
+            "Acción no válida"
+
     ));
 
 }

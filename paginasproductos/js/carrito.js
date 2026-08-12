@@ -2,9 +2,7 @@
 // ABRIR CARRITO
 //==============================
 
-let carrito =
-    document.getElementById("carrito");
-
+let carrito = document.getElementById("carrito");
 
 if (carrito) {
 
@@ -14,33 +12,23 @@ if (carrito) {
 
             e.preventDefault();
 
-
             let sidebar =
-                document.getElementById(
-                    "sidebar"
-                );
-
+                document.getElementById("sidebar");
 
             let fondo =
-                document.getElementById(
-                    "fondo"
-                );
+                document.getElementById("fondo");
 
 
             if (sidebar) {
 
-                sidebar.classList.add(
-                    "activo"
-                );
+                sidebar.classList.add("activo");
 
             }
 
 
             if (fondo) {
 
-                fondo.classList.add(
-                    "activo"
-                );
+                fondo.classList.add("activo");
 
             }
 
@@ -58,9 +46,7 @@ if (carrito) {
 //==============================
 
 let cerrarCarrito =
-    document.getElementById(
-        "cerrarCarrito"
-    );
+    document.getElementById("cerrarCarrito");
 
 
 if (cerrarCarrito) {
@@ -74,9 +60,7 @@ if (cerrarCarrito) {
 
 
 let fondo =
-    document.getElementById(
-        "fondo"
-    );
+    document.getElementById("fondo");
 
 
 if (fondo) {
@@ -92,33 +76,42 @@ if (fondo) {
 function cerrarSidebar() {
 
     let sidebar =
-        document.getElementById(
-            "sidebar"
-        );
+        document.getElementById("sidebar");
 
 
     let fondo =
-        document.getElementById(
-            "fondo"
-        );
+        document.getElementById("fondo");
 
 
     if (sidebar) {
 
-        sidebar.classList.remove(
-            "activo"
-        );
+        sidebar.classList.remove("activo");
 
     }
 
 
     if (fondo) {
 
-        fondo.classList.remove(
-            "activo"
-        );
+        fondo.classList.remove("activo");
 
     }
+
+}
+
+
+//==============================
+// OBTENER ID DEL PEDIDO
+//==============================
+
+function obtenerIdPedido() {
+
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    return parametros.get("idPedido");
 
 }
 
@@ -129,23 +122,89 @@ function cerrarSidebar() {
 
 function actualizarCarrito() {
 
-    fetch("php/carrito.php", {
+    const idPedido =
+        obtenerIdPedido();
+
+
+    console.log(
+        "ID pedido para carrito:",
+        idPedido
+    );
+
+
+    if (!idPedido) {
+
+        console.log(
+            "No se encontró idPedido en la URL"
+        );
+
+        return;
+
+    }
+
+
+    fetch("../carrito.php", {
 
         method: "POST",
 
         headers: {
+
             "Content-Type":
                 "application/x-www-form-urlencoded"
+
         },
 
         body:
-            "accion=mostrar"
+            "accion=mostrar" +
+            "&idPedido=" +
+            encodeURIComponent(idPedido)
 
     })
 
-        .then(res => res.json())
 
-        .then(datos => {
+        .then(res => {
+
+            console.log(
+                "Estado carrito:",
+                res.status
+            );
+
+
+            return res.text();
+
+        })
+
+
+        .then(texto => {
+
+            console.log(
+                "Respuesta carrito:",
+                texto
+            );
+
+
+            let datos;
+
+
+            try {
+
+                datos =
+                    JSON.parse(texto);
+
+            }
+
+            catch(error) {
+
+                console.log(
+                    "carrito.php no devolvió JSON"
+                );
+
+                console.log(texto);
+
+                return;
+
+            }
+
 
             console.log(
                 "Carrito:",
@@ -153,9 +212,11 @@ function actualizarCarrito() {
             );
 
 
-            if (
-                !Array.isArray(datos)
-            ) {
+            //==============================
+            // SI HAY ERROR
+            //==============================
+
+            if (!Array.isArray(datos)) {
 
                 alert(
                     datos.mensaje
@@ -172,6 +233,10 @@ function actualizarCarrito() {
 
             let cantidadTotal = 0;
 
+
+            //==============================
+            // MOSTRAR PRODUCTOS
+            //==============================
 
             datos.forEach(
                 producto => {
@@ -214,7 +279,9 @@ function actualizarCarrito() {
                             <p>
                                 Precio:
                                 Bs.
-                                ${producto.PrecioProducto}
+                                ${Number(
+                                    producto.PrecioProducto
+                                ).toFixed(2)}
                             </p>
 
 
@@ -232,6 +299,31 @@ function actualizarCarrito() {
             );
 
 
+            //==============================
+            // SI ESTÁ VACÍO
+            //==============================
+
+            if (datos.length === 0) {
+
+                html = `
+
+                    <div class="carritoVacio">
+
+                        <p>
+                            Tu carrito está vacío.
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            //==============================
+            // INSERTAR PRODUCTOS
+            //==============================
+
             let contenido =
                 document.getElementById(
                     "contenidoCarrito"
@@ -246,6 +338,10 @@ function actualizarCarrito() {
             }
 
 
+            //==============================
+            // CANTIDAD
+            //==============================
+
             let cantidadCarrito =
                 document.getElementById(
                     "cantidadCarrito"
@@ -259,6 +355,10 @@ function actualizarCarrito() {
 
             }
 
+
+            //==============================
+            // TOTAL
+            //==============================
 
             let totalCarrito =
                 document.getElementById(
@@ -275,6 +375,7 @@ function actualizarCarrito() {
             }
 
         })
+
 
         .catch(error => {
 
@@ -321,21 +422,42 @@ function vaciarCarrito() {
     }
 
 
-    fetch("php/carrito.php", {
+    const idPedido =
+        obtenerIdPedido();
+
+
+    if (!idPedido) {
+
+        alert(
+            "No se encontró el pedido."
+        );
+
+        return;
+
+    }
+
+
+    fetch("../carrito.php", {
 
         method: "POST",
 
         headers: {
+
             "Content-Type":
                 "application/x-www-form-urlencoded"
+
         },
 
         body:
-            "accion=vaciar"
+            "accion=vaciar" +
+            "&idPedido=" +
+            encodeURIComponent(idPedido)
 
     })
 
+
         .then(res => res.json())
+
 
         .then(datos => {
 
@@ -343,7 +465,9 @@ function vaciarCarrito() {
 
                 actualizarCarrito();
 
-            } else {
+            }
+
+            else {
 
                 alert(
                     datos.mensaje
@@ -352,6 +476,7 @@ function vaciarCarrito() {
             }
 
         })
+
 
         .catch(error => {
 
@@ -374,8 +499,7 @@ document.addEventListener(
     function(e) {
 
         if (
-            e.target.id ===
-            "comprar"
+            e.target.id === "comprar"
         ) {
 
             fetch(
@@ -394,7 +518,9 @@ document.addEventListener(
                             window.location.href =
                                 "recibo.php";
 
-                        } else {
+                        }
+
+                        else {
 
                             alert(
                                 data.mensaje
