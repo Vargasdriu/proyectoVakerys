@@ -104,6 +104,26 @@ $resPedidos = $conn->query($sqlPedidos);
             </div>
         </a>
 
+        <a href="Pedidos/leerpedido.php">
+            <div class="ab">
+                <div class="at">
+                    <p>Historial Pedidos</p>
+                    <h1>+</h1>
+                </div>
+                <img class="imga" src="imagenes/portapapeles.png" alt="Ingresar">
+            </div>
+        </a>
+
+        <a href="Ventas/leerventa.php">
+            <div class="ab">
+                <div class="at">
+                    <p>Historial Ventas</p>
+                    <h1>+</h1>
+                </div>
+                <img class="imga" src="imagenes/portapapeles.png" alt="Ingresar">
+            </div>
+        </a>
+
         <a href="Usuarios/cerrarsesion.php">
             <div class="ab">
                 <div class="at">
