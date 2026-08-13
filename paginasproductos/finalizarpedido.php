@@ -16,18 +16,20 @@ if (!isset($_SESSION["pedido"])) {
     exit;
 }
 
-$idPedidos = $_SESSION["pedido"];
+$idPedido = $_SESSION["pedido"];
 
 try {
 
     // ==========================================
-    // 1. OBTENER LOS PRODUCTOS DEL PEDIDO
+    // 1. OBTENER PRODUCTOS DEL PEDIDO
     // ==========================================
 
     $sqlCarrito = "
-        SELECT productos_Codigo, Cantidad
+        SELECT
+            productos_Codigo,
+            Cantidad
         FROM carrito
-        WHERE pedidos_id = '$idPedidos'
+        WHERE pedidos_id = '$idPedido'
     ";
 
     $resultado = $conn->query($sqlCarrito);
@@ -36,6 +38,16 @@ try {
         throw new Exception($conn->error);
     }
 
+    // ==========================================
+    // VERIFICAR QUE HAYA PRODUCTOS
+    // ==========================================
+
+    if ($resultado->num_rows == 0) {
+
+        throw new Exception(
+            "El pedido no tiene productos asociados."
+        );
+    }
 
     // ==========================================
     // 2. RESTAR STOCK
@@ -65,15 +77,14 @@ try {
         }
     }
 
-
     // ==========================================
     // 3. FINALIZAR PEDIDO
     // ==========================================
 
     $sqlPedido = "
         UPDATE pedidos
-        SET Estado = 'Finalizado'
-        WHERE id = '$idPedidos'
+        SET Estado = 'Activo'
+        WHERE id = '$idPedido'
     ";
 
     if (!$conn->query($sqlPedido)) {
@@ -81,27 +92,10 @@ try {
     }
 
 
-    // ==========================================
-    // 4. VACIAR CARRITO
-    // ==========================================
-
-    $sqlVaciar = "
-        DELETE FROM carrito
-        WHERE pedidos_id = '$idPedidos'
-    ";
-
-    if (!$conn->query($sqlVaciar)) {
-        throw new Exception($conn->error);
-    }
-
-
-    // ==========================================
-    // 5. RESPUESTA
-    // ==========================================
 
     echo json_encode([
         "ok" => true,
-        "pedido" => $idPedidos,
+        "pedido" => $idPedido,
         "mensaje" => "Pedido finalizado correctamente"
     ]);
 

@@ -2,6 +2,10 @@
 
 session_start();
 
+// ==========================================
+// CONEXIÓN A LA BASE DE DATOS
+// ==========================================
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -20,40 +24,84 @@ if ($conn->connect_error) {
 
 $conn->set_charset("utf8");
 
+// ==========================================
+// VERIFICAR PEDIDO
+// ==========================================
+
 if (!isset($_SESSION["pedido"])) {
-    echo "No existe pedido activo";
-    exit;
+    die("No existe un pedido activo.");
 }
 
-$id = $_SESSION["pedido"];
+$idPedido = $_SESSION["pedido"];
 
-$sql = "
-    SELECT *
+// ==========================================
+// BUSCAR PEDIDO
+// ==========================================
+
+$sqlPedido = "
+    SELECT
+        id,
+        Nombre,
+        Fecha,
+        Estado,
+        NombreVendedor,
+        Direccion,
+        Telefono
     FROM pedidos
-    WHERE id = '$id'
+    WHERE id = ?
 ";
 
-$resultado = $conn->query($sql);
+$stmtPedido = $conn->prepare($sqlPedido);
 
-if (!$resultado || $resultado->num_rows == 0) {
-    echo "No se encontró el pedido.";
-    exit;
+if (!$stmtPedido) {
+    die("Error en la consulta del pedido: " . $conn->error);
 }
 
-$pedido = $resultado->fetch_assoc();
+$stmtPedido->bind_param("i", $idPedido);
+$stmtPedido->execute();
+
+$resultadoPedido = $stmtPedido->get_result();
+
+if ($resultadoPedido->num_rows === 0) {
+    die("No se encontró el pedido.");
+}
+
+$pedido = $resultadoPedido->fetch_assoc();
+
+$stmtPedido->close();
+
+// ==========================================
+// BUSCAR PRODUCTOS DEL PEDIDO
+// ==========================================
 
 $sqlProductos = "
     SELECT
-        p.NombreProducto,
+        c.productos_Codigo,
         c.Cantidad,
-        c.CostoTotal
+        c.CostoTotal,
+        p.NombreProducto,
+        p.PrecioProducto,
+        p.Imagen
     FROM carrito c
     INNER JOIN productos p
         ON c.productos_Codigo = p.Codigo
-    WHERE c.pedidos_id = '$id'
+    WHERE c.pedidos_id = ?
 ";
 
-$resultadoProducto = $conn->query($sqlProductos);
+$stmtProductos = $conn->prepare($sqlProductos);
+
+if (!$stmtProductos) {
+    die("Error en la consulta de productos: " . $conn->error);
+}
+
+$stmtProductos->bind_param("i", $idPedido);
+$stmtProductos->execute();
+
+$resultadoProductos = $stmtProductos->get_result();
+
+// ==========================================
+// TOTAL
+// ==========================================
 
 $total = 0;
 
@@ -68,7 +116,7 @@ $total = 0;
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Recibo</title>
+    <title>Recibo - Vakery's</title>
 
     <link rel="stylesheet" href="../estilos/estilosrecibo.css">
 
@@ -78,13 +126,17 @@ $total = 0;
 
     <div class="recibo">
 
+        <!-- ==========================================
+             ENCABEZADO
+        =========================================== -->
+
         <h1>VAKERY'S</h1>
 
         <h2>Recibo de pedido</h2>
 
         <p>
-            <strong>Número:</strong>
-            <?php echo $pedido["id"]; ?>
+            <strong>Número de pedido:</strong>
+            <?php echo htmlspecialchars($pedido["id"]); ?>
         </p>
 
         <p>
@@ -94,7 +146,7 @@ $total = 0;
 
         <p>
             <strong>Fecha:</strong>
-            <?php echo $pedido["Fecha"]; ?>
+            <?php echo htmlspecialchars($pedido["Fecha"]); ?>
         </p>
 
         <p>
@@ -104,7 +156,7 @@ $total = 0;
 
         <p>
             <strong>Teléfono:</strong>
-            <?php echo $pedido["Telefono"]; ?>
+            <?php echo htmlspecialchars($pedido["Telefono"]); ?>
         </p>
 
         <p>
@@ -114,15 +166,21 @@ $total = 0;
 
         <hr>
 
+        <!-- ==========================================
+             PRODUCTOS
+        =========================================== -->
+
         <h3>Productos</h3>
 
         <?php
 
-        if ($resultadoProducto && $resultadoProducto->num_rows > 0) {
+        if ($resultadoProductos->num_rows > 0) {
 
-            while ($producto = $resultadoProducto->fetch_assoc()) {
+            while ($producto = $resultadoProductos->fetch_assoc()) {
 
-                $total += $producto["CostoTotal"];
+                $subtotal = (int)$producto["CostoTotal"];
+
+                $total += $subtotal;
 
                 ?>
 
@@ -130,18 +188,48 @@ $total = 0;
 
                     <p>
                         <strong>
-                            <?php echo htmlspecialchars($producto["NombreProducto"]); ?>
+                            <?php
+                            echo htmlspecialchars(
+                                $producto["NombreProducto"]
+                            );
+                            ?>
                         </strong>
                     </p>
 
                     <p>
+                        Código:
+                        <?php
+                        echo htmlspecialchars(
+                            $producto["productos_Codigo"]
+                        );
+                        ?>
+                    </p>
+
+                    <p>
+                        Precio:
+                        Bs <?php
+                        echo htmlspecialchars(
+                            $producto["PrecioProducto"]
+                        );
+                        ?>
+                    </p>
+
+                    <p>
                         Cantidad:
-                        <?php echo $producto["Cantidad"]; ?>
+                        <?php
+                        echo htmlspecialchars(
+                            $producto["Cantidad"]
+                        );
+                        ?>
                     </p>
 
                     <p>
                         Subtotal:
-                        Bs <?php echo $producto["CostoTotal"]; ?>
+                        Bs <?php
+                        echo htmlspecialchars(
+                            $producto["CostoTotal"]
+                        );
+                        ?>
                     </p>
 
                 </div>
@@ -154,11 +242,21 @@ $total = 0;
 
         } else {
 
-            echo "<p>No hay productos asociados a este pedido.</p>";
+            ?>
+
+            <p>
+                No hay productos asociados a este pedido.
+            </p>
+
+            <?php
 
         }
 
         ?>
+
+        <!-- ==========================================
+             TOTAL
+        =========================================== -->
 
         <h2>
             Total: Bs <?php echo $total; ?>
@@ -168,11 +266,21 @@ $total = 0;
             Esperando aprobación del vendedor
         </h3>
 
-        <button onclick="window.print()">
+        <!-- ==========================================
+             BOTONES
+        =========================================== -->
+
+        <button
+            type="button"
+            onclick="window.print()"
+        >
             🖨 Imprimir
         </button>
 
-        <button type="button" id="volverProductos">
+       <button
+    type="button"
+    onclick="window.location.href='nuevoPedido.php'">
+
             Volver a Productos
         </button>
 
@@ -181,15 +289,22 @@ $total = 0;
     <script>
 
         document
-            .getElementById("volverProductos")
-            .addEventListener("click", function() {
+    .getElementById("volverProductos")
+    .addEventListener("click", function () {
 
-                window.location.href = "productos.php";
+        window.location.href = "productos.php";
 
-            });
+    });
 
     </script>
 
 </body>
 
 </html>
+
+<?php
+
+$stmtProductos->close();
+$conn->close();
+
+?>

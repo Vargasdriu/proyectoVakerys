@@ -458,7 +458,7 @@ document.addEventListener(
 
         console.log(
             "ID DEL PEDIDO:",
-            idPedido
+                idPedido
         );
 
 

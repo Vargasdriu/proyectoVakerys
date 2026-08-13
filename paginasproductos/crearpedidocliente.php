@@ -129,7 +129,7 @@ session_start();
         >
 
 
-        <label>Estado:</label>
+     
 
         <input
             type="hidden"
