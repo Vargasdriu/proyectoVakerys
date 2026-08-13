@@ -536,11 +536,10 @@ document.addEventListener(
 
                 if (datos.ok) {
 
-                    // Ir al recibo
+                    
 
                     window.location.href =
-                        "recibo.php?idPedido=" +
-                        encodeURIComponent(idPedido);
+                        "recibo.php";
 
                 }
 

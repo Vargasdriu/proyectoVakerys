@@ -27,19 +27,18 @@ if ($conn->connect_error) {
 }
 
 
-/ desde idPedido enviado por POST
 
 if (
-    isset($_POST["idPedido"]) &&
-    $_POST["idPedido"] != ""
+    isset($_POST["idPedidos"]) &&
+    $_POST["idPedidos"] != ""
 ) {
 
-    $idPedido =
-        intval($_POST["idPedido"]);
+    $idPedidos =
+        intval($_POST["idPedidos"]);
 
 
     $_SESSION["pedido"] =
-        $idPedido;
+        $idPedidos;
 
 }
 

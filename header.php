@@ -524,11 +524,9 @@ nav{
             Total: Bs 0.00
         </h3>
 
-    <a href="recibo.php">
         <button id="comprar" type="button">
             Finalizar compra
         </button>
-</a>
 
         <button id="vaciarCarrito" type="button">
             Vaciar carrito
