@@ -7,12 +7,23 @@
     <link rel="stylesheet" href="comen.css" class="me">
 </head>
 <body>
-     <?php include '../header.php'; ?>
+    <?php include '../header.php'; ?>
   <video autoplay muted loop>
     <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
 
 </video>
+
+<div class="capa"></div>
+
+<div class="tra">
+
     <form action="uno.php" method="POST">
+
+    <h2>Comentario</h2>
+    
+    <label for="">Ingrese:</label>
+
+
         <label for="">nombre:</label>
         <input type="text" name="nom" id="">
 
@@ -20,10 +31,10 @@
         <input type="text" name="asu" id="">
         
         <label for="">comentario:</label>   
-        <textarea name="come" id=""></textarea>
+        <input type="text" name="come" id="">
 
-        <input type="reset" value="borrar">
-        <input type="submit" value="enviar">
+        <input class="button" type="reset" value="borrar">
+        <input class="button" type="submit" value="enviar">
     </form>
     
 </body>
