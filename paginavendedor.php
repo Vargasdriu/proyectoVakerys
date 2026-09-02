@@ -1,6 +1,6 @@
 <?php
 session_start();
-$nombre = isset($_SESSION['Nombre']) ? $_SESSION['Nombre'] : "Vendedor";
+$nombre = isset($_SESSION['Nombre']);
 
 $conn = new mysqli("localhost", "root", "", "vakerysss");
 if ($conn->connect_error) {
@@ -69,7 +69,9 @@ $resPedidos = $conn->query($sqlPedidos);
     <?php include 'header.php'; ?>
 
     <div class="saludo">
-        <h1>¡Hola, <?php echo htmlspecialchars($nombre); ?>!</h1>
+        <h1>
+    Hola!, <?php echo $_SESSION['Nombre']; ?>
+</h1>
         <p>Bienvenido/a de nuevo.</p>
     </div>
 
@@ -98,6 +100,26 @@ $resPedidos = $conn->query($sqlPedidos);
             <div class="ab">
                 <div class="at">
                     <p>Ingresar pedidos</p>
+                    <h1>+</h1>
+                </div>
+                <img class="imga" src="imagenes/portapapeles.png" alt="Ingresar">
+            </div>
+        </a>
+
+        <a href="Pedidos/leerpedido.php">
+            <div class="ab">
+                <div class="at">
+                    <p>Historial Pedidos</p>
+                    <h1>+</h1>
+                </div>
+                <img class="imga" src="imagenes/portapapeles.png" alt="Ingresar">
+            </div>
+        </a>
+
+        <a href="Ventas/leerventa.php">
+            <div class="ab">
+                <div class="at">
+                    <p>Historial Ventas</p>
                     <h1>+</h1>
                 </div>
                 <img class="imga" src="imagenes/portapapeles.png" alt="Ingresar">

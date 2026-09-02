@@ -59,7 +59,7 @@ $pedidos = mysqli_query($conn, $sql);
 
 
 <section class="stats">
-
+    <a href="Pedidos/leerpedido.php">
     <div class="card">
 
         <img
@@ -76,7 +76,7 @@ $pedidos = mysqli_query($conn, $sql);
         </p>
 
     </div>
-
+</a>
 
     <div class="card">
 

@@ -3,19 +3,37 @@ let pedidoActivo = false;
 
 
 // ==========================================
-// INICIAR
+// SWEET ALERT
+// ==========================================
+
+function mostrarAlerta(mensaje, elemento = null, icono = "error") {
+
+    Swal.fire({
+        icon: icono,
+        title: icono === "success" ? "¡Listo!" : "¡Oops!",
+        text: mensaje,
+        confirmButtonColor: "#62a38a",
+        confirmButtonText: "Entendido"
+
+    }).then(() => {
+
+        if (elemento) {
+            elemento.focus();
+        }
+
+    });
+
+}
+
+
+// ==========================================
+// CARGAR PRODUCTOS
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
-
     mostrarProductos();
-
 });
 
-
-// ==========================================
-// MOSTRAR PRODUCTOS
-// ==========================================
 
 function mostrarProductos() {
 
@@ -26,7 +44,8 @@ function mostrarProductos() {
             if (!respuesta.ok) {
 
                 throw new Error(
-                    "Error HTTP: " + respuesta.status
+                    "Error HTTP: " +
+                    respuesta.status
                 );
 
             }
@@ -37,12 +56,17 @@ function mostrarProductos() {
 
         .then(productos => {
 
-            console.log("Productos:", productos);
+            console.log(
+                "Productos:",
+                productos
+            );
 
             listaProductos = productos;
 
-            let contenedor =
-                document.getElementById("productos");
+            const contenedor =
+                document.getElementById(
+                    "productos"
+                );
 
 
             if (!contenedor) {
@@ -63,11 +87,14 @@ function mostrarProductos() {
 
                 contenedor.innerHTML += `
 
-                    <div class="proc">
+                    <div
+                        class="proc"
+                        data-codigo="${producto.Codigo}"
+                    >
 
                         <img
                             class="imgb"
-                            src="../Productos/${producto.Imagen}"
+                            src="../Productos/${producto.Imagen || ''}"
                             alt="${producto.NombreProducto}"
                         >
 
@@ -150,9 +177,104 @@ function mostrarProductos() {
             });
 
 
-            // ==================================
+            // ==========================================
+            // ABRIR PRODUCTO INDIVIDUAL
+            // ==========================================
+
+            document
+                .querySelectorAll(".proc")
+                .forEach(tarjeta => {
+
+                    tarjeta.addEventListener(
+                        "click",
+                        function(event) {
+
+
+                            if (
+                                event.target.closest(
+                                    ".btnCantidad"
+                                )
+                            ) {
+                                return;
+                            }
+
+
+                            if (
+                                event.target.closest(
+                                    ".anadir"
+                                )
+                            ) {
+                                return;
+                            }
+
+
+                            const Codigo =
+                                this.dataset.Codigo;
+
+
+                            if (!Codigo) {
+
+                                console.log(
+                                    "No se encontró el código del producto"
+                                );
+
+                                return;
+
+                            }
+
+
+                            const parametros =
+                                new URLSearchParams(
+                                    window.location.search
+                                );
+
+
+                            const idPedido =
+                                parametros.get(
+                                    "idPedido"
+                                );
+
+
+                            let url =
+                                "producto.php?Codigo=" +
+                                encodeURIComponent(
+                                    Codigo
+                                );
+
+
+                            // CORREGIDO:
+                            // idPedidos → idPedido
+
+                            if (idPedido) {
+
+                                url +=
+                                    "&idPedido=" +
+                                    encodeURIComponent(
+                                        idPedido
+                                    );
+
+                            }
+
+
+                            console.log(
+                                "Abriendo:",
+                                url
+                            );
+
+
+                            window.location.href =
+                                url;
+
+                        }
+
+                    );
+
+                });
+
+
+            // ==========================================
             // BOTONES + Y -
-            // ==================================
+            // ==========================================
 
             document
                 .querySelectorAll(".btnCantidad")
@@ -163,14 +285,15 @@ function mostrarProductos() {
                         function(event) {
 
                             event.preventDefault();
+
                             event.stopPropagation();
 
 
-                            let codigo =
+                            const codigo =
                                 this.dataset.codigo;
 
 
-                            let cambio =
+                            const cambio =
                                 parseInt(
                                     this.dataset.cambio
                                 );
@@ -187,9 +310,9 @@ function mostrarProductos() {
                 });
 
 
-            // ==================================
+            // ==========================================
             // BOTONES AÑADIR
-            // ==================================
+            // ==========================================
 
             document
                 .querySelectorAll(".anadir")
@@ -200,10 +323,11 @@ function mostrarProductos() {
                         function(event) {
 
                             event.preventDefault();
+
                             event.stopPropagation();
 
 
-                            let codigo =
+                            const codigo =
                                 this.dataset.codigo;
 
 
@@ -239,16 +363,14 @@ function cambiarCantidad(
     cambio
 ) {
 
-    let span =
+    const span =
         document.getElementById(
             "cantidad-" + codigo
         );
 
 
     if (!span) {
-
         return;
-
     }
 
 
@@ -262,9 +384,7 @@ function cambiarCantidad(
 
 
     if (cantidad < 1) {
-
         cantidad = 1;
-
     }
 
 
@@ -282,16 +402,23 @@ function anadirAlCarrito(
     codigo
 ) {
 
-    let span =
+    const span =
         document.getElementById(
             "cantidad-" + codigo
         );
 
 
+    // ==========================================
+    // SWEET ALERT:
+    // NO SE ENCONTRÓ LA CANTIDAD
+    // ==========================================
+
     if (!span) {
 
-        alert(
-            "No se encontró la cantidad del producto."
+        mostrarAlerta(
+            "No se encontró la cantidad del producto.",
+            null,
+            "error"
         );
 
         return;
@@ -306,15 +433,9 @@ function anadirAlCarrito(
 
 
     if (cantidad < 1) {
-
         cantidad = 1;
-
     }
 
-
-    // ==========================================
-    // OBTENER ID DEL PEDIDO DE LA URL
-    // ==========================================
 
     const parametros =
         new URLSearchParams(
@@ -323,7 +444,9 @@ function anadirAlCarrito(
 
 
     const idPedido =
-        parametros.get("idPedido");
+        parametros.get(
+            "idPedido"
+        );
 
 
     console.log(
@@ -345,173 +468,216 @@ function anadirAlCarrito(
 
 
     // ==========================================
-    // COMPROBAR ID DEL PEDIDO
+    // SWEET ALERT:
+    // NO SE ENCONTRÓ EL ID DEL PEDIDO
     // ==========================================
 
-    if (!idPedido) {
+if (!idPedido) {
 
-        alert(
-            "No se encontró el ID del pedido."
-        );
+    Swal.fire({
+        icon: "error",
+        title: "¡Oops!",
+        text: "No se encontró el ID del pedido.",
+        confirmButtonColor: "#62a38a",
+        confirmButtonText: "Entendido"
+    }).then(() => {
 
-        return;
+        window.location.href =
+            "crearpedidocliente.php";
 
-    }
+    });
 
+    return;
+}
 
-    // ==========================================
-    // ENVIAR A carrito.php
-    // ==========================================
+    fetch(
+        "carrito.php",
+        {
 
-    fetch("carrito.php", {
+            method: "POST",
 
-        method: "POST",
+            headers: {
 
-        headers: {
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
 
-            "Content-Type":
-                "application/x-www-form-urlencoded"
-
-        },
-
-        body:
-            "accion=agregar" +
-            "&codigo=" +
-            encodeURIComponent(codigo) +
-            "&cantidad=" +
-            encodeURIComponent(cantidad) +
-            "&idPedido=" +
-            encodeURIComponent(idPedido)
-
-    })
+            },
 
 
-    .then(respuesta => {
+            body:
 
-        console.log(
-            "Estado HTTP:",
-            respuesta.status
-        );
+                "accion=agregar" +
 
+                "&codigo=" +
+                encodeURIComponent(
+                    codigo
+                ) +
 
-        return respuesta.text();
+                "&cantidad=" +
+                encodeURIComponent(
+                    cantidad
+                ) +
 
-    })
-
-
-    .then(texto => {
-
-        console.log(
-            "RESPUESTA DE carrito.php:"
-        );
-
-
-        console.log(texto);
-
-
-        // ==================================
-        // CONVERTIR RESPUESTA A JSON
-        // ==================================
-
-        let datos;
-
-
-        try {
-
-            datos =
-                JSON.parse(texto);
+                "&idPedido=" +
+                encodeURIComponent(
+                    idPedido
+                )
 
         }
 
-        catch(error) {
+    )
+
+        .then(respuesta => {
 
             console.log(
-                "carrito.php NO devolvió JSON"
+                "Estado HTTP:",
+                respuesta.status
+            );
+
+
+            return respuesta.text();
+
+        })
+
+
+        .then(texto => {
+
+            console.log(
+                "RESPUESTA DE carrito.php:"
             );
 
 
             console.log(
-                "Respuesta recibida:",
                 texto
             );
 
 
-            alert(
-                "carrito.php está devolviendo un error. Revisa F12 > Console."
-            );
+            let datos;
 
 
-            return;
+            try {
 
-        }
-
-
-        console.log(
-            "Datos recibidos:",
-            datos
-        );
-
-
-        // ==================================
-        // PRODUCTO AGREGADO
-        // ==================================
-
-        if (datos.ok) {
-
-            alert(
-                datos.mensaje
-            );
-
-
-            // Reiniciar cantidad
-
-            span.textContent = "1";
-
-
-            // Actualizar carrito
-
-            if (
-                typeof actualizarCarrito ===
-                "function"
-            ) {
-
-                actualizarCarrito();
+                datos =
+                    JSON.parse(
+                        texto
+                    );
 
             }
 
-        }
+            catch(error) {
+
+                console.log(
+                    "carrito.php NO devolvió JSON"
+                );
 
 
-        // ==================================
-        // ERROR
-        // ==================================
+                console.log(
+                    "Respuesta recibida:",
+                    texto
+                );
 
-        else {
 
-            alert(
-                datos.mensaje
+                Swal.fire({
+
+                    icon: "error",
+
+                    title: "¡Oops!",
+
+                    text:
+                        "carrito.php está devolviendo un error. Revisa F12 > Console.",
+
+                    confirmButtonColor:
+                        "#62a38a",
+
+                    confirmButtonText:
+                        "Entendido"
+
+                });
+
+
+                return;
+
+            }
+
+
+            console.log(
+                "Datos recibidos:",
+                datos
             );
 
-        }
 
-    })
+            // ==========================================
+            // PRODUCTO AGREGADO CORRECTAMENTE
+            // ==========================================
+
+            if (datos.ok) {
+
+                mostrarAlerta(
+                    datos.mensaje,
+                    null,
+                    "success"
+                );
 
 
-    .catch(error => {
-
-        console.log(
-            "ERROR REAL AL CONECTAR CON carrito.php:"
-        );
+                span.textContent =
+                    "1";
 
 
-        console.log(error);
+                if (
+                    typeof actualizarCarrito ===
+                    "function"
+                ) {
+
+                    actualizarCarrito();
+
+                }
+
+            }
 
 
-        alert(
-            "Error al conectar con carrito.php"
-        );
+            else {
 
-    });
+                mostrarAlerta(
+                    datos.mensaje,
+                    null,
+                    "error"
+                );
+
+            }
+
+        })
+
+
+        .catch(error => {
+
+            console.log(
+                "ERROR REAL AL CONECTAR CON carrito.php:"
+            );
+
+
+            console.log(
+                error
+            );
+
+
+            Swal.fire({
+
+                icon: "error",
+
+                title: "¡Oops!",
+
+                text:
+                    "Error al conectar con carrito.php",
+
+                confirmButtonColor:
+                    "#62a38a",
+
+                confirmButtonText:
+                    "Entendido"
+
+            });
+
+        });
 
 }
 

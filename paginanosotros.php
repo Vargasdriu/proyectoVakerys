@@ -167,7 +167,7 @@
     <h1 class="la">¿Listo para probar la diferencia?</h1>
     <h3>Visítanos y descubre por qué somos la elección preferida para endulzar tus momentos especiales</h3>
     <section class="botones">
-        <a href="paginaproductos.php">Nuestros Productos</a>
+        <a href="paginasproductos/productos.php">Nuestros Productos</a>
         <a href="wasap">Contactanos</a>
     </section>
 </section>

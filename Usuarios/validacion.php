@@ -1,15 +1,18 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!isset($_SESSION['Rol'])) {
     echo "
     <script>
         alert('Debe iniciar sesión primero.');
-        window.location.href='../login.php';
+        window.location.href='login.php';
     </script>
     ";
     exit();
 }
+
 
 if ($_SESSION['Rol'] != "administrador") {
     echo "

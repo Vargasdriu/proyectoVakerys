@@ -1,49 +1,206 @@
+// ==========================================
+// CARGAR PRODUCTO
+// ==========================================
+
 function cargarProducto() {
 
-    const parametros = new URLSearchParams(window.location.search);
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
 
-    const codigo = parametros.get("codigo");
 
-    fetch("obtenerProducto.php?codigo=" + codigo)
+    const codigo =
+        parametros.get("codigo");
 
-        .then(respuesta => respuesta.json())
 
-        .then(producto => {
+    const idPedido =
+        parametros.get("idPedido");
 
-            if (producto.error) {
 
-                console.log(producto.error);
-                return;
+    console.log("=================================");
+    console.log("CARGANDO PRODUCTO");
+    console.log("Código:", codigo);
+    console.log("ID Pedido:", idPedido);
+    console.log("=================================");
+
+
+    // ==========================================
+    // COMPROBAR CÓDIGO
+    // ==========================================
+
+    if (!codigo) {
+
+        console.log(
+            "No se encontró el código del producto en la URL."
+        );
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // CONSULTAR PRODUCTO
+    // ==========================================
+
+    fetch(
+        "obtenerproducto.php?codigo=" +
+        encodeURIComponent(codigo)
+    )
+
+        .then(respuesta => {
+
+            console.log(
+                "Estado obtenerproducto.php:",
+                respuesta.status
+            );
+
+
+            if (!respuesta.ok) {
+
+                throw new Error(
+                    "Error HTTP: " +
+                    respuesta.status
+                );
+
             }
 
 
+            return respuesta.json();
 
-            document.getElementById("nombreProducto").textContent =
-                producto.NombreProducto;
-
-            document.getElementById("precioProducto").textContent =
-                "Bs. " + producto.PrecioProducto;
+        })
 
 
-            document.getElementById("descripcionProducto").textContent =
-                producto.DetalleProducto;
+        .then(producto => {
+
+            console.log(
+                "Producto recibido:",
+                producto
+            );
 
 
+            // ==========================================
+            // COMPROBAR ERROR
+            // ==========================================
+
+            if (producto.error) {
+
+                console.log(
+                    producto.error
+                );
+
+                return;
+
+            }
+
+
+            // ==========================================
+            // NOMBRE
+            // ==========================================
+
+            const nombre =
+                document.getElementById(
+                    "nombreProducto"
+                );
+
+
+            if (nombre) {
+
+                nombre.textContent =
+                    producto.NombreProducto;
+
+            }
+
+
+            // ==========================================
+            // PRECIO
+            // ==========================================
+
+            const precio =
+                document.getElementById(
+                    "precioProducto"
+                );
+
+
+            if (precio) {
+
+                precio.textContent =
+                    "Bs. " +
+                    producto.PrecioProducto;
+
+            }
+
+
+            // ==========================================
+            // DESCRIPCIÓN
+            // ==========================================
+
+            const descripcion =
+                document.getElementById(
+                    "descripcionProducto"
+                );
+
+
+            if (descripcion) {
+
+                descripcion.textContent =
+                    producto.DetalleProducto;
+
+            }
+
+
+            // ==========================================
+            // MINIATURAS
+            // ==========================================
 
             const miniaturas =
-                document.getElementById("miniaturas");
+                document.getElementById(
+                    "miniaturas"
+                );
+
+
+            if (!miniaturas) {
+
+                console.log(
+                    "No existe #miniaturas"
+                );
+
+                return;
+
+            }
+
 
             miniaturas.innerHTML = "";
 
 
-            if (producto.imagenes.length > 0) {
+            // ==========================================
+            // IMÁGENES
+            // ==========================================
 
-              
+            if (
+                producto.imagenes &&
+                producto.imagenes.length > 0
+            ) {
 
-                document.getElementById("imagenPrincipal").src =
-                    "../Productos/" + producto.imagenes[0];
+                // Imagen principal
+
+                const imagenPrincipal =
+                    document.getElementById(
+                        "imagenPrincipal"
+                    );
 
 
+                if (imagenPrincipal) {
+
+                    imagenPrincipal.src =
+                        "../Productos/" +
+                        producto.imagenes[0];
+
+                }
+
+
+                // Crear miniaturas
 
                 producto.imagenes.forEach(imagen => {
 
@@ -63,24 +220,50 @@ function cargarProducto() {
 
         })
 
+
         .catch(error => {
 
-            console.log("Error al cargar producto:", error);
+            console.log(
+                "Error al cargar producto:",
+                error
+            );
 
         });
 
 }
 
 
+// ==========================================
+// CAMBIAR IMAGEN
+// ==========================================
 
 function cambiarImagen(imagen) {
 
-    document.getElementById("imagenPrincipal").src =
-        imagen.src;
+    const imagenPrincipal =
+        document.getElementById(
+            "imagenPrincipal"
+        );
+
+
+    if (imagenPrincipal) {
+
+        imagenPrincipal.src =
+            imagen.src;
+
+    }
 
 }
 
 
-/* CARGAR */
+// ==========================================
+// CARGAR AL INICIAR
+// ==========================================
 
-cargarProducto();
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        cargarProducto();
+
+    }
+);
