@@ -52,12 +52,15 @@ h2{
 label{
     color:#DAD7CD;
     font-size:14px;
+    display: block;
+    margin-top: 10px;
 }
 
-input{
+input, select {
     width:100%;
     padding:14px;
-    margin-top:12px;
+    margin-top:8px;
+    margin-bottom:12px;
     border:none;
     border-radius:14px;
     background:rgba(255,255,255,0.12);
@@ -66,18 +69,24 @@ input{
     font-size:14px;
     outline:none;
     backdrop-filter:blur(4px);
+    box-sizing: border-box;
+}
+
+select option {
+    background: #344E41;
+    color: #DAD7CD;
 }
 
 input::placeholder{
     color:rgba(255,255,255,0.7);
 }
 
-input:focus{
+input:focus, select:focus{
     background:rgba(255,255,255,0.18);
 }
 
-.buttom{
-    margin-top:20px;
+.button{
+    margin-top:15px;
     background:#A3B18A;
     color:#344E41;
     font-weight:600;
@@ -85,10 +94,11 @@ input:focus{
     transition:0.3s;
 }
 
-.buttom:hover{
+.button:hover{
     background:#DAD7CD;
     transform:scale(1.03);
 }
+
 .swal2-container {
-            z-index: 99999 !important;
-        }
+    z-index: 99999 !important;
+}
