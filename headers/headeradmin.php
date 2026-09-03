@@ -163,6 +163,11 @@ nav {
                     Panel
                 </a>
             </li>
+              <li>
+                <a href="/proyectovakerys/reportes.php">
+                    Reportes
+                </a>
+            </li>
 
             <li>
                 <a href="/proyectovakerys/productos/leerproductos.php">
