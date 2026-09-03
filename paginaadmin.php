@@ -479,20 +479,20 @@ $pedidos = mysqli_query($conn, $sql);
 
     <div class="acciones-grid">
 
-
+    <a href="reportes.php">
         <div class="accion-card">
 
             <img
-                src="imagenes/configuracion.png"
+                src="imagenes/grafico-de-barras.png"
                 alt=""
             >
 
             <h3>
-                Configuración
+                Ver reportes
             </h3>
 
         </div>
-
+        </a>
 
         <a href="Usuarios/cerrarsesion.php">
 
