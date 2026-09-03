@@ -11,18 +11,6 @@ CREATE SCHEMA IF NOT EXISTS `vakerysss` DEFAULT CHARACTER SET utf8;
 USE `vakerysss`;
 
 -- -----------------------------------------------------
--- Table `vakerysss`.`clientes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `vakerysss`.`clientes` (
-  `CorreoCliente` VARCHAR(45) NOT NULL,
-  `NombreCliente` VARCHAR(45) NULL,
-  `ApellidoCliente` VARCHAR(45) NULL,
-  `NumeroCliente` INT NULL,
-  PRIMARY KEY (`CorreoCliente`)
-)
-ENGINE = InnoDB;
-
--- -----------------------------------------------------
 -- Table `vakerysss`.`gestiondeusuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `vakerysss`.`gestiondeusuarios` (
