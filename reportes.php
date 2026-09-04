@@ -1,53 +1,138 @@
+<?php
+session_start();
+
+$servidor = "localhost";
+$usuario = "root";
+$contrasena = "";
+$bd = "vakerysss";
+
+$conn = new mysqli($servidor, $usuario, $contrasena, $bd);
+
+if ($conn->connect_error) {
+    die("Error de conexión");
+}
+
+include("header.php");
+
+$fechas = [];
+$ventas = [];
+
+$sql = "SELECT p.Fecha, COUNT(*) AS ventas
+        FROM ventas v
+        INNER JOIN pedidos p ON v.pedidos_id = p.id
+        WHERE v.Estado = 'Finalizado'
+        GROUP BY p.Fecha
+        ORDER BY p.Fecha";
+
+$resultado = $conn->query($sql);
+
+while ($fila = $resultado->fetch_assoc()) {
+    $fechas[] = $fila["Fecha"];
+    $ventas[] = $fila["ventas"];
+}
+
+$productos = [];
+$cantidades = [];
+
+$sql = "SELECT p.NombreProducto, SUM(c.Cantidad) AS TotalVendido
+        FROM ventas v
+        INNER JOIN carrito c ON v.pedidos_id = c.pedidos_id
+        INNER JOIN productos p ON c.productos_Codigo = p.Codigo
+        INNER JOIN pedidos pe ON v.pedidos_id = pe.id
+        WHERE MONTH(pe.Fecha) = MONTH(CURDATE())
+        AND YEAR(pe.Fecha) = YEAR(CURDATE())
+        AND v.Estado = 'Finalizado'
+        GROUP BY p.Codigo, p.NombreProducto
+        ORDER BY TotalVendido DESC";
+
+$resultado = $conn->query($sql);
+
+while ($fila = $resultado->fetch_assoc()) {
+    $productos[] = $fila["NombreProducto"];
+    $cantidades[] = $fila["TotalVendido"];
+}
+
+$ingresos = [];
+
+$sql = "SELECT 
+            SUM(CASE 
+                WHEN p.Fecha = CURDATE() 
+                THEN v.costoTotal 
+                ELSE 0 
+            END) AS dia,
+            
+            SUM(CASE 
+                WHEN YEARWEEK(p.Fecha, 1) = YEARWEEK(CURDATE(), 1)
+                THEN v.costoTotal 
+                ELSE 0 
+            END) AS semana,
+            
+            SUM(CASE 
+                WHEN MONTH(p.Fecha) = MONTH(CURDATE())
+                AND YEAR(p.Fecha) = YEAR(CURDATE())
+                THEN v.costoTotal 
+                ELSE 0 
+            END) AS mes,
+            
+            SUM(CASE 
+                WHEN YEAR(p.Fecha) = YEAR(CURDATE())
+                THEN v.costoTotal 
+                ELSE 0 
+            END) AS anio,
+            
+            SUM(v.costoTotal) AS total
+        FROM ventas v
+        INNER JOIN pedidos p ON v.pedidos_id = p.id
+        WHERE v.Estado = 'Finalizado'";
+
+$resultado = $conn->query($sql);
+
+$fila = $resultado->fetch_assoc();
+
+$ingresosDia = $fila["dia"] ?? 0;
+$ingresosSemana = $fila["semana"] ?? 0;
+$ingresosMes = $fila["mes"] ?? 0;
+$ingresosAnio = $fila["anio"] ?? 0;
+$ingresosTotales = $fila["total"] ?? 0;
+
+$ingresosGrafico = [
+    $ingresosDia,
+    $ingresosSemana,
+    $ingresosMes,
+    $ingresosAnio
+];
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes</title>
     <link rel="stylesheet" href="estilos/reportes.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$bdname = "vakerysss";
-
-$conn = new mysqli($servername, $username, $password, $bdname);
-
-if ($conn->connect_error) {
-    die("Conexion fallida: " . $conn->connect_error);
-}
-
-include("header.php");
-
-$sql = "SELECT *
-        FROM productos
-        WHERE Stock < 5";
-
-$resultado = $conn->query($sql);
-
-?>
-
 <section class="a">
-
     <h1>Panel de reportes Vakery's</h1>
-
 </section>
 
 <section class="bc">
 
     <section class="b">
-
+        <div class="tit">
+        <img src="imagenes/caida-del-mercado.png" alt="">
         <h2>Productos con bajo stock</h2>
-
+</div>
         <?php
+        $sql = "SELECT *
+                FROM productos
+                WHERE Stock < 5";
 
-        // Productos con bajo stock
+        $resultado = $conn->query($sql);
 
         if ($resultado && $resultado->num_rows > 0) {
 
@@ -65,12 +150,14 @@ $resultado = $conn->query($sql);
                 echo "<tr>";
 
                 echo "<td>" . $producto["Codigo"] . "</td>";
-
                 echo "<td>" . $producto["NombreProducto"] . "</td>";
-
                 echo "<td>" . $producto["Stock"] . "</td>";
 
-                echo "<td><a href='Productos/actualizarproducto.php?Codigo=" . $producto["Codigo"] . "'>+ Reponer stock</a></td>";
+                echo "<td>
+                        <a href='Productos/actualizarproducto.php?Codigo=" . $producto["Codigo"] . "'>
+                            + Reponer stock
+                        </a>
+                      </td>";
 
                 echo "</tr>";
             }
@@ -80,60 +167,42 @@ $resultado = $conn->query($sql);
         } else {
 
             echo "No hay productos con bajo stock.";
-
         }
-
         ?>
 
     </section>
-    
-    <?php
-
-    $sql = "SELECT p.NombreProducto, SUM(c.Cantidad) AS TotalVendido
-            FROM ventas v
-            INNER JOIN carrito c ON v.pedidos_id = c.pedidos_id
-            INNER JOIN productos p ON c.productos_Codigo = p.Codigo
-            INNER JOIN pedidos pe ON v.pedidos_id = pe.id
-            WHERE MONTH(pe.Fecha) = MONTH(CURDATE())
-            AND YEAR(pe.Fecha) = YEAR(CURDATE())
-            AND v.Estado = 'Finalizado'
-            GROUP BY p.Codigo, p.NombreProducto
-            ORDER BY TotalVendido DESC
-            LIMIT 1";
-
-    $resultado = $conn->query($sql);
-
-    $productoMasVendido = "";
-    $cantidadMasVendida = 0;
-
-    if ($resultado && $resultado->num_rows > 0) {
-
-        $producto = $resultado->fetch_assoc();
-
-        $productoMasVendido = $producto["NombreProducto"];
-
-        $cantidadMasVendida = $producto["TotalVendido"];
-    }
-
-    ?>
 
     <section class="c">
-
+        <div class="titc">
+            <img src="imagenes/insignia.png" alt="">
         <h2>Producto más vendido del mes</h2>
-
+        </div>
         <?php
 
-        // Producto más vendido del mes
+        $sql = "SELECT p.NombreProducto, SUM(c.Cantidad) AS TotalVendido
+                FROM ventas v
+                INNER JOIN carrito c ON v.pedidos_id = c.pedidos_id
+                INNER JOIN productos p ON c.productos_Codigo = p.Codigo
+                INNER JOIN pedidos pe ON v.pedidos_id = pe.id
+                WHERE MONTH(pe.Fecha) = MONTH(CURDATE())
+                AND YEAR(pe.Fecha) = YEAR(CURDATE())
+                AND v.Estado = 'Finalizado'
+                GROUP BY p.Codigo, p.NombreProducto
+                ORDER BY TotalVendido DESC
+                LIMIT 1";
 
-        if ($productoMasVendido != "") {
+        $resultado = $conn->query($sql);
 
-            echo "Producto: " . $productoMasVendido .
-                 " - Cantidad vendida: " . $cantidadMasVendida . "<br>";
+        if ($resultado && $resultado->num_rows > 0) {
+
+            $producto = $resultado->fetch_assoc();
+
+            echo "Producto: " . $producto["NombreProducto"];
+            echo " - Cantidad vendida: " . $producto["TotalVendido"];
 
         } else {
 
             echo "No hay ventas registradas este mes.";
-
         }
 
         ?>
@@ -141,232 +210,88 @@ $resultado = $conn->query($sql);
     </section>
 
 </section>
-
-<?php
-
-$sql = "SELECT p.NombreProducto, SUM(c.Cantidad) AS TotalVendido
-        FROM ventas v
-        INNER JOIN carrito c ON v.pedidos_id = c.pedidos_id
-        INNER JOIN productos p ON c.productos_Codigo = p.Codigo
-        INNER JOIN pedidos pe ON v.pedidos_id = pe.id
-        WHERE MONTH(pe.Fecha) = MONTH(CURDATE())
-        AND YEAR(pe.Fecha) = YEAR(CURDATE())
-        AND v.Estado = 'Finalizado'
-        GROUP BY p.Codigo, p.NombreProducto
-        ORDER BY TotalVendido DESC";
-
-$resultado = $conn->query($sql);
-
-$productos = [];
-$cantidades = [];
-
-if ($resultado) {
-
-    while ($producto = $resultado->fetch_assoc()) {
-
-        $productos[] = $producto["NombreProducto"];
-
-        $cantidades[] = $producto["TotalVendido"];
-    }
-}
-
-
-// Ingresos del día
-
-$sql = "SELECT SUM(v.costoTotal) AS Ingresos
-        FROM ventas v
-        INNER JOIN pedidos p ON v.pedidos_id = p.id
-        WHERE p.Fecha = CURDATE()
-        AND v.Estado = 'Finalizado'";
-
-$resultado = $conn->query($sql);
-
-$ingresosDia = 0;
-
-if ($resultado) {
-
-    $datos = $resultado->fetch_assoc();
-
-    if ($datos["Ingresos"] != null) {
-        $ingresosDia = $datos["Ingresos"];
-    }
-}
-
-
-// Ingreso de la semana
-
-$sql = "SELECT SUM(v.costoTotal) AS Ingresos
-        FROM ventas v
-        INNER JOIN pedidos p ON v.pedidos_id = p.id
-        WHERE YEARWEEK(p.Fecha, 1) = YEARWEEK(CURDATE(), 1)
-        AND v.Estado = 'Finalizado'";
-
-$resultado = $conn->query($sql);
-
-$ingresosSemana = 0;
-
-if ($resultado) {
-
-    $datos = $resultado->fetch_assoc();
-
-    if ($datos["Ingresos"] != null) {
-        $ingresosSemana = $datos["Ingresos"];
-    }
-}
-
-
-// Ingreso del mes
-
-$sql = "SELECT SUM(v.costoTotal) AS Ingresos
-        FROM ventas v
-        INNER JOIN pedidos p ON v.pedidos_id = p.id
-        WHERE MONTH(p.Fecha) = MONTH(CURDATE())
-        AND YEAR(p.Fecha) = YEAR(CURDATE())
-        AND v.Estado = 'Finalizado'";
-
-$resultado = $conn->query($sql);
-
-$ingresosMes = 0;
-
-if ($resultado) {
-
-    $datos = $resultado->fetch_assoc();
-
-    if ($datos["Ingresos"] != null) {
-        $ingresosMes = $datos["Ingresos"];
-    }
-}
-
-
-// Ingreso del año
-
-$sql = "SELECT SUM(v.costoTotal) AS Ingresos
-        FROM ventas v
-        INNER JOIN pedidos p ON v.pedidos_id = p.id
-        WHERE YEAR(p.Fecha) = YEAR(CURDATE())
-        AND v.Estado = 'Finalizado'";
-
-$resultado = $conn->query($sql);
-
-$ingresosAnio = 0;
-
-if ($resultado) {
-
-    $datos = $resultado->fetch_assoc();
-
-    if ($datos["Ingresos"] != null) {
-        $ingresosAnio = $datos["Ingresos"];
-    }
-}
-
-
-// Ingresos totales
-
-$sql = "SELECT SUM(costoTotal) AS IngresosTotales
-        FROM ventas
-        WHERE Estado = 'Finalizado'";
-
-$resultado = $conn->query($sql);
-
-$ingresosTotales = 0;
-
-if ($resultado) {
-
-    $datos = $resultado->fetch_assoc();
-
-    if ($datos["IngresosTotales"] != null) {
-        $ingresosTotales = $datos["IngresosTotales"];
-    }
-}
-
-
-$ingresosGrafico = [
-    $ingresosDia,
-    $ingresosSemana,
-    $ingresosMes,
-    $ingresosAnio
-];
-
-?>
 
 <section class="d">
 
     <h2>Ingresos</h2>
 
-    <?php
+    <section class="ingr">
+        <span>Ingreso del día</span>
+        <strong><?php echo $ingresosDia; ?> Bs</strong>
+    </section>
 
-    echo "Ingresos del día: " . $ingresosDia . " Bs<br>";
-    echo "Ingresos de la semana: " . $ingresosSemana . " Bs<br>";
-    echo "Ingresos del mes: " . $ingresosMes . " Bs<br>";
-    echo "Ingresos del año: " . $ingresosAnio . " Bs<br>";
-    echo "Ingresos totales: " . $ingresosTotales . " Bs<br>";
+    <section class="ingr">
+        <span>Ingreso de la semana</span>
+        <strong><?php echo $ingresosSemana; ?> Bs</strong>
+    </section>
 
-    ?>
+    <section class="ingr">
+        <span>Ingreso del mes</span>
+        <strong><?php echo $ingresosMes; ?> Bs</strong>
+    </section>
+
+    <section class="ingr">
+        <span>Ingreso del año</span>
+        <strong><?php echo $ingresosAnio; ?> Bs</strong>
+    </section>
+
+    <section class="ingr">
+        <span>Ingresos totales</span>
+        <strong><?php echo $ingresosTotales; ?> Bs</strong>
+    </section>
 
 </section>
 
 <section class="e">
-
+    <section class="graf">
     <h2>Gráfico de productos más vendidos</h2>
 
     <canvas id="graficoProductos"></canvas>
-
 </section>
 
-<section class="f">
-
+<section class="graf">
     <h2>Gráfico de ingresos</h2>
 
     <canvas id="graficoIngresos"></canvas>
+    </section>
 
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
 
-const productos = <?php echo json_encode($productos); ?>;
+const fechas = <?php echo json_encode($fechas); ?>;
+const ventas = <?php echo json_encode($ventas); ?>;
 
+const productos = <?php echo json_encode($productos); ?>;
 const cantidades = <?php echo json_encode($cantidades); ?>;
+
+const ingresos = <?php echo json_encode($ingresosGrafico); ?>;
+
+const contextoVentas = document.getElementById("graficoVentas");
 
 const contextoProductos = document.getElementById("graficoProductos");
 
+const contextoIngresos = document.getElementById("graficoIngresos");
+
+
 new Chart(contextoProductos, {
-
     type: "bar",
-
     data: {
-
         labels: productos,
-
         datasets: [{
-
             label: "Cantidad vendida",
-
             data: cantidades
-
         }]
-
     },
-
     options: {
-
         responsive: true,
-
         scales: {
-
             y: {
-
                 beginAtZero: true
-
             }
-
         }
-
     }
-
 });
-
 
 const periodos = [
     "Día",
@@ -375,54 +300,31 @@ const periodos = [
     "Año"
 ];
 
-const ingresos = <?php echo json_encode($ingresosGrafico); ?>;
-
-const contextoIngresos = document.getElementById("graficoIngresos");
-
 new Chart(contextoIngresos, {
-
     type: "line",
-
     data: {
-
         labels: periodos,
-
         datasets: [{
-
             label: "Ingresos en Bs",
-
             data: ingresos
-
         }]
-
     },
-
     options: {
-
         responsive: true,
-
         scales: {
-
             y: {
-
                 beginAtZero: true
-
             }
-
         }
-
     }
-
 });
 
 </script>
 
 <?php
-
 $conn->close();
-
+include ("footer.php")
 ?>
 
 </body>
-
 </html>

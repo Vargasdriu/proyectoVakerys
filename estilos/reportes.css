@@ -1,47 +1,85 @@
-*{
-     margin: 0;
+* {
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     display: grid;
-    grid-template-rows: 150px 300px 500px ; 
-  grid-template-columns: 100%; 
-  grid-template-areas: "a" "bc" "d"; 
-  font-family: 'Roboto', 'sans-serif'; 
-} 
-a{
-    text-decoration: none;
+    grid-template-rows: 150px auto 220px 500px;
+    grid-template-columns: 100%;
+    grid-template-areas: "a" "bc" "d" "e";
+    font-family: 'Roboto', 'sans-serif';
+    background: #f4f6f2;
     color: #555f56;
+    gap: 20px;
 }
-.a{
-    grid-area: "a";
+
+.a {
+    grid-area: a;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 100px;
-
 }
-.bc{
+
+.a h1 {
+    color: #1d3021;
+    font-size: 34px;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.a h1::after {
+    content: "";
+    position: absolute;
+    width: 70px;
+    height: 4px;
+    background: #709775;
+    border-radius: 10px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bc {
     display: flex;
     flex-direction: row;
+    gap: 10px;
+    padding: 0 30px;
 }
+
 .b {
     background: white;
-    border: 3px solid #709775;
+    border: 2px solid #709775;
     border-radius: 25px;
     padding: 25px;
     margin: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .07);
     animation: subirSuave 1s ease;
     width: 70%;
-  
 }
 
 .b h2 {
-    font-size: 30px;
+    font-size: 25px;
     color: #1d3021;
     margin-bottom: 25px;
+}
+
+.tit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.tit img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
 .b table {
@@ -56,14 +94,14 @@ a{
     color: white;
     padding: 15px;
     text-align: left;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .b td {
     padding: 15px;
-    border-bottom: 1px solid #dfe8dc;
+    border-bottom: 1px solid #e2e9e1;
     color: #1d3021;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .b tr:nth-child(even) {
@@ -71,20 +109,236 @@ a{
 }
 
 .b tr:hover {
-    background: #dfe8dc;
+    background: #e6eee4;
 }
 
 .b td:last-child {
     font-weight: 700;
 }
 
-.c{
-     background: white;
-    border: 3px solid #709775;
+.b td a {
+    color: #709775;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.b td a:hover {
+    color: #1d3021;
+}
+
+.c {
+    background: white;
+    border: 2px solid #709775;
     border-radius: 25px;
     padding: 25px;
     margin: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
-   
-   
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .07);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.titc {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.titc img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.c h2 {
+    color: #1d3021;
+    font-size: 23px;
+}
+
+.c {
+    color: #555f56;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.d {
+    grid-area: d;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 15px 40px 30px;
+}
+
+.d h2 {
+    width: 100%;
+    color: #1d3021;
+    font-size: 27px;
+    margin-bottom: 5px;
+}
+
+.ingr {
+    flex: 1;
+    min-width: 150px;
+    background: white;
+    border: 2px solid #709775;
+    border-radius: 22px;
+    padding: 22px 15px;
+    margin: 0;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: flex .35s ease,
+                transform .35s ease,
+                box-shadow .35s ease,
+                opacity .35s ease;
+}
+
+.ingr::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: #709775;
+}
+
+.ingr span {
+    color: #777;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ingr strong {
+    color: #1d3021;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.ingr:hover {
+    flex: 1.4;
+    transform: translateY(-7px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .12);
+}
+
+.d:has(.ingr:hover) .ingr:not(:hover) {
+    flex: .8;
+    opacity: .65;
+    transform: scale(.96);
+}
+
+.e {
+    grid-area: e;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 100%;
+    padding: 0 40px 40px;
+}
+
+.e {
+    grid-area: e;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    width: 100%;
+    padding: 0 40px 40px;
+}
+
+.graf {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 2px solid #e0e7df;
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .07);
+    transition: flex .4s ease, box-shadow .4s ease, opacity .4s ease;
+}
+
+.graf:hover {
+    flex: 1.3;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .13);
+}
+
+.e:has(.graf:hover) .graf:not(:hover) {
+    flex: 0.85;
+    opacity: .7;
+}
+
+@keyframes subirSuave {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1000px) {
+    .bc {
+        flex-direction: column;
+    }
+
+    .b {
+        width: auto;
+    }
+
+    .c {
+        margin-top: 0;
+    }
+
+    .e {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .graf {
+        width: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    body {
+        display: block;
+    }
+
+    .a {
+        margin-top: 50px;
+        padding: 30px 20px;
+    }
+
+    .a h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .bc,
+    .d,
+    .e {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .b,
+    .c {
+        margin: 15px 0;
+    }
+
+    .ingr {
+        min-width: 45%;
+    }
 }
