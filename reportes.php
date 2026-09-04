@@ -256,7 +256,9 @@ $ingresosGrafico = [
     </section>
 
 </section>
-
+<section class="f">
+    <h1>Parte del mati</h1>
+</section>
 <script>
 
 const fechas = <?php echo json_encode($fechas); ?>;

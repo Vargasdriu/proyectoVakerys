@@ -6,9 +6,9 @@
 
 body {
     display: grid;
-    grid-template-rows: 150px auto 220px 500px;
+    grid-template-rows: 150px auto 220px 500px 400px;
     grid-template-columns: 100%;
-    grid-template-areas: "a" "bc" "d" "e";
+    grid-template-areas: "a" "bc" "d" "e" "f";
     font-family: 'Roboto', 'sans-serif';
     background: #f4f6f2;
     color: #555f56;
