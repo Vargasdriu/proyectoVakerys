@@ -257,7 +257,9 @@ $ingresosGrafico = [
 
 </section>
 <section class="f">
-    <h1>Parte del mati</h1>
+    <h1>grafico stock de todos los productos</h1>
+    
+    
 </section>
 <script>
 
