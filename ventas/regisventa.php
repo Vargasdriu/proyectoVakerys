@@ -1,7 +1,11 @@
 <?php
 session_start();
+$servidor = "localhost";
+$usuario = "root";
+$contrasena = "";
+$bd = "vakerysss";
 
-$conn = new mysqli("localhost", "root", "", "vakerysss");
+$conn = new mysqli($servidor, $usuario, $contrasena, $bd);
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
@@ -268,7 +272,6 @@ $total = 0;
 
             <form method="post" class="acciones-form" id="formPedido">
                 <input type="hidden" name="costoTotal" value="<?php echo $total; ?>">
-                <input type="hidden" name="accion" id="accion">
                 <button type="submit" name="accion" value="rechazar" class="btn-accion btn-rechazar">RECHAZAR</button>
                 <button type="submit" name="accion" value="aceptar" class="btn-accion btn-aceptar">ACEPTAR</button>
             </form>
@@ -279,48 +282,65 @@ $total = 0;
 
 <?php include_once "../footer.php"; ?>
 <script>
-    const formPedido = document.getElementById('formPedido');
-    const inputAccion = document.getElementById('accion');
-    formPedido.addEventListener('submit', function(event){
-        event.preventDefault();
-        const accion=event.submitter.value;
-        if(accion =='aceptar'){
-            Swal.fire({
-            title: "ACEPTAR PEDIDO?",
-            showDenyButton: true,
-            showCancelButton: false,
-            confirmButtonText: "Aceptar",
-            denyButtonText: `Cancelar`
-            }).then((result) => {
+const formPedido = document.getElementById('formPedido');
 
-                 if (result.isConfirmed) {
-                    formPedido.submit();
-                 }
-                 
-                });
+formPedido.addEventListener('submit', function(event) {
+    event.preventDefault();
 
-                
+    const accion = event.submitter.value;
 
-        } else if(accion =='rechazar'){
-            Swal.fire({
-            title: "RECHAZAR PEDIDO?",
-            showDenyButton: true,
-            showCancelButton: false,
-            confirmButtonText: "Aceptar",
-            denyButtonText: `Cancelar`
-            }).then((result) => {
-                 if (result.isConfirmed) {
-                    formPedido.submit();
-                 }
-                 
-                });
+    if (accion === 'aceptar') {
 
-        }
+        Swal.fire({
+            title: 'ACEPTAR PEDIDO',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#A3B18A',
+            cancelButtonColor: '#d9534f'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                // Agregamos la acción al formulario
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'accion';
+                input.value = 'aceptar';
+                formPedido.appendChild(input);
+
+                // Ahora sí enviamos el formulario
+                formPedido.submit();
+            }
+
+        });
+
+    } else if (accion === 'rechazar') {
+
+        Swal.fire({
+            title: 'RECHAZAR PEDIDO',
+            showCancelButton: true,
+            confirmButtonText: 'Rechazar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#A3B18A',
+            cancelButtonColor: '#d9534f'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                // Agregamos la acción al formulario
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'accion';
+                input.value = 'rechazar';
+                formPedido.appendChild(input);
+
+                // Ahora sí enviamos el formulario
+                formPedido.submit();
+            }
+
+        });
+    }
 });
-        
-    
-    
-
 </script>
+
 </body>
 </html>
