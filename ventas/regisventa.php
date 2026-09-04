@@ -12,9 +12,7 @@ if (!isset($_GET['pedido_id']) || empty($_GET['pedido_id'])) {
 }
 
 $id_pedido = $_GET['pedido_id'];
-$mostrar_modal = false;
-$titulo_modal = "";
-$mensaje_modal = "";
+
 
 // ==========================================
 // PROCESAR BOTONES (ACEPTAR / RECHAZAR)
@@ -59,15 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $conn->query("INSERT INTO ventas (pedidos_id, costoTotal, Estado, Metodo) VALUES ('$id_pedido', '$costoTotal', 'Aceptado', 'Efectivo')");
 
         // 4. Activar Modal flotante estilizada
-        $mostrar_modal = true;
-        $titulo_modal = "¡Pedido Guardado Exitosamente!";
-
-        if (!empty($productosAgotados)) {
-            $listaAgotados = implode(", ", $productosAgotados);
-            $mensaje_modal = "El pedido #".sprintf('%03d', $id_pedido)." fue procesado con éxito.<br><br><span style='color:#d9534f; font-weight:bold;'>Atención:</span> Se vendió el/los último(s) producto(s) en stock de: <strong>$listaAgotados</strong>. Su stock actual es 0.";
-        } else {
-            $mensaje_modal = "El pedido #".sprintf('%03d', $id_pedido)." ha sido aceptado y registrado en el sistema correctamente.";
-        }
+        header("Location: ../paginavendedor.php");
+       exit();
+        
 
     } elseif ($accion == 'rechazar') {
         // Cambiar estado a Cancelado
@@ -102,6 +94,7 @@ $total = 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atender Pedido #<?php echo $id_pedido; ?> - Vakery's</title>
     <link rel="stylesheet" href="../estilos/vendedor.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         a {
             text-decoration: none;
@@ -199,98 +192,12 @@ $total = 0;
             color: #2e7d32;
             font-weight: bold;
         }
-
-        /* --- ESTILOS DEL ALERT/MODAL DE ÉXITO --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal-contenedor {
-            background-color: #ffffff;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 420px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            border-top: 6px solid #afc194;
-            animation: aparecer 0.3s ease-out;
-        }
-
-        @keyframes aparecer {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .modal-icono {
-            width: 60px;
-            height: 60px;
-            background-color: #afc194;
-            color: #1f2d25;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            font-weight: bold;
-            margin: 0 auto 15px auto;
-        }
-
-        .modal-titulo {
-            font-size: 18px;
-            color: #1f2d25;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .modal-mensaje {
-            font-size: 14px;
-            color: #709775;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .modal-btn {
-            display: block;
-            width: 100%;
-            background-color: #1f2d25;
-            color: #ffffff;
-            padding: 12px 0;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 14px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .modal-btn:hover {
-            background-color: #afc194;
-            color: #1f2d25;
-        }
     </style>
 </head>
 <body>
 
 <?php include_once "../header.php"; ?>
 
-<?php if ($mostrar_modal): ?>
-<div class="modal-overlay">
-    <div class="modal-contenedor">
-        <div class="modal-icono">&#10003;</div>
-        <h2 class="modal-titulo"><?php echo $titulo_modal; ?></h2>
-        <p class="modal-mensaje"><?php echo $mensaje_modal; ?></p>
-        <a href="../paginavendedor.php" class="modal-btn">Continuar</a>
-    </div>
-</div>
-<?php endif; ?>
 
 <div class="b" style="margin-top: 20px;">
     <div class="ba">
@@ -359,8 +266,9 @@ $total = 0;
                 </tbody>
             </table>
 
-            <form method="post" class="acciones-form">
+            <form method="post" class="acciones-form" id="formPedido">
                 <input type="hidden" name="costoTotal" value="<?php echo $total; ?>">
+                <input type="hidden" name="accion" id="accion">
                 <button type="submit" name="accion" value="rechazar" class="btn-accion btn-rechazar">RECHAZAR</button>
                 <button type="submit" name="accion" value="aceptar" class="btn-accion btn-aceptar">ACEPTAR</button>
             </form>
@@ -370,6 +278,49 @@ $total = 0;
 </div>
 
 <?php include_once "../footer.php"; ?>
+<script>
+    const formPedido = document.getElementById('formPedido');
+    const inputAccion = document.getElementById('accion');
+    formPedido.addEventListener('submit', function(event){
+        event.preventDefault();
+        const accion=event.submitter.value;
+        if(accion =='aceptar'){
+            Swal.fire({
+            title: "ACEPTAR PEDIDO?",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+            denyButtonText: `Cancelar`
+            }).then((result) => {
 
+                 if (result.isConfirmed) {
+                    formPedido.submit();
+                 }
+                 
+                });
+
+                
+
+        } else if(accion =='rechazar'){
+            Swal.fire({
+            title: "RECHAZAR PEDIDO?",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+            denyButtonText: `Cancelar`
+            }).then((result) => {
+                 if (result.isConfirmed) {
+                    formPedido.submit();
+                 }
+                 
+                });
+
+        }
+});
+        
+    
+    
+
+</script>
 </body>
 </html>
