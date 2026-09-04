@@ -1,4 +1,3 @@
-
 <?php
 
 $servidor = "localhost";
@@ -36,8 +35,6 @@ $conn->set_charset("utf8");
 
 session_start();
 
-
-
 $sql = "SELECT * FROM pedidos ORDER BY id DESC";
 
 $pedidos = mysqli_query($conn, $sql);
@@ -45,9 +42,6 @@ $pedidos = mysqli_query($conn, $sql);
 ?>
 
 <?php include "header.php"; ?>
-
-
-
 
 <h1>
     Bienvenido, <?php echo $_SESSION['Nombre']; ?>
@@ -57,101 +51,82 @@ $pedidos = mysqli_query($conn, $sql);
     Panel de administración
 </p>
 
-
 <section class="stats">
     <a href="Pedidos/leerpedido.php">
-    <div class="card">
-
-        <img
-            src="imagenes/carrito-de-compras.png"
-            alt=""
-        >
-
-        <h2>
-            <?php echo mysqli_num_rows($pedidos); ?>
-        </h2>
-
-        <p>
-            Pedidos realizados
-        </p>
-
-    </div>
-</a>
-
-    <div class="card">
-
-        <a href="Productos/leerproductos.php">
-
-            <img
-                src="imagenes/inventario-disponible.png"
-                alt=""
-            >
-
-            <h2>
-                18
-            </h2>
-
-            <p>
-                Productos registrados
-            </p>
-
-        </a>
-
-    </div>
-
-
-    <div class="card">
-
-        <a href="Usuarios/leerusuario.php">
-
-            <img
-                src="imagenes/nueva-cuenta.png"
-                alt=""
-            >
-
-            <h2>32</h2>
-
-            <p>Usuarios registrados</p>
-
-        </a>
-
-    </div>
-
-
-    <div class="card">
-
-        <img
-            src="imagenes/dinero.png"
-            alt=""
-        >
-
-        <h2>47</h2>
-
-        <p> Ventas realizadas</p>
-
-    </div>
-
-</section>
-
-
-<div class="content-grid">
-
-
-    <section class="panel">
-
-        <div class="panel-title">
-
+        <div class="card">
             <img
                 src="imagenes/carrito-de-compras.png"
                 alt=""
             >
+            <h2>
+                <?php echo mysqli_num_rows($pedidos); ?>
+            </h2>
+            <p>
+                Pedidos realizados
+            </p>
+        </div>
+    </a>
 
+    <div class="card">
+        <a href="Productos/leerproductos.php">
+            <img
+                src="imagenes/inventario-disponible.png"
+                alt=""
+            >
+            <h2>
+                18
+            </h2>
+            <p>
+                Productos registrados
+            </p>
+        </a>
+    </div>
+
+    <div class="card">
+        <a href="Usuarios/leerusuario.php">
+            <img
+                src="imagenes/nueva-cuenta.png"
+                alt=""
+            >
+            <h2>32</h2>
+            <p>Usuarios registrados</p>
+        </a>
+    </div>
+
+    <div class="card">
+        <img
+            src="imagenes/dinero.png"
+            alt=""
+        >
+        <h2>47</h2>
+        <p>Ventas realizadas</p>
+    </div>
+
+    <div class="card">
+        <a href="Comentarios/comentarios.php">
+            <img
+                src="imagenes/comentario.webp"
+                alt=""
+            >
+            <h2>0</h2>
+            <p>Comentarios</p>
+        </a>
+    </div>
+</section>
+
+<div class="content-grid">
+
+    <section class="panel">
+
+        <div class="panel-title">
+            <img
+                src="imagenes/carrito-de-compras.png"
+                alt=""
+            >
             <h2>
                 Pedidos recientes
             </h2>
-
         </div>
-
 
         <div class="pedidos">
 
@@ -180,7 +155,6 @@ $pedidos = mysqli_query($conn, $sql);
             ?>
 
                 <div class="pedido-card">
-
 
                     <div class="pedido-info">
 
@@ -214,13 +188,11 @@ $pedidos = mysqli_query($conn, $sql);
 
                     </div>
 
-
                     <div class="pedido-productos">
 
                         <h4>
                             Productos
                         </h4>
-
 
                         <?php
 
@@ -240,7 +212,6 @@ $pedidos = mysqli_query($conn, $sql);
                         ?>
 
                             <p>
-
                                 <?php echo
                                     $producto['NombreProducto'];
                                 ?>
@@ -248,7 +219,6 @@ $pedidos = mysqli_query($conn, $sql);
                                 x<?php echo
                                     $producto['Cantidad'];
                                 ?>
-
                             </p>
 
                         <?php
@@ -267,34 +237,27 @@ $pedidos = mysqli_query($conn, $sql);
 
                     </div>
 
-
                     <div class="acciones">
 
                         <a
                             href="Pedidos/leerpedido.php?id=<?php echo $pedido['id']; ?>"
                         >
-
                             <img
                                 src="imagenes/ojo-abierto.png"
                                 alt="Ver"
                             >
-
                         </a>
-
 
                         <a
                             href="Pedidos/editarpedido.php?id=<?php echo $pedido['id']; ?>"
                         >
-
                             <img
                                 src="imagenes/editarr.png"
                                 alt="Editar"
                             >
-
                         </a>
 
                     </div>
-
 
                 </div>
 
@@ -314,7 +277,6 @@ $pedidos = mysqli_query($conn, $sql);
 
         </div>
 
-
         <a
             class="btn"
             href="Pedidos/crearpedido.php"
@@ -324,11 +286,7 @@ $pedidos = mysqli_query($conn, $sql);
 
     </section>
 
-
- 
-      <aside class="sidebar">
-
-        
+    <aside class="sidebar">
 
         <section class="panel inventario">
 
@@ -361,22 +319,17 @@ $pedidos = mysqli_query($conn, $sql);
 
         </section>
 
-
         <section class="panel topventas">
 
             <div class="panel-title">
-
                 <img
                     src="imagenes/insignia.png"
                     alt=""
                 >
-
                 <h2>
                     Top ventas
                 </h2>
-
             </div>
-
 
             <?php
 
@@ -397,7 +350,6 @@ $pedidos = mysqli_query($conn, $sql);
 
             ?>
 
-
             <?php
 
             if (
@@ -414,7 +366,6 @@ $pedidos = mysqli_query($conn, $sql);
                 <div class="venta-card">
 
                     <div>
-
                         <h3>
                             <?php echo
                                 $venta['NombreProducto'];
@@ -427,9 +378,7 @@ $pedidos = mysqli_query($conn, $sql);
                             ?>
                             vendidos
                         </p>
-
                     </div>
-
 
                     <?php if (
                         !empty(
@@ -469,11 +418,9 @@ $pedidos = mysqli_query($conn, $sql);
 
         </section>
 
-
     </aside>
 
 </div>
-
 
 <section class="acciones-panel">
 
@@ -481,41 +428,31 @@ $pedidos = mysqli_query($conn, $sql);
 
     <a href="reportes.php">
         <div class="accion-card">
-
             <img
                 src="imagenes/grafico-de-barras.png"
                 alt=""
             >
-
             <h3>
                 Ver reportes
             </h3>
-
         </div>
         </a>
 
         <a href="Usuarios/cerrarsesion.php">
-
             <div class="accion-card">
-
                 <img
                     src="imagenes/cerrar-sesion.png"
                     alt=""
                 >
-
                 <h3>
                     Cerrar Sesión
                 </h3>
-
             </div>
-
         </a>
-
 
     </div>
 
 </section>
-
 
 </body>
 </html>
