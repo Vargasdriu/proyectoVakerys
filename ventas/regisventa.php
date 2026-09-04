@@ -66,11 +66,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
 
     } elseif ($accion == 'rechazar') {
-        // Cambiar estado a Cancelado
-        $conn->query("UPDATE pedidos SET Estado = 'Cancelado' WHERE id = '$id_pedido'");
-        header("Location: ../paginavendedor.php");
-        exit();
+
+    // Devolver el stock de los productos del pedido
+    $carrito = $conn->query("SELECT productos_Codigo, Cantidad 
+                             FROM carrito 
+                             WHERE pedidos_id = '$id_pedido'");
+
+    if ($carrito) {
+        while ($item = $carrito->fetch_assoc()) {
+
+            $codigo = $item['productos_Codigo'];
+            $cant = (int)$item['Cantidad'];
+
+            // Devolver la cantidad al stock
+            $conn->query("UPDATE productos 
+                          SET Stock = Stock + $cant 
+                          WHERE Codigo = '$codigo'");
+        }
     }
+
+    // Cambiar estado a Cancelado
+    $conn->query("UPDATE pedidos SET Estado = 'Cancelado' WHERE id = '$id_pedido'");
+
+    header("Location: ../paginavendedor.php");
+    exit();
+}
 }
 
 // ==========================================

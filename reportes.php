@@ -101,6 +101,20 @@ $ingresosGrafico = [
     $ingresosMes,
     $ingresosAnio
 ];
+
+$productosStock = [];
+$stock = [];
+
+$sql = "SELECT NombreProducto, Stock
+        FROM productos
+        ORDER BY NombreProducto ASC";
+
+$resultado = $conn->query($sql);
+
+while ($fila = $resultado->fetch_assoc()) {
+    $productosStock[] = $fila["NombreProducto"];
+    $stock[] = $fila["Stock"];
+}
 ?>
 
 <!DOCTYPE html>
@@ -257,7 +271,10 @@ $ingresosGrafico = [
 
 </section>
 <section class="f">
-    <h1>grafico stock de todos los productos</h1>
+    <section class="graf">
+    <h2>Gráfico de stock de los productos</h2>
+    <canvas id="graficoStock"></canvas>
+    </section>
     
     
 </section>
@@ -271,11 +288,16 @@ const cantidades = <?php echo json_encode($cantidades); ?>;
 
 const ingresos = <?php echo json_encode($ingresosGrafico); ?>;
 
+const productosStock = <?php echo json_encode($productosStock); ?>;
+const stock = <?php echo json_encode($stock); ?>;
+
 const contextoVentas = document.getElementById("graficoVentas");
 
 const contextoProductos = document.getElementById("graficoProductos");
 
 const contextoIngresos = document.getElementById("graficoIngresos");
+
+const contextoStock = document.getElementById("graficoStock");
 
 
 new Chart(contextoProductos, {
@@ -318,6 +340,39 @@ new Chart(contextoIngresos, {
         scales: {
             y: {
                 beginAtZero: true
+            }
+        }
+    }
+});
+new Chart(contextoStock, {
+    type: "bar",
+
+    data: {
+        labels: productosStock,
+
+        datasets: [{
+            label: "Stock Disponible",
+            data: stock
+        }]
+    },
+
+    options: {
+        responsive: true,
+
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: "Cantidad de stock"
+                }
+            },
+
+            x: {
+                title: {
+                    display: true,
+                    text: "Productos"
+                }
             }
         }
     }
