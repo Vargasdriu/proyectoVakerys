@@ -1,38 +1,53 @@
 body {
+
     font-family: 'Poppins', sans-serif;
+
     min-height: 100vh;
+
     margin: 0;
+
     overflow: hidden;
+
 }
 
 
 /* VIDEO */
 
 video {
+
     position: fixed;
+
     top: 50%;
     left: 50%;
+
     width: 120%;
     height: 120%;
+
     object-fit: cover;
-    transform: translate(-50%, -50%) scale(1.2);
+
+    transform: translate(-50%, -50%);
+
 }
 
 
 /* CAPA */
 
 .capa {
+
     position: fixed;
+
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
 
-    background: rgba(52, 78, 65, 0.25);
+    background: rgba(52,78,65,0.25);
+
 }
 
 
-/* CONTENEDOR PRINCIPAL */
+/* CAJA GRANDE */
 
 .contenedor {
 
@@ -40,19 +55,20 @@ video {
 
     z-index: 10;
 
-    top: 50%;
+    top: 55%;
     left: 50%;
 
-    transform: translate(-50%, -45%);
+    transform: translate(-50%, -50%);
 
     width: 90%;
+
     max-width: 1100px;
 
-    height: 650px;
+    height: 600px;
 
     display: flex;
 
-    background: rgba(52, 78, 65, 0.90);
+    background: rgba(52,78,65,0.90);
 
     border-radius: 30px;
 
@@ -60,39 +76,34 @@ video {
 
     box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
 
-    border: 1px solid rgba(255,255,255,0.15);
 }
 
 
-/* LADO IZQUIERDO */
+/* IZQUIERDA */
 
 .izquierda {
 
     width: 30%;
 
-    background: rgba(52, 78, 65, 0.95);
-
     padding: 25px;
+
+    background: #344E41;
 
     overflow-y: auto;
 
-    border-right: 1px solid rgba(255,255,255,0.15);
 }
 
 
 .izquierda h2 {
 
-    color: #DAD7CD;
-
     text-align: center;
 
-    margin-top: 0;
+    color: #DAD7CD;
 
-    margin-bottom: 25px;
 }
 
 
-/* BOTONES DE COMENTARIOS */
+/* BOTONES */
 
 .boton-comentario {
 
@@ -100,9 +111,7 @@ video {
 
     text-decoration: none;
 
-    background: #A3B18A;
-
-    color: #344E41;
+    text-align: center;
 
     padding: 15px;
 
@@ -110,11 +119,12 @@ video {
 
     border-radius: 14px;
 
-    font-weight: 600;
+    background: #A3B18A;
 
-    text-align: center;
+    color: #344E41;
 
-    transition: 0.3s;
+    font-weight: bold;
+
 }
 
 
@@ -122,11 +132,10 @@ video {
 
     background: #DAD7CD;
 
-    transform: scale(1.03);
 }
 
 
-/* LADO DERECHO */
+/* DERECHA */
 
 .derecha {
 
@@ -136,37 +145,34 @@ video {
 
     overflow-y: auto;
 
-    background: rgba(255,255,255,0.08);
 }
 
 
-/* COMENTARIO */
+.derecha h1 {
 
-.comentario h1 {
+    text-align: center;
 
     color: #DAD7CD;
 
-    margin-top: 0;
-
-    text-align: center;
 }
 
 
-/* MENSAJE DEL CLIENTE */
+/* MENSAJE CLIENTE */
 
 .mensaje-cliente {
 
-    background: #DAD7CD;
-
-    color: #344E41;
+    max-width: 75%;
 
     padding: 20px;
 
     border-radius: 20px;
 
-    margin-bottom: 25px;
+    background: #DAD7CD;
 
-    max-width: 80%;
+    color: #344E41;
+
+    margin-bottom: 20px;
+
 }
 
 
@@ -174,55 +180,45 @@ video {
 
     margin-top: 0;
 
-    color: #344E41;
 }
 
 
-.mensaje-cliente p {
-
-    margin: 8px 0;
-
-}
-
-
-/* TITULO RESPUESTA */
+/* RESPUESTAS */
 
 .titulo-respuesta {
 
     color: #DAD7CD;
 
-    margin-bottom: 15px;
 }
 
 
-/* RESPUESTA DEL ADMIN */
-
 .respuesta {
 
-    background: #A3B18A;
+    max-width: 70%;
 
-    color: #344E41;
+    margin-left: auto;
+
+    margin-bottom: 15px;
 
     padding: 15px;
 
     border-radius: 20px;
 
-    margin-bottom: 15px;
+    background: #A3B18A;
 
-    margin-left: auto;
+    color: #344E41;
 
-    max-width: 70%;
 }
 
 
 .respuesta p {
 
-    margin: 5px 0;
+    margin-bottom: 0;
 
 }
 
 
-/* CAJA PARA RESPONDER */
+/* CAJA RESPUESTA */
 
 textarea {
 
@@ -230,15 +226,15 @@ textarea {
 
     height: 100px;
 
-    padding: 15px;
-
     box-sizing: border-box;
 
-    resize: none;
+    padding: 15px;
 
     border: none;
 
     border-radius: 15px;
+
+    resize: none;
 
     background: rgba(255,255,255,0.12);
 
@@ -246,25 +242,17 @@ textarea {
 
     font-family: 'Poppins', sans-serif;
 
-    font-size: 14px;
-
-    outline: none;
 }
 
 
 textarea::placeholder {
 
     color: rgba(255,255,255,0.7);
+
 }
 
 
-textarea:focus {
-
-    background: rgba(255,255,255,0.18);
-}
-
-
-/* BOTON ENVIAR */
+/* BOTON */
 
 .boton-enviar {
 
@@ -280,11 +268,10 @@ textarea:focus {
 
     color: #344E41;
 
-    font-weight: 600;
+    font-weight: bold;
 
     cursor: pointer;
 
-    transition: 0.3s;
 }
 
 
@@ -292,5 +279,4 @@ textarea:focus {
 
     background: #DAD7CD;
 
-    transform: scale(1.03);
 }
