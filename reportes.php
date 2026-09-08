@@ -498,7 +498,7 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 
         }
 
-//fila4
+//fila de la tareita 4
 
         if ($clienteFrecuente != "") {
 
