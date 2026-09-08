@@ -70,9 +70,9 @@ $resPedidos = $conn->query($sqlPedidos);
 
     <div class="saludo">
         <h1>
-    Hola!, <?php echo $_SESSION['Nombre']; ?>
+    Hola, <?php echo $_SESSION['Nombre'];?>
 </h1>
-        <p>Bienvenido/a de nuevo.</p>
+        <p>Bienvenido/a de nuevo!!</p>
     </div>
 
     <div class="a">

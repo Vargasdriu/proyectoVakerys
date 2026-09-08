@@ -36,7 +36,11 @@ body{
 }
 
 .saludo h1{
-    font-size:2rem;
+    font-size:42px;
+    color:#1d3021;
+}
+.saludo p{
+    font-size:22px;
     color:#1d3021;
 }
 
