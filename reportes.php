@@ -201,7 +201,7 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
         .reporte-clientes h2 {
             text-align: center;
             color: #344E41;
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 600;
             margin-bottom: 8px;
         }
@@ -210,7 +210,7 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
         .subtitulo-reporte {
             text-align: center;
             color: #588157;
-            font-size: 14px;
+            font-size: 17px;
             margin-bottom: 28px;
         }
 
@@ -231,7 +231,7 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
             color: #F8F7F3;
             padding: 17px 14px;
             text-align: center;
-            font-size: 13px;
+            font-size: 18px;
             font-weight: 600;
             letter-spacing: .5px;
             border: none;
@@ -252,7 +252,7 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
             padding: 15px 14px;
             text-align: center;
             color: #344E41;
-            font-size: 14px;
+            font-size: 18px;
             border-bottom: 1px solid #E5E5DE;
             background: #FFFFFF;
             transition: .25s ease;
@@ -295,7 +295,7 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
         .cliente-no-encontrado {
             color: #A3A3A3 !important;
             font-style: italic;
-            font-size: 13px;
+            font-size: 18px;
         }
 
 
@@ -351,7 +351,7 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 <section class="reporte-clientes">
 
     <h2>Pedidos registrados y clientes</h2>
-
+    <br>
 
     <?php
 
@@ -444,7 +444,7 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 
     ?>
 
-</section>
+</section> <br>
 
 
 <section class="reporte-clientes">
@@ -452,8 +452,9 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
     <h2>Cantidad de pedidos por cliente</h2>
 
     <p class="subtitulo-reporte">
-        Cantidad de pedidos realizados por cada cliente
+        Cantidad de pedidos realizados por cada cliente :
     </p>
+    <br>
 
 
     <?php
@@ -504,14 +505,14 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
             echo "<tr class='fila-cliente-frecuente'>";
 
             echo "<td>
-                    Cliente con mayor cantidad de pedidos
+                    Cliente con la mayor cantidad de pedidos
                   </td>";
 
             echo "<td>"
                 . htmlspecialchars($clienteFrecuente)
-                . " ("
+                . " con la cantidad de: "
                 . htmlspecialchars($cantidadPedidosFrecuente)
-                . " pedidos)"
+                . "  pedidos"
                 . "</td>";
 
             echo "</tr>";

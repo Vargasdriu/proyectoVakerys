@@ -45,11 +45,11 @@ $pedidos = mysqli_query($conn, $sql);
 
 <h1>
     Bienvenido, <?php echo $_SESSION['Nombre']; ?>
-</h1>
+</h1> <br>
 
 <p>
     Panel de administración
-</p>
+</p> <br>
 
 <section class="stats">
     <a href="Pedidos/leerpedido.php">
@@ -276,7 +276,7 @@ $pedidos = mysqli_query($conn, $sql);
             <?php } ?>
 
         </div>
-
+<br><br>
         <a
             class="btn"
             href="Pedidos/crearpedido.php"
