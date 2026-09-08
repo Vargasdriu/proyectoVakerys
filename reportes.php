@@ -120,7 +120,7 @@ while ($fila = $resultado->fetch_assoc()) {
 }
 
 
-//1y2
+//1 y 2
 
 $sqlPedidosClientes = "SELECT 
                             p.id AS IdPedido,
@@ -130,14 +130,13 @@ $sqlPedidosClientes = "SELECT
                             p.NombreVendedor,
                             p.Direccion,
                             p.Telefono,
-                            u.CI AS CICliente
+                            u.Numero AS NumeroCliente
                        FROM pedidos p
                        LEFT JOIN gestiondeusuarios u
-                       ON LOWER(TRIM(p.Nombre)) = LOWER(TRIM(u.Nombre))
+                       ON p.Telefono = u.Numero
                        ORDER BY p.id DESC";
 
 $resultadoPedidosClientes = $conn->query($sqlPedidosClientes);
-
 
 //3
 $sqlCantidadPedidos = "SELECT 
@@ -368,7 +367,7 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 
             <th>Cliente</th>
 
-            <th>CI Cliente</th>
+            <th>Numero de teléfono</th>
 
             <th>Fecha</th>
 
@@ -396,20 +395,19 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
                 . "</td>";
 
 
-            if (!empty($pedido["CICliente"])) {
+            if (!empty($pedido["NumeroCliente"])) {
 
-                echo "<td>"
-                    . htmlspecialchars($pedido["CICliente"])
-                    . "</td>";
+    echo "<td>"
+        . htmlspecialchars($pedido["NumeroCliente"])
+        . "</td>";
 
-            } else {
+} else {
 
-                echo "<td class='cliente-no-encontrado'>
-                        Cliente no relacionado
-                      </td>";
+    echo "<td class='cliente-no-encontrado'>
+            Cliente no relacionado
+          </td>";
 
             }
-
 
             echo "<td>"
                 . htmlspecialchars($pedido["Fecha"])
