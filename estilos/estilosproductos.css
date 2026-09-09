@@ -268,7 +268,104 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 25px;
     height: 25px;
 }
+/* Seccion S - Consulta de Estado de Pedido */
+.s {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    
+    width: 100% !important;
+    background-color: #cbd1c2 !important;
+    padding: 60px 12% !important;
+    gap: 16px !important;
+    box-sizing: border-box !important;
+}
 
+.s h2 {
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    color: #1d3021 !important;
+    margin: 0 0 8px 0 !important;
+    display: block !important;
+}
+
+.s input[type="number"],
+.s input#numeroPedido {
+    display: block !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    height: 50px !important;
+    padding: 0 20px !important;
+
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 15px !important;
+    color: #1d3021 !important;
+
+    background-color: #f5f7f2 !important;
+    border: 1.5px solid #aeb6a3 !important;
+    border-radius: 14px !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04) !important;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+.s input[type="number"]::-webkit-outer-spin-button,
+.s input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.s input[type="number"]:focus {
+    border-color: #1d3021 !important;
+    box-shadow: 0 0 0 3px rgba(29, 48, 33, 0.15) !important;
+}
+
+.s button,
+.s button#consultar {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background-color: #1d3021 !important;
+    color: #ffffff !important;
+
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+
+    border: none !important;
+    border-radius: 30px !important;
+
+    padding: 14px 28px !important;
+    cursor: pointer !important;
+
+    box-shadow: 0 5px 12px rgba(29, 48, 33, 0.18) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+.s button:hover {
+    background-color: #29432d !important;
+    transform: scale(1.04) !important;
+    box-shadow: 0 8px 18px rgba(29, 48, 33, 0.25) !important;
+}
+
+.s #resultado {
+    margin-top: 10px !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 15px !important;
+    color: #1d3021 !important;
+    line-height: 1.6 !important;
+}
 
 @keyframes entradaTitulo{
     0%{

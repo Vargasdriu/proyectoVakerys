@@ -182,7 +182,7 @@ input:focus{
     <option value="">Seleccionar estado</option>
     <option value="Pendiente">Pendiente</option>
     <option value="En proceso">En proceso</option>
-    <option value="Completado">Completado</option>
+    <option value="Finalizado">Finalizado</option>
     <option value="Cancelado">Cancelado</option>
 </select>
 

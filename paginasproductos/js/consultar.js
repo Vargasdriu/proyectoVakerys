@@ -1,4 +1,4 @@
-/* 
+
 document
 .getElementById("consultar")
 .addEventListener("click", () => {
@@ -137,4 +137,3 @@ document
     });
 
 });
-*/
