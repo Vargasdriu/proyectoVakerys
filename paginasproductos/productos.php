@@ -89,19 +89,20 @@
 <div class="s">
 
     <h2>Consulta el estado de tu pedido</h2>
-
-    <input
+    <form action ="consultar_pedido.php" method"GET">
+        <input
         type="number"
-        id="numeroPedido"
-        placeholder="Número de pedido"
+        name"id"
+        placeholder="Numero de pedido"
         min="1"
-    >
+        required
+        
+        <button type="submit">
+            Consultar pedido
+        </button>
+        </form>
 
-    <button type="button" id="consultar">
-        Consultar pedido
-    </button>
-
-    <div id="resultado"></div>
+   
 
 </div>
 
