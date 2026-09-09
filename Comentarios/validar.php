@@ -1,6 +1,10 @@
 <?php
+// Configurar la zona horaria correcta
+date_default_timezone_set('America/La_Paz');
+
 $nom = trim($_POST['nom'] ?? '');
-$email = trim($_POST['email'] ?? '');
+// Limpiar correo de espacios y pasarlo a minúsculas para agruparlo correctamente
+$email = strtolower(trim($_POST['email'] ?? ''));
 $asu = trim($_POST['asu'] ?? '');
 $come = trim($_POST['come'] ?? '');
 $puntuacion = trim($_POST['puntuacion'] ?? '');
@@ -12,6 +16,7 @@ if ($asu === 'Queja') {
     $subasunto = trim($_POST['sub_reco'] ?? '');
 }
 
+// Validaciones de campos vacíos
 if (empty($nom)) {
     header("Location: formulario.php?status=empty&campo=Nombre");
     exit();
@@ -37,15 +42,21 @@ if (empty($come)) {
     exit();
 }
 
+// Formatear Fecha y Hora Actual
+$fecha = date("d/m/Y H:i");
+
+// Guardar los datos en coment.txt
 $archivo = fopen("coment.txt", "a");
-fwrite($archivo, "NOMBRE: " . $nom . PHP_EOL);
-fwrite($archivo, "EMAIL: " . $email . PHP_EOL);
-fwrite($archivo, "ASUNTO: " . $asu . " (" . $subasunto . ")" . PHP_EOL);
-fwrite($archivo, "PUNTUACIÓN: " . $puntuacion . PHP_EOL);
-fwrite($archivo, "COMENTARIO: " . $come . PHP_EOL);
-fwrite($archivo, "-----------------------------------" . PHP_EOL);
+fwrite($archivo, "NOMBRE: " . $nom . "\n");
+fwrite($archivo, "EMAIL: " . $email . "\n");
+fwrite($archivo, "ASUNTO: " . $asu . " (" . $subasunto . ")\n");
+fwrite($archivo, "PUNTUACIÓN: " . $puntuacion . "\n");
+fwrite($archivo, "FECHA: " . $fecha . "\n");
+fwrite($archivo, "COMENTARIO: " . $come . "\n");
+fwrite($archivo, "-----------------------------------\n");
 fclose($archivo);
 
+// Redirigir con estado de éxito
 header("Location: formulario.php?status=success");
 exit();
 ?>

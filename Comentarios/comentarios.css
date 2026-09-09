@@ -185,3 +185,151 @@ h2 {
 .boton-enviar:hover {
     background: #DAD7CD;
 }
+/* =========================================================
+   ESTILOS PARA EL PANEL DE COMENTARIOS (3 COLUMNAS)
+   ========================================================= */
+
+/* Contenedor Principal: Añadimos 'gap' para separar las 3 columnas entre sí */
+.contenedor-tres-columnas {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 20px; /* <--- Separa las 3 cajas principales */
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Estilo individual para cada una de las 3 Columnas */
+.columna {
+    background: rgba(27, 38, 30, 0.92); /* Fondo oscuro semitransparente */
+    border-radius: 18px;
+    padding: 25px 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.col-1 {
+    flex: 1; /* Columna Lista */
+    min-width: 250px;
+}
+
+.col-2 {
+    flex: 1.2; /* Columna Detalles */
+    min-width: 280px;
+}
+
+.col-3 {
+    flex: 1.5; /* Columna Comentarios / Chat */
+    min-width: 320px;
+}
+
+/* Títulos de cada columna */
+.columna h2 {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* ---------------------------------------------------------
+   COLUMNA 1: LISTA DE CLIENTES
+   --------------------------------------------------------- */
+.boton-comentario {
+    display: block;
+    background: #A3B18A;
+    color: #1A2E22;
+    text-decoration: none;
+    padding: 12px 15px;
+    margin-bottom: 12px; /* Separa los botones de clientes entre sí */
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.boton-comentario:hover {
+    background: #DAD7CD;
+    transform: translateY(-2px);
+}
+
+/* ---------------------------------------------------------
+   COLUMNA 2: DETALLES DEL CLIENTE
+   --------------------------------------------------------- */
+.tarjeta-info {
+    background: #E3E1D9;
+    color: #1F2D24;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.tarjeta-info h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #2D4030;
+    font-size: 20px;
+    border-bottom: 2px solid #344E41;
+    padding-bottom: 8px;
+}
+
+/* ---------------------------------------------------------
+   COLUMNA 3: HISTORIAL / BURBUJAS DE CHAT
+   --------------------------------------------------------- */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* <--- ESPACIO LIMPIO ENTRE CADA BURBUJA DE CHAT */
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Personalizar barra de desplazamiento del chat */
+.chat-container::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-container::-webkit-scrollbar-thumb {
+    background: #A3B18A;
+    border-radius: 10px;
+}
+
+.burbuja-chat {
+    background: #E2F1D5; /* Tono verde claro elegante */
+    color: #1A2E22;
+    padding: 14px 18px;
+    border-radius: 18px 18px 18px 4px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.autor-chat {
+    font-weight: bold;
+    font-size: 13px;
+    color: #2D5A3F;
+    margin-bottom: 6px;
+}
+
+.burbuja-chat p {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    line-height: 1.4;
+    word-break: break-word; /* Para que textos largos no se salgan de la caja */
+}
+
+.fecha-chat {
+    align-self: flex-end;
+    font-size: 11px;
+    color: #555555;
+    font-weight: 500;
+}

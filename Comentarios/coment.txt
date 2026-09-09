@@ -11,3 +11,35 @@ ASUNTO: Queja (Queja al Cliente)
 PUNTUACIÓN: 3 Estrellas
 COMENTARIO: dfgvdsgvbfsgbfsv
 -----------------------------------
+NOMBRE: Briana Rojas
+EMAIL: Brianarojas@gmail.com
+ASUNTO: Queja (Queja al Producto)
+PUNTUACIÓN: 2 Estrellas
+COMENTARIO: No me gusta su brwnie estaba feo sabia a caca era mas feo q de un puesto de la esquina aparte q muy mala la atencion de parte del vendedor q me esta dando la aparte de la .
+-----------------------------------
+NOMBRE: fsafasf
+EMAIL: fsdafasf@gmail.com
+ASUNTO: Recomendaciones (Recomendación al Producto)
+PUNTUACIÓN: 3 Estrellas
+COMENTARIO: fsdagfghdfhgdfhdf
+-----------------------------------
+NOMBRE: Patrick Nicolai
+EMAIL: parientezapatanicole@pedropoveda.edu.bo
+ASUNTO: Queja (Queja al Cliente)
+PUNTUACIÓN: 3 Estrellas
+COMENTARIO: asdsadas
+-----------------------------------
+NOMBRE: brrr
+EMAIL: brianarojas@gmail.com
+ASUNTO: Recomendaciones (Recomendación al Vendedor)
+PUNTUACIÓN: 5 Estrellas
+FECHA: 09/09/2026 15:39
+COMENTARIO: ssafsfssfsafs
+-----------------------------------
+NOMBRE: brrr
+EMAIL: brianarojas@gmail.com
+ASUNTO: Queja (Queja al Repartidor)
+PUNTUACIÓN: 5 Estrellas
+FECHA: 09/09/2026 15:42
+COMENTARIO: gedsGddhdfhjnfdh
+-----------------------------------
