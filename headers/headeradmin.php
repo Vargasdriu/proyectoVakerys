@@ -170,31 +170,31 @@ nav {
             </li>
 
             <li>
-                <a href="/proyectovakerys/productos/leerproductos.php">
+                <a href="/proyectovakerys/Productos/leerproductos.php">
                     Productos
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/pedidos/leerpedido.php">
+                <a href="/proyectovakerys/Pedidos/leerpedido.php">
                     Pedidos
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/ventas/leerventa.php">
+                <a href="/proyectovakerys/Ventas/leerventa.php">
                     Ventas
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/usuarios/leerusuario.php">
+                <a href="/proyectovakerys/Usuarios/leerusuario.php">
                     Usuarios
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/usuarios/cerrarsesion.php">
+                <a href="/proyectovakerys/Usuarios/cerrarsesion.php">
                     Cerrar sesión
                 </a>
             </li>

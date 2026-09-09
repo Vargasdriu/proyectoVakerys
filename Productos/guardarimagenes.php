@@ -1,4 +1,5 @@
 <?php
+include '../header.php';
 
 $servidor = "localhost";
 $usuario = "root";
@@ -60,7 +61,8 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>body{
+    <style>
+body{
     font-family: 'Poppins', sans-serif;
 }
 
@@ -89,10 +91,13 @@ button{
 input[type="submit"]{
     font-weight: 600;
     letter-spacing: 1px;
-}</style>
+}
+</style>
 </head>
 <body>
-
+<video autoplay muted loop>
+    <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
+</video>
 <script>
 Swal.fire({
     title: "Éxito",

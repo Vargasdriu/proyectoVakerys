@@ -249,7 +249,7 @@ $pedidos = mysqli_query($conn, $sql);
                         </a>
 
                         <a
-                            href="Pedidos/editarpedido.php?id=<?php echo $pedido['id']; ?>"
+                            href="Pedidos/actualizarpedido.php?id=<?php echo $pedido['id']; ?>"
                         >
                             <img
                                 src="imagenes/editarr.png"
