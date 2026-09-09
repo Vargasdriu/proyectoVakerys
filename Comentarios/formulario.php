@@ -4,26 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Comentario</title>
-    <link rel="stylesheet" href="comen.css" class="me">
+    <link rel="stylesheet" href="comentarios.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <?php include '../header.php'; ?>
+
     <video autoplay muted loop>
         <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
     </video>
 
     <div class="capa"></div>
 
-    <div class="tra">
+    <div class="contenedor-formulario">
         <form action="validar.php" method="POST">
-            <h2>Comentario</h2>
+            <h2>Dejar un Comentario</h2>
 
             <label for="nom">Nombre:</label>
-            <input type="text" name="nom" id="nom">
+            <input type="text" name="nom" id="nom" class="input-form">
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" name="email" id="email" class="input-form">
 
             <label for="asu">Asunto:</label>
-            <select name="asu" id="asu" onchange="mostrarSubasuntos()">
+            <select name="asu" id="asu" class="input-form" onchange="mostrarSubasuntos()">
                 <option value="">Seleccionar asunto</option>
                 <option value="Queja">Queja</option>
                 <option value="Recomendaciones">Recomendaciones</option>
@@ -32,7 +36,7 @@
             <!-- Sub-asunto para Queja -->
             <div id="grupo-queja" style="display: none;">
                 <label for="sub_queja">Tipo de Queja:</label>
-                <select name="sub_queja" id="sub_queja">
+                <select name="sub_queja" id="sub_queja" class="input-form">
                     <option value="">Seleccione el tipo de queja</option>
                     <option value="Queja al Cliente">Queja al cliente</option>
                     <option value="Queja al Repartidor">Queja al repartidor</option>
@@ -43,7 +47,7 @@
             <!-- Sub-asunto para Recomendaciones -->
             <div id="grupo-recomendacion" style="display: none;">
                 <label for="sub_reco">Tipo de Recomendación:</label>
-                <select name="sub_reco" id="sub_reco">
+                <select name="sub_reco" id="sub_reco" class="input-form">
                     <option value="">Seleccione el tipo de recomendación</option>
                     <option value="Recomendación al Producto">Al producto</option>
                     <option value="Recomendación al Vendedor">Al vendedor</option>
@@ -52,7 +56,7 @@
             </div>
 
             <label for="puntuacion">Puntuación:</label>
-            <select name="puntuacion" id="puntuacion">
+            <select name="puntuacion" id="puntuacion" class="input-form">
                 <option value="">Seleccionar estrellas</option>
                 <option value="1 Estrella">1 Estrella ⭐</option>
                 <option value="2 Estrellas">2 Estrellas ⭐⭐</option>
@@ -62,10 +66,12 @@
             </select>
 
             <label for="come">Comentario:</label>    
-            <input type="text" name="come" id="come">
+            <textarea name="come" id="come" class="input-form" style="height: 80px;"></textarea>
 
-            <input class="button" type="reset" value="borrar" onclick="ocultarSubasuntos()">
-            <input class="button" type="submit" value="enviar">
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <input class="boton-enviar" type="reset" value="Borrar" onclick="ocultarSubasuntos()">
+                <input class="boton-enviar" type="submit" value="Enviar Comentario">
+            </div>
         </form>
     </div>
 
@@ -110,13 +116,13 @@
                     title: '¡Enviado!',
                     text: 'Su comentario ha sido guardado exitosamente.',
                     showCancelButton: true,
-                    confirmButtonText: 'Volver al Inicio',
+                    confirmButtonText: 'Ver Comentarios',
                     cancelButtonText: 'Cerrar',
                     confirmButtonColor: '#344E41',
                     cancelButtonColor: '#A3B18A'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = '../paginadeinicio.php';
+                        window.location.href = 'comentarios.php';
                     }
                 });
             </script>";
