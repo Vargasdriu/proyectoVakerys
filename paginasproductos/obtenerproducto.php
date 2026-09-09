@@ -67,7 +67,6 @@ while ($fila = $resultadoImagenes->fetch_assoc()) {
 $producto["imagenes"] = $imagenes;
 
 
-/* DEVOLVER JSON */
 
 echo json_encode($producto);
 

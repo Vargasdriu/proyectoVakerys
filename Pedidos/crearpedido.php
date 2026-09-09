@@ -68,7 +68,7 @@ $nombre = $_SESSION['Nombre'];
     <option value="Pendiente">Pendiente</option>
     <option value="En proceso">En proceso</option>
     <option value="Completado">Completado</option>
-    <option value="Cancelado">Cancelado</option>
+    <option value="Finalizado">Finalizado</option>
 </select>
 <label>Nombre Vendedor:</label>
 <input type="text" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor" value="<?php echo $nombre; ?>"readonly>
