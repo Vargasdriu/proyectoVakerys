@@ -17,6 +17,8 @@ $Nombre = "";
 $Fecha = "";
 $Estado = "";
 $NombreVendedor = "";
+$Direccion = "";
+$Telefono = "";
 
 if ($id != "") {
 
@@ -30,8 +32,8 @@ if ($id != "") {
             $Fecha = $fila['Fecha'];
             $Estado = $fila['Estado'];
             $NombreVendedor = $fila['NombreVendedor'];
-            $Direccion=$fila['Direccion'];
-            $Telefono=$fila['Telefono'];
+            $Direccion = $fila['Direccion'];
+            $Telefono = $fila['Telefono'];
         }
     }
 }
@@ -105,7 +107,7 @@ input{
     font-size:16px;
     outline:none;
     background:#F8F7F3;
-    color: #344E41;
+    color:#344E41;
 }
 
 input:focus{
@@ -125,37 +127,37 @@ input:focus{
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
+
 .swal2-container {
-            z-index: 99999 !important;
-        }
+    z-index:99999 !important;
+}
 
+select#Estado {
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    margin-bottom:18px;
+    border:none;
+    border-radius:14px;
+    background:rgb(255,255,255);
+    color:#344E41;
+    font-size:16px;
+    outline:none;
+    backdrop-filter:blur(4px);
+    box-sizing:border-box;
+    cursor:pointer;
+}
 
-                select#Estado {
-            width: 100%;
-            padding: 14px;
-            margin-top: 12px;
-            margin-bottom: 18px;
-            border: none;
-            border-radius: 14px;
-            background: rgb(255, 255, 255);
-            color: #344E41;
-            font-size: 16px;
-            outline: none;
-            backdrop-filter: blur(4px);
-            box-sizing: border-box;
-            cursor: pointer;
-        }
+select#Estado option {
+    background:#f8fcfa;
+    color:#344E41;
+}
 
-        select#Estado option {
-            background: #f8fcfa;
-            color:  #344E41;
-            
-        }
-
-        select#Estado:focus {
-            background: rgb(255, 254, 254);
-        }
+select#Estado:focus {
+    background:rgb(255,254,254);
+}
 </style>
+
 </head>
 
 <body>
@@ -176,90 +178,92 @@ input:focus{
     <label>Fecha:</label>
     <input type="date" name="Fecha" id="Fecha" value="<?=$Fecha?>" readonly>
 
-<label>Estado:</label>
+    <label>Estado:</label>
 
-<select name="Estado" id="Estado">
-    <option value="">Seleccionar estado</option>
-    <option value="Pendiente">Pendiente</option>
-    <option value="En proceso">En proceso</option>
-    <option value="Finalizado">Finalizado</option>
-    <option value="Cancelado">Cancelado</option>
-</select>
+    <select name="Estado" id="Estado">
+        <option value="">Seleccionar estado</option>
+        <option value="Pendiente">Pendiente</option>
+        <option value="En proceso">En proceso</option>
+        <option value="Finalizado">Finalizado</option>
+        <option value="Cancelado">Cancelado</option>
+    </select>
 
     <label>Nombre del Vendedor:</label>
     <input type="text" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>" readonly>
 
     <label>Dirección:</label>
-    <input type="text" name="Direccion" id="Direccion" value="<?=$Direccion?>" >
+    <input type="text" name="Direccion" id="Direccion" value="<?=$Direccion?>">
 
     <label>Teléfono:</label>
-    <input type="number" name="Telefono" id="Telefono" value="<?=$Telefono?>" >
-   
+    <input type="number" name="Telefono" id="Telefono" value="<?=$Telefono?>">
+
     <input type="submit" value="Actualizar Pedido" class="boton">
 
 </form>
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-    document.getElementById("ActualizarPedido").addEventListener("submit", function(event) {
-        
-        event.preventDefault();
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        var b = document.getElementById("Nombre");
-        var c = document.getElementById("Fecha");
-        var d = document.getElementById("Estado");
-        var e = document.getElementById("Direccion");
-        var f = document.getElementById("Telefono");
+<script>
+document.getElementById("ActualizarPedido").addEventListener("submit", function(event) {
 
-        var ex = /^[0-9]*$/;
-        var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
-        var expRegMinuscula=/^[a-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+    event.preventDefault();
 
-       
-        function mostrarAlerta(mensaje, elemento) {
-            Swal.fire({
-                icon: 'error',
-                title: '¡Oops!',
-                text: mensaje,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Entendido'
-            }).then(() => {
-                elemento.focus(); 
-            }); 
-        }
-       
-        if (b.value.trim() == "") {
-            mostrarAlerta("El campo Nombre no puede ir vacío", b);
-            return;
-        }
-        if (!expRegNombre.exec(b.value)) {
-            mostrarAlerta("Introduce solo letras en el Nombre", b);
-            return;
-        }
+    var b = document.getElementById("Nombre");
+    var c = document.getElementById("Fecha");
+    var d = document.getElementById("Estado");
+    var e = document.getElementById("Direccion");
+    var f = document.getElementById("Telefono");
 
-        
-        if (c.value.trim() == "") {
-            mostrarAlerta("El campo Fecha no puede ir vacío", c);
-            return;
-        }
-    
+    var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 
-        if (d.value.trim() == "") {
-            mostrarAlerta("El campo Estado no puede ir vacío", d);
-            return;
-        }
-                if (e.value.trim() == "") {
-            mostrarAlerta("El campo Dirección no puede ir vacío", e);
-            return;
-        }
-                if (f.value.trim() == "") {
-            mostrarAlerta("El campo Teléfono no puede ir vacío", f);
-            return;
-        }
-                this.submit();
-    });
+    function mostrarAlerta(mensaje, elemento) {
+        Swal.fire({
+            icon: 'error',
+            title: '¡Oops!',
+            text: mensaje,
+            confirmButtonColor: '#588157',
+            confirmButtonText: 'Entendido'
+        }).then(() => {
+            elemento.focus();
+        });
+    }
+
+    if (b.value.trim() == "") {
+        mostrarAlerta("El campo Nombre no puede ir vacío", b);
+        return;
+    }
+
+    if (!expRegNombre.test(b.value)) {
+        mostrarAlerta("Introduce solo letras en el Nombre", b);
+        return;
+    }
+
+    if (c.value.trim() == "") {
+        mostrarAlerta("El campo Fecha no puede ir vacío", c);
+        return;
+    }
+
+    if (d.value.trim() == "") {
+        mostrarAlerta("El campo Estado no puede ir vacío", d);
+        return;
+    }
+
+    if (e.value.trim() == "") {
+        mostrarAlerta("El campo Dirección no puede ir vacío", e);
+        return;
+    }
+
+    if (f.value.trim() == "") {
+        mostrarAlerta("El campo Teléfono no puede ir vacío", f);
+        return;
+    }
+
+    this.submit();
+
+});
 </script>
 
 </div>
+
 </body>
 </html>

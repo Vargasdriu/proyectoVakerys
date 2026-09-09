@@ -84,9 +84,9 @@ function mostrarProductos() {
 
 
             productos.forEach(producto => {
-
+                   
                 contenedor.innerHTML += `
-
+                    
                     <div
                         class="proc"
                         data-codigo="${producto.Codigo}"

@@ -90,7 +90,31 @@ input::placeholder{
 input:focus{
     background:rgba(255,255,255,0.18);
 }
+select{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    margin-bottom:18px;
+    border:none;
+    border-radius:14px;
+    background:rgba(255,255,255,0.12);
+    color:white;
+    font-family:'Poppins',sans-serif;
+    font-size:14px;
+    outline:none;
+    backdrop-filter:blur(4px);
+    box-sizing:border-box;
+    cursor:pointer;
+}
 
+select:focus{
+    background:rgba(255,255,255,0.18);
+}
+
+select option{
+    background:#344E41;
+    color:white;
+}
 /* Botón */
 .button{
     margin-top:10px;

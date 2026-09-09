@@ -13,7 +13,9 @@ if($conexion->connect_error){
 $Codigo = $_GET['Codigo'];
 
 $conexion->query("DELETE FROM carrito WHERE productos_Codigo='$Codigo'");
-$sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";?>
+
+$sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -22,63 +24,11 @@ $sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eliminar Producto</title>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:linear-gradient(135deg,rgb(163,177,138),rgb(88,129,87));
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    font-family:'Raleway',sans-serif;
-    padding:30px;
-}
-
-.contenedor{
-    background:rgba(52,78,65,.95);
-    width:500px;
-    padding:50px 40px;
-    border-radius:35px;
-    text-align:center;
-    color:white;
-    box-shadow:0 15px 35px rgba(0,0,0,.2);
-    border:2px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(8px);
-}
-
-h1{
-    font-size:35px;
-    margin-bottom:20px;
-}
-
-p{
-    font-size:20px;
-    margin-bottom:35px;
-    opacity:.9;
-}
-
-.boton{
-    display:inline-block;
-    background:#88a07a;
-    color:white;
-    text-decoration:none;
-    padding:16px 35px;
-    border-radius:18px;
-    font-size:18px;
-    font-weight:bold;
-    transition:.3s;
-}
-
-.boton:hover{
-    background:white;
-    color:rgb(52,78,65);
-    transform:translateY(-4px);
-    box-shadow:0 10px 20px rgba(0,0,0,.15);
+.swal2-container{
+    z-index:99999 !important;
 }
 </style>
 
@@ -87,21 +37,41 @@ p{
 
 <?php include '../header.php'; ?>
 
-<div class="contenedor">
-
 <?php
 if($conexion->query($sql) === TRUE){
-    echo "<h1>✓ Producto Eliminado</h1>";
-    echo "<p>El producto fue eliminado correctamente.</p>";
-}else{
-    echo "<h1>✕ Error</h1>";
-    echo "<p>No se pudo eliminar el producto.</p>";
-}
 ?>
 
-<a class="boton" href="leerproductos.php">Volver a Productos</a>
+<script>
+Swal.fire({
+    icon: 'success',
+    title: '¡Producto eliminado!',
+    text: 'El producto fue eliminado correctamente.',
+    confirmButtonText: 'Aceptar',
+    confirmButtonColor: '#588157'
+}).then(() => {
+    window.location.href = 'leerproductos.php';
+});
+</script>
 
-</div>
+<?php
+}else{
+?>
+
+<script>
+Swal.fire({
+    icon: 'error',
+    title: '¡Error!',
+    text: 'No se pudo eliminar el producto.',
+    confirmButtonText: 'Aceptar',
+    confirmButtonColor: '#588157'
+}).then(() => {
+    window.location.href = 'leerproductos.php';
+});
+</script>
+
+<?php
+}
+?>
 
 </body>
 </html>

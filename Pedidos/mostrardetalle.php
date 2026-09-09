@@ -29,7 +29,7 @@ $total = $res['total'] ?? 0;
 
 
 $textoQR = "Pedido ID: $id | Total: $$total";
-$urlQR = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=" . urlencode($textoQR);
+$urlQR = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" . urlencode($textoQR);
 ?>
 
 <!DOCTYPE html>
