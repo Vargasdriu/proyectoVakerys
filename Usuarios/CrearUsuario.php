@@ -16,6 +16,33 @@
     <title>Bienvenido</title>
 
     <link rel="stylesheet" href="estiloscrear.css">
+    <style>
+        select{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    margin-bottom:18px;
+    border:none;
+    border-radius:14px;
+    background:rgba(255,255,255,0.12);
+    color:white;
+    font-family:'Poppins',sans-serif;
+    font-size:14px;
+    outline:none;
+    backdrop-filter:blur(4px);
+    box-sizing:border-box;
+    cursor:pointer;
+}
+
+select:focus{
+    background:rgba(255,255,255,0.18);
+}
+
+select option{
+    background:#344E41;
+    color:white;
+}
+    </style>
 </head>
 
 <body>
@@ -48,7 +75,13 @@
     <input type="number" placeholder="NÚMERO DE CELULAR" name="Numero" id="Numero">
 
     <label>Rol</label>
-    <input type="text" placeholder="ROL" name="Rol" id="Rol">
+
+    <select name="Rol" id="Rol">
+        <option value="">Seleccionar el rol</option>
+        <option value="administrador">Administrador</option>
+        <option value="vendedor">Vendedor</option>
+    
+    </select>
 
     
     <input type="hidden" placeholder="ESTADO" name="Estado" id="Estado" value="activo">

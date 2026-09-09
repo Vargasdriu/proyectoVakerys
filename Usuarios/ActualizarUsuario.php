@@ -62,7 +62,6 @@ body{
     background-position:center;
     background-repeat:no-repeat;
     background-attachment:fixed;
-
     display:flex;
     justify-content:center;
     align-items:center;
@@ -125,10 +124,12 @@ input:focus{
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
-.swal2-container {
-            z-index: 99999 !important;
-        }
+
+.swal2-container{
+    z-index:99999 !important;
+}
 </style>
+
 </head>
 
 <body>
@@ -161,88 +162,86 @@ input:focus{
     <input type="submit" value="Actualizar Usuario" class="boton">
 
 </form>
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-    document.getElementById("ActualizarUsuario").addEventListener("submit", function(event) {
-        
-        event.preventDefault();
-    
-        var b = document.getElementById("Nombre");
-        var c = document.getElementById("Direccion");
-        var d = document.getElementById("Numero");
-        var e = document.getElementById("Rol");
-        var f = document.getElementById("Estado");
-        
-        var ex = /^[0-9]*$/;
-        var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
-         var expRegMinuscula=/^[a-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-       
-        function mostrarAlerta(mensaje, elemento) {
-            Swal.fire({
-                icon: 'error',
-                title: '¡Oops!',
-                text: mensaje,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Entendido'
-            }).then(() => {
-                elemento.focus(); 
-            });
-        }
+<script>
+document.getElementById("ActualizarUsuario").addEventListener("submit", function(event){
 
-   
+    event.preventDefault();
 
-       
-        if (b.value.trim() == "") {
-            mostrarAlerta("El campo Nombre no puede ir vacío", b);
-            return;
-        }
-        if (!expRegNombre.exec(b.value)) {
-            mostrarAlerta("Introduce solo letras en el Nombre", b);
-            return;
-        }
+    var b = document.getElementById("Nombre");
+    var c = document.getElementById("Direccion");
+    var d = document.getElementById("Numero");
+    var e = document.getElementById("Rol");
+    var f = document.getElementById("Estado");
 
-        
-        if (c.value.trim() == "") {
-            mostrarAlerta("El campo Dirección no puede ir vacío", c);
-            return;
-        }
+    var ex = /^[0-9]*$/;
+    var expRegNombre = /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+    var expRegMinuscula = /^[a-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 
-        
-        if (d.value.trim() == "") {
-            mostrarAlerta("El campo Número de Celular no puede ir vacío", d);
-            return;
-        }
-        if (!ex.exec(d.value)) {
-            mostrarAlerta("Introduce solo números en el Celular", d);
-            return;
-        }
+    function mostrarAlerta(mensaje, elemento){
+        Swal.fire({
+            icon:'error',
+            title:'¡Oops!',
+            text:mensaje,
+            confirmButtonColor:'#588157',
+            confirmButtonText:'Entendido'
+        }).then(() => {
+            elemento.focus();
+        });
+    }
 
-    
-        if (e.value.trim() == "") {
-            mostrarAlerta("El campo Rol no puede ir vacío", e);
-            return;
-        }
-         if (!expRegMinuscula.exec(e.value)) {
-            mostrarAlerta("Introduce solo minusculas en el Rol", e);
-            return;
-        }
+    if(b.value.trim() == ""){
+        mostrarAlerta("El campo Nombre no puede ir vacío", b);
+        return;
+    }
 
-        if (f.value.trim() == "") {
-            mostrarAlerta("El campo Estado no puede ir vacío", f);
-            return;
-        }
-        if (!expRegNombre.exec(f.value)) {
-            mostrarAlerta("Introduce solo letras en el Estado", f);
-            return;
-        }
+    if(!expRegNombre.test(b.value)){
+        mostrarAlerta("Introduce solo letras en el Nombre", b);
+        return;
+    }
 
-       
-        this.submit();
-    });
+    if(c.value.trim() == ""){
+        mostrarAlerta("El campo Dirección no puede ir vacío", c);
+        return;
+    }
+
+    if(d.value.trim() == ""){
+        mostrarAlerta("El campo Número de Celular no puede ir vacío", d);
+        return;
+    }
+
+    if(!ex.test(d.value)){
+        mostrarAlerta("Introduce solo números en el Celular", d);
+        return;
+    }
+
+    if(e.value.trim() == ""){
+        mostrarAlerta("El campo Rol no puede ir vacío", e);
+        return;
+    }
+
+    if(!expRegMinuscula.test(e.value)){
+        mostrarAlerta("Introduce solo minúsculas en el Rol", e);
+        return;
+    }
+
+    if(f.value.trim() == ""){
+        mostrarAlerta("El campo Estado no puede ir vacío", f);
+        return;
+    }
+
+    if(!expRegNombre.test(f.value)){
+        mostrarAlerta("Introduce solo letras en el Estado", f);
+        return;
+    }
+
+    this.submit();
+});
 </script>
 
 </div>
+
 </body>
 </html>
