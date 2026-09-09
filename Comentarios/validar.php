@@ -1,5 +1,6 @@
 <?php
 $nom = trim($_POST['nom'] ?? '');
+$email = trim($_POST['email'] ?? '');
 $asu = trim($_POST['asu'] ?? '');
 $come = trim($_POST['come'] ?? '');
 $puntuacion = trim($_POST['puntuacion'] ?? '');
@@ -11,9 +12,12 @@ if ($asu === 'Queja') {
     $subasunto = trim($_POST['sub_reco'] ?? '');
 }
 
-// Validaciones de campos
 if (empty($nom)) {
     header("Location: formulario.php?status=empty&campo=Nombre");
+    exit();
+}
+if (empty($email)) {
+    header("Location: formulario.php?status=empty&campo=Correo Electrónico");
     exit();
 }
 if (empty($asu)) {
@@ -33,9 +37,9 @@ if (empty($come)) {
     exit();
 }
 
-// Guardar los datos
 $archivo = fopen("coment.txt", "a");
 fwrite($archivo, "NOMBRE: " . $nom . PHP_EOL);
+fwrite($archivo, "EMAIL: " . $email . PHP_EOL);
 fwrite($archivo, "ASUNTO: " . $asu . " (" . $subasunto . ")" . PHP_EOL);
 fwrite($archivo, "PUNTUACIÓN: " . $puntuacion . PHP_EOL);
 fwrite($archivo, "COMENTARIO: " . $come . PHP_EOL);
