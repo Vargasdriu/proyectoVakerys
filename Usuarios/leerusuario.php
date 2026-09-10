@@ -1,3 +1,4 @@
+
 <?php
 $servername = "localhost";
 $username = "root";
@@ -11,201 +12,172 @@ if ($conn->connect_error) {
 }
 
 $sql = "SELECT * FROM GestionDeUsuarios";
+
+include '../header.php';
 ?>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | Vakery's</title>
 
-body{
-    font-family:'Poppins',sans-serif;
-    background:#DAD7CD;
-    padding:35px;
-    margin-top:75px
-}
+    <link rel="stylesheet" href="estilosleerusuario.css">
+</head>
 
-.contenedor{
-    background:white;
-    padding:35px;
-    border-radius:30px;
-    box-shadow:0px 10px 25px rgba(52,78,65,0.15);
-}
+<div class="usuarios-page">
 
-h1{
-    text-align:center;
-    color:#344E41;
-    font-size:38px;
-    margin-bottom:5px;
-}
+    <div class="usuarios-contenedor">
 
-.subtitulo{
-    text-align:center;
-    color:#588157;
-    margin-bottom:30px;
-    font-size:15px;
-}
+        <div class="usuarios-encabezado">
 
-.tabla-estilo{
-    width:100%;
-    border-collapse:collapse;
-    overflow:hidden;
-    border-radius:18px;
-}
+            <div class="usuarios-titulo">
+                <h1>Gestión de Usuarios</h1>
+                <p>Administra las cuentas y accesos de Vakery’s</p>
+            </div>
 
-.tabla-estilo th{
-    background:#3A5A40;
-    color:white;
-    padding:15px;
-    font-size:15px;
-    letter-spacing:1px;
-}
+            <a href="crearusuario.php" class="boton-nuevo-usuario">
+                + Nuevo usuario
+            </a>
 
-.tabla-estilo td{
-    padding:14px;
-    text-align:center;
-    background:#F8F7F3;
-    border-bottom:1px solid #DAD7CD;
-    color:#344E41;
-}
+        </div>
 
-.tabla-estilo tr:hover td{
-    background:#E8E5DC;
-    transition:0.3s;
-}
+        <div class="usuarios-grid">
 
-button{
-    border:none;
-    padding:9px 15px;
-    border-radius:12px;
-    font-family:'Poppins',sans-serif;
-    font-weight:500;
-    cursor:pointer;
-    transition:0.3s;
-    margin:2px;
-}
+            <?php
 
-/* BOTONES */
-.editar{
-    background:#A3B18A;
-    color:#344E41;
-}
+            $resultado = $conn->query($sql);
 
-.editar:hover{
-    background:#8E9F73;
-    transform:scale(1.05);
-}
+            if ($resultado && $resultado->num_rows > 0) {
 
-.eliminar{
-    background:#588157;
-    color:white;
-}
+                while ($fila = $resultado->fetch_assoc()) {
 
-.eliminar:hover{
-    background:#3A5A40;
-    transform:scale(1.05);
-}
+                    $CI = $fila['CI'];
+                    $nombre = $fila['Nombre'];
+                    $estado = strtolower(trim($fila['Estado']));
 
-.mostrar{
-    background:#DAD7CD;
-    color:#344E41;
-    border:1px solid #A3B18A;
-}
+                    $partes = explode(" ", trim($nombre));
 
-.mostrar:hover{
-    background:#A3B18A;
-    transform:scale(1.05);
-}
+                    if (count($partes) >= 2) {
+                        $iniciales = strtoupper(
+                            substr($partes[0], 0, 1) .
+                            substr($partes[1], 0, 1)
+                        );
+                    } else {
+                        $iniciales = strtoupper(substr($nombre, 0, 2));
+                    }
 
-.nuevo{
-    margin-top:25px;
-    background:#344E41;
-    color:white;
-    font-size:16px;
-    padding:12px 22px;
-}
+                    if ($estado == "activo") {
+                        $claseEstado = "estado-activo";
+                    } else {
+                        $claseEstado = "estado-bloqueado";
+                    }
 
-.nuevo:hover{
-    background:#3A5A40;
-    transform:scale(1.05);
-}
+                    echo "
+                    <div class='usuario-card'>
 
-.boton-centro{
-    display:flex;
-    justify-content:center;
-    margin-top:20px;
-}
-</style>
+                        <div class='usuario-top'>
 
-<?php include '../header.php'; ?>
+                            <div class='usuario-avatar'>
+                                $iniciales
+                            </div>
 
-<div class="contenedor">
+                            <div class='usuario-nombre'>
+                                <h2>".$fila['Nombre']."</h2>
+                                <p>".$fila['Rol']."</p>
+                            </div>
 
-    <h1>Gestión de Usuarios</h1>
-    <p class="subtitulo">Lista completa de usuarios registrados</p>
+                            <span class='usuario-estado $claseEstado'>
+                                ".$fila['Estado']."
+                            </span>
 
-<?php
-echo "<table class='tabla-estilo'>";
-echo "
-<tr>
-    <th>CI</th>
-    <th>Nombre</th>
-    <th>Direccion</th>
-    <th>Celular</th>
-    <th>Rol</th>
-    <th>Estado</th>
-    <th>Acciones</th>
-</tr>
-";
+                        </div>
 
-$resultado = $conn->query($sql);
+                        <div class='usuario-info'>
 
-if ($resultado->num_rows > 0){
-    while($fila = $resultado->fetch_assoc()){
-        $CI = $fila['CI'];
+                            <div class='usuario-dato'>
+                                <div class='usuario-icono'>CI</div>
+                                <div class='usuario-texto'>
+                                    <small>Carnet de identidad</small>
+                                    <span>".$fila['CI']."</span>
+                                </div>
+                            </div>
 
-        echo "<tr>";
-        echo "
-        <td>".$fila['CI']."</td>
-        <td>".$fila['Nombre']."</td>
-        <td>".$fila['Direccion']."</td>
-        <td>".$fila['Numero']."</td>
-        <td>".$fila['Rol']."</td>
-        <td>".$fila['Estado']."</td>
-        <td>
-            <a href='actualizarusuario.php?CI=$CI'><button class='editar'>Editar</button></a>
-            <a href='mostrarusuario.php?CI=$CI'><button class='mostrar'>Mostrar</button></a>
-        ";
+                            <div class='usuario-dato'>
+                                <div class='usuario-icono'>TEL</div>
+                                <div class='usuario-texto'>
+                                    <small>Celular</small>
+                                    <span>".$fila['Numero']."</span>
+                                </div>
+                            </div>
 
-        // Muestra BLOQUEAR si está activo, o DESBLOQUEAR si está bloqueado
-        if ($fila['Estado'] == "activo") {
-            echo "
-            <a href='bloquear.php?CI=$CI'>
-                <button class='eliminar'>Bloquear</button>
-            </a>";
-        } elseif ($fila['Estado'] == "bloqueado") {
-            echo "
-            <a href='desbloquear.php?CI=$CI'>
-                <button class='editar'>Desbloquear</button>
-            </a>";
-        }
+                            <div class='usuario-dato'>
+                                <div class='usuario-icono'>DIR</div>
+                                <div class='usuario-texto'>
+                                    <small>Dirección</small>
+                                    <span>".$fila['Direccion']."</span>
+                                </div>
+                            </div>
 
-        echo "</td>";
-        echo "</tr>";
-    }
-}
+                        </div>
 
-echo "</table>";
-?>
+                        <div class='usuario-acciones'>
 
-    <div class="boton-centro">
-        <a href="crearusuario.php">
-            <button class="nuevo">Nuevo usuario</button>
-        </a>
+                            <a href='actualizarusuario.php?CI=$CI'>
+                                <button type='button' class='usuario-boton usuario-editar'>
+                                    Editar
+                                </button>
+                            </a>
+
+                            <a href='mostrarusuario.php?CI=$CI'>
+                                <button type='button' class='usuario-boton usuario-mostrar'>
+                                    Mostrar
+                                </button>
+                            </a>
+                    ";
+
+                    if ($estado == "activo") {
+
+                        echo "
+                            <a href='bloquear.php?CI=$CI'>
+                                <button type='button' class='usuario-boton usuario-bloquear'>
+                                    Bloquear usuario
+                                </button>
+                            </a>
+                        ";
+
+                    } else {
+
+                        echo "
+                            <a href='desbloquear.php?CI=$CI'>
+                                <button type='button' class='usuario-boton usuario-desbloquear'>
+                                    Desbloquear usuario
+                                </button>
+                            </a>
+                        ";
+                    }
+
+                    echo "
+                        </div>
+
+                    </div>
+                    ";
+                }
+
+            } else {
+
+                echo "
+                <div class='sin-usuarios'>
+                    No hay usuarios registrados.
+                </div>
+                ";
+
+            }
+
+            ?>
+
+        </div>
+
     </div>
 
 </div>
