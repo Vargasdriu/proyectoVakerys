@@ -188,13 +188,13 @@ $total = 0;
     transform:scale(1.03);
         }
 
-        .btn-rechazar {
-            background: #d9534f;
-            color: #ffffff;
+        .btn-rechazar { 
+            background: #F0DDD8;
+            color: #8A4B42;
         }
 
         .btn-rechazar:hover {
-            background: #c9302c;
+            transform:scale(1.03);
         }
 
         .estado-tag-badge {
