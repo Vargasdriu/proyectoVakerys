@@ -94,10 +94,18 @@ body{
 .estado{
     padding:7px 14px;
     border-radius:20px;
-    background:#E8EEE3;
-    color:#3A5A40;
+    
     font-size:12px;
     font-weight:600;
+}
+.estado-Aceptado {
+    background:#E8EEE3;
+    color:#3A5A40;
+}
+
+.estado-Cancelado {
+    background:#F0DDD8;
+    color:#8A4B42;
 }
 
 .info{

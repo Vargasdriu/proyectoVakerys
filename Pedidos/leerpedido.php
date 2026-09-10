@@ -60,8 +60,8 @@ $sql = "SELECT * FROM Pedidos";
                             Pedido <span>#".$fila['id']."</span>
                         </div>
 
-                        <div class='estado'>
-                            ".$fila['Estado']."
+                        <div class='estado estado-".$fila['Estado']."'>
+                                    ".$fila['Estado']."
                         </div>
                     </div>
 
