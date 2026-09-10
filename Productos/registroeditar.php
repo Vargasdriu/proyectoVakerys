@@ -40,6 +40,9 @@ WHERE Codigo='$Codigo'";
 .swal2-container{
     z-index:99999 !important;
 }
+body{
+    background-color: #DAD7CD;
+}
 </style>
 
 </head>

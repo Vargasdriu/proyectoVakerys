@@ -139,11 +139,7 @@ button{
     transform:scale(1.05);
 }
 
-.boton-centro{
-    display:flex;
-    justify-content:center;
-    margin-top:20px;
-}
+
 </style>
 </head>
 <body>
@@ -197,11 +193,7 @@ if ($resultado &&$resultado->num_rows > 0){
 echo "</table>";
 ?>
 
-<div class="boton-centro">
-    <a href="crearventa.php">
-        <button class="nuevo">Nueva Venta</button>
-    </a>
-</div>
+
 
 </div>
 </body>

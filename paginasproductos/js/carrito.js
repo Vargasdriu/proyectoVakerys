@@ -13,35 +13,14 @@ if (carrito) {
 
             e.preventDefault();
 
-
-            let sidebar =
-                document.getElementById("sidebar");
-
-
-            let fondo =
-                document.getElementById("fondo");
-
-
-            if (sidebar) {
-
-                sidebar.classList.add("activo");
-
-            }
-
-
-            if (fondo) {
-
-                fondo.classList.add("activo");
-
-            }
-
-
-            actualizarCarrito();
+            // Primero comprobar si existe un pedido
+            actualizarCarrito(true);
 
         }
     );
 
 }
+
 
 
 // ==========================================
@@ -110,7 +89,8 @@ function cerrarSidebar() {
 // ACTUALIZAR CARRITO
 // ==========================================
 
-function actualizarCarrito() {
+function actualizarCarrito(abrirCarrito = false) {
+
 
     fetch(
         "../paginasproductos/carrito.php",
@@ -205,33 +185,64 @@ function actualizarCarrito() {
             );
 
 
-            // ==========================================
-            // SI HAY ERROR
-            // ==========================================
+// ==========================================
+// SI NO EXISTE UN PEDIDO ACTIVO
+// ==========================================
 
-            if (!Array.isArray(datos)) {
+if (!Array.isArray(datos)) {
 
-                Swal.fire({
+    Swal.fire({
 
-                    icon: "error",
+        icon: "error",
 
-                    title: "¡Oops!",
+        title: "¡Oops!",
 
-                    text:
-                        datos.mensaje,
+        text:
+            datos.mensaje,
 
-                    confirmButtonColor:
-                        "#62a38a",
+        confirmButtonColor:
+            "#62a38a",
 
-                    confirmButtonText:
-                        "Entendido"
+        confirmButtonText:
+            "Entendido"
 
-                });
+    }).then(() => {
 
+        window.location.href =
+            "../paginasproductos/crearpedidocliente.php";
 
-                return;
+    });
 
-            }
+    return;
+
+}
+
+// ==========================================
+// ABRIR CARRITO SOLO SI EXISTE PEDIDO
+// ==========================================
+
+if (abrirCarrito) {
+
+    let sidebar =
+        document.getElementById("sidebar");
+
+    let fondo =
+        document.getElementById("fondo");
+
+    if (sidebar) {
+
+        sidebar.classList.add("activo");
+
+    }
+
+    if (fondo) {
+
+        fondo.classList.add("activo");
+
+    }
+
+}
+
 
 
             let html = "";
