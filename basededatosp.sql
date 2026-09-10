@@ -6,7 +6,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-
 -- -----------------------------------------------------
 -- Schema vakerysss
 -- -----------------------------------------------------
@@ -14,7 +13,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `vakerysss` DEFAULT CHARACTER SET utf8;
 
 USE `vakerysss`;
-
 
 -- -----------------------------------------------------
 -- Table `vakerysss`.`gestiondeusuarios`
@@ -30,7 +28,6 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`gestiondeusuarios` (
   PRIMARY KEY (`CI`)
 )
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `vakerysss`.`pedidos`
@@ -48,7 +45,6 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`pedidos` (
 )
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `vakerysss`.`productos`
 -- -----------------------------------------------------
@@ -64,7 +60,6 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`productos` (
   PRIMARY KEY (`Codigo`)
 )
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `vakerysss`.`imagenes`
@@ -83,7 +78,6 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`imagenes` (
     ON UPDATE CASCADE
 )
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `vakerysss`.`carrito`
@@ -110,7 +104,6 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`carrito` (
 )
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `vakerysss`.`ventas`
 -- -----------------------------------------------------
@@ -129,13 +122,15 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`ventas` (
 )
 ENGINE = InnoDB;
 
-
 SET SQL_MODE=@OLD_SQL_MODE;
 
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+-- -----------------------------------------------------
+-- Datos
+-- -----------------------------------------------------
 
 USE vakerysss;
 
@@ -148,8 +143,9 @@ VALUES
 (4, 'Briana Rojas', 'Recoleta', 456, 'administrador', 'Activo'),
 (5, 'Joel Vargas', 'Sarco', 567, 'administrador', 'Activo');
 
-
-
+-- -----------------------------------------------------
+-- Productos
+-- -----------------------------------------------------
 
 INSERT INTO productos
 (Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto, Imagen)
@@ -170,7 +166,9 @@ VALUES
 
 ('P008', 'Tiramisu', 28, 'Postre italiano con bizcocho, café y crema de mascarpone, terminado con cacao.', 10, 18, 'tiramisuproc.jpg');
 
-
+-- -----------------------------------------------------
+-- Imágenes
+-- -----------------------------------------------------
 
 INSERT INTO imagenes
 (CodigoProducto, Imagen)
@@ -205,7 +203,9 @@ VALUES
 ('P008', 'tiramisu2.jpg'),
 ('P008', 'tiramisu3.jpg');
 
-
+-- -----------------------------------------------------
+-- Pedidos
+-- -----------------------------------------------------
 
 INSERT INTO pedidos
 (Nombre, Fecha, Estado, NombreVendedor, Direccion, Telefono)
@@ -217,26 +217,35 @@ VALUES
 ('Taylor Swift', '2026-08-29', 'Finalizado', 'Maria Perez', 'Sarco', 76543215),
 ('Chris Hemsworth', '2026-08-25', 'Finalizado', 'Luis Fernandez', 'Centro', 76543220),
 ('Taylor Swift', '2026-08-18', 'Finalizado', 'Maria Perez', 'Recoleta', 76543215),
-('Jenna Ortega', '2026-08-12', 'Finalizado', 'Luis Fernandez', 'Sarco', 76543222);
+('Jenna Ortega', '2026-08-12', 'Finalizado', 'Luis Fernandez', 'Sarco', 76543222),
+('Taylor Swift', '2026-08-05', 'Finalizado', 'Maria Perez', 'Centro', 76543215),
+('Zendaya', '2026-07-28', 'Finalizado', 'Luis Fernandez', 'Recoleta', 76543223),
+('Taylor Swift', '2026-07-20', 'Finalizado', 'Maria Perez', 'Queru Queru', 76543215),
+('Timothee Chalamet', '2026-07-14', 'Finalizado', 'Luis Fernandez', 'Cala Cala', 76543224),
+('Taylor Swift', '2026-07-08', 'Finalizado', 'Maria Perez', 'Sarco', 76543215),
+('Tom Holland', '2026-06-30', 'Finalizado', 'Luis Fernandez', 'Centro', 76543216);
 
+-- -----------------------------------------------------
+-- Carrito
+-- -----------------------------------------------------
 
 INSERT INTO carrito
 (productos_Codigo, pedidos_id, Cantidad, CostoTotal)
 VALUES
-('P001', 1, 3, 45),
-('P002', 1, 1, 25),
+('P001', 1, 3, 30),
+('P002', 1, 1, 15),
 
-('P003', 2, 1, 120),
-('P004', 2, 2, 24),
+('P003', 2, 1, 25),
+('P004', 2, 2, 40),
 
-('P001', 3, 2, 30),
-('P005', 3, 3, 30),
+('P001', 3, 2, 20),
+('P005', 3, 3, 60),
 
-('P002', 4, 2, 50),
+('P002', 4, 2, 30),
 
-('P001', 5, 4, 60),
+('P001', 5, 4, 40),
 
-('P003', 6, 1, 120),
+('P003', 6, 1, 25),
 
 ('P006', 7, 2, 36),
 ('P001', 7, 3, 30),
@@ -262,17 +271,19 @@ VALUES
 ('P004', 14, 1, 20),
 ('P006', 14, 2, 36);
 
-
+-- -----------------------------------------------------
+-- Ventas
+-- -----------------------------------------------------
 
 INSERT INTO ventas
 (pedidos_id, costoTotal, Estado, Metodo)
 VALUES
-(1, 70, 'Finalizado', 'QR'),
-(2, 144, 'Finalizado', 'Efectivo'),
-(3, 60, 'Finalizado', 'QR'),
-(4, 50, 'Finalizado', 'Tarjeta'),
-(5, 60, 'Finalizado', 'QR'),
-(6, 120, 'Finalizado', 'Efectivo');
+(1, 45, 'Finalizado', 'QR'),
+(2, 65, 'Finalizado', 'Efectivo'),
+(3, 80, 'Finalizado', 'QR'),
+(4, 30, 'Finalizado', 'Tarjeta'),
+(5, 40, 'Finalizado', 'QR'),
+(6, 25, 'Finalizado', 'Efectivo'),
 (7, 66, 'Finalizado', 'QR'),
 (8, 58, 'Finalizado', 'Tarjeta'),
 (9, 75, 'Finalizado', 'Efectivo'),
