@@ -526,11 +526,11 @@ section > a:hover {
   ========================= */
 
   .pie {
-    width: 170px;
-    height: 170px;
+    width: 250px;
+    height: 250px;
 
-    max-width: 170px;
-    max-height: 170px;
+    max-width: 250px;
+    max-height: 250px;
 
     position: relative;
 
@@ -544,11 +544,11 @@ section > a:hover {
 
   .cookie,
   .brownie {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
 
-    max-width: 150px;
-    max-height: 150px;
+    max-width: 200px;
+    max-height: 200px;
 
     position: relative;
 
@@ -857,7 +857,7 @@ section > a:hover {
   .pie:hover,
   .cookie:hover,
   .brownie:hover {
-    transform: scale(1.04);
+    transform: scale(1.5);
   }
 
   .b1,

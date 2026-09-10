@@ -298,6 +298,38 @@ body {
     }
 }
 
+
+.fila-extra-pedido,
+.fila-extra-cliente {
+    display: none;
+}
+
+
+
+.boton-ver-mas {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 12px;
+    background: #344E41;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.boton-ver-mas:hover {
+    background: #588157;
+    transform: translateY(-2px);
+}
+
+.boton-ver-mas:active {
+    transform: scale(.98);
+}
+
+
 @media (max-width: 1000px) {
     .bc {
         flex-direction: column;

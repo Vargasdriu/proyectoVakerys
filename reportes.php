@@ -122,14 +122,12 @@ $sqlPedidosClientes = "SELECT
                             p.Estado,
                             p.NombreVendedor,
                             p.Direccion,
-                            p.Telefono,
-                            u.Numero AS NumeroCliente
+                            p.Telefono AS NumeroCliente
                        FROM pedidos p
-                       LEFT JOIN gestiondeusuarios u
-                       ON p.Telefono = u.Numero
                        ORDER BY p.id DESC";
 
 $resultadoPedidosClientes = $conn->query($sqlPedidosClientes);
+
 
 
 $sqlCantidadPedidos = "SELECT
@@ -139,24 +137,32 @@ $sqlCantidadPedidos = "SELECT
                        WHERE Nombre IS NOT NULL
                        AND TRIM(Nombre) <> ''
                        GROUP BY Nombre
-                       ORDER BY CantidadPedidos DESC";
+                       ORDER BY CantidadPedidos DESC, Cliente ASC";
 
 $resultadoCantidadPedidos = $conn->query($sqlCantidadPedidos);
 
-
-$clienteFrecuente = "";
+$clientesFrecuentes = [];
 $cantidadPedidosFrecuente = 0;
 
 if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 
-    $primeraFila = $resultadoCantidadPedidos->fetch_assoc();
+    $clientesPedidos = [];
 
-    $clienteFrecuente = $primeraFila["Cliente"];
-    $cantidadPedidosFrecuente = $primeraFila["CantidadPedidos"];
+    while ($fila = $resultadoCantidadPedidos->fetch_assoc()) {
+        $clientesPedidos[] = $fila;
+    }
 
-    $resultadoCantidadPedidos->data_seek(0);
+    $cantidadPedidosFrecuente = $clientesPedidos[0]["CantidadPedidos"];
+
+    foreach ($clientesPedidos as $cliente) {
+
+        if ($cliente["CantidadPedidos"] == $cantidadPedidosFrecuente) {
+
+            $clientesFrecuentes[] = $cliente["Cliente"];
+
+        }
+    }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -347,13 +353,14 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 <section class="reporte-clientes">
 
 <h2>Pedidos registrados y clientes</h2>
-<br>
-
+<p class="subtitulo-reporte">
+   Relación de pedidos y clientes:
+</p>
 <?php
 
 if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
 
-    echo "<table class='tabla-clientes'>";
+    echo "<table class='tabla-clientes' id='tablaPedidos'>";
 
     echo "
     <tr>
@@ -366,9 +373,17 @@ if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
     </tr>
     ";
 
+    $contadorPedidos = 0;
+
     while ($pedido = $resultadoPedidosClientes->fetch_assoc()) {
 
-        echo "<tr>";
+        $contadorPedidos++;
+
+        $claseFila = ($contadorPedidos > 4)
+            ? "fila-extra-pedido"
+            : "";
+
+        echo "<tr class='$claseFila'>";
 
         echo "<td>"
             . htmlspecialchars($pedido["IdPedido"])
@@ -405,18 +420,29 @@ if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
             . "</td>";
 
         echo "</tr>";
-
     }
 
     echo "</table>";
+
+    if ($contadorPedidos > 4) {
+
+        echo "
+        <button type='button'
+                class='boton-ver-mas'
+                onclick='mostrarPedidos()'
+                id='botonPedidos'>
+            Ver más
+        </button>
+        ";
+    }
 
 } else {
 
     echo "<p style='text-align:center;'>
             No existen pedidos registrados.
           </p>";
-
 }
+
 
 ?>
 
@@ -432,11 +458,11 @@ if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
     Cantidad de pedidos realizados por cada cliente :
 </p>
 
-<br>
+
 
 <?php
 
-if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
+if (!empty($clientesPedidos)) {
 
     echo "<table class='tabla-clientes'>";
 
@@ -447,49 +473,81 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
     </tr>
     ";
 
-    while ($cliente = $resultadoCantidadPedidos->fetch_assoc()) {
+   $contadorClientes = 0;
 
-        echo "<tr>";
+foreach ($clientesPedidos as $cliente) {
 
-        echo "<td class='cliente-encontrado'>"
-            . htmlspecialchars($cliente["Cliente"])
-            . "</td>";
+    $contadorClientes++;
 
-        echo "<td>"
-            . htmlspecialchars($cliente["CantidadPedidos"])
-            . "</td>";
+    $claseFila = ($contadorClientes > 4)
+        ? "fila-extra-cliente"
+        : "";
 
-        echo "</tr>";
+    echo "<tr class='$claseFila'>";
 
-    }
+    echo "<td class='cliente-encontrado'>"
+        . htmlspecialchars($cliente["Cliente"])
+        . "</td>";
 
-    if ($clienteFrecuente != "") {
+    echo "<td>"
+        . htmlspecialchars($cliente["CantidadPedidos"])
+        . "</td>";
 
-        echo "<tr class='fila-cliente-frecuente'>";
+    echo "</tr>";
+}
+
+    echo "<tr class='fila-cliente-frecuente'>";
+
+    if (count($clientesFrecuentes) > 1) {
+
+        echo "<td>
+                Cliente(s) con la mayor cantidad de pedidos
+              </td>";
+
+        echo "<td>";
+
+        echo htmlspecialchars(implode(" y ", $clientesFrecuentes))
+            . " tienen la misma cantidad de pedidos: "
+            . htmlspecialchars($cantidadPedidosFrecuente);
+
+        echo "</td>";
+
+    } else {
 
         echo "<td>
                 Cliente con la mayor cantidad de pedidos
               </td>";
 
-        echo "<td>"
-            . htmlspecialchars($clienteFrecuente)
-            . " con la cantidad de: "
-            . htmlspecialchars($cantidadPedidosFrecuente)
-            . " pedidos"
-            . "</td>";
+        echo "<td>";
 
-        echo "</tr>";
+        echo htmlspecialchars($clientesFrecuentes[0])
+            . " tiene la mayor cantidad de pedidos: "
+            . htmlspecialchars($cantidadPedidosFrecuente);
 
+        echo "</td>";
     }
 
+    echo "</tr>";
+
     echo "</table>";
+    if ($contadorClientes > 4) {
+
+    echo "
+    <button type='button'
+            class='boton-ver-mas'
+            onclick='mostrarClientes()'
+            id='botonClientes'>
+        Ver más
+    </button>
+    ";
+}
+
 
 } else {
 
     echo "<p style='text-align:center;'>
             No existen pedidos registrados.
           </p>";
-
 }
 
 ?>
@@ -896,6 +954,52 @@ new Chart(contextoStock, {
 
 });
 
+
+
+function mostrarPedidos() {
+
+    const filas = document.querySelectorAll(".fila-extra-pedido");
+    const boton = document.getElementById("botonPedidos");
+
+    filas.forEach(function(fila) {
+
+        if (fila.style.display === "none" || fila.style.display === "") {
+            fila.style.display = "table-row";
+            boton.textContent = "Ver menos";
+        } else {
+            fila.style.display = "none";
+            boton.textContent = "Ver más";
+        }
+
+    });
+
+}
+
+
+
+
+function mostrarClientes() {
+
+    const filas = document.querySelectorAll(".fila-extra-cliente");
+    const boton = document.getElementById("botonClientes");
+
+    filas.forEach(function(fila) {
+
+        if (fila.style.display === "none" || fila.style.display === "") {
+            fila.style.display = "table-row";
+            boton.textContent = "Ver menos";
+        } else {
+            fila.style.display = "none";
+            boton.textContent = "Ver más";
+        }
+
+    });
+
+}
+
+</script>
+
+
 </script>
 
 
@@ -906,7 +1010,5 @@ new Chart(contextoStock, {
 <?php
 
 $conn->close();
-
-include("footer.php");
 
 ?>
