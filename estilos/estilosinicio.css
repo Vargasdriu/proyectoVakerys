@@ -1,6 +1,6 @@
 body { 
   display: grid; 
-  grid-template-rows: 75px 700px 1900px 780px 450px; 
+  grid-template-rows: 75px 700px 1900px 810px 400px; 
   grid-template-columns: 100%; 
   grid-template-areas: "e" "a" "b" "h" "c"; 
 } 

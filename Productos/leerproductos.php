@@ -81,7 +81,7 @@ $resultado = $conn->query($sql);
 
                 if(!empty($fila["Imagen"])){
 
-                    echo "<img src='imagenes/"
+                    echo "<img src='../imagenes/"
                         .htmlspecialchars($fila["Imagen"])
                         ."' alt='"
                         .htmlspecialchars($fila["NombreProducto"])

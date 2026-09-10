@@ -755,7 +755,7 @@ const contextoStock =
 
 new Chart(contextoProductos, {
 
-    type: "bar",
+    type: "pie",
 
     data: {
 
@@ -898,6 +898,11 @@ new Chart(contextoStock, {
 
 </script>
 
+
+
+</body>
+
+</html>
 <?php
 
 $conn->close();
@@ -905,7 +910,3 @@ $conn->close();
 include("footer.php");
 
 ?>
-
-</body>
-
-</html>
