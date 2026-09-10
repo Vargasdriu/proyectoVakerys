@@ -92,11 +92,11 @@ function mostrarProductos() {
                         data-codigo="${producto.Codigo}"
                     >
 
-                        <img
-                            class="imgb"
-                            src="../Productos/${producto.Imagen || ''}"
-                            alt="${producto.NombreProducto}"
-                        >
+                      <img
+    class="imgb"
+    src="../Productos/imagenes/${producto.Imagen || ''}"
+    alt="${producto.NombreProducto}"
+>
 
 
                         <div class="ba">
@@ -242,8 +242,7 @@ function mostrarProductos() {
                                 );
 
 
-                            // CORREGIDO:
-                            // idPedidos → idPedido
+                           
 
                             if (idPedido) {
 
