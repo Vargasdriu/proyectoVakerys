@@ -84,20 +84,20 @@ function mostrarProductos() {
 
 
             productos.forEach(producto => {
-                   
+
                 contenedor.innerHTML += `
-                    
+
                     <div
                         class="proc"
                         data-codigo="${producto.Codigo}"
                     >
-
-                      <img
-    class="imgb"
-    src="../Productos/imagenes/${producto.Imagen || ''}"
-    alt="${producto.NombreProducto}"
->
-
+                        <a href="producto.php?Codigo=${encodeURIComponent(producto.Codigo)}" class="enlace-producto">
+                        <img
+                            class="imgb"
+                            src="../Productos/imagenes/${producto.Imagen || ''}"
+                            alt="${producto.NombreProducto}"
+                        >
+                        </a>
 
                         <div class="ba">
 
@@ -242,7 +242,8 @@ function mostrarProductos() {
                                 );
 
 
-                           
+                            // CORREGIDO:
+                            // idPedidos → idPedido
 
                             if (idPedido) {
 

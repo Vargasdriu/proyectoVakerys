@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -16,15 +17,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
-<header><?php include '../header.php'; ?></header>
+
 <body>
 
-
+<header>
+    <?php include '../header.php'; ?>
+</header>
 
 <a href="javascript:history.back()" class="volver">
     ← Volver al catálogo
 </a>
-
 
 <section class="producto">
 
@@ -35,7 +37,7 @@
 
         <section class="imagen-principal">
 
-            <img 
+            <img
                 id="imagenPrincipal"
                 src=""
                 alt="Producto"
@@ -44,7 +46,6 @@
         </section>
 
     </section>
-
 
     <section class="info">
 
@@ -56,17 +57,15 @@
 
         <div class="linea"></div>
 
-
         <section class="estrellas">
 
-            <img src="../imagenes/estrella.png">
-            <img src="../imagenes/estrella.png">
-            <img src="../imagenes/estrella.png">
-            <img src="../imagenes/estrella.png">
-            <img src="../imagenes/estrella.png">
+            <img src="../imagenes/estrella.png" alt="Estrella">
+            <img src="../imagenes/estrella.png" alt="Estrella">
+            <img src="../imagenes/estrella.png" alt="Estrella">
+            <img src="../imagenes/estrella.png" alt="Estrella">
+            <img src="../imagenes/estrella.png" alt="Estrella">
 
         </section>
-
 
         <section class="precio">
 
@@ -77,7 +76,6 @@
             </p>
 
         </section>
-
 
         <section class="stats">
 
@@ -98,7 +96,6 @@
 
         </section>
 
-
         <section class="descripcion">
 
             <h3>
@@ -109,20 +106,19 @@
 
         </section>
 
-
         <section class="compra">
 
             <div class="cantidad">
 
-                <button>-</button>
+                <button type="button" id="btnMenos">-</button>
 
-                <span>1</span>
+                <span id="cantidadProducto">1</span>
 
-                <button>+</button>
+                <button type="button" id="btnMas">+</button>
 
             </div>
 
-            <a 
+            <a
                 href="../Pedidos/crearpedido.php"
                 class="carrito"
                 id="botonCarrito"
@@ -136,14 +132,18 @@
 
 </section>
 
-
-
-
-
-<script src="producto.js"></script>
+<script src="js/producto.js"></script>
 
 </body>
+
 <footer>
     <?php include '../footer.php'; ?>
 </footer>
+
 </html>
+
+
+
+
+
+<a href="../paginasproductos/producto.php?Codigo=${encodeURIComponent(producto.Codigo)}">

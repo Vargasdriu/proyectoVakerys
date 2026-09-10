@@ -1,33 +1,19 @@
-// ==========================================
-// CARGAR PRODUCTO
-// ==========================================
-
 function cargarProducto() {
 
-    const parametros =
-        new URLSearchParams(
-            window.location.search
-        );
-
+    const parametros = new URLSearchParams(window.location.search);
 
     const codigo =
+        parametros.get("Codigo") ||
         parametros.get("codigo");
-
 
     const idPedido =
         parametros.get("idPedido");
-
 
     console.log("=================================");
     console.log("CARGANDO PRODUCTO");
     console.log("Código:", codigo);
     console.log("ID Pedido:", idPedido);
     console.log("=================================");
-
-
-    // ==========================================
-    // COMPROBAR CÓDIGO
-    // ==========================================
 
     if (!codigo) {
 
@@ -36,19 +22,12 @@ function cargarProducto() {
         );
 
         return;
-
     }
-
-
-    // ==========================================
-    // CONSULTAR PRODUCTO
-    // ==========================================
 
     fetch(
         "obtenerproducto.php?codigo=" +
         encodeURIComponent(codigo)
     )
-
         .then(respuesta => {
 
             console.log(
@@ -56,21 +35,16 @@ function cargarProducto() {
                 respuesta.status
             );
 
-
             if (!respuesta.ok) {
 
                 throw new Error(
                     "Error HTTP: " +
                     respuesta.status
                 );
-
             }
 
-
             return respuesta.json();
-
         })
-
 
         .then(producto => {
 
@@ -79,11 +53,6 @@ function cargarProducto() {
                 producto
             );
 
-
-            // ==========================================
-            // COMPROBAR ERROR
-            // ==========================================
-
             if (producto.error) {
 
                 console.log(
@@ -91,74 +60,51 @@ function cargarProducto() {
                 );
 
                 return;
-
             }
-
-
-            // ==========================================
-            // NOMBRE
-            // ==========================================
 
             const nombre =
                 document.getElementById(
                     "nombreProducto"
                 );
 
-
             if (nombre) {
 
                 nombre.textContent =
                     producto.NombreProducto;
-
             }
-
-
-            // ==========================================
-            // PRECIO
-            // ==========================================
 
             const precio =
                 document.getElementById(
                     "precioProducto"
                 );
 
-
             if (precio) {
 
                 precio.textContent =
                     "Bs. " +
                     producto.PrecioProducto;
-
             }
-
-
-            // ==========================================
-            // DESCRIPCIÓN
-            // ==========================================
 
             const descripcion =
                 document.getElementById(
                     "descripcionProducto"
                 );
 
-
             if (descripcion) {
 
                 descripcion.textContent =
                     producto.DetalleProducto;
-
             }
-
-
-            // ==========================================
-            // MINIATURAS
-            // ==========================================
 
             const miniaturas =
                 document.getElementById(
                     "miniaturas"
                 );
 
+            const imagenPrincipal =
+                document.getElementById(
+                    "imagenPrincipal"
+                );
 
             if (!miniaturas) {
 
@@ -167,59 +113,67 @@ function cargarProducto() {
                 );
 
                 return;
-
             }
 
-
             miniaturas.innerHTML = "";
-
-
-            // ==========================================
-            // IMÁGENES
-            // ==========================================
 
             if (
                 producto.imagenes &&
                 producto.imagenes.length > 0
             ) {
 
-                // Imagen principal
-
-                const imagenPrincipal =
-                    document.getElementById(
-                        "imagenPrincipal"
-                    );
-
-
                 if (imagenPrincipal) {
 
                     imagenPrincipal.src =
-                        "../Productos/" +
+                        "../Productos/imagenes/" +
                         producto.imagenes[0];
 
+                    imagenPrincipal.alt =
+                        producto.NombreProducto;
                 }
-
-
-                // Crear miniaturas
 
                 producto.imagenes.forEach(imagen => {
 
-                    miniaturas.innerHTML += `
+                    const miniatura =
+                        document.createElement("img");
 
-                        <img
-                            src="../Productos/${imagen}"
-                            onclick="cambiarImagen(this)"
-                            alt="${producto.NombreProducto}"
-                        >
+                    miniatura.src =
+                        "../Productos/imagenes/" +
+                        imagen;
 
-                    `;
+                    miniatura.alt =
+                        producto.NombreProducto;
+
+                    miniatura.addEventListener(
+                        "click",
+                        function () {
+
+                            cambiarImagen(this);
+
+                        }
+                    );
+
+                    miniaturas.appendChild(
+                        miniatura
+                    );
 
                 });
 
+            } else {
+
+                console.log(
+                    "El producto no tiene imágenes."
+                );
             }
 
-        })
+            configurarCantidad();
 
+            configurarCarrito(
+                codigo,
+                idPedido
+            );
+
+        })
 
         .catch(error => {
 
@@ -229,13 +183,8 @@ function cargarProducto() {
             );
 
         });
-
 }
 
-
-// ==========================================
-// CAMBIAR IMAGEN
-// ==========================================
 
 function cambiarImagen(imagen) {
 
@@ -244,24 +193,126 @@ function cambiarImagen(imagen) {
             "imagenPrincipal"
         );
 
-
     if (imagenPrincipal) {
 
         imagenPrincipal.src =
             imagen.src;
-
     }
-
 }
 
 
-// ==========================================
-// CARGAR AL INICIAR
-// ==========================================
+function configurarCantidad() {
+
+    const botonMenos =
+        document.getElementById(
+            "btnMenos"
+        );
+
+    const botonMas =
+        document.getElementById(
+            "btnMas"
+        );
+
+    const cantidad =
+        document.getElementById(
+            "cantidadProducto"
+        );
+
+    if (!botonMenos || !botonMas || !cantidad) {
+
+        return;
+    }
+
+    let valor = 1;
+
+    botonMenos.addEventListener(
+        "click",
+        function () {
+
+            if (valor > 1) {
+
+                valor--;
+
+                cantidad.textContent =
+                    valor;
+            }
+
+        }
+    );
+
+    botonMas.addEventListener(
+        "click",
+        function () {
+
+            valor++;
+
+            cantidad.textContent =
+                valor;
+        }
+    );
+}
+
+
+function configurarCarrito(
+    codigo,
+    idPedido
+) {
+
+    const boton =
+        document.getElementById(
+            "botonCarrito"
+        );
+
+    if (!boton) {
+
+        return;
+    }
+
+    boton.addEventListener(
+        "click",
+        function (evento) {
+
+            evento.preventDefault();
+
+            const cantidad =
+                document.getElementById(
+                    "cantidadProducto"
+                );
+
+            const cantidadSeleccionada =
+                cantidad
+                    ? cantidad.textContent
+                    : 1;
+
+            let url =
+                "../Pedidos/crearpedido.php" +
+                "?Codigo=" +
+                encodeURIComponent(codigo) +
+                "&Cantidad=" +
+                encodeURIComponent(
+                    cantidadSeleccionada
+                );
+
+            if (idPedido) {
+
+                url +=
+                    "&idPedido=" +
+                    encodeURIComponent(
+                        idPedido
+                    );
+            }
+
+            window.location.href =
+                url;
+
+        }
+    );
+}
+
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    function () {
 
         cargarProducto();
 

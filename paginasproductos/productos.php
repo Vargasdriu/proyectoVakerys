@@ -80,30 +80,9 @@
 ========================================== -->
 
 <div
- 
     class="b"
     id="productos"
 >
-</div>
-
-<div class="s">
-
-    <h2>Consulta el estado de tu pedido</h2>
-    <form action ="consultar_pedido.php" method"GET">
-        <input
-        type="number"
-        name"id"
-        placeholder="Numero de pedido"
-        min="1"
-        required
-        
-        <button type="submit">
-            Consultar pedido
-        </button>
-        </form>
-
-   
-
 </div>
 
 
@@ -116,6 +95,7 @@
 <script src="carrito.js"></script>
 <script src="js/productos.js"></script>
 
+<script src="js/carrito.js"></script>
 
 
 <?php include '../footer.php'; ?>
