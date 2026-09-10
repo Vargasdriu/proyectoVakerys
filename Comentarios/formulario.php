@@ -115,14 +115,12 @@
                     icon: 'success',
                     title: '¡Enviado!',
                     text: 'Su comentario ha sido guardado exitosamente.',
-                    showCancelButton: true,
-                    confirmButtonText: 'Ver Comentarios',
-                    cancelButtonText: 'Cerrar',
-                    confirmButtonColor: '#344E41',
-                    cancelButtonColor: '#A3B18A'
+                    showCancelButton: false,
+                    confirmButtonText: 'Cerrar',
+                    confirmButtonColor: '#344E41'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = 'comentarios.php';
+                        window.location.href = '../paginadeinicio.php';
                     }
                 });
             </script>";

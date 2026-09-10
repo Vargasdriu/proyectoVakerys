@@ -12,215 +12,126 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM Pedidos";
 ?>
+<html>
 
-<style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | Vakery's</title>
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Poppins',sans-serif;
-    background:#DAD7CD;
-    padding:35px;
-    margin-top:75px
-}
-
-
-.contenedor{
-    background:white;
-    padding:35px;
-    border-radius:30px;
-    box-shadow:0px 10px 25px rgba(52,78,65,0.15);
-}
-
-h1{
-    text-align:center;
-    color:#344E41;
-    font-size:38px;
-    margin-bottom:5px;
-}
-
-.subtitulo{
-    text-align:center;
-    color:#588157;
-    margin-bottom:30px;
-    font-size:15px;
-}
-
-.tabla-estilo{
-    width:100%;
-    border-collapse:collapse;
-    overflow:hidden;
-    border-radius:18px;
-}
-
-.tabla-estilo th{
-    background:#3A5A40;
-    color:white;
-    padding:15px;
-    font-size:15px;
-    letter-spacing:1px;
-}
-
-.tabla-estilo td{
-    padding:14px;
-    text-align:center;
-    background:#F8F7F3;
-    border-bottom:1px solid #DAD7CD;
-    color:#344E41;
-}
-
-.tabla-estilo tr:hover td{
-    background:#E8E5DC;
-    transition:0.3s;
-}
-
-button{
-    border:none;
-    padding:9px 15px;
-    border-radius:12px;
-    font-family:'Poppins',sans-serif;
-    font-weight:500;
-    cursor:pointer;
-    transition:0.3s;
-    margin:2px;
-}
-
-/* BOTONES */
-
-.editar{
-    background:#A3B18A;
-    color:#344E41;
-}
-
-.editar:hover{
-    background:#8E9F73;
-    transform:scale(1.05);
-}
-
-.eliminar{
-    background:#588157;
-    color:white;
-}
-
-.eliminar:hover{
-    background:#3A5A40;
-    transform:scale(1.05);
-}
-
-.mostrar{
-    background:#DAD7CD;
-    color:#344E41;
-    border:1px solid #A3B18A;
-}
-
-.mostrar:hover{
-    background:#A3B18A;
-    transform:scale(1.05);
-}
-
-.nuevo{
-    margin-top:25px;
-    background:#344E41;
-    color:white;
-    font-size:16px;
-    padding:12px 22px;
-}
-
-.nuevo:hover{
-    background:#3A5A40;
-    transform:scale(1.05);
-}
-
-.boton-centro{
-    display:flex;
-    justify-content:center;
-    margin-top:20px;
-}
-
-</style>
- <?php include '../header.php'; ?>
+    <link rel="stylesheet" href="estilosleerpedidos.css">
+</head>
+<body>
+    
+<?php include '../header.php'; ?>
 
 <div class="contenedor">
 
-    <h1>Gestión de Pedidos</h1>
-    <p class="subtitulo">Lista completa de pedidos registrados</p>
+    <div class="encabezado">
 
-<?php
+        <div class="titulo">
+            <h1>Gestión de Pedidos</h1>
+            <p>Administra y consulta los pedidos registrados en Vakery’s</p>
+        </div>
 
-echo "<table class='tabla-estilo'>";
+        <a href="crearpedido.php" class="nuevo">
+            + Nuevo Pedido
+        </a>
 
-echo "
-<tr>
-    <th>Id</th>
-    <th>Nombre</th>
-    <th>Fecha</th>
-    <th>Estado</th>
-    <th>Nombre Vendedor</th>
-    <th>Direccion</th>
-    <th>Telefono</th>
-    <th>Acciones</th>
-</tr>
-";
+    </div>
 
-$resultado = $conn->query($sql);
+    <div class="pedidos">
 
-if ($resultado->num_rows > 0){
+        <?php
 
-    while($fila = $resultado->fetch_assoc()){
+        $resultado = $conn->query($sql);
 
-        $id = $fila['id'];
+        if ($resultado->num_rows > 0){
 
-        echo "<tr>";
+            while($fila = $resultado->fetch_assoc()){
 
-        echo "
-        <td>".$fila['id']."</td>
-        <td>".$fila['Nombre']."</td>
-        <td>".$fila['Fecha']."</td>
-        <td>".$fila['Estado']."</td>
-        <td>".$fila['NombreVendedor']."</td>
-        <td>".$fila['Direccion']."</td>
-        <td>".$fila['Telefono']."</td>
+                $id = $fila['id'];
 
-        <td>
-            <a href='actualizarpedido.php?id=$id'>
-                <button class='editar'>Editar</button>
-            </a>
+                echo "
+                <div class='pedido'>
 
-            
+                    <div class='pedido-top'>
+                        <div class='codigo'>
+                            Pedido <span>#".$fila['id']."</span>
+                        </div>
 
-            <a href='../carrito/miCarrito.php?idPedido=$id'>
-                <button class='mostrar'>Mostrar</button>
-            </a>
+                        <div class='estado'>
+                            ".$fila['Estado']."
+                        </div>
+                    </div>
 
-             <a href='eliminarpedido.php?id=$id'>
-                <button class='eliminar'>Eliminar</button>
-            </a>
+                    <div class='info'>
 
-            <a href='mostrardetalle.php?id=$id'>
-                <button class='mostrar'>Ver Detalle</button>
-             </a>
+                        <div class='dato'>
+                            <span class='etiqueta'>Cliente</span>
+                            <span class='valor'>".$fila['Nombre']."</span>
+                        </div>
 
+                        <div class='dato'>
+                            <span class='etiqueta'>Fecha</span>
+                            <span class='valor'>".$fila['Fecha']."</span>
+                        </div>
 
-        </td>
-        ";
+                        <div class='dato'>
+                            <span class='etiqueta'>Vendedor</span>
+                            <span class='valor'>".$fila['NombreVendedor']."</span>
+                        </div>
 
-        echo "</tr>";
-    }
-}
+                        <div class='dato'>
+                            <span class='etiqueta'>Teléfono</span>
+                            <span class='valor'>".$fila['Telefono']."</span>
+                        </div>
 
-echo "</table>";
-?>
+                        <div class='dato dato-completo'>
+                            <span class='etiqueta'>Dirección</span>
+                            <span class='valor'>".$fila['Direccion']."</span>
+                        </div>
 
-<div class="boton-centro">
-    <a href="crearpedido.php">
-        <button class="nuevo">Nuevo Pedido</button>
-    </a>
+                    </div>
+
+                    <div class='separador'></div>
+
+                    <div class='acciones'>
+
+                        <a href='actualizarpedido.php?id=$id'>
+                            <button class='accion editar'>Editar</button>
+                        </a>
+
+                        <a href='../carrito/miCarrito.php?idPedido=$id'>
+                            <button class='accion mostrar'>Añadir productos</button>
+                        </a>
+                        <a href='mostrarproductos.php?id=$id'>
+                        <button class='accion mostrar'>Mostrar</button>
+                        </a>
+                        <a href='mostrardetalle.php?id=$id'>
+                            <button class='accion detalle'>Ver Detalle</button>
+                        </a>
+
+                        <a href='eliminarpedido.php?id=$id'>
+                            <button class='accion eliminar'>Eliminar</button>
+                        </a>
+
+                    </div>
+
+                </div>
+                ";
+            }
+
+        } else {
+
+            echo "<div class='sin-pedidos'>No hay pedidos registrados.</div>";
+
+        }
+
+        ?>
+
+    </div>
+
 </div>
-
-</div>
+</body>
+</html>

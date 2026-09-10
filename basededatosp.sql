@@ -114,3 +114,63 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+USE vakerysss;
+
+INSERT INTO gestiondeusuarios
+(CI, Nombre, Direccion, Numero, Rol, Estado)
+VALUES
+(1, 'Valeria  Muñoz', 'Centro', 123, 'administrador', 'Activo'),
+(2, 'Keith Rojas', 'Queru Queru', 234, 'vendedor', 'Activo'),
+(3, 'Matias Saravia', 'Cala Cala', 345, 'vendedor', 'Activo'),
+(4, 'Briana Rojas', 'Recoleta', 456, 'administrador', 'Activo'),
+(5, 'Joel Vargas', 'Sarco', 567, 'administrador', 'Activo');
+
+
+INSERT INTO productos
+(Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto, Imagen)
+VALUES
+('P001', 'Galletas', 10, 'Galletas artesanales', 30, 5, 'cookieproc.png'),
+('P002', 'Brownie', 15, 'Brownie de chocolate', 20, 9, 'brownieproc.png'),
+('P003', 'Cheesecake de Maracuya', 25, 'Cheesecake de maracuya', 12, 16, 'cheesecakeproc.png'),
+('P004', 'Pie de Manzana', 20, 'Pie de manzana artesanal', 15, 12, 'applepieproc.png'),
+('P005', 'Pie de Limon', 20, 'Pie de limon artesanal', 15, 12, 'lemonpieproc.png');
+
+
+INSERT INTO pedidos
+(Nombre, Fecha, Estado, NombreVendedor, Direccion, Telefono)
+VALUES
+('Sofia Vargas', '2026-09-09', 'Finalizado', 'Maria Perez', 'Recoleta', 76543213),
+('Carlos Rojas', '2026-09-08', 'Finalizado', 'Luis Fernandez', 'Sarco', 76543214),
+('Sofia Vargas', '2026-09-05', 'Finalizado', 'Maria Perez', 'Recoleta', 76543213),
+('Carlos Rojas', '2026-08-20', 'Finalizado', 'Luis Fernandez', 'Sarco', 76543214),
+('Sofia Vargas', '2026-07-15', 'Finalizado', 'Maria Perez', 'Recoleta', 76543213),
+('Carlos Rojas', '2025-12-20', 'Finalizado', 'Luis Fernandez', 'Sarco', 76543214);
+
+
+INSERT INTO carrito
+(productos_Codigo, pedidos_id, Cantidad, CostoTotal)
+VALUES
+('P001', 1, 3, 45),
+('P002', 1, 1, 25),
+
+('P003', 2, 1, 120),
+('P004', 2, 2, 24),
+
+('P001', 3, 2, 30),
+('P005', 3, 3, 30),
+
+('P002', 4, 2, 50),
+('P001', 5, 4, 60),
+('P003', 6, 1, 120);
+
+
+INSERT INTO ventas
+(pedidos_id, costoTotal, Estado, Metodo)
+VALUES
+(1, 70, 'Finalizado', 'QR'),
+(2, 144, 'Finalizado', 'Efectivo'),
+(3, 60, 'Finalizado', 'QR'),
+(4, 50, 'Finalizado', 'Tarjeta'),
+(5, 60, 'Finalizado', 'QR'),
+(6, 120, 'Finalizado', 'Efectivo');

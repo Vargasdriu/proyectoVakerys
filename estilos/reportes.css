@@ -8,15 +8,17 @@ body {
     display: grid;
     grid-template-columns: 100%;
     grid-template-areas:
-    "a"
-    "d"
-    "bc"
-    "e"
-    "f";
-    font-family: 'Roboto', 'sans-serif';
+        "a"
+        "d"
+        "bc"
+        "e"
+        "f";
+    font-family: 'Roboto', sans-serif;
     background: #f4f6f2;
     color: #555f56;
-    gap: 20px;
+    gap: 15px;
+    margin-left: 60px;
+    margin-right: 60px;
 }
 
 .a {
@@ -29,18 +31,18 @@ body {
 
 .a h1 {
     color: #1d3021;
-    font-size: 42px;
+    font-size: 34px;
     font-weight: 700;
     text-align: center;
     position: relative;
-    padding-bottom: 12px;
+    padding-bottom: 9px;
 }
 
 .a h1::after {
     content: "";
     position: absolute;
-    width: 70px;
-    height: 4px;
+    width: 60px;
+    height: 3px;
     background: #709775;
     border-radius: 10px;
     bottom: 0;
@@ -51,38 +53,38 @@ body {
 .bc {
     display: flex;
     flex-direction: row;
-    gap: 10px;
-    padding: 0 30px;
+    gap: 15px;
+    padding: 0 35px;
 }
 
 .b {
     background: white;
-    border: 2px solid #709775;
-    border-radius: 25px;
-    padding: 25px;
-    margin: 30px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, .07);
+    border: 1.5px solid #709775;
+    border-radius: 18px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .06);
     animation: subirSuave 1s ease;
     width: 70%;
 }
 
 .b h2 {
-    font-size: 25px;
+    font-size: 22px;
     color: #1d3021;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
 }
 
 .tit {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 16px;
 }
 
 .tit img {
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
     object-fit: contain;
 }
 
@@ -90,22 +92,22 @@ body {
     width: 100%;
     border-collapse: collapse;
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 12px;
 }
 
 .b th {
     background: #709775;
     color: white;
-    padding: 15px;
+    padding: 11px 13px;
     text-align: left;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .b td {
-    padding: 15px;
+    padding: 11px 13px;
     border-bottom: 1px solid #e2e9e1;
     color: #1d3021;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .b tr:nth-child(even) {
@@ -132,70 +134,67 @@ body {
 
 .c {
     background: white;
-    border: 2px solid #709775;
-    border-radius: 25px;
-    padding: 25px;
-    margin: 30px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, .07);
+    border: 1.5px solid #709775;
+    border-radius: 18px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .06);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    color: #555f56;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 .titc {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 16px;
 }
 
 .titc img {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
 }
 
 .c h2 {
     color: #1d3021;
-    font-size: 23px;
-}
-
-.c {
-    color: #555f56;
-    font-size: 17px;
-    line-height: 1.6;
+    font-size: 21px;
 }
 
 .d {
     grid-area: d;
     display: flex;
     flex-wrap: wrap;
-    gap: 18px;
-    padding: 15px 40px 30px;
+    gap: 14px;
+    padding: 10px 35px 25px;
 }
 
 .d h2 {
     width: 100%;
     color: #1d3021;
-    font-size: 27px;
-    margin-bottom: 5px;
+    font-size: 24px;
+    margin-bottom: 2px;
 }
 
 .ingr {
     flex: 1;
-    min-width: 150px;
+    min-width: 140px;
     background: white;
-    border: 2px solid #709775;
-    border-radius: 22px;
-    padding: 22px 15px;
+    border: 1.5px solid #709775;
+    border-radius: 17px;
+    padding: 17px 12px;
     margin: 0;
-    box-shadow: 0 5px 16px rgba(0, 0, 0, .06);
+    box-shadow: 0 4px 13px rgba(0, 0, 0, .05);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 7px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -211,79 +210,80 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 5px;
+    height: 4px;
     background: #709775;
 }
 
 .ingr span {
     color: #777;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
 }
 
 .ingr strong {
     color: #1d3021;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 800;
 }
 
 .ingr:hover {
-    flex: 1.4;
-    transform: translateY(-7px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, .12);
+    flex: 1.25;
+    transform: translateY(-5px);
+    box-shadow: 0 9px 20px rgba(0, 0, 0, .10);
 }
 
 .d:has(.ingr:hover) .ingr:not(:hover) {
-    flex: .8;
+    flex: .85;
     opacity: .65;
-    transform: scale(.96);
+    transform: scale(.97);
 }
 
 .e {
     grid-area: e;
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 18px;
     width: 100%;
-    padding: 0 40px 40px;
-}
-
-.e {
-    grid-area: e;
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    width: 100%;
-    padding: 0 40px 40px;
+    padding: 0 35px 25px;
+    align-items: flex-start;
 }
 
 .graf {
     flex: 1;
     min-width: 0;
+    height: 320px;
     display: flex;
     flex-direction: column;
     background: white;
-    border: 2px solid #e0e7df;
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, .07);
-    transition: flex .4s ease, box-shadow .4s ease, opacity .4s ease;
+    border: 1.5px solid #e0e7df;
+    border-radius: 18px;
+    padding: 15px;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .06);
+    transition: flex .35s ease,
+                box-shadow .35s ease,
+                opacity .35s ease;
+}
+
+.graf canvas {
+    width: 100% !important;
+    height: 250px !important;
+    max-height: 250px;
 }
 
 .graf:hover {
-    flex: 1.3;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, .13);
+    flex: 1.15;
+    box-shadow: 0 10px 23px rgba(0, 0, 0, .11);
 }
 
 .e:has(.graf:hover) .graf:not(:hover) {
-    flex: 0.85;
+    flex: .9;
     opacity: .7;
 }
-.f{
-    gap:30px; 
-    padding: 0 40px 40px;
+
+.f {
+    gap: 25px;
+    padding: 0 35px 30px;
     height: 20%;
-    
 }
 
 @keyframes subirSuave {
@@ -313,11 +313,16 @@ body {
 
     .e {
         flex-direction: column;
-        height: auto;
     }
 
     .graf {
         width: 100%;
+        height: 320px;
+    }
+
+    .graf canvas {
+        height: 250px !important;
+        max-height: 250px;
     }
 }
 
@@ -328,7 +333,7 @@ body {
 
     .a {
         margin-top: 50px;
-        padding: 30px 20px;
+        padding: 25px 20px;
     }
 
     .a h1 {
@@ -345,10 +350,19 @@ body {
 
     .b,
     .c {
-        margin: 15px 0;
+        margin: 12px 0;
     }
 
     .ingr {
         min-width: 45%;
+    }
+
+    .graf {
+        height: 300px;
+    }
+
+    .graf canvas {
+        height: 230px !important;
+        max-height: 230px;
     }
 }

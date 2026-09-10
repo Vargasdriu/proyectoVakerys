@@ -83,8 +83,10 @@
     </div>
 
   </div>
+  <div class="botones-vakery">
   <a href="paginanosotros.html">Leer más</a>
   <a href="Comentarios/formulario.php">Danos tu Opinion</a>
+</div>
 </div>
 
 

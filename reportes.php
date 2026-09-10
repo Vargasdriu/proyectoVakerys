@@ -56,36 +56,31 @@ while ($fila = $resultado->fetch_assoc()) {
 
 $ingresos = [];
 
-$sql = "SELECT 
-            SUM(CASE 
-                WHEN p.Fecha = CURDATE() 
-                THEN v.costoTotal 
-                ELSE 0 
-            END) AS dia,
-            
-            SUM(CASE 
-                WHEN YEARWEEK(p.Fecha, 1) = YEARWEEK(CURDATE(), 1)
-                THEN v.costoTotal 
-                ELSE 0 
-            END) AS semana,
-            
-            SUM(CASE 
-                WHEN MONTH(p.Fecha) = MONTH(CURDATE())
-                AND YEAR(p.Fecha) = YEAR(CURDATE())
-                THEN v.costoTotal 
-                ELSE 0 
-            END) AS mes,
-            
-            SUM(CASE 
-                WHEN YEAR(p.Fecha) = YEAR(CURDATE())
-                THEN v.costoTotal 
-                ELSE 0 
-            END) AS anio,
-            
-            SUM(v.costoTotal) AS total
-        FROM ventas v
-        INNER JOIN pedidos p ON v.pedidos_id = p.id
-        WHERE v.Estado = 'Finalizado'";
+$sql = "SELECT
+            (SELECT COALESCE(SUM(v.costoTotal), 0)
+             FROM ventas v
+             INNER JOIN pedidos p ON v.pedidos_id = p.id
+             WHERE p.Fecha = CURDATE()) AS dia,
+
+            (SELECT COALESCE(SUM(v.costoTotal), 0)
+             FROM ventas v
+             INNER JOIN pedidos p ON v.pedidos_id = p.id
+             WHERE YEARWEEK(p.Fecha, 1) = YEARWEEK(CURDATE(), 1)) AS semana,
+
+            (SELECT COALESCE(SUM(v.costoTotal), 0)
+             FROM ventas v
+             INNER JOIN pedidos p ON v.pedidos_id = p.id
+             WHERE YEAR(p.Fecha) = YEAR(CURDATE())
+             AND MONTH(p.Fecha) = MONTH(CURDATE())) AS mes,
+
+            (SELECT COALESCE(SUM(v.costoTotal), 0)
+             FROM ventas v
+             INNER JOIN pedidos p ON v.pedidos_id = p.id
+             WHERE YEAR(p.Fecha) = YEAR(CURDATE())) AS anio,
+
+            (SELECT COALESCE(SUM(v.costoTotal), 0)
+             FROM ventas v
+             ) AS total";
 
 $resultado = $conn->query($sql);
 
@@ -120,9 +115,7 @@ while ($fila = $resultado->fetch_assoc()) {
 }
 
 
-//1 y 2
-
-$sqlPedidosClientes = "SELECT 
+$sqlPedidosClientes = "SELECT
                             p.id AS IdPedido,
                             p.Nombre AS NombreCliente,
                             p.Fecha,
@@ -138,8 +131,8 @@ $sqlPedidosClientes = "SELECT
 
 $resultadoPedidosClientes = $conn->query($sqlPedidosClientes);
 
-//3
-$sqlCantidadPedidos = "SELECT 
+
+$sqlCantidadPedidos = "SELECT
                             Nombre AS Cliente,
                             COUNT(*) AS CantidadPedidos
                        FROM pedidos
@@ -150,8 +143,6 @@ $sqlCantidadPedidos = "SELECT
 
 $resultadoCantidadPedidos = $conn->query($sqlCantidadPedidos);
 
-
-//4
 
 $clienteFrecuente = "";
 $cantidadPedidosFrecuente = 0;
@@ -168,364 +159,411 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 
 ?>
 
-
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Reportes</title>
+<title>Reportes</title>
 
-    <link rel="stylesheet" href="estilos/reportes.css">
+<link rel="stylesheet" href="estilos/reportes.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<style>
 
-    <style>
+    .reporte-clientes {
+        width: 92%;
+        margin: 45px auto;
+        padding: 32px;
+        background: #F8F7F3;
+        border-radius: 28px;
+        box-shadow: 0 10px 30px rgba(52, 78, 65, 0.12);
+    }
+
+    .reporte-clientes h2 {
+        text-align: center;
+        color: #344E41;
+        font-size: 30px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .subtitulo-reporte {
+        text-align: center;
+        color: #588157;
+        font-size: 17px;
+        margin-bottom: 28px;
+    }
+
+    .tabla-clientes {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+        border-radius: 18px;
+        background: white;
+        box-shadow: 0 6px 20px rgba(52, 78, 65, 0.10);
+    }
+
+    .tabla-clientes th {
+        background: #344E41;
+        color: #F8F7F3;
+        padding: 17px 14px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: .5px;
+        border: none;
+    }
+
+    .tabla-clientes th:first-child {
+        border-top-left-radius: 18px;
+    }
+
+    .tabla-clientes th:last-child {
+        border-top-right-radius: 18px;
+    }
+
+    .tabla-clientes td {
+        padding: 15px 14px;
+        text-align: center;
+        color: #344E41;
+        font-size: 18px;
+        border-bottom: 1px solid #E5E5DE;
+        background: #FFFFFF;
+        transition: .25s ease;
+    }
+
+    .tabla-clientes tr:last-child td {
+        border-bottom: none;
+    }
+
+    .tabla-clientes tr:hover td {
+        background: #EEF1EA;
+    }
+
+    .tabla-clientes td:first-child {
+        font-weight: 600;
+        color: #588157;
+    }
+
+    .cliente-encontrado {
+        color: #344E41 !important;
+        font-weight: 600;
+    }
+
+    .tabla-clientes td:nth-child(3) {
+        color: #588157;
+        font-weight: 500;
+    }
+
+    .tabla-clientes td:nth-child(5) {
+        font-weight: 500;
+    }
+
+    .cliente-no-encontrado {
+        color: #A3A3A3 !important;
+        font-style: italic;
+        font-size: 18px;
+    }
+
+    .tabla-clientes tr {
+        transition: .25s ease;
+    }
+
+    .tabla-clientes tr:hover {
+        transform: scale(1.002);
+    }
+
+    .fila-cliente-frecuente td {
+        font-weight: 700 !important;
+        background: #EEF1EA !important;
+        color: #344E41 !important;
+        border-top: 2px solid #588157;
+    }
+
+    .producto-mas-vendido {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        margin-top: 25px;
+        padding: 20px;
+        background: white;
+        border-radius: 18px;
+    }
+
+    .producto-mas-vendido img {
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 18px;
+    }
+
+    .producto-mas-vendido h3 {
+        color: #344E41;
+        font-size: 24px;
+        margin: 0 0 10px;
+    }
+
+    .producto-mas-vendido p {
+        color: #588157;
+        font-size: 18px;
+        margin: 0;
+    }
+
+    @media (max-width: 900px) {
 
         .reporte-clientes {
-            width: 92%;
-            margin: 45px auto;
-            padding: 32px;
-            background: #F8F7F3;
-            border-radius: 28px;
-            box-shadow: 0 10px 30px rgba(52, 78, 65, 0.12);
+            width: 96%;
+            padding: 20px;
+            overflow-x: auto;
         }
-
-
-        .reporte-clientes h2 {
-            text-align: center;
-            color: #344E41;
-            font-size: 30px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-
-        .subtitulo-reporte {
-            text-align: center;
-            color: #588157;
-            font-size: 17px;
-            margin-bottom: 28px;
-        }
-
 
         .tabla-clientes {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            overflow: hidden;
-            border-radius: 18px;
-            background: white;
-            box-shadow: 0 6px 20px rgba(52, 78, 65, 0.10);
+            min-width: 750px;
         }
 
+    }
 
-        .tabla-clientes th {
-            background: #344E41;
-            color: #F8F7F3;
-            padding: 17px 14px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: .5px;
-            border: none;
-        }
-
-
-        .tabla-clientes th:first-child {
-            border-top-left-radius: 18px;
-        }
-
-
-        .tabla-clientes th:last-child {
-            border-top-right-radius: 18px;
-        }
-
-
-        .tabla-clientes td {
-            padding: 15px 14px;
-            text-align: center;
-            color: #344E41;
-            font-size: 18px;
-            border-bottom: 1px solid #E5E5DE;
-            background: #FFFFFF;
-            transition: .25s ease;
-        }
-
-
-        .tabla-clientes tr:last-child td {
-            border-bottom: none;
-        }
-
-
-        .tabla-clientes tr:hover td {
-            background: #EEF1EA;
-        }
-
-
-        .tabla-clientes td:first-child {
-            font-weight: 600;
-            color: #588157;
-        }
-
-
-        .cliente-encontrado {
-            color: #344E41 !important;
-            font-weight: 600;
-        }
-
-
-        .tabla-clientes td:nth-child(3) {
-            color: #588157;
-            font-weight: 500;
-        }
-
-
-        .tabla-clientes td:nth-child(5) {
-            font-weight: 500;
-        }
-
-
-        .cliente-no-encontrado {
-            color: #A3A3A3 !important;
-            font-style: italic;
-            font-size: 18px;
-        }
-
-
-        .tabla-clientes tr {
-            transition: .25s ease;
-        }
-
-
-        .tabla-clientes tr:hover {
-            transform: scale(1.002);
-        }
-
-
-        .fila-cliente-frecuente td {
-            font-weight: 700 !important;
-            background: #EEF1EA !important;
-            color: #344E41 !important;
-            border-top: 2px solid #588157;
-        }
-
-
-        @media (max-width: 900px) {
-
-            .reporte-clientes {
-                width: 96%;
-                padding: 20px;
-                overflow-x: auto;
-            }
-
-
-            .tabla-clientes {
-                min-width: 750px;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
-
 <body>
-
 
 <section class="a">
 
-    <h1>Panel de reportes Vakery's</h1>
+<h1>Panel de reportes Vakery's</h1>
 
 </section>
 
-
-
 <section class="reporte-clientes">
 
-    <h2>Pedidos registrados y clientes</h2>
-    <br>
+<h2>Pedidos registrados y clientes</h2>
+<br>
 
-    <?php
+<?php
 
-    if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
+if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
 
-        echo "<table class='tabla-clientes'>";
+    echo "<table class='tabla-clientes'>";
 
+    echo "
+    <tr>
+        <th>ID Pedido</th>
+        <th>Cliente</th>
+        <th>Numero de teléfono</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Vendedor</th>
+    </tr>
+    ";
 
-        echo "
+    while ($pedido = $resultadoPedidosClientes->fetch_assoc()) {
 
-        <tr>
+        echo "<tr>";
 
-            <th>ID Pedido</th>
+        echo "<td>"
+            . htmlspecialchars($pedido["IdPedido"])
+            . "</td>";
 
-            <th>Cliente</th>
+        echo "<td class='cliente-encontrado'>"
+            . htmlspecialchars($pedido["NombreCliente"])
+            . "</td>";
 
-            <th>Numero de teléfono</th>
-
-            <th>Fecha</th>
-
-            <th>Estado</th>
-
-            <th>Vendedor</th>
-
-        </tr>
-
-        ";
-
-
-        while ($pedido = $resultadoPedidosClientes->fetch_assoc()) {
-
-            echo "<tr>";
-
+        if (!empty($pedido["NumeroCliente"])) {
 
             echo "<td>"
-                . htmlspecialchars($pedido["IdPedido"])
+                . htmlspecialchars($pedido["NumeroCliente"])
                 . "</td>";
 
+        } else {
 
-            echo "<td class='cliente-encontrado'>"
-                . htmlspecialchars($pedido["NombreCliente"])
-                . "</td>";
+            echo "<td class='cliente-no-encontrado'>
+                    Cliente no relacionado
+                  </td>";
 
+        }
 
-            if (!empty($pedido["NumeroCliente"])) {
+        echo "<td>"
+            . htmlspecialchars($pedido["Fecha"])
+            . "</td>";
 
-    echo "<td>"
-        . htmlspecialchars($pedido["NumeroCliente"])
-        . "</td>";
+        echo "<td>"
+            . htmlspecialchars($pedido["Estado"])
+            . "</td>";
+
+        echo "<td>"
+            . htmlspecialchars($pedido["NombreVendedor"])
+            . "</td>";
+
+        echo "</tr>";
+
+    }
+
+    echo "</table>";
 
 } else {
 
-    echo "<td class='cliente-no-encontrado'>
-            Cliente no relacionado
-          </td>";
+    echo "<p style='text-align:center;'>
+            No existen pedidos registrados.
+          </p>";
 
-            }
+}
 
-            echo "<td>"
-                . htmlspecialchars($pedido["Fecha"])
-                . "</td>";
+?>
 
+</section>
 
-            echo "<td>"
-                . htmlspecialchars($pedido["Estado"])
-                . "</td>";
-
-
-            echo "<td>"
-                . htmlspecialchars($pedido["NombreVendedor"])
-                . "</td>";
-
-
-            echo "</tr>";
-
-        }
-
-
-        echo "</table>";
-
-
-    } else {
-
-        echo "<p style='text-align:center;'>
-                No existen pedidos registrados.
-              </p>";
-
-    }
-
-    ?>
-
-</section> <br>
-
+<br>
 
 <section class="reporte-clientes">
 
-    <h2>Cantidad de pedidos por cliente</h2>
+<h2>Cantidad de pedidos por cliente</h2>
 
-    <p class="subtitulo-reporte">
-        Cantidad de pedidos realizados por cada cliente :
-    </p>
-    <br>
+<p class="subtitulo-reporte">
+    Cantidad de pedidos realizados por cada cliente :
+</p>
 
+<br>
+
+<?php
+
+if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
+
+    echo "<table class='tabla-clientes'>";
+
+    echo "
+    <tr>
+        <th>Cliente</th>
+        <th>Cantidad de pedidos</th>
+    </tr>
+    ";
+
+    while ($cliente = $resultadoCantidadPedidos->fetch_assoc()) {
+
+        echo "<tr>";
+
+        echo "<td class='cliente-encontrado'>"
+            . htmlspecialchars($cliente["Cliente"])
+            . "</td>";
+
+        echo "<td>"
+            . htmlspecialchars($cliente["CantidadPedidos"])
+            . "</td>";
+
+        echo "</tr>";
+
+    }
+
+    if ($clienteFrecuente != "") {
+
+        echo "<tr class='fila-cliente-frecuente'>";
+
+        echo "<td>
+                Cliente con la mayor cantidad de pedidos
+              </td>";
+
+        echo "<td>"
+            . htmlspecialchars($clienteFrecuente)
+            . " con la cantidad de: "
+            . htmlspecialchars($cantidadPedidosFrecuente)
+            . " pedidos"
+            . "</td>";
+
+        echo "</tr>";
+
+    }
+
+    echo "</table>";
+
+} else {
+
+    echo "<p style='text-align:center;'>
+            No existen pedidos registrados.
+          </p>";
+
+}
+
+?>
+</section>
+
+<section class="bc">
+
+<section class="b">
+
+    <div class="tit">
+
+        <img src="imagenes/caida-del-mercado.png" alt="">
+
+        <h2>Productos con bajo stock</h2>
+
+    </div>
 
     <?php
 
-    if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
+    $sql = "SELECT *
+            FROM productos
+            WHERE Stock < 5";
 
-        echo "<table class='tabla-clientes'>";
+    $resultado = $conn->query($sql);
 
+    if ($resultado && $resultado->num_rows > 0) {
 
-        echo "
+        echo "<table>";
 
-        <tr>
+        echo "<tr>";
 
-            <th>Cliente</th>
+        echo "<th>Codigo</th>";
 
-            <th>Cantidad de pedidos</th>
+        echo "<th>Producto</th>";
 
-        </tr>
+        echo "<th>Stock</th>";
 
-        ";
+        echo "<th>Acciones</th>";
 
+        echo "</tr>";
 
-//3
-
-        while ($cliente = $resultadoCantidadPedidos->fetch_assoc()) {
+        while ($producto = $resultado->fetch_assoc()) {
 
             echo "<tr>";
 
-
-            echo "<td class='cliente-encontrado'>"
-                . htmlspecialchars($cliente["Cliente"])
+            echo "<td>"
+                . $producto["Codigo"]
                 . "</td>";
-
 
             echo "<td>"
-                . htmlspecialchars($cliente["CantidadPedidos"])
+                . $producto["NombreProducto"]
                 . "</td>";
 
-
-            echo "</tr>";
-
-        }
-
-//fila de la tareita 4
-
-        if ($clienteFrecuente != "") {
-
-            echo "<tr class='fila-cliente-frecuente'>";
+            echo "<td>"
+                . $producto["Stock"]
+                . "</td>";
 
             echo "<td>
-                    Cliente con la mayor cantidad de pedidos
+                    <a href='Productos/actualizarproducto.php?Codigo="
+                . $producto["Codigo"]
+                . "'>
+                        + Reponer stock
+                    </a>
                   </td>";
-
-            echo "<td>"
-                . htmlspecialchars($clienteFrecuente)
-                . " con la cantidad de: "
-                . htmlspecialchars($cantidadPedidosFrecuente)
-                . "  pedidos"
-                . "</td>";
 
             echo "</tr>";
 
         }
-
 
         echo "</table>";
 
-
     } else {
 
-        echo "<p style='text-align:center;'>
-                No existen pedidos registrados.
-              </p>";
+        echo "No hay productos con bajo stock.";
 
     }
 
@@ -533,317 +571,191 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 
 </section>
 
+<section class="c">
 
-<section class="bc">
+    <div class="titc">
 
+        <img src="imagenes/insignia.png" alt="">
 
-    <section class="b">
+        <h2>Producto más vendido del mes</h2>
 
+    </div>
 
-        <div class="tit">
+    <?php
 
-            <img src="imagenes/caida-del-mercado.png" alt="">
+    $sql = "SELECT p.NombreProducto, p.Imagen, SUM(c.Cantidad) AS TotalVendido
+            FROM ventas v
+            INNER JOIN carrito c
+                ON v.pedidos_id = c.pedidos_id
+            INNER JOIN productos p
+                ON c.productos_Codigo = p.Codigo
+            INNER JOIN pedidos pe
+                ON v.pedidos_id = pe.id
+            WHERE MONTH(pe.Fecha) = MONTH(CURDATE())
+            AND YEAR(pe.Fecha) = YEAR(CURDATE())
+            AND v.Estado = 'Finalizado'
+            GROUP BY p.Codigo, p.NombreProducto, p.Imagen
+            ORDER BY TotalVendido DESC
+            LIMIT 1";
 
-            <h2>Productos con bajo stock</h2>
+    $resultado = $conn->query($sql);
 
-        </div>
+    if ($resultado && $resultado->num_rows > 0) {
 
+        $producto = $resultado->fetch_assoc();
 
-        <?php
+        echo "<div class='producto-mas-vendido'>";
 
-        $sql = "SELECT *
-                FROM productos
-                WHERE Stock < 5";
+        echo "<img src='Productos/imagenes/"
+            . htmlspecialchars($producto["Imagen"])
+            . "' alt='"
+            . htmlspecialchars($producto["NombreProducto"])
+            . "'>";
 
-        $resultado = $conn->query($sql);
+        echo "<div>";
 
+        echo "<h3>"
+            . htmlspecialchars($producto["NombreProducto"])
+            . "</h3>";
 
-        if ($resultado && $resultado->num_rows > 0) {
+        echo "<p>Cantidad vendida: "
+            . htmlspecialchars($producto["TotalVendido"])
+            . "</p>";
 
-            echo "<table>";
+        echo "</div>";
 
-            echo "<tr>";
+        echo "</div>";
 
-            echo "<th>Codigo</th>";
+    } else {
 
-            echo "<th>Producto</th>";
+        echo "No hay ventas registradas este mes.";
 
-            echo "<th>Stock</th>";
+    }
 
-            echo "<th>Acciones</th>";
-
-            echo "</tr>";
-
-
-            while ($producto = $resultado->fetch_assoc()) {
-
-                echo "<tr>";
-
-
-                echo "<td>"
-                    . $producto["Codigo"]
-                    . "</td>";
-
-
-                echo "<td>"
-                    . $producto["NombreProducto"]
-                    . "</td>";
-
-
-                echo "<td>"
-                    . $producto["Stock"]
-                    . "</td>";
-
-
-                echo "<td>
-
-                        <a href='Productos/actualizarproducto.php?Codigo="
-                        . $producto["Codigo"]
-                        . "'>
-
-                            + Reponer stock
-
-                        </a>
-
-                      </td>";
-
-
-                echo "</tr>";
-
-            }
-
-
-            echo "</table>";
-
-
-        } else {
-
-            echo "No hay productos con bajo stock.";
-
-        }
-
-        ?>
-
-
-    </section>
-
-
-
-    <section class="c">
-
-
-        <div class="titc">
-
-            <img src="imagenes/insignia.png" alt="">
-
-            <h2>Producto más vendido del mes</h2>
-
-        </div>
-
-
-        <?php
-
-        $sql = "SELECT p.NombreProducto, SUM(c.Cantidad) AS TotalVendido
-
-                FROM ventas v
-
-                INNER JOIN carrito c 
-                    ON v.pedidos_id = c.pedidos_id
-
-                INNER JOIN productos p 
-                    ON c.productos_Codigo = p.Codigo
-
-                INNER JOIN pedidos pe 
-                    ON v.pedidos_id = pe.id
-
-                WHERE MONTH(pe.Fecha) = MONTH(CURDATE())
-
-                AND YEAR(pe.Fecha) = YEAR(CURDATE())
-
-                AND v.Estado = 'Finalizado'
-
-                GROUP BY p.Codigo, p.NombreProducto
-
-                ORDER BY TotalVendido DESC
-
-                LIMIT 1";
-
-
-        $resultado = $conn->query($sql);
-
-
-        if ($resultado && $resultado->num_rows > 0) {
-
-            $producto = $resultado->fetch_assoc();
-
-
-            echo "Producto: "
-                . $producto["NombreProducto"];
-
-
-            echo " - Cantidad vendida: "
-                . $producto["TotalVendido"];
-
-
-        } else {
-
-            echo "No hay ventas registradas este mes.";
-
-        }
-
-        ?>
-
-
-    </section>
-
+    ?>
 
 </section>
 
+</section>
 
 <section class="d">
 
+<h2>Ingresos</h2>
 
-    <h2>Ingresos</h2>
+<section class="ingr">
 
+    <span>Ingreso del día</span>
 
-    <section class="ingr">
-
-        <span>Ingreso del día</span>
-
-        <strong>
-            <?php echo $ingresosDia; ?> Bs
-        </strong>
-
-    </section>
-
-
-    <section class="ingr">
-
-        <span>Ingreso de la semana</span>
-
-        <strong>
-            <?php echo $ingresosSemana; ?> Bs
-        </strong>
-
-    </section>
-
-
-    <section class="ingr">
-
-        <span>Ingreso del mes</span>
-
-        <strong>
-            <?php echo $ingresosMes; ?> Bs
-        </strong>
-
-    </section>
-
-
-    <section class="ingr">
-
-        <span>Ingreso del año</span>
-
-        <strong>
-            <?php echo $ingresosAnio; ?> Bs
-        </strong>
-
-    </section>
-
-
-    <section class="ingr">
-
-        <span>Ingresos totales</span>
-
-        <strong>
-            <?php echo $ingresosTotales; ?> Bs
-        </strong>
-
-    </section>
-
+    <strong>
+        <?php echo $ingresosDia; ?> Bs
+    </strong>
 
 </section>
 
+<section class="ingr">
+
+    <span>Ingreso de la semana</span>
+
+    <strong>
+        <?php echo $ingresosSemana; ?> Bs
+    </strong>
+
+</section>
+
+<section class="ingr">
+
+    <span>Ingreso del mes</span>
+
+    <strong>
+        <?php echo $ingresosMes; ?> Bs
+    </strong>
+
+</section>
+
+<section class="ingr">
+
+    <span>Ingreso del año</span>
+
+    <strong>
+        <?php echo $ingresosAnio; ?> Bs
+    </strong>
+
+</section>
+
+<section class="ingr">
+
+    <span>Ingresos totales</span>
+
+    <strong>
+        <?php echo $ingresosTotales; ?> Bs
+    </strong>
+
+</section>
+
+</section>
 
 <section class="e">
 
+<section class="graf">
 
-    <section class="graf">
+    <h2>Gráfico de productos más vendidos</h2>
 
-        <h2>Gráfico de productos más vendidos</h2>
-
-        <canvas id="graficoProductos"></canvas>
-
-    </section>
-
-
-
-    <section class="graf">
-
-        <h2>Gráfico de ingresos</h2>
-
-        <canvas id="graficoIngresos"></canvas>
-
-    </section>
-
+    <canvas id="graficoProductos"></canvas>
 
 </section>
 
+<section class="graf">
 
+    <h2>Gráfico de ingresos</h2>
+
+    <canvas id="graficoIngresos"></canvas>
+
+</section>
+
+</section>
 
 <section class="f">
 
+<section class="graf">
 
-    <section class="graf">
+    <h2>Gráfico de stock de los productos</h2>
 
-        <h2>Gráfico de stock de los productos</h2>
-
-        <canvas id="graficoStock"></canvas>
-
-    </section>
-
+    <canvas id="graficoStock"></canvas>
 
 </section>
 
-
+</section>
 
 <script>
-
 
 const fechas = <?php echo json_encode($fechas); ?>;
 
 const ventas = <?php echo json_encode($ventas); ?>;
 
-
 const productos = <?php echo json_encode($productos); ?>;
 
 const cantidades = <?php echo json_encode($cantidades); ?>;
 
-
 const ingresos = <?php echo json_encode($ingresosGrafico); ?>;
-
 
 const productosStock = <?php echo json_encode($productosStock); ?>;
 
 const stock = <?php echo json_encode($stock); ?>
 
 
-
 const contextoProductos =
     document.getElementById("graficoProductos");
 
-
 const contextoIngresos =
     document.getElementById("graficoIngresos");
-
 
 const contextoStock =
     document.getElementById("graficoStock");
 
 
-
 new Chart(contextoProductos, {
 
-    type: "bar",
+    type: "pie",
 
     data: {
 
@@ -859,7 +771,6 @@ new Chart(contextoProductos, {
 
     },
 
-
     options: {
 
         responsive: true,
@@ -877,7 +788,6 @@ new Chart(contextoProductos, {
     }
 
 });
-
 
 
 const periodos = [
@@ -893,10 +803,9 @@ const periodos = [
 ];
 
 
-
 new Chart(contextoIngresos, {
 
-    type: "line",
+    type: "bar",
 
     data: {
 
@@ -911,7 +820,6 @@ new Chart(contextoIngresos, {
         }]
 
     },
-
 
     options: {
 
@@ -930,7 +838,6 @@ new Chart(contextoIngresos, {
     }
 
 });
-
 
 
 new Chart(contextoStock, {
@@ -950,7 +857,6 @@ new Chart(contextoStock, {
         }]
 
     },
-
 
     options: {
 
@@ -972,7 +878,6 @@ new Chart(contextoStock, {
 
             },
 
-
             x: {
 
                 title: {
@@ -991,11 +896,13 @@ new Chart(contextoStock, {
 
 });
 
-
 </script>
 
 
 
+</body>
+
+</html>
 <?php
 
 $conn->close();
@@ -1003,8 +910,3 @@ $conn->close();
 include("footer.php");
 
 ?>
-
-
-</body>
-
-</html>
