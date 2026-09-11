@@ -20,8 +20,20 @@ session_start();
         rel="stylesheet"
         href="../Usuarios/estiloscrear.css"
     >
+    <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+>
 
     <style>
+    .swal2-popup,
+    .swal2-title,
+    .swal2-html-container,
+    .swal2-confirm,
+    .swal2-cancel {
+        font-family: 'Poppins', sans-serif !important;
+    }
+
 
         select#Estado {
 
@@ -71,6 +83,8 @@ session_start();
 
 
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <?php include '../header.php'; ?>
 
@@ -87,8 +101,8 @@ session_start();
 
 <div class="capa"></div>
 
-
-<div class="tra">
+<br>
+<div class="tra" style="margin-top: 80px;">
 
     <form
         action="registropedido.php"
@@ -159,43 +173,39 @@ session_start();
         >
 
 
-        <input
-            class="button"
-            type="submit"
-            value="Registrar"
-        >
-
-    </form>
-
-</div>
-
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<input
+    class="button"
+    type="submit"
+    value="Registrar"
+>
+
+<input
+    class="button"
+    type="button"
+    value="Ir atrás"
+    onclick="window.location.href='../paginasproductos/productos.php';"
+>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 
-document
-.getElementById("crearpedido")
-.addEventListener("submit", function(event) {
+document.getElementById("crearpedido").addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-
-    var b = document.getElementById("Nombre");
-    var c = document.getElementById("Fecha");
-    var d = document.getElementById("Estado");
-    var e = document.getElementById("Direccion");
-    var f = document.getElementById("Telefono");
-
+    var a = document.getElementById("Nombre");
+    var b = document.getElementById("Fecha");
+    var c = document.getElementById("Estado");
+    var d = document.getElementById("Direccion");
+    var e = document.getElementById("Telefono");
 
     var ex = /^[0-9]*$/;
 
     var expRegNombre =
         /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
-
-    var expRegMinuscula =
-        /^[a-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
 
 
     function mostrarAlerta(mensaje, elemento) {
@@ -221,43 +231,54 @@ document
     }
 
 
-    if (b.value.trim() == "") {
+    if (a.value.trim() == "") {
 
         mostrarAlerta(
             "El campo Nombre no puede ir vacío",
-            b
+            a
         );
 
         return;
     }
 
-
-    if (!expRegNombre.exec(b.value)) {
+    if (!expRegNombre.exec(a.value)) {
 
         mostrarAlerta(
             "Introduce solo letras en el Nombre",
+            a
+        );
+
+        return;
+    }
+
+
+
+    if (b.value.trim() == "") {
+
+        mostrarAlerta(
+            "El campo Fecha no puede ir vacío",
             b
         );
 
         return;
     }
+
 
 
     if (c.value.trim() == "") {
 
         mostrarAlerta(
-            "El campo Fecha no puede ir vacío",
+            "El campo Estado no puede ir vacío",
             c
         );
 
         return;
     }
 
-
     if (d.value.trim() == "") {
 
         mostrarAlerta(
-            "El campo Estado no puede ir vacío",
+            "El campo Dirección no puede ir vacío",
             d
         );
 
@@ -268,7 +289,17 @@ document
     if (e.value.trim() == "") {
 
         mostrarAlerta(
-            "El campo Dirección no puede ir vacío",
+            "El campo Teléfono no puede ir vacío",
+            e
+        );
+
+        return;
+    }
+
+    if (!ex.exec(e.value)) {
+
+        mostrarAlerta(
+            "Introduce solo números en el Teléfono",
             e
         );
 
@@ -276,22 +307,39 @@ document
     }
 
 
-    if (f.value.trim() == "") {
 
-        mostrarAlerta(
-            "El campo Teléfono no puede ir vacío",
-            f
-        );
+    Swal.fire({
 
-        return;
-    }
+        title: "¡LISTO!",
 
+        text: "Ahora puedes pedir y añadir productos a tu carrito. ¡Disfruta de nuestros productos!",
 
-    this.submit();
+        icon: "success",
+
+        confirmButtonText: "¡Empezar a pedir!",
+
+        confirmButtonColor: "#62a38a",
+
+        background: "#ffffff",
+
+        color: "#304936"
+
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            this.submit();
+
+        }
+
+    });
 
 });
 
 </script>
+
+</div>
+
 
 </body>
 

@@ -98,7 +98,7 @@
             min="1"
             required
         >
-
+<br>
         <button type="submit">
             Consultar pedido
         </button>
