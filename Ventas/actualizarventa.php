@@ -87,18 +87,24 @@ label{
 }
 
 input{
+    width:100%;
     padding:14px;
+    margin-top:12px;
+    margin-bottom:18px;
     border:none;
-    border-radius:15px;
-    margin-bottom:20px;
-    font-size:16px;
+    border-radius:14px;
+    background:rgba(255,255,255,0.12);
+    color:white;
+    font-family:'Poppins',sans-serif;
+    font-size:14px;
     outline:none;
-    background:#F8F7F3;
-    color:#344E41;
+    backdrop-filter:blur(4px);
+    box-sizing:border-box;
+    cursor:pointer;
 }
 
 input:focus{
-    border:2px solid #A3B18A;
+    background:rgba(255,255,255,0.18);
 }
 
 .boton{
@@ -113,6 +119,31 @@ input:focus{
     background:white;
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+select{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    margin-bottom:18px;
+    border:none;
+    border-radius:14px;
+    background:rgba(255,255,255,0.12);
+    color:white;
+    font-family:'Poppins',sans-serif;
+    font-size:14px;
+    outline:none;
+    backdrop-filter:blur(4px);
+    box-sizing:border-box;
+    cursor:pointer;
+}
+
+select:focus{
+    background:rgba(255,255,255,0.18);
+}
+
+select option{
+    background:#344E41;
+    color:white;
 }
 </style>
 </head>
@@ -132,8 +163,13 @@ input:focus{
     <input type="number" name="costoTotal" id="costoTotal" value="<?=$costoTotal?>">
 
     <label>Estado:</label>
-    <input type="text" name="Estado" id="Estado" value="<?=$Estado?>">
-
+    <select name="Estado" id="Estado">
+    <option value="En Espera">En Espera</option>
+    <option value="En Proceso">En Proceso</option>
+    <option value="Finalizado">Finalizado</option>
+    <option value="Entregado">Entregado</option>
+    </select>
+    
     <label>Método de Pago:</label>
     <input type="text" name="Metodo" id="Metodo" value="<?=$Metodo?>">
 

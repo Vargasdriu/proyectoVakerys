@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // 3. Registrar la Venta
         $costoTotal = $_POST['costoTotal'];
-        $conn->query("INSERT INTO ventas (pedidos_id, costoTotal, Estado, Metodo) VALUES ('$id_pedido', '$costoTotal', 'Aceptado', 'Efectivo')");
+        $conn->query("INSERT INTO ventas (pedidos_id, costoTotal, Estado, Metodo) VALUES ('$id_pedido', '$costoTotal', 'En Espera', 'Efectivo')");
 
         // 4. Activar Modal flotante estilizada
         header("Location: ../paginavendedor.php");

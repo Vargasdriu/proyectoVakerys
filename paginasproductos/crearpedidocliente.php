@@ -149,7 +149,7 @@ session_start();
             type="hidden"
             name="Estado"
             id="Estado"
-            value="Abierto"
+            value="Pendiente"
         >
 
 

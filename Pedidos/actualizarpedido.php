@@ -181,11 +181,10 @@ select#Estado:focus {
     <label>Estado:</label>
 
     <select name="Estado" id="Estado">
-        <option value="">Seleccionar estado</option>
-        <option value="Pendiente">Pendiente</option>
-        <option value="En proceso">En proceso</option>
-        <option value="Finalizado">Finalizado</option>
-        <option value="Cancelado">Cancelado</option>
+    <option value="">Seleccionar estado</option>
+    <option value="Pendiente">Pendiente</option>
+    <option value="Aceptado">Aceptado</option>
+    <option value="Rechazado">Rechazado</option>
     </select>
 
     <label>Nombre del Vendedor:</label>

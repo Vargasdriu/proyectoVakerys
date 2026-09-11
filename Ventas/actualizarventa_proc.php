@@ -22,6 +22,10 @@ $sql = "UPDATE ventas SET
     WHERE pedidos_id='$pedidos_id'";
 
 $resultado = $conexion->query($sql);
+
+$error = $conexion->error;
+
+$conexion->close();
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +33,17 @@ $resultado = $conexion->query($sql);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Actualizar Venta</title>
+
+<!-- Fuente Poppins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
 *{
     margin:0;
@@ -48,7 +62,7 @@ body{
 }
 
 .contenedor{
-    background:rgba(52,78,65,.95);
+    background:white;
     width:500px;
     padding:50px;
     border-radius:35px;
@@ -83,36 +97,90 @@ p{
     transform:translateY(-4px);
     box-shadow:0 10px 20px rgba(0,0,0,.15);
 }
-
-.error{
-    color:#ffb3b3;
-}
-
-.exito{
-    color:#d8ffd8;
-}
 </style>
 </head>
+
 <body>
 
 <?php include_once '../header.php'; ?>
 
 <div class="contenedor">
-<?php
-if($resultado){
-    echo "<h1 class='exito'>✓ Venta actualizada</h1>";
-    echo "<p>Los datos fueron actualizados correctamente.</p>";
-}else{
-    echo "<h1 class='error'>✕ Error</h1>";
-    echo "<p>No se pudo actualizar la venta.</p>";
-    echo "<p class='error'>" . $conexion->error . "</p>";
+
+<?php if($resultado): ?>
+
+<script>
+Swal.fire({
+    title: '¡Venta actualizada!',
+    text: 'Los datos fueron actualizados correctamente.',
+    icon: 'success',
+    confirmButtonText: 'Aceptar',
+    confirmButtonColor: '#588157',
+    background: 'white',
+    color: '#344E41',
+    customClass: {
+        popup: 'poppins-alert',
+        title: 'poppins-title',
+        htmlContainer: 'poppins-text',
+        confirmButton: 'poppins-button'
+    }
+}).then((result) => {
+    if (result.isConfirmed) {
+        window.location.href = 'leerventa.php';
+    }
+});
+</script>
+
+<?php else: ?>
+
+<script>
+Swal.fire({
+    title: '¡Ocurrió un error! ❌',
+    text: 'No se pudo actualizar la venta.',
+    icon: 'error',
+    confirmButtonText: 'Volver',
+    confirmButtonColor: '#588157',
+    background: '#344E41',
+    color: '#ffffff',
+    customClass: {
+        popup: 'poppins-alert',
+        title: 'poppins-title',
+        htmlContainer: 'poppins-text',
+        confirmButton: 'poppins-button'
+    }
+}).then((result) => {
+    if (result.isConfirmed) {
+        window.location.href = 'leerventa.php';
+    }
+});
+</script>
+
+<?php endif; ?>
+
+</div>
+
+<style>
+/* Poppins para SweetAlert */
+.poppins-alert,
+.poppins-title,
+.poppins-text,
+.poppins-button{
+    font-family:'Poppins',sans-serif !important;
 }
 
-$conexion->close();
-?>
+.poppins-title{
+    font-weight:700 !important;
+}
 
-<a class="boton" href="leerventa.php">Volver</a>
-</div>
+.poppins-text{
+    font-weight:400 !important;
+}
+
+.poppins-button{
+    font-weight:600 !important;
+    border-radius:12px !important;
+    padding:12px 25px !important;
+}
+</style>
 
 </body>
 </html>

@@ -211,19 +211,19 @@ INSERT INTO pedidos
 (Nombre, Fecha, Estado, NombreVendedor, Direccion, Telefono)
 VALUES
 ('Taylor Swift', '2026-09-10', 'Finalizado', 'Maria Perez', 'Centro', 76543215),
-('Tom Holland', '2026-09-07', 'Finalizado', 'Luis Fernandez', 'Recoleta', 76543216),
-('Taylor Swift', '2026-09-06', 'Finalizado', 'Maria Perez', 'Queru Queru', 76543215),
-('Robert Downey Jr.', '2026-09-03', 'Finalizado', 'Luis Fernandez', 'Cala Cala', 76543218),
-('Taylor Swift', '2026-08-29', 'Finalizado', 'Maria Perez', 'Sarco', 76543215),
+('Tom Holland', '2026-09-07', 'Aceptado', 'Luis Fernandez', 'Recoleta', 76543216),
+('Taylor Swift', '2026-09-06', 'En espera', 'Maria Perez', 'Queru Queru', 76543215),
+('Robert Downey Jr.', '2026-09-03', 'Rechazado', 'Luis Fernandez', 'Cala Cala', 76543218),
+('Taylor Swift', '2026-08-29', 'Aceptado', 'Maria Perez', 'Sarco', 76543215),
 ('Chris Hemsworth', '2026-08-25', 'Finalizado', 'Luis Fernandez', 'Centro', 76543220),
-('Taylor Swift', '2026-08-18', 'Finalizado', 'Maria Perez', 'Recoleta', 76543215),
-('Jenna Ortega', '2026-08-12', 'Finalizado', 'Luis Fernandez', 'Sarco', 76543222),
-('Taylor Swift', '2026-08-05', 'Finalizado', 'Maria Perez', 'Centro', 76543215),
+('Taylor Swift', '2026-08-18', 'En espera', 'Maria Perez', 'Recoleta', 76543215),
+('Jenna Ortega', '2026-08-12', 'Aceptado', 'Luis Fernandez', 'Sarco', 76543222),
+('Taylor Swift', '2026-08-05', 'Rechazado', 'Maria Perez', 'Centro', 76543215),
 ('Zendaya', '2026-07-28', 'Finalizado', 'Luis Fernandez', 'Recoleta', 76543223),
-('Taylor Swift', '2026-07-20', 'Finalizado', 'Maria Perez', 'Queru Queru', 76543215),
-('Timothee Chalamet', '2026-07-14', 'Finalizado', 'Luis Fernandez', 'Cala Cala', 76543224),
+('Taylor Swift', '2026-07-20', 'Aceptado', 'Maria Perez', 'Queru Queru', 76543215),
+('Timothee Chalamet', '2026-07-14', 'En espera', 'Luis Fernandez', 'Cala Cala', 76543224),
 ('Taylor Swift', '2026-07-08', 'Finalizado', 'Maria Perez', 'Sarco', 76543215),
-('Tom Holland', '2026-06-30', 'Finalizado', 'Luis Fernandez', 'Centro', 76543216);
+('Tom Holland', '2026-06-30', 'Rechazado', 'Luis Fernandez', 'Centro', 76543216);
 
 -- -----------------------------------------------------
 -- Carrito
@@ -278,17 +278,17 @@ VALUES
 INSERT INTO ventas
 (pedidos_id, costoTotal, Estado, Metodo)
 VALUES
-(1, 45, 'Finalizado', 'QR'),
-(2, 65, 'Finalizado', 'Efectivo'),
+(1, 45, 'Entregado', 'QR'),
+(2, 65, 'En Proceso', 'Efectivo'),
 (3, 80, 'Finalizado', 'QR'),
-(4, 30, 'Finalizado', 'Tarjeta'),
-(5, 40, 'Finalizado', 'QR'),
-(6, 25, 'Finalizado', 'Efectivo'),
+(4, 30, 'En Espera', 'Tarjeta'),
+(5, 40, 'Entregado', 'QR'),
+(6, 25, 'En Proceso', 'Efectivo'),
 (7, 66, 'Finalizado', 'QR'),
-(8, 58, 'Finalizado', 'Tarjeta'),
-(9, 75, 'Finalizado', 'Efectivo'),
-(10, 55, 'Finalizado', 'QR'),
+(8, 58, 'En Espera', 'Tarjeta'),
+(9, 75, 'Entregado', 'Efectivo'),
+(10, 55, 'En Proceso', 'QR'),
 (11, 58, 'Finalizado', 'Efectivo'),
-(12, 81, 'Finalizado', 'QR'),
-(13, 65, 'Finalizado', 'Tarjeta'),
-(14, 56, 'Finalizado', 'Efectivo');
+(12, 81, 'Entregado', 'QR'),
+(13, 65, 'En Espera', 'Tarjeta'),
+(14, 56, 'En Proceso', 'Efectivo');

@@ -91,7 +91,7 @@ function mostrarProductos() {
                         class="proc"
                         data-codigo="${producto.Codigo}"
                     >
-                        <a href="producto.php?Codigo=${encodeURIComponent(producto.Codigo)}" class="enlace-producto">
+                        <a href="#" class="enlace-producto">
                         <img
                             class="imgb"
                             src="../Productos/imagenes/${producto.Imagen || ''}"
