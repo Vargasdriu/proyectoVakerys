@@ -392,9 +392,7 @@ section > a:hover {
 
   body {
     display: grid;
-
     grid-template-columns: 100%;
-
     grid-template-rows: auto auto auto auto auto;
 
     grid-template-areas:
@@ -418,7 +416,6 @@ section > a:hover {
 
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     align-items: center;
 
@@ -435,10 +432,7 @@ section > a:hover {
     font-size: 32px;
     line-height: 1.15;
 
-    top: 0;
     margin: 0;
-
-    animation: aparecerArriba 1s ease both;
   }
 
   .a p {
@@ -448,10 +442,7 @@ section > a:hover {
     font-size: 16px;
     line-height: 1.5;
 
-    top: 0;
     margin: 15px 0 0;
-
-    animation: aparecerArriba 1.4s ease both;
   }
 
   .a a {
@@ -462,7 +453,7 @@ section > a:hover {
     top: 0;
     margin-top: 20px;
 
-    animation: aparecerBoton 1.8s ease both;
+    white-space: nowrap;
   }
 
 
@@ -474,7 +465,6 @@ section > a:hover {
     width: 100%;
 
     margin: 0;
-
     padding: 40px 15px;
 
     text-align: center;
@@ -485,17 +475,13 @@ section > a:hover {
     line-height: 1.15;
 
     margin-bottom: 30px;
-
-    animation: fadeTitulo linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 30%;
   }
-
 
   .b1,
   .b2,
   .b3 {
     width: 100%;
+    max-width: 100%;
 
     height: auto;
     min-height: 0;
@@ -505,7 +491,6 @@ section > a:hover {
     padding: 20px 15px;
 
     display: flex;
-
     flex-direction: column;
 
     align-items: center;
@@ -515,52 +500,51 @@ section > a:hover {
 
     border-radius: 30px;
 
-    animation: aparecerAbajo linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 35%;
+    overflow: visible;
   }
 
 
   /* =========================
-     IMÁGENES PEQUEÑAS
+     🍰 IMÁGENES MÁS PEQUEÑAS
   ========================= */
+.pie {
+  width: 360px;
+  height: 360px;
 
-  .pie {
-    width: 250px;
-    height: 250px;
+  max-width: 360px;
+  max-height: 360px;
 
-    max-width: 250px;
-    max-height: 250px;
+  object-fit: contain;
 
-    position: relative;
+  position: relative;
+  left: 0;
+  top: 0;
 
-    left: 0;
-    top: 0;
+  margin: 0 auto 15px;
 
-    margin: 0 auto 15px;
+  transition: transform .4s ease;
+}
 
-    object-fit: contain;
-  }
 
-  .cookie,
-  .brownie {
-    width: 200px;
-    height: 200px;
 
-    max-width: 200px;
-    max-height: 200px;
+.cookie,
+.brownie {
+  width: 230px;
+  height: 230px;
 
-    position: relative;
+  max-width: 230px;
+  max-height: 230px;
 
-    left: 0;
-    top: 0;
-    bottom: 0;
+  position: relative;
 
-    margin: 0 auto 15px;
+  left: 0;
+  top: 0;
+  bottom: 0;
 
-    object-fit: contain;
-  }
+  margin: 0 auto 15px;
 
+  object-fit: contain;
+}
 
   /* =========================
      TEXTO PRODUCTOS
@@ -596,7 +580,7 @@ section > a:hover {
 
 
   /* =========================
-     BOTONES PRODUCTOS
+     🔘 BOTONES PRODUCTOS
   ========================= */
 
   .b1 > a,
@@ -604,21 +588,31 @@ section > a:hover {
   .b3 > a {
     position: static;
 
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    left: 0;
-    top: 0;
+    width: auto;
+    max-width: 90%;
 
     font-size: 14px;
 
     padding: 10px 18px;
 
     margin: 15px auto 0;
+
+    border: 2px solid #1d3021;
+    border-radius: 100px;
+
+    white-space: nowrap;
+
+    box-sizing: border-box;
   }
 
   .b2 > a {
-    left: 0;
-    top: 0;
+    position: static;
+    left: auto;
+    top: auto;
   }
 
 
@@ -634,7 +628,6 @@ section > a:hover {
     padding: 45px 15px;
 
     display: flex;
-
     flex-direction: column;
 
     align-items: center;
@@ -645,11 +638,10 @@ section > a:hover {
   }
 
 
-  /* TÍTULO VAKERY */
+  /* TÍTULO */
 
   .titulo {
     width: 100%;
-
     margin-bottom: 30px;
   }
 
@@ -686,7 +678,6 @@ section > a:hover {
     margin: 0 auto;
 
     display: flex;
-
     flex-direction: column;
 
     justify-content: center;
@@ -714,11 +705,9 @@ section > a:hover {
     height: auto;
 
     padding: 25px 18px;
-
     margin: 0;
 
     display: flex;
-
     flex-direction: column;
 
     justify-content: center;
@@ -732,9 +721,7 @@ section > a:hover {
 
     box-sizing: border-box;
 
-    animation: fadeCard linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 30%;
+    cursor: pointer;
 
     transition:
       transform .35s ease,
@@ -743,7 +730,7 @@ section > a:hover {
   }
 
   .hh:hover {
-    transform: translateY(-5px) scale(1.01);
+    transform: translateY(-5px);
 
     background-color: #4d7a57;
 
@@ -751,7 +738,9 @@ section > a:hover {
   }
 
 
-  /* ICONOS */
+  /* =========================
+     ICONOS
+  ========================= */
 
   .ih {
     width: 60px;
@@ -772,7 +761,9 @@ section > a:hover {
   }
 
 
-  /* TÍTULO TARJETAS */
+  /* =========================
+     TEXTO TARJETAS
+  ========================= */
 
   .hh h2 {
     width: 100%;
@@ -784,9 +775,6 @@ section > a:hover {
 
     color: white;
   }
-
-
-  /* TEXTO TARJETAS */
 
   .hh p {
     width: 100%;
@@ -801,22 +789,41 @@ section > a:hover {
   }
 
 
-  /* BOTÓN VAKERY */
+  /* =========================
+     🔘 BOTONES VAKERY
+  ========================= */
 
-.botones-vakery {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin-top: 25px;
-}
+  .botones-vakery {
+    width: 100%;
 
-.botones-vakery a {
-  font-size: 15px;
-  padding: 12px 25px;
-  margin: 0;
-}
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 25px;
+  }
+
+  .botones-vakery a {
+    width: auto;
+    max-width: 90%;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 15px;
+
+    padding: 12px 25px;
+
+    margin: 0;
+
+    white-space: nowrap;
+
+    box-sizing: border-box;
+  }
 
 
   /* =========================
@@ -845,7 +852,7 @@ section > a:hover {
 
 
   /* =========================
-     TRANSICIONES CELULAR
+     🚫 NO AGRANDAR IMÁGENES
   ========================= */
 
   .pie,
@@ -857,22 +864,9 @@ section > a:hover {
   .pie:hover,
   .cookie:hover,
   .brownie:hover {
-    transform: scale(1.5);
+  transform: scale(1.5);
   }
 
-  .b1,
-  .b2,
-  .b3 {
-    transition:
-      transform .35s ease,
-      background-color .3s ease,
-      box-shadow .3s ease;
-  }
 
-  .b1:hover,
-  .b2:hover,
-  .b3:hover {
-    transform: translateY(-3px);
-  }
 
 }
