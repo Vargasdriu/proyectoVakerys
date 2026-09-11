@@ -50,3 +50,10 @@ PUNTUACIÓN: 3 Estrellas
 FECHA: 10/09/2026 18:52
 COMENTARIO: Mejorar la calidad de servicio.
 -----------------------------------
+NOMBRE: Dania
+EMAIL: dania@gmai.com
+ASUNTO: Recomendaciones (Recomendación al Producto)
+PUNTUACIÓN: 4 Estrellas
+FECHA: 11/09/2026 12:19
+COMENTARIO: buen trabajo
+-----------------------------------
