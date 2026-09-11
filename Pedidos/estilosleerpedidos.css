@@ -14,230 +14,613 @@ body{
     color:#344E41;
 }
 
+
+/* =========================================
+   CONTENEDOR
+========================================= */
+
 .contenedor{
     max-width:1450px;
     margin:auto;
 }
 
+
+/* =========================================
+   ENCABEZADO — ESTILO VENTAS
+========================================= */
+
 .encabezado{
+
+    background:#344E41;
+
+    min-height:270px;
+
+    border-radius:30px;
+
+    padding:45px 55px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
+    gap:30px;
+
     margin-bottom:35px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 20px 45px rgba(52,78,65,.18);
+}
+
+
+/* =========================================
+   DECORACION
+========================================= */
+
+.encabezado::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:430px;
+    height:430px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.07);
+
+    right:-130px;
+    top:-230px;
+}
+
+.encabezado::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+    height:280px;
+
+    border-radius:50%;
+
+    background:rgba(163,177,138,.10);
+
+    right:80px;
+    bottom:-210px;
+}
+
+
+/* =========================================
+   TITULO
+========================================= */
+
+.titulo{
+
+    position:relative;
+
+    z-index:2;
 }
 
 .titulo h1{
-    font-size:38px;
-    color:#344E41;
-    font-weight:700;
-    margin-bottom:5px;
+
+    color:white;
+
+    font-size:43px;
+
+    font-weight:600;
+
+    line-height:1.1;
+
+    margin-bottom:13px;
 }
 
 .titulo p{
-    color:#588157;
-    font-size:15px;
+
+    color:rgba(255,255,255,.68);
+
+    font-size:14px;
+
+    max-width:520px;
+
+    line-height:1.8;
 }
 
-.nuevo{
-    text-decoration:none;
-    background:#344E41;
-    color:white;
-    padding:14px 23px;
-    border-radius:13px;
-    font-size:14px;
+
+/* =========================================
+   MINI TITULO
+========================================= */
+
+.titulo::before{
+
+    content:"PEDIDOS";
+
+    display:block;
+
+    color:#A3B18A;
+
+    font-size:12px;
+
     font-weight:600;
-    transition:.25s;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    margin-bottom:12px;
+}
+
+
+/* =========================================
+   BOTON NUEVO
+========================================= */
+
+.nuevo{
+
+    position:relative;
+
+    z-index:2;
+
+    text-decoration:none;
+
+    background:white;
+
+    color:#344E41;
+
+    padding:14px 22px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+    transition:.2s;
+
+    border:1px solid rgba(255,255,255,.2);
 }
 
 .nuevo:hover{
-    background:#3A5A40;
-    transform:translateY(-3px);
+
+    background:#A3B18A;
+
+    color:white;
+
+    transform:translateY(-2px);
 }
 
+
+/* =========================================
+   PEDIDOS
+========================================= */
+
 .pedidos{
+
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(390px,1fr));
+
+    grid-template-columns:
+        repeat(auto-fill,minmax(390px,1fr));
+
     gap:25px;
 }
 
+
+/* =========================================
+   TARJETA PEDIDO
+========================================= */
+
 .pedido{
+
     background:#fff;
+
     border-radius:22px;
+
     padding:25px;
-    box-shadow:0 8px 25px rgba(52,78,65,.12);
+
+    box-shadow:
+        0 8px 25px rgba(52,78,65,.12);
+
     transition:.3s;
+
     border:1px solid rgba(163,177,138,.25);
 }
 
 .pedido:hover{
+
     transform:translateY(-6px);
-    box-shadow:0 14px 30px rgba(52,78,65,.18);
+
+    box-shadow:
+        0 14px 30px rgba(52,78,65,.18);
 }
 
+
+/* =========================================
+   PARTE SUPERIOR PEDIDO
+========================================= */
+
 .pedido-top{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     margin-bottom:22px;
 }
 
+
+/* =========================================
+   CODIGO
+========================================= */
+
 .codigo{
+
     font-size:24px;
+
     font-weight:700;
+
     color:#344E41;
 }
 
 .codigo span{
+
     color:#588157;
 }
 
+
+/* =========================================
+   ESTADO
+========================================= */
+
 .estado{
+
     padding:7px 14px;
+
     border-radius:20px;
-    
+
     font-size:12px;
+
     font-weight:600;
 }
-.estado-Aceptado {
+
+.estado-Aceptado{
+
     background:#E8EEE3;
+
     color:#3A5A40;
 }
 
-.estado-Cancelado {
+.estado-Cancelado{
+
     background:#F0DDD8;
+
     color:#8A4B42;
 }
 
+
+/* =========================================
+   INFORMACION
+========================================= */
+
 .info{
+
     display:grid;
+
     grid-template-columns:1fr 1fr;
+
     gap:17px;
+
     margin-bottom:24px;
 }
 
 .dato{
+
     display:flex;
+
     flex-direction:column;
+
     gap:4px;
 }
 
 .dato-completo{
+
     grid-column:1 / -1;
 }
 
+
+/* =========================================
+   ETIQUETAS
+========================================= */
+
 .etiqueta{
+
     font-size:11px;
+
     text-transform:uppercase;
+
     letter-spacing:.8px;
+
     color:#8A9587;
+
     font-weight:600;
 }
 
+
+/* =========================================
+   VALORES
+========================================= */
+
 .valor{
+
     font-size:14px;
+
     color:#344E41;
+
     font-weight:500;
+
     word-break:break-word;
 }
 
+
+/* =========================================
+   SEPARADOR
+========================================= */
+
 .separador{
+
     height:1px;
+
     background:#E8E5DC;
+
     margin-bottom:18px;
 }
 
+
+/* =========================================
+   ACCIONES
+========================================= */
+
 .acciones{
+
     display:grid;
+
     grid-template-columns:1fr 1fr;
+
     gap:9px;
 }
 
 .acciones a{
+
     text-decoration:none;
 }
 
+
+/* =========================================
+   BOTONES
+========================================= */
+
 .accion{
+
     width:100%;
+
     border:none;
+
     padding:11px 10px;
+
     border-radius:10px;
+
     font-family:'Poppins',sans-serif;
+
     font-size:12px;
+
     font-weight:600;
+
     cursor:pointer;
+
     transition:.2s;
 }
 
+
+/* =========================================
+   EDITAR
+========================================= */
+
 .editar{
+
     background:#A3B18A;
+
     color:#344E41;
 }
 
 .editar:hover{
+
     background:#8E9F73;
+
     transform:translateY(-2px);
 }
 
+
+/* =========================================
+   MOSTRAR
+========================================= */
+
 .mostrar{
+
     background:#E8E5DC;
+
     color:#344E41;
 }
 
 .mostrar:hover{
+
     background:#DAD7CD;
+
     transform:translateY(-2px);
 }
 
+
+/* =========================================
+   DETALLE
+========================================= */
+
 .detalle{
+
     background:#588157;
+
     color:white;
 }
 
 .detalle:hover{
+
     background:#3A5A40;
+
     transform:translateY(-2px);
 }
 
+
+/* =========================================
+   ELIMINAR
+========================================= */
+
 .eliminar{
+
     background:#F0DDD8;
+
     color:#8A4B42;
 }
 
 .eliminar:hover{
+
     background:#E4C7C0;
+
     transform:translateY(-2px);
 }
 
+
+/* =========================================
+   SIN PEDIDOS
+========================================= */
+
 .sin-pedidos{
+
     background:white;
+
     border-radius:20px;
+
     padding:50px;
+
     text-align:center;
+
     color:#588157;
 }
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
 
 @media(max-width:700px){
 
     body{
+
         padding:20px;
     }
 
     .encabezado{
+
+        min-height:250px;
+
+        padding:35px 28px;
+
         align-items:flex-start;
+
         flex-direction:column;
-        gap:20px;
+
+        justify-content:center;
+
+        gap:25px;
     }
 
     .titulo h1{
-        font-size:30px;
+
+        font-size:32px;
+    }
+
+    .titulo p{
+
+        max-width:100%;
     }
 
     .nuevo{
+
         width:100%;
+
         text-align:center;
     }
 
     .pedidos{
+
         grid-template-columns:1fr;
     }
+
+}
+
+
+@media(max-width:500px){
+
+    body{
+
+        padding:15px;
+    }
+
+    .encabezado{
+
+        padding:30px 23px;
+
+        border-radius:25px;
+    }
+
+    .titulo h1{
+
+        font-size:30px;
+    }
+
+    .pedido{
+
+        padding:20px;
+    }
+
+    .pedido-top{
+
+        align-items:flex-start;
+
+        gap:12px;
+
+        flex-direction:column;
+    }
+
+    .info{
+
+        grid-template-columns:1fr;
+    }
+
+    .dato-completo{
+
+        grid-column:auto;
+    }
+
+    .acciones{
+
+        grid-template-columns:1fr;
+    }
+
 }

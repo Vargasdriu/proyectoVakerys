@@ -94,12 +94,14 @@ $pedidos = mysqli_query($conn, $sql);
     </div>
 
     <div class="card">
+        <a href="Ventas/leerventa.php">
         <img
             src="imagenes/dinero.png"
             alt=""
         >
         <h2>47</h2>
         <p>Ventas realizadas</p>
+        </a>
     </div>
 
     <div class="card">

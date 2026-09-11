@@ -12,339 +12,753 @@ body{
     color:#344E41;
 }
 
+
+/* =========================================
+   CATALOGO
+========================================= */
+
 .catalogo{
     width:93%;
     max-width:1450px;
     margin:120px auto 60px;
 }
 
+
+/* =========================================
+   ENCABEZADO — ESTILO VENTAS
+========================================= */
+
 .catalogo-header{
+
+    background:#344E41;
+
+    min-height:270px;
+
+    border-radius:30px;
+
+    padding:45px 55px;
+
     display:flex;
+
     justify-content:space-between;
-    align-items:flex-end;
+
+    align-items:center;
+
     gap:30px;
+
+    position:relative;
+
+    overflow:hidden;
+
     margin-bottom:32px;
+
+    box-shadow:
+        0 20px 45px rgba(52,78,65,.18);
 }
+
+
+/* =========================================
+   DECORACION DEL ENCABEZADO
+========================================= */
+
+.catalogo-header::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:430px;
+    height:430px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.07);
+
+    right:-130px;
+    top:-230px;
+}
+
+.catalogo-header::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+    height:280px;
+
+    border-radius:50%;
+
+    background:rgba(163,177,138,.10);
+
+    right:80px;
+    bottom:-210px;
+}
+
+
+/* =========================================
+   CONTENIDO DEL ENCABEZADO
+========================================= */
+
+.catalogo-header > div:first-child{
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+/* =========================================
+   MINI TITULO
+========================================= */
 
 .mini-titulo{
-    font-size:13px;
-    letter-spacing:3px;
-    color:#588157;
+
+    color:#A3B18A;
+
+    font-size:12px;
+
     font-weight:600;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    margin-bottom:12px;
 }
+
+
+/* =========================================
+   TITULO
+========================================= */
 
 .catalogo-header h1{
-    font-size:50px;
-    font-weight:500;
-    line-height:1.2;
-    margin:7px 0;
+
+    color:white;
+
+    font-size:43px;
+
+    font-weight:600;
+
+    line-height:1.1;
+
+    margin-bottom:13px;
 }
+
+
+/* =========================================
+   DESCRIPCION
+========================================= */
 
 .descripcion{
-    font-size:15px;
-    color:#777C75;
+
+    color:rgba(255,255,255,.68);
+
+    font-size:14px;
+
+    max-width:520px;
+
+    line-height:1.8;
 }
 
+
+/* =========================================
+   BOTON NUEVO
+========================================= */
+
 .btn-nuevo{
+
+    position:relative;
+
+    z-index:2;
+
     text-decoration:none;
-    background:#344E41;
-    color:white;
-    padding:16px 25px;
-    border-radius:14px;
-    font-size:14px;
+
+    background:white;
+
+    color:#344E41;
+
+    padding:14px 22px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    font-weight:600;
+
     white-space:nowrap;
-    transition:.25s;
+
+    transition:.2s;
+
+    border:1px solid rgba(255,255,255,.2);
 }
 
 .btn-nuevo:hover{
-    background:#3A5A40;
+
+    background:#A3B18A;
+
+    color:white;
+
     transform:translateY(-2px);
 }
 
+
+/* =========================================
+   LINEA
+========================================= */
+
 .linea{
+
     width:100%;
+
     height:1px;
+
     background:rgba(52,78,65,.15);
+
     margin-bottom:25px;
 }
 
+
+/* =========================================
+   LISTA
+========================================= */
+
 .lista{
+
     display:flex;
+
     flex-direction:column;
+
     gap:17px;
 }
 
+
+/* =========================================
+   PRODUCTO
+========================================= */
+
 .producto{
+
     display:grid;
-    grid-template-columns:145px minmax(300px,1fr) 180px 100px auto;
+
+    grid-template-columns:
+        145px
+        minmax(300px,1fr)
+        180px
+        100px
+        auto;
+
     align-items:center;
+
     gap:28px;
+
     padding:17px 22px 17px 17px;
+
     background:#F8F7F3;
+
     border-radius:22px;
+
     min-height:150px;
+
     transition:.25s;
 }
 
 .producto:hover{
+
     background:#FFFFFF;
-    box-shadow:0 12px 28px rgba(52,78,65,.11);
+
+    box-shadow:
+        0 12px 28px rgba(52,78,65,.11);
+
     transform:translateY(-3px);
 }
 
+
+/* =========================================
+   IMAGEN
+========================================= */
+
 .producto-imagen{
+
     width:145px;
+
     height:120px;
+
     border-radius:17px;
+
     overflow:hidden;
+
     background:#E8E5DC;
 }
 
 .producto-imagen img{
+
     width:100%;
+
     height:100%;
+
     object-fit:cover;
 }
 
 .sin-imagen{
+
     width:100%;
+
     height:100%;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-size:12px;
+
     color:#588157;
 }
 
+
+/* =========================================
+   CABECERA PRODUCTO
+========================================= */
+
 .producto-cabecera{
+
     display:flex;
+
     align-items:center;
+
     gap:12px;
+
     margin-bottom:8px;
 }
 
+
+/* =========================================
+   CODIGO
+========================================= */
+
 .codigo{
+
     display:inline-flex;
+
     align-items:center;
+
     background:#344E41;
+
     color:#FFFFFF;
+
     padding:6px 11px;
+
     border-radius:8px;
+
     font-size:11px;
+
     font-weight:600;
+
     letter-spacing:.5px;
 }
 
+
+/* =========================================
+   ESTADO
+========================================= */
+
 .estado{
+
     font-size:10px;
+
     padding:5px 10px;
+
     border-radius:8px;
+
     font-weight:500;
 }
 
 .disponible{
+
     background:#DDE5D7;
+
     color:#3A5A40;
 }
 
 .bajo{
+
     background:#EEE3D1;
+
     color:#946E3B;
 }
 
 .agotado{
+
     background:#E8D9D5;
+
     color:#92594D;
 }
 
+
+/* =========================================
+   INFORMACION PRODUCTO
+========================================= */
+
 .producto-principal h2{
+
     font-size:23px;
+
     font-weight:500;
+
     color:#344E41;
 }
 
 .producto-principal p{
+
     font-size:13px;
+
     color:#858A84;
+
     margin-top:6px;
+
     max-width:550px;
+
     white-space:nowrap;
+
     overflow:hidden;
+
     text-overflow:ellipsis;
 }
 
+
+/* =========================================
+   PRECIO Y STOCK
+========================================= */
+
 .producto-precio span,
 .producto-stock span{
+
     display:block;
+
     font-size:10px;
+
     color:#8D928A;
+
     text-transform:uppercase;
+
     letter-spacing:1px;
 }
 
 .producto-precio strong{
+
     display:block;
+
     font-size:20px;
+
     font-weight:500;
+
     margin-top:6px;
 }
 
 .producto-stock strong{
+
     display:block;
+
     font-size:22px;
+
     font-weight:500;
+
     margin-top:6px;
 }
 
+
+/* =========================================
+   ACCIONES
+========================================= */
+
 .acciones{
+
     display:flex;
+
     justify-content:flex-end;
+
     gap:9px;
+
     flex-wrap:wrap;
+
     max-width:360px;
 }
 
 .acciones a{
+
     display:inline-flex;
+
     align-items:center;
+
     justify-content:center;
+
     text-decoration:none;
+
     color:#344E41;
+
     background:#E9E7DF;
+
     padding:12px 15px;
+
     min-height:40px;
+
     border-radius:10px;
+
     font-size:12px;
+
     font-weight:500;
+
     transition:.2s;
+
     white-space:nowrap;
 }
 
 .acciones a:hover{
+
     background:#A3B18A;
+
     transform:translateY(-2px);
 }
 
+
+/* =========================================
+   BOTON VER
+========================================= */
+
 .acciones .ver{
+
     background:#344E41;
+
     color:white;
+
     padding:12px 18px;
 }
 
 .acciones .ver:hover{
+
     background:#3A5A40;
 }
 
+
+/* =========================================
+   BOTON ELIMINAR
+========================================= */
+
 .acciones .eliminar{
+
     background:#E4D6D1;
+
     color:#80564C;
 }
 
 .acciones .eliminar:hover{
+
     background:#D5BCB4;
 }
 
 
+/* =========================================
+   SIN PRODUCTOS
+========================================= */
+
 .vacio{
+
     background:#F8F7F3;
+
     border-radius:22px;
+
     text-align:center;
+
     padding:90px 20px;
 }
 
 .vacio h2{
+
     font-size:26px;
+
     font-weight:500;
 }
 
 .vacio p{
+
     font-size:14px;
+
     color:#858A84;
+
     margin:8px 0 25px;
 }
 
 .vacio a{
+
     display:inline-block;
+
     text-decoration:none;
+
     background:#344E41;
+
     color:white;
+
     padding:14px 23px;
+
     border-radius:12px;
+
     font-size:13px;
 }
+
+
+/* =========================================
+   RESPONSIVE 1200px
+========================================= */
 
 @media(max-width:1200px){
 
     .producto{
-        grid-template-columns:130px 1fr 160px auto;
+
+        grid-template-columns:
+            130px
+            1fr
+            160px
+            auto;
+
         gap:22px;
     }
 
     .producto-stock{
+
         display:none;
     }
 
 }
 
+
+/* =========================================
+   RESPONSIVE 900px
+========================================= */
+
 @media(max-width:900px){
 
     .catalogo-header{
+
         align-items:flex-start;
+
         flex-direction:column;
     }
 
     .btn-nuevo{
+
         width:100%;
+
         text-align:center;
     }
 
     .producto{
-        grid-template-columns:120px 1fr;
+
+        grid-template-columns:
+            120px
+            1fr;
+
         gap:20px;
     }
 
     .producto-precio{
+
         grid-column:2;
     }
 
     .acciones{
+
         grid-column:2;
+
         justify-content:flex-start;
+
         max-width:none;
     }
 
 }
 
-@media(max-width:550px){
 
-    .catalogo{
-        width:94%;
+/* =========================================
+   RESPONSIVE 700px
+========================================= */
+
+@media(max-width:700px){
+
+    .catalogo-header{
+
+        padding:35px 28px;
+
+        min-height:250px;
+
+        align-items:flex-start;
+
+        justify-content:center;
     }
 
     .catalogo-header h1{
-        font-size:40px;
+
+        font-size:32px;
+    }
+
+    .descripcion{
+
+        max-width:100%;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE 550px
+========================================= */
+
+@media(max-width:550px){
+
+    .catalogo{
+
+        width:94%;
+    }
+
+    .catalogo-header{
+
+        padding:35px 25px;
+
+        min-height:250px;
+    }
+
+    .catalogo-header h1{
+
+        font-size:32px;
     }
 
     .producto{
+
         grid-template-columns:1fr;
+
         padding:16px;
     }
 
     .producto-imagen{
+
         width:100%;
+
         height:230px;
     }
 
     .producto-precio,
     .acciones{
+
         grid-column:auto;
     }
 
     .producto-principal p{
+
         white-space:normal;
     }
 
     .acciones{
+
         justify-content:flex-start;
     }
 

@@ -1,301 +1,740 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+
+
+
 .usuarios-page{
+
     font-family:'Poppins',sans-serif;
+
     background:#DAD7CD;
+
     min-height:100vh;
+
     padding:40px;
+
     margin-top:75px;
+
     color:#344E41;
 }
 
+
+
+
 .usuarios-contenedor{
+
     width:100%;
+
     max-width:1450px;
+
     margin:0 auto;
 }
 
+
+
 .usuarios-encabezado{
+
+    background:#344E41;
+
+    min-height:270px;
+
+    border-radius:30px;
+
+    padding:45px 55px;
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
+    gap:30px;
+
     margin-bottom:35px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 20px 45px rgba(52,78,65,.18);
 }
 
+
+
+
+.usuarios-encabezado::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:430px;
+
+    height:430px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.07);
+
+    right:-130px;
+
+    top:-230px;
+}
+
+.usuarios-encabezado::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+
+    height:280px;
+
+    border-radius:50%;
+
+    background:rgba(163,177,138,.10);
+
+    right:80px;
+
+    bottom:-210px;
+}
+
+
+
+.usuarios-titulo{
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+/* MINI TITULO */
+
+.usuarios-titulo::before{
+
+    content:"USUARIOS";
+
+    display:block;
+
+    color:#A3B18A;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    margin-bottom:12px;
+}
+
+
+/* TITULO PRINCIPAL */
+
 .usuarios-titulo h1{
-    color:#344E41;
-    font-size:38px;
-    font-weight:700;
-    line-height:1.2;
+
+    color:white;
+
+    font-size:43px;
+
+    font-weight:600;
+
+    line-height:1.1;
+
+    margin:0 0 13px;
+}
+
+
+/* DESCRIPCION */
+
+.usuarios-titulo p{
+
+    color:rgba(255,255,255,.68);
+
+    font-size:14px;
+
+    max-width:520px;
+
+    line-height:1.8;
+
     margin:0;
 }
 
-.usuarios-titulo p{
-    color:#588157;
-    font-size:15px;
-    margin:7px 0 0;
-}
+
+/* =========================================
+   BOTON NUEVO USUARIO
+========================================= */
 
 .boton-nuevo-usuario{
+
+    position:relative;
+
+    z-index:2;
+
     display:inline-block;
+
     text-decoration:none;
-    background:#344E41;
-    color:white;
-    padding:14px 24px;
-    border-radius:12px;
-    font-size:14px;
+
+    background:white;
+
+    color:#344E41;
+
+    padding:14px 22px;
+
+    border-radius:10px;
+
+    font-size:12px;
+
     font-weight:600;
-    transition:.25s;
+
+    white-space:nowrap;
+
+    transition:.2s;
+
+    border:1px solid rgba(255,255,255,.2);
 }
 
 .boton-nuevo-usuario:hover{
-    background:#3A5A40;
-    transform:translateY(-3px);
+
+    background:#A3B18A;
+
+    color:white;
+
+    transform:translateY(-2px);
 }
 
+
+/* =========================================
+   GRID DE USUARIOS
+========================================= */
+
 .usuarios-grid{
+
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:25px;
 }
 
+
+/* =========================================
+   TARJETA USUARIO
+========================================= */
+
 .usuario-card{
+
     background:white;
+
     border-radius:24px;
+
     overflow:hidden;
-    box-shadow:0 8px 25px rgba(52,78,65,.12);
+
+    box-shadow:
+        0 8px 25px rgba(52,78,65,.12);
+
     border:1px solid rgba(163,177,138,.25);
+
     transition:.3s;
 }
 
 .usuario-card:hover{
+
     transform:translateY(-6px);
-    box-shadow:0 16px 35px rgba(52,78,65,.18);
+
+    box-shadow:
+        0 16px 35px rgba(52,78,65,.18);
 }
 
+
+/* =========================================
+   PARTE SUPERIOR USUARIO
+========================================= */
+
 .usuario-top{
+
     background:#344E41;
+
     padding:25px;
+
     display:flex;
+
     align-items:center;
+
     gap:15px;
 }
 
+
+/* =========================================
+   AVATAR
+========================================= */
+
 .usuario-avatar{
+
     width:64px;
+
     height:64px;
+
     min-width:64px;
+
     border-radius:50%;
+
     background:#A3B18A;
+
     color:#344E41;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-size:21px;
+
     font-weight:700;
 }
 
+
+/* =========================================
+   NOMBRE
+========================================= */
+
 .usuario-nombre{
+
     flex:1;
+
     min-width:0;
 }
 
 .usuario-nombre h2{
+
     color:white;
+
     font-size:18px;
+
     font-weight:600;
+
     margin:0;
+
     white-space:nowrap;
+
     overflow:hidden;
+
     text-overflow:ellipsis;
 }
 
 .usuario-nombre p{
+
     color:#DAD7CD;
+
     font-size:12px;
+
     margin:4px 0 0;
 }
 
+
+/* =========================================
+   ESTADO
+========================================= */
+
 .usuario-estado{
+
     padding:7px 11px;
+
     border-radius:20px;
+
     font-size:10px;
+
     font-weight:700;
+
     text-transform:uppercase;
+
     white-space:nowrap;
 }
 
 .estado-activo{
+
     background:#DDE9D8;
+
     color:#3A5A40;
 }
 
 .estado-bloqueado{
+
     background:#F0DAD5;
+
     color:#8A4B42;
 }
 
+
+/* =========================================
+   INFORMACION
+========================================= */
+
 .usuario-info{
+
     padding:20px 25px 5px;
 }
 
 .usuario-dato{
+
     display:flex;
+
     align-items:center;
+
     gap:14px;
+
     padding:13px 0;
+
     border-bottom:1px solid #ECEAE4;
 }
 
 .usuario-dato:last-child{
+
     border-bottom:none;
 }
 
+
+/* =========================================
+   ICONOS
+========================================= */
+
 .usuario-icono{
+
     width:38px;
+
     height:38px;
+
     min-width:38px;
+
     border-radius:11px;
+
     background:#F1F0EA;
+
     color:#588157;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-size:10px;
+
     font-weight:700;
 }
 
+
+/* =========================================
+   TEXTO
+========================================= */
+
 .usuario-texto{
+
     min-width:0;
 }
 
 .usuario-texto small{
+
     display:block;
+
     color:#929A91;
+
     font-size:10px;
+
     text-transform:uppercase;
+
     letter-spacing:.6px;
+
     font-weight:600;
+
     margin-bottom:3px;
 }
 
 .usuario-texto span{
+
     display:block;
+
     color:#344E41;
+
     font-size:13px;
+
     font-weight:500;
+
     word-break:break-word;
 }
 
+
+/* =========================================
+   ACCIONES
+========================================= */
+
 .usuario-acciones{
+
     padding:18px 25px 25px;
+
     display:grid;
+
     grid-template-columns:1fr 1fr;
+
     gap:10px;
 }
 
 .usuario-acciones a{
+
     text-decoration:none;
 }
 
+
+/* =========================================
+   BOTONES
+========================================= */
+
 .usuario-boton{
+
     width:100%;
+
     height:42px;
+
     border:none;
+
     padding:10px 12px;
+
     border-radius:10px;
+
     font-family:'Poppins',sans-serif;
+
     font-size:12px;
+
     font-weight:600;
+
     cursor:pointer;
+
     transition:.2s;
 }
 
+
+/* =========================================
+   EDITAR
+========================================= */
+
 .usuario-editar{
+
     background:#A3B18A;
+
     color:#344E41;
 }
 
 .usuario-editar:hover{
+
     background:#8E9F73;
+
     transform:translateY(-2px);
 }
 
+
+/* =========================================
+   MOSTRAR
+========================================= */
+
 .usuario-mostrar{
+
     background:#E8E5DC;
+
     color:#344E41;
 }
 
 .usuario-mostrar:hover{
+
     background:#DAD7CD;
+
     transform:translateY(-2px);
 }
 
+
+/* =========================================
+   BLOQUEAR / DESBLOQUEAR
+========================================= */
+
 .usuario-bloquear,
 .usuario-desbloquear{
+
     grid-column:1 / -1;
+
     height:38px;
+
     font-size:11px;
 }
 
 .usuario-bloquear{
+
     background:#E8D2CD;
+
     color:#8A4B42;
 }
 
 .usuario-bloquear:hover{
+
     background:#DDBBB4;
+
     transform:translateY(-2px);
 }
 
 .usuario-desbloquear{
+
     background:#D8E2D2;
+
     color:#3A5A40;
 }
 
 .usuario-desbloquear:hover{
+
     background:#C4D4BD;
+
     transform:translateY(-2px);
 }
 
+
+/* =========================================
+   SIN USUARIOS
+========================================= */
+
 .sin-usuarios{
+
     background:white;
+
     padding:60px;
+
     border-radius:22px;
+
     text-align:center;
+
     color:#588157;
+
     font-size:15px;
 }
+
+
+/* =========================================
+   RESPONSIVE 1100px
+========================================= */
 
 @media(max-width:1100px){
 
     .usuarios-grid{
-        grid-template-columns:repeat(2,1fr);
+
+        grid-template-columns:
+            repeat(2,1fr);
     }
+
 }
+
+
+/* =========================================
+   RESPONSIVE 700px
+========================================= */
 
 @media(max-width:700px){
 
     .usuarios-page{
+
         padding:20px;
     }
 
     .usuarios-encabezado{
+
+        min-height:250px;
+
+        padding:35px 28px;
+
         flex-direction:column;
+
         align-items:flex-start;
-        gap:20px;
+
+        justify-content:center;
+
+        gap:25px;
     }
 
     .usuarios-titulo h1{
-        font-size:30px;
+
+        font-size:32px;
+    }
+
+    .usuarios-titulo p{
+
+        max-width:100%;
     }
 
     .boton-nuevo-usuario{
+
         width:100%;
+
         text-align:center;
     }
 
     .usuarios-grid{
+
         grid-template-columns:1fr;
     }
+
+}
+
+
+/* =========================================
+   RESPONSIVE 500px
+========================================= */
+
+@media(max-width:500px){
+
+    .usuarios-page{
+
+        padding:15px;
+    }
+
+    .usuarios-encabezado{
+
+        padding:30px 23px;
+
+        border-radius:25px;
+    }
+
+    .usuarios-titulo h1{
+
+        font-size:30px;
+    }
+
+    .usuario-top{
+
+        padding:20px;
+
+        gap:12px;
+    }
+
+    .usuario-estado{
+
+        font-size:9px;
+
+        padding:6px 9px;
+    }
+
+    .usuario-info{
+
+        padding-left:20px;
+
+        padding-right:20px;
+    }
+
+    .usuario-acciones{
+
+        padding-left:20px;
+
+        padding-right:20px;
+    }
+
 }
