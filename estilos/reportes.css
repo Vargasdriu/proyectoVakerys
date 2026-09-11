@@ -14,7 +14,7 @@ body {
         "e"
         "f";
     font-family: 'Roboto', sans-serif;
-    background: #f4f6f2;
+    background: #DAD7CD;
     color: #555f56;
     gap: 15px;
     margin-left: 60px;
@@ -27,27 +27,60 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 100px;
+    background: #344E41;
+    min-height: 270px;
+    border-radius: 30px;
+    padding: 45px 55px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(52,78,65,.18);
+}
+
+.a::before {
+    content: "";
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.07);
+    right: -130px;
+    top: -230px;
+}
+
+.a::after {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(163,177,138,.10);
+    right: 80px;
+    bottom: -210px;
 }
 
 .a h1 {
-    color: #1d3021;
-    font-size: 34px;
-    font-weight: 700;
+    color: white;
+    font-size: 43px;
+    font-weight: 600;
     text-align: center;
     position: relative;
-    padding-bottom: 9px;
+    z-index: 2;
+    padding: 0;
+}
+
+.a h1::before {
+    content: "REPORTES";
+    display: block;
+    color: #A3B18A;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
 }
 
 .a h1::after {
-    content: "";
-    position: absolute;
-    width: 60px;
-    height: 3px;
-    background: #709775;
-    border-radius: 10px;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    display: none;
 }
 
 .bc {
@@ -298,13 +331,10 @@ body {
     }
 }
 
-
 .fila-extra-pedido,
 .fila-extra-cliente {
     display: none;
 }
-
-
 
 .boton-ver-mas {
     display: block;
@@ -328,7 +358,6 @@ body {
 .boton-ver-mas:active {
     transform: scale(.98);
 }
-
 
 @media (max-width: 1000px) {
     .bc {
