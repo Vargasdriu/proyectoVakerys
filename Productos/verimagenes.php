@@ -214,7 +214,8 @@ if($resultado->num_rows > 0){
 
         echo "<div class='card'>";
 
-        echo "<img src='".$fila["Imagen"]."'>";
+       echo "<img src='imagenes/".$fila["Imagen"]."'>";
+
 
         echo "<div class='info'>";
 
