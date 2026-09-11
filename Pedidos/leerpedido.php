@@ -17,7 +17,7 @@ $sql = "SELECT * FROM Pedidos";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos | Vakery's</title>
+    <title>Pedidos | Vakery's</title>
 
     <link rel="stylesheet" href="estilosleerpedidos.css">
 </head>
