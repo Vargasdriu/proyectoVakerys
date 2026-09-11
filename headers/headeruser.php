@@ -365,7 +365,7 @@ nav{
 
 
 
-@media (max-width: 600px) {
+@media (max-width: 576px) {
 
     .sidebar {
         width: 100%;

@@ -106,6 +106,10 @@ nav {
     transition-delay: .30s;
 }
 
+#btn-nav:checked ~ nav .menu li:nth-child(7) {
+    transition-delay: .35s;
+}
+
 .menu a {
     display: block;
     padding: 18px 20px;
@@ -129,20 +133,54 @@ nav {
     font-size: 15px;
 }
 
-@media (max-width: 600px) {
 
-    nav {
-        width: 100%;
+/@media (max-width: 576px) {
+
+    .main-header {
+        width: 92%;
+        height: 65px;
+        left: 4%;
+        top: 10px;
+        border-radius: 15px;
+        padding: 0 15px;
+    }
+
+    .main-header > img {
+        max-height: 45px;
+        max-width: 140px;
+    }
+
+    .btn-nav {
+        left: 15px;
+    }
+
+    .btn-nav img {
+        width: 27px;
+        height: 27px;
     }
 
     .tipoUsuario {
         right: 15px;
-        font-size: 13px;
+        font-size: 12px;
+    }
+
+    nav {
+        top: 75px;
+        width: 92%;
+        left: 4%;
+        height: calc(100vh - 85px);
+        border-radius: 0 0 15px 15px;
+    }
+
+    .menu a {
+        padding: 15px 20px;
+        font-size: 14px;
     }
 
 }
 
 </style>
+
 
 <header class="main-header">
 
@@ -163,7 +201,8 @@ nav {
                     Panel
                 </a>
             </li>
-              <li>
+
+            <li>
                 <a href="/proyectovakerys/reportes.php">
                     Reportes
                 </a>

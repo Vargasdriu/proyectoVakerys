@@ -155,14 +155,12 @@ nav {
     font-size: 15px;
 }
 
-/* ==============================
-   RESPONSIVE
-============================== */
 
-@media (max-width: 600px) {
+@media (max-width: 576px) {
 
     nav {
-        width: 100%;
+        width: 55%;
+        left: 0;
     }
 
     .tipoUsuario {
@@ -171,6 +169,7 @@ nav {
     }
 
 }
+
 
 </style>
 
