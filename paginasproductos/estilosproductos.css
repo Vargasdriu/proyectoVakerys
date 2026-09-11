@@ -214,6 +214,10 @@ header{
     margin-top:30px;
 }
 
+/* ==========================================
+   CANTIDAD - BOTONES + Y -
+========================================== */
+
 .cantidad{
     display:flex;
     align-items:center;
@@ -246,6 +250,11 @@ header{
 
 .cantidad button:hover{
     background:#588157;
+    transform:scale(1.05);
+}
+
+.cantidad button:active{
+    transform:scale(.95);
 }
 
 .cantidad span{
@@ -253,7 +262,9 @@ header{
     min-width:15px;
     text-align:center;
     color:#1d3021;
+    font-size:16px;
 }
+
 
 #botonCarrito{
     flex:1;

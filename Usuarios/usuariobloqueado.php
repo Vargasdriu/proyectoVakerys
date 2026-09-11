@@ -8,32 +8,36 @@
             font-family: Arial, sans-serif;
             background: #DAD7CD;
             text-align: center;
-            padding-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;       
         }
         .caja {
             background: white;
-            width: 400px;
-            margin: auto;
-            padding: 35px;
+            width: 700px;
+            padding: 60px;
             border-radius: 20px;
             box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
         }
         h2 {
             color: #344E41;
+            font-size: 35px;
             margin-bottom: 15px;
         }
         p {
             color: #588157;
-            font-size: 15px;
+            font-size: 20px;
             margin-bottom: 25px;
         }
         button {
-            padding: 10px 20px;
+            padding: 30px 40px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 18px;
             margin: 5px;
         }
         .btn-login {
@@ -50,18 +54,15 @@
     </style>
 </head>
 <body>
-
+<?php include '../header.php'; ?>
     <div class="caja">
         <h2>Su cuenta está bloqueada</h2>
-        <p>No tiene acceso al sistema. Contacte al administrador.</p>
-
+        <p>No tiene acceso al sistema. Contacte al administrador y vuelva a intentarlo.</p>
+<br>
         <a href="login.php">
             <button class="btn-login">Iniciar Sesión</button>
         </a>
 
-        <a href="crearusuario.php">
-            <button class="btn-crear">Crear Cuenta</button>
-        </a>
     </div>
 
 </body>

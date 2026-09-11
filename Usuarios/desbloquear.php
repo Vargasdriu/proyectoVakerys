@@ -9,7 +9,7 @@ $conexion = new mysqli($servername, $username, $password, $bdname);
 if ($conexion->connect_error) {
     die("Error de conexión");
 }
-
+include '../header.php';
 include_once "validacion.php";
 
 $sql = "UPDATE GestionDeUsuarios SET Estado='activo' WHERE CI='$CI'";
