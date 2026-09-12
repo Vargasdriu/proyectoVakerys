@@ -387,43 +387,260 @@ body {
     }
 }
 
-@media (max-width: 700px) {
+/* =========================================
+   CELULARES - 576px
+   ========================================= */
+
+@media (max-width: 576px) {
+
     body {
         display: block;
+        margin-left: 10px;
+        margin-right: 10px;
+        width: auto;
+        overflow-x: hidden;
     }
 
+    /* =========================
+       TITULO PRINCIPAL
+       ========================= */
+
     .a {
-        margin-top: 50px;
-        padding: 25px 20px;
+        margin-top: 25px;
+        min-height: 180px;
+        padding: 25px 15px;
+        border-radius: 20px;
     }
 
     .a h1 {
-        font-size: 28px;
-        text-align: center;
+        font-size: 25px;
+        line-height: 1.2;
     }
 
-    .bc,
-    .d,
-    .e {
-        padding-left: 20px;
-        padding-right: 20px;
+    .a h1::before {
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+    }
+
+
+    /* =========================
+       CONTENEDOR DE REPORTES
+       ========================= */
+
+    .reporte-clientes {
+        width: 100%;
+        margin: 20px 0;
+        padding: 15px;
+        border-radius: 20px;
+
+        /* IMPORTANTE */
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .reporte-clientes h2 {
+        font-size: 21px;
+        line-height: 1.3;
+    }
+
+    .subtitulo-reporte {
+        font-size: 14px;
+        margin-bottom: 18px;
+    }
+
+
+    /* =========================
+       TABLA DE CLIENTES
+       ========================= */
+
+    .tabla-clientes {
+        width: 700px !important;
+        min-width: 700px !important;
+        max-width: none !important;
+
+        border-collapse: separate;
+    }
+
+    .tabla-clientes th {
+        padding: 12px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .tabla-clientes td {
+        padding: 11px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .cliente-no-encontrado {
+        font-size: 13px;
+    }
+
+
+    /* =========================
+       BOTÓN VER MÁS
+       ========================= */
+
+    .boton-ver-mas {
+        width: 100%;
+        max-width: 200px;
+        margin: 15px auto 0;
+        padding: 11px 20px;
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       BAJO STOCK / MÁS VENDIDO
+       ========================= */
+
+    .bc {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 0;
     }
 
     .b,
     .c {
-        margin: 12px 0;
+        width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 18px;
+        overflow-x: auto;
+    }
+
+    .b h2,
+    .c h2 {
+        font-size: 19px;
+    }
+
+    .tit,
+    .titc {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    .tit img,
+    .titc img {
+        width: 28px;
+        height: 28px;
+    }
+
+
+    /* =========================
+       TABLA DE BAJO STOCK
+       ========================= */
+
+    .b table {
+        width: 500px !important;
+        min-width: 500px !important;
+        max-width: none !important;
+    }
+
+    .b th,
+    .b td {
+        padding: 9px 7px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+
+    /* =========================
+       PRODUCTO MÁS VENDIDO
+       ========================= */
+
+    .producto-mas-vendido {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 15px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .producto-mas-vendido img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .producto-mas-vendido h3 {
+        font-size: 20px;
+    }
+
+    .producto-mas-vendido p {
+        font-size: 15px;
+    }
+
+
+    /* =========================
+       INGRESOS
+       ========================= */
+
+    .d {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 10px 0 20px;
+    }
+
+    .d h2 {
+        font-size: 22px;
+        margin-bottom: 5px;
     }
 
     .ingr {
-        min-width: 45%;
+        width: 100%;
+        min-width: 0;
+        padding: 15px 12px;
+        border-radius: 16px;
+    }
+
+    .ingr span {
+        font-size: 13px;
+    }
+
+    .ingr strong {
+        font-size: 22px;
+    }
+
+
+    /* =========================
+       GRÁFICOS
+       ========================= */
+
+    .e {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        padding: 0 0 20px;
+    }
+
+    .f {
+        width: 100%;
+        padding: 0 0 25px;
+        height: auto;
     }
 
     .graf {
-        height: 300px;
+        width: 100%;
+        min-width: 0;
+        height: 320px;
+        padding: 12px;
+        border-radius: 18px;
+    }
+
+    .graf h2 {
+        font-size: 18px;
+        line-height: 1.3;
     }
 
     .graf canvas {
-        height: 230px !important;
-        max-height: 230px;
+        width: 100% !important;
+        height: 245px !important;
+        max-height: 245px;
     }
+
 }

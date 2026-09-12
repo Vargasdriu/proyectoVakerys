@@ -218,6 +218,27 @@ button:first-of-type:hover {
         transform: translateY(0);
     }
 }
+.mensaje-estado {
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.mensaje-estado.pendiente {
+    background: #f5ead0;
+    color: #806b32;
+}
+
+.mensaje-estado.aceptado {
+    background: #dcebd4;
+    color: #3f6844;
+}
+
+.mensaje-estado.rechazado {
+    background: #f0ddd8;
+    color: #8a4b42;
+}
 
 @media (max-width: 650px) {
 

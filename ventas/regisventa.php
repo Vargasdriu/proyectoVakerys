@@ -56,13 +56,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        // 3. Registrar la Venta
-        $costoTotal = $_POST['costoTotal'];
-        $conn->query("INSERT INTO ventas (pedidos_id, costoTotal, Estado, Metodo) VALUES ('$id_pedido', '$costoTotal', 'En Espera', 'Efectivo')");
+// 3. Registrar la Venta solamente si todavía no existe
+$costoTotal = $_POST['costoTotal'];
 
-        // 4. Activar Modal flotante estilizada
-        header("Location: ../paginavendedor.php");
-       exit();
+$ventaExistente = $conn->query("
+    SELECT pedidos_id 
+    FROM ventas 
+    WHERE pedidos_id = '$id_pedido'
+");
+
+if ($ventaExistente && $ventaExistente->num_rows == 0) {
+
+    $conn->query("
+        INSERT INTO ventas (pedidos_id, costoTotal, Estado, Metodo)
+        VALUES ('$id_pedido', '$costoTotal', 'En Espera', 'Efectivo')
+    ");
+
+}
+
+// 4. Volver a la lista de pedidos
+header("Location: ../paginavendedor.php");
+exit();
         
 
     } elseif ($accion == 'rechazar') {

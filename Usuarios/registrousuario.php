@@ -113,31 +113,70 @@ p{
 }
 
 </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<style>
+.poppins-sweet{
+    font-family:'Poppins',sans-serif !important;
+}
+</style>
 </head>
 
 <body>
 <?php include '../header.php'; ?>
 <div class="contenedor">
 
-<?php
+<?php 
 
-if($resultado){
+if($resultado){ 
+?>
 
-    echo "<h1 class='exito'>✓ Usuario Registrado</h1>";
-    echo "<p>El nuevo usuario fue creado con éxito.</p>";
-
-}else{
-
-    echo "<h1 class='error'>✕ Error</h1>";
-    echo "<p>No se pudo registrar el usuario.</p>";
-
-    if($conn->error){
-        echo "<p class='error'>" . $conn->error . "</p>";
+<script>
+Swal.fire({
+    icon: 'success',
+    title: '✓ Usuario Registrado',
+    text: 'El nuevo usuario fue creado con éxito.',
+    confirmButtonText: 'Volver',
+    confirmButtonColor: '#A3B18A',
+    background: '#ffffff',
+    color: '#344E41',
+    customClass: {
+        popup: 'poppins-sweet',
+        title: 'poppins-sweet',
+        htmlContainer: 'poppins-sweet',
+        confirmButton: 'poppins-sweet'
     }
-}
+}).then(() => {
+    window.location.href = 'leerusuario.php';
+});
+</script>
 
-$conn->close();
+<?php 
+}else{ 
+?>
+
+<script>
+Swal.fire({
+    icon: 'error',
+    title: '✕ Error',
+    text: 'No se pudo registrar el usuario.',
+    confirmButtonText: 'Volver',
+    confirmButtonColor: '#A3B18A',
+    background: '#ffffff',
+    color: '#344E41',
+    customClass: {
+        popup: 'poppins-sweet',
+        title: 'poppins-sweet',
+        htmlContainer: 'poppins-sweet',
+        confirmButton: 'poppins-sweet'
+    }
+});
+</script>
+
+<?php 
+} 
+
+$conn->close(); 
 
 ?>
 

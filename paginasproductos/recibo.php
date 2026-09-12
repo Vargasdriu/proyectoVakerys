@@ -158,7 +158,9 @@ $total = 0;
             <strong>Teléfono:</strong>
             <?php echo htmlspecialchars($pedido["Telefono"]); ?>
         </p>
-
+        <!-- ==========================================
+             ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        =========================================== -->
         <p>
             <strong>Estado:</strong>
             <?php echo htmlspecialchars($pedido["Estado"]); ?>
@@ -262,10 +264,25 @@ $total = 0;
             Total: Bs <?php echo $total; ?>
         </h2>
 
-        <h3>
-            Esperando aprobación del vendedor
-        </h3>
+<?php if ($pedido["Estado"] === "Aceptado") { ?>
 
+    <h3 class="mensaje-estado aceptado">
+        ✓ ¡Pedido aceptado!
+    </h3>
+
+<?php } elseif ($pedido["Estado"] === "Cancelado" || $pedido["Estado"] === "Rechazado") { ?>
+
+    <h3 class="mensaje-estado rechazado">
+        ✕ Pedido rechazado
+    </h3>
+
+<?php } else { ?>
+
+    <h3 class="mensaje-estado pendiente">
+        Esperando aprobación del vendedor
+    </h3>
+
+<?php } ?>
         <!-- ==========================================
              BOTONES
         =========================================== -->
