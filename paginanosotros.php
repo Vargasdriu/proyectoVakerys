@@ -161,6 +161,27 @@
     </div>
 
 </section>
+<section class="ambiental">
+
+    <div class="texto">
+        <h1>Comprometidos con el medio ambiente</h1>
+
+        <p>
+            En Vakery's, nos preocupamos por el impacto ambiental de nuestras operaciones.
+            Por ello, hemos implementado prácticas sostenibles en nuestra producción y
+            empaques, buscando reducir residuos y promover la responsabilidad ecológica.
+            Creemos que cada pequeño esfuerzo cuenta para preservar nuestro planeta y
+            garantizar un futuro más verde para las próximas generaciones.
+        </p>
+
+        <a href="pdf/ficha-ambiental.pdf" target="_blank" class="boton-ambiental">
+            Ver ficha ambiental
+        </a>
+    </div>
+
+    <img src="imagenes/ambiental.jpg" alt="">
+
+</section>
 
 <section class="listoo">
 <section class="listo">
@@ -177,3 +198,4 @@
 
 </body>
 </html>
+
