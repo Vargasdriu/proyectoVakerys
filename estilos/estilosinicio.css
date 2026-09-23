@@ -1,6 +1,6 @@
 body { 
   display: grid; 
-  grid-template-rows: 75px 700px 1900px 810px 400px; 
+  grid-template-rows: 75px 890px 1900px 810px 400px; 
   grid-template-columns: 100%; 
   grid-template-areas: "e" "a" "b" "h" "c"; 
 } 
@@ -21,7 +21,7 @@ body {
   background-image: url('imagenes/fondooo.png'); 
   background-size: cover; 
   background-position: center; 
-  height: 700px; 
+  height: 890px; 
 } 
 
 .a video, .a img { 

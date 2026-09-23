@@ -5,10 +5,21 @@
 }
 
 body{
-  font-family:'Raleway',sans-serif;
-  background:#f5f7f2;
-  color:#1d3021;
-  margin-top:75px;
+    display: grid;
+    grid-template-areas:
+        "extra"
+        "a"
+        "b"
+        "h"
+        "c"
+        "d"
+        "e"
+        "g"
+        "f";
+    font-family:'Raleway',sans-serif;
+    background:#f5f7f2;
+    color:#1d3021;
+    margin-top:75px;
 }
 
 a{
@@ -17,10 +28,6 @@ a{
 }
 
 
-
-/* =========================
-   CONÓCENOS
-========================= */
 .extra{
     height:500px;
 
@@ -508,6 +515,62 @@ a{
         margin-bottom:150px;
     }
 
+}
+/*Pagina ambiental*/
+.ambiental{
+    grid-area:g;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:50px;
+
+    padding:70px 100px;
+    background:#ffffff;
+}
+
+.ambiental .texto{
+    flex:1;
+}
+
+.ambiental h1{
+    color:#1d3021;
+    font-size:3rem;
+    margin-bottom:20px;
+}
+
+.ambiental p{
+    color:#4a4a4a;
+    font-size:1.1rem;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.ambiental img{
+    width:500px;
+    height:320px;
+    object-fit:cover;
+    border-radius:25px;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+.boton-ambiental{
+    display:inline-block;
+    padding:14px 28px;
+
+    background:#afc194;
+    color:#1d3021;
+
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:600;
+
+    transition:.3s ease;
+}
+
+.boton-ambiental:hover{
+    background:#1d3021;
+    color:white;
+    transform:translateY(-3px);
 }
 
 /* Listo para probar */
