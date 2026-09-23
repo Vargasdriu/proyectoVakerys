@@ -264,6 +264,16 @@ $total = 0;
             Total: Bs <?php echo $total; ?>
         </h2>
 
+        <!-- QR DE PAGO -->
+    <div class="qr-pago">
+    <h3>QR de pago</h3>
+<img
+        src="../imagenes/qr_vakerys.PNG"
+        alt="QR de pago"
+        class="qr-imagen"
+    >
+    <p>Escanea este código para realizar el pago.</p>
+
 <?php if ($pedido["Estado"] === "Aceptado") { ?>
 
     <h3 class="mensaje-estado aceptado">
