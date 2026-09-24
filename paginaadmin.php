@@ -18,102 +18,184 @@ if ($conn->connect_error) {
 
 $conn->set_charset("utf8");
 
+session_start();
+
+$sql = "SELECT * FROM pedidos ORDER BY id DESC";
+$pedidos = mysqli_query($conn, $sql);
+
+$sqlProductosRegistrados = "SELECT COUNT(*) AS total FROM productos";
+$resProductosRegistrados = mysqli_query($conn, $sqlProductosRegistrados);
+$productosRegistrados = 0;
+
+if ($resProductosRegistrados) {
+    $datosProductos = mysqli_fetch_assoc($resProductosRegistrados);
+    $productosRegistrados = $datosProductos['total'];
+}
+
+$sqlUsuarios = "SELECT COUNT(*) AS total FROM GestionDeUsuarios";
+$resUsuarios = mysqli_query($conn, $sqlUsuarios);
+$usuariosRegistrados = 0;
+
+if ($resUsuarios) {
+    $datosUsuarios = mysqli_fetch_assoc($resUsuarios);
+    $usuariosRegistrados = $datosUsuarios['total'];
+}
+
+$sqlVentasRealizadas = "SELECT COUNT(*) AS total FROM ventas";
+$resVentasRealizadas = mysqli_query($conn, $sqlVentasRealizadas);
+$ventasRealizadas = 0;
+
+if ($resVentasRealizadas) {
+    $datosVentas = mysqli_fetch_assoc($resVentasRealizadas);
+    $ventasRealizadas = $datosVentas['total'];
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de administracion</title>
-      <link rel="stylesheet" href="estilos/estilosadmin.css">
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Panel de administracion</title>
+
+    <link
+        rel="stylesheet"
+        href="estilos/estilosadmin.css"
+    >
+
 </head>
+
 <body>
-  
-
-<?php
-
-session_start();
-
-$sql = "SELECT * FROM pedidos ORDER BY id DESC";
-
-$pedidos = mysqli_query($conn, $sql);
-
-?>
 
 <?php include "header.php"; ?>
 
 <h1>
-    Bienvenido, <?php echo $_SESSION['Nombre']; ?>
-</h1> <br>
+    Bienvenido, <?php echo htmlspecialchars($_SESSION['Nombre']); ?>
+</h1>
+
+<br>
 
 <p>
     Panel de administración
-</p> <br>
+</p>
+
+<br>
 
 <section class="stats">
+
     <a href="Pedidos/leerpedido.php">
+
         <div class="card">
+
             <img
                 src="imagenes/carrito-de-compras.png"
                 alt=""
             >
+
             <h2>
                 <?php echo mysqli_num_rows($pedidos); ?>
             </h2>
+
             <p>
                 Pedidos realizados
             </p>
+
         </div>
+
     </a>
 
     <div class="card">
+
         <a href="Productos/leerproductos.php">
+
             <img
                 src="imagenes/inventario-disponible.png"
                 alt=""
             >
+
             <h2>
-                18
+                <?php echo $productosRegistrados; ?>
             </h2>
+
             <p>
                 Productos registrados
             </p>
+
         </a>
+
     </div>
 
     <div class="card">
+
         <a href="Usuarios/leerusuario.php">
+
             <img
                 src="imagenes/nueva-cuenta.png"
                 alt=""
             >
-            <h2>32</h2>
-            <p>Usuarios registrados</p>
+
+            <h2>
+                <?php echo $usuariosRegistrados; ?>
+            </h2>
+
+            <p>
+                Usuarios registrados
+            </p>
+
         </a>
+
     </div>
 
     <div class="card">
+
         <a href="Ventas/leerventa.php">
-        <img
-            src="imagenes/dinero.png"
-            alt=""
-        >
-        <h2>47</h2>
-        <p>Ventas realizadas</p>
+
+            <img
+                src="imagenes/dinero.png"
+                alt=""
+            >
+
+            <h2>
+                <?php echo $ventasRealizadas; ?>
+            </h2>
+
+            <p>
+                Ventas realizadas
+            </p>
+
         </a>
+
     </div>
 
     <div class="card">
+
         <a href="Comentarios/comentarios.php">
+
             <img
                 src="imagenes/comentario.webp"
                 alt=""
             >
-            <h2>0</h2>
-            <p>Comentarios</p>
+
+            <h2>
+                0
+            </h2>
+
+            <p>
+                Comentarios
+            </p>
+
         </a>
+
     </div>
+
 </section>
 
 <div class="content-grid">
@@ -121,13 +203,16 @@ $pedidos = mysqli_query($conn, $sql);
     <section class="panel">
 
         <div class="panel-title">
+
             <img
                 src="imagenes/carrito-de-compras.png"
                 alt=""
             >
+
             <h2>
                 Pedidos recientes
             </h2>
+
         </div>
 
         <div class="pedidos">
@@ -140,7 +225,7 @@ $pedidos = mysqli_query($conn, $sql);
 
                     $idPedido = $pedido['id'];
 
-                    $sqlProductos = "
+                    $sqlProductosPedido = "
                         SELECT *
                         FROM carrito
                         INNER JOIN productos
@@ -148,120 +233,121 @@ $pedidos = mysqli_query($conn, $sql);
                         WHERE carrito.pedidos_id = '$idPedido'
                     ";
 
-                    $productosPedido =
-                        mysqli_query(
-                            $conn,
-                            $sqlProductos
-                        );
+                    $productosPedido = mysqli_query(
+                        $conn,
+                        $sqlProductosPedido
+                    );
 
             ?>
 
-                <div class="pedido-card">
+                    <div class="pedido-card">
 
-                    <div class="pedido-info">
+                        <div class="pedido-info">
 
-                        <h3>
-                            #<?php echo str_pad(
-                                $pedido['id'],
-                                4,
-                                '0',
-                                STR_PAD_LEFT
-                            ); ?>
-                        </h3>
+                            <h3>
+                                #<?php echo str_pad(
+                                    $pedido['id'],
+                                    4,
+                                    '0',
+                                    STR_PAD_LEFT
+                                ); ?>
+                            </h3>
 
-                        <h4>
-                            <?php echo $pedido['Nombre']; ?>
-                        </h4>
+                            <h4>
+                                <?php echo htmlspecialchars($pedido['Nombre']); ?>
+                            </h4>
 
-                        <p>
-                            Fecha:
-                            <?php echo $pedido['Fecha']; ?>
-                        </p>
+                            <p>
+                                Fecha:
+                                <?php echo htmlspecialchars($pedido['Fecha']); ?>
+                            </p>
 
-                        <p>
-                            Estado:
-                            <?php echo $pedido['Estado']; ?>
-                        </p>
+                            <p>
+                                Estado:
+                                <?php echo htmlspecialchars($pedido['Estado']); ?>
+                            </p>
 
-                        <p>
-                            Vendedor:
-                            <?php echo $pedido['NombreVendedor']; ?>
-                        </p>
+                            <p>
+                                Vendedor:
+                                <?php echo htmlspecialchars($pedido['NombreVendedor']); ?>
+                            </p>
 
-                    </div>
+                        </div>
 
-                    <div class="pedido-productos">
+                        <div class="pedido-productos">
 
-                        <h4>
-                            Productos
-                        </h4>
+                            <h4>
+                                Productos
+                            </h4>
 
-                        <?php
+                            <?php
 
-                        if (
-                            mysqli_num_rows(
-                                $productosPedido
-                            ) > 0
-                        ) {
-
-                            while (
-                                $producto =
-                                mysqli_fetch_assoc(
-                                    $productosPedido
-                                )
+                            if (
+                                mysqli_num_rows($productosPedido) > 0
                             ) {
 
-                        ?>
+                                while (
+                                    $producto =
+                                    mysqli_fetch_assoc($productosPedido)
+                                ) {
 
-                            <p>
-                                <?php echo
-                                    $producto['NombreProducto'];
-                                ?>
+                            ?>
 
-                                x<?php echo
-                                    $producto['Cantidad'];
-                                ?>
-                            </p>
+                                    <p>
 
-                        <?php
+                                        <?php echo htmlspecialchars(
+                                            $producto['NombreProducto']
+                                        ); ?>
 
-                            }
+                                        x<?php echo htmlspecialchars(
+                                            $producto['Cantidad']
+                                        ); ?>
 
-                        } else {
+                                    </p>
 
-                        ?>
+                            <?php
 
-                            <p>
-                                Sin productos
-                            </p>
+                                }
 
-                        <?php } ?>
+                            } else {
+
+                            ?>
+
+                                <p>
+                                    Sin productos
+                                </p>
+
+                            <?php } ?>
+
+                        </div>
+
+                        <div class="acciones">
+
+                            <a
+                                href="Pedidos/leerpedido.php?id=<?php echo $pedido['id']; ?>"
+                            >
+
+                                <img
+                                    src="imagenes/ojo-abierto.png"
+                                    alt="Ver"
+                                >
+
+                            </a>
+
+                            <a
+                                href="Pedidos/actualizarpedido.php?id=<?php echo $pedido['id']; ?>"
+                            >
+
+                                <img
+                                    src="imagenes/editarr.png"
+                                    alt="Editar"
+                                >
+
+                            </a>
+
+                        </div>
 
                     </div>
-
-                    <div class="acciones">
-
-                        <a
-                            href="Pedidos/leerpedido.php?id=<?php echo $pedido['id']; ?>"
-                        >
-                            <img
-                                src="imagenes/ojo-abierto.png"
-                                alt="Ver"
-                            >
-                        </a>
-
-                        <a
-                            href="Pedidos/actualizarpedido.php?id=<?php echo $pedido['id']; ?>"
-                        >
-                            <img
-                                src="imagenes/editarr.png"
-                                alt="Editar"
-                            >
-                        </a>
-
-                    </div>
-
-                </div>
 
             <?php
 
@@ -278,7 +364,9 @@ $pedidos = mysqli_query($conn, $sql);
             <?php } ?>
 
         </div>
-<br><br>
+
+        <br><br>
+
         <a
             class="btn"
             href="Pedidos/crearpedido.php"
@@ -292,125 +380,188 @@ $pedidos = mysqli_query($conn, $sql);
 
         <section class="panel inventario">
 
-          <div class="panel-title">
-            <img src="imagenes/inventario-disponible.png" alt="">
-            <h2>Inventario</h2>
-          </div>
+            <div class="panel-title">
 
-          <div class="inventario-item">
-            <img src="imagenes/applepie.png" alt="">
-            <span>Apple Pie</span>
-            <span>24 en stock</span>
-          </div>
+                <img
+                    src="imagenes/inventario-disponible.png"
+                    alt=""
+                >
 
-          <div class="inventario-item">
-            <img src="imagenes/cookie.png" alt="">
-            <span>Cookie</span>
-            <span>24 en stock</span>
-          </div>
+                <h2>
+                    Inventario
+                </h2>
 
-          <div class="inventario-item">
-            <img src="imagenes/browniesolo.png" alt="">
-            <span>Brownie</span>
-            <span>24 en stock</span>
-          </div>
+            </div>
 
-          <a class="btn" href="Productos/leerproductos.php">
-            Actualizar inventario
-          </a>
+            <?php
+
+            $sqlInventario = "
+                SELECT
+                    p.Codigo,
+                    p.NombreProducto,
+                    p.Stock,
+                    (
+                        SELECT i.Imagen
+                        FROM imagenes i
+                        WHERE i.CodigoProducto = p.Codigo
+                        LIMIT 1
+                    ) AS Imagen
+                FROM productos p
+                ORDER BY p.NombreProducto ASC
+                LIMIT 3
+            ";
+
+            $inventario = mysqli_query(
+                $conn,
+                $sqlInventario
+            );
+
+            ?>
+
+            <?php if ($inventario && mysqli_num_rows($inventario) > 0) { ?>
+
+                <?php while ($producto = mysqli_fetch_assoc($inventario)) { ?>
+
+                    <div class="inventario-item">
+
+                        <?php if (!empty($producto['Imagen'])) { ?>
+
+                            <img
+                                src="Productos/imagenes/<?php echo htmlspecialchars($producto['Imagen']); ?>"
+                                alt="<?php echo htmlspecialchars($producto['NombreProducto']); ?>"
+                            >
+
+                        <?php } else { ?>
+
+                            <img
+                                src="imagenes/galleta.png"
+                                alt="Producto"
+                            >
+
+                        <?php } ?>
+
+                        <span>
+                            <?php echo htmlspecialchars($producto['NombreProducto']); ?>
+                        </span>
+
+                        <span>
+                            <?php echo htmlspecialchars($producto['Stock']); ?> en stock
+                        </span>
+
+                    </div>
+
+                <?php } ?>
+
+            <?php } else { ?>
+
+                <p>
+                    No hay productos registrados.
+                </p>
+
+            <?php } ?>
+
+            <a
+                class="btn"
+                href="Productos/leerproductos.php"
+            >
+                Actualizar inventario
+            </a>
 
         </section>
 
         <section class="panel topventas">
 
             <div class="panel-title">
+
                 <img
                     src="imagenes/insignia.png"
                     alt=""
                 >
+
                 <h2>
                     Top ventas
                 </h2>
+
             </div>
 
             <?php
 
             $sqlVentas = "
-                SELECT *
-                FROM carrito
-                INNER JOIN productos
-                ON carrito.productos_Codigo = productos.Codigo
-                ORDER BY carrito.Cantidad DESC
-                LIMIT 5
+                SELECT
+                    p.Codigo,
+                    p.NombreProducto,
+                    SUM(c.Cantidad) AS CantidadVendida,
+                    (
+                        SELECT i.Imagen
+                        FROM imagenes i
+                        WHERE i.CodigoProducto = p.Codigo
+                        LIMIT 1
+                    ) AS Imagen
+                FROM carrito c
+                INNER JOIN productos p
+                    ON c.productos_Codigo = p.Codigo
+                INNER JOIN pedidos pe
+                    ON c.pedidos_id = pe.id
+                WHERE pe.Estado = 'Finalizado'
+                GROUP BY
+                    p.Codigo,
+                    p.NombreProducto
+                ORDER BY CantidadVendida DESC
+                LIMIT 3
             ";
 
-            $topVentas =
-                mysqli_query(
-                    $conn,
-                    $sqlVentas
-                );
+            $topVentas = mysqli_query(
+                $conn,
+                $sqlVentas
+            );
 
             ?>
 
-            <?php
+            <?php if ($topVentas && mysqli_num_rows($topVentas) > 0) { ?>
 
-            if (
-                mysqli_num_rows($topVentas) > 0
-            ) {
+                <?php while ($venta = mysqli_fetch_assoc($topVentas)) { ?>
 
-                while (
-                    $venta =
-                    mysqli_fetch_assoc($topVentas)
-                ) {
+                    <div class="venta-card">
 
-            ?>
+                        <div>
 
-                <div class="venta-card">
+                            <h3>
+                                <?php echo htmlspecialchars(
+                                    $venta['NombreProducto']
+                                ); ?>
+                            </h3>
 
-                    <div>
-                        <h3>
-                            <?php echo
-                                $venta['NombreProducto'];
-                            ?>
-                        </h3>
+                            <p>
+                                <?php echo htmlspecialchars(
+                                    $venta['CantidadVendida']
+                                ); ?>
 
-                        <p>
-                            <?php echo
-                                $venta['Cantidad'];
-                            ?>
-                            vendidos
-                        </p>
+                                vendidos
+                            </p>
+
+                        </div>
+
+                        <?php if (!empty($venta['Imagen'])) { ?>
+
+                            <img
+                                src="Productos/imagenes/<?php echo htmlspecialchars($venta['Imagen']); ?>"
+                                alt="<?php echo htmlspecialchars($venta['NombreProducto']); ?>"
+                            >
+
+                        <?php } else { ?>
+
+                            <img
+                                src="imagenes/galleta.png"
+                                alt="Producto"
+                            >
+
+                        <?php } ?>
+
                     </div>
 
-                    <?php if (
-                        !empty(
-                            $venta['Imagen']
-                        )
-                    ) { ?>
+                <?php } ?>
 
-                        <img
-                            src="<?php echo $venta['Imagen']; ?>"
-                            alt=""
-                        >
-
-                    <?php } else { ?>
-
-                        <img
-                            src="imagenes/galleta.png"
-                            alt=""
-                        >
-
-                    <?php } ?>
-
-                </div>
-
-            <?php
-
-                }
-
-            } else {
-
-            ?>
+            <?php } else { ?>
 
                 <p>
                     Todavía no hay ventas.
@@ -428,28 +579,38 @@ $pedidos = mysqli_query($conn, $sql);
 
     <div class="acciones-grid">
 
-    <a href="reportes.php">
-        <div class="accion-card">
-            <img
-                src="imagenes/grafico-de-barras.png"
-                alt=""
-            >
-            <h3>
-                Ver reportes
-            </h3>
-        </div>
+        <a href="reportes.php">
+
+            <div class="accion-card">
+
+                <img
+                    src="imagenes/grafico-de-barras.png"
+                    alt=""
+                >
+
+                <h3>
+                    Ver reportes
+                </h3>
+
+            </div>
+
         </a>
 
         <a href="Usuarios/cerrarsesion.php">
+
             <div class="accion-card">
+
                 <img
                     src="imagenes/cerrar-sesion.png"
                     alt=""
                 >
+
                 <h3>
                     Cerrar Sesión
                 </h3>
+
             </div>
+
         </a>
 
     </div>
@@ -457,4 +618,5 @@ $pedidos = mysqli_query($conn, $sql);
 </section>
 
 </body>
+
 </html>

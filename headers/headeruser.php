@@ -424,9 +424,9 @@ nav{
 </style>
 
 <header class="main-header">
-
+        <a href="/proyectovakerys/paginadeinicio.php">
     <img src="/proyectovakerys/imagenes/logo.png" alt="Logo Vakery's">
-
+</a>
     <label for="btn-nav" class="btn-nav">
         <img src="/proyectovakerys/imagenes/menu.png" alt="Menú">
     </label>

@@ -176,17 +176,17 @@ nav {
 
 <header class="main-header">
 
-    <!-- LOGO -->
+    <a href="/proyectovakerys/paginavendedor.php">
     <img src="/proyectovakerys/imagenes/logo.png" alt="Logo Vakery's">
+    </a>
 
-    <!-- BOTÓN MENÚ -->
     <label for="btn-nav" class="btn-nav">
         <img src="/proyectovakerys/imagenes/menu.png" alt="Menú">
     </label>
 
     <input type="checkbox" id="btn-nav">
 
-    <!-- MENÚ DEL VENDEDOR -->
+
     <nav>
         <ul class="menu">
 
@@ -223,7 +223,6 @@ nav {
         </ul>
     </nav>
 
-    <!-- TIPO DE USUARIO -->
     <div class="tipoUsuario">
         Vendedor
     </div>
