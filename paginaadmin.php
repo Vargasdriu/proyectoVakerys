@@ -185,7 +185,7 @@ if ($resVentasRealizadas) {
             >
 
             <h2>
-                0
+                Ver
             </h2>
 
             <p>
