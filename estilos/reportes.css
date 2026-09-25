@@ -454,30 +454,39 @@ body {
        TABLA DE CLIENTES
        ========================= */
 
-    .tabla-clientes {
-        width: 700px !important;
-        min-width: 700px !important;
-        max-width: none !important;
-
-        border-collapse: separate;
+    .tabla-clientes, .tabla-pedidos, .reporte-clientes table, .b table{
+        width: 100%;
+        min-width:0;
+        max-width: fixed;
+        font-size:11px;
+    }
+    
+    /* Encabezados */
+    .tabla-clientes th,
+    .tabla-pedidos th,
+    .b table th {
+        font-size: 10px;
+        line-height: 1.1;
+    }
+     /* Tabla de cantidad de pedidos por cliente */
+    
+     .tabla-cantidad-pedidos th,
+    .tabla-cantidad-pedidos td,
+    .cantidad-pedidos th,
+    .cantidad-pedidos td {
+        padding: 6px 3px;
+        font-size: 10px;
+        text-align: center;
+        word-break: break-word;
     }
 
-    .tabla-clientes th {
-        padding: 12px 10px;
-        font-size: 13px;
-        white-space: nowrap;
+    /* Reduce el espacio del contenedor */
+    .b,
+    .c,
+    .reporte-clientes {
+        padding: 12px;
+        margin: 8px 0;
     }
-
-    .tabla-clientes td {
-        padding: 11px 10px;
-        font-size: 13px;
-        white-space: nowrap;
-    }
-
-    .cliente-no-encontrado {
-        font-size: 13px;
-    }
-
 
     /* =========================
        BOTÓN VER MÁS
