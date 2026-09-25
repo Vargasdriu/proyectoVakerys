@@ -2,6 +2,28 @@ let carrito = document.getElementById("carrito");
 
 
 // ==========================================
+// RUTAS
+// ==========================================
+
+const rutaCarrito =
+    window.location.pathname.includes("/paginasproductos/")
+        ? "carrito.php"
+        : "paginasproductos/carrito.php";
+
+
+const rutaFinalizar =
+    window.location.pathname.includes("/paginasproductos/")
+        ? "finalizarpedido.php"
+        : "paginasproductos/finalizarpedido.php";
+
+
+const rutaCrearPedido =
+    window.location.pathname.includes("/paginasproductos/")
+        ? "crearpedidocliente.php"
+        : "paginasproductos/crearpedidocliente.php";
+
+
+// ==========================================
 // ABRIR CARRITO
 // ==========================================
 
@@ -13,14 +35,12 @@ if (carrito) {
 
             e.preventDefault();
 
-            // Primero comprobar si existe un pedido
             actualizarCarrito(true);
 
         }
     );
 
 }
-
 
 
 // ==========================================
@@ -60,7 +80,6 @@ function cerrarSidebar() {
     let sidebar =
         document.getElementById("sidebar");
 
-
     let fondo =
         document.getElementById("fondo");
 
@@ -91,9 +110,8 @@ function cerrarSidebar() {
 
 function actualizarCarrito(abrirCarrito = false) {
 
-
     fetch(
-        "../paginasproductos/carrito.php",
+        rutaCarrito,
         {
 
             method: "POST",
@@ -111,295 +129,46 @@ function actualizarCarrito(abrirCarrito = false) {
         }
     )
 
-        .then(res => {
+    .then(res => {
 
-            console.log(
-                "Estado carrito:",
-                res.status
-            );
+        console.log(
+            "Estado carrito:",
+            res.status
+        );
 
+        return res.text();
 
-            return res.text();
-
-        })
-
-
-        .then(texto => {
-
-            console.log(
-                "Respuesta carrito:",
-                texto
-            );
+    })
 
 
-            let datos;
+    .then(texto => {
+
+        console.log(
+            "Respuesta carrito:",
+            texto
+        );
 
 
-            try {
-
-                datos =
-                    JSON.parse(
-                        texto
-                    );
-
-            }
-
-            catch(error) {
-
-                console.log(
-                    "carrito.php no devolvió JSON"
-                );
+        let datos;
 
 
-                console.log(
+        try {
+
+            datos =
+                JSON.parse(
                     texto
                 );
 
+        }
 
-                Swal.fire({
-
-                    icon: "error",
-
-                    title: "¡Oops!",
-
-                    text:
-                        "Hubo un error al cargar el carrito.",
-
-                    confirmButtonColor:
-                        "#62a38a",
-
-                    confirmButtonText:
-                        "Entendido"
-
-                });
-
-
-                return;
-
-            }
-
+        catch(error) {
 
             console.log(
-                "Carrito:",
-                datos
+                "carrito.php no devolvió JSON"
             );
-
-
-// ==========================================
-// SI NO EXISTE UN PEDIDO ACTIVO
-// ==========================================
-
-if (!Array.isArray(datos)) {
-
-    Swal.fire({
-
-        icon: "error",
-
-        title: "¡Oops!",
-
-        text:
-            datos.mensaje,
-
-        confirmButtonColor:
-            "#62a38a",
-
-        confirmButtonText:
-            "Entendido"
-
-    }).then(() => {
-
-        window.location.href =
-            "../paginasproductos/crearpedidocliente.php";
-
-    });
-
-    return;
-
-}
-
-// ==========================================
-// ABRIR CARRITO SOLO SI EXISTE PEDIDO
-// ==========================================
-
-if (abrirCarrito) {
-
-    let sidebar =
-        document.getElementById("sidebar");
-
-    let fondo =
-        document.getElementById("fondo");
-
-    if (sidebar) {
-
-        sidebar.classList.add("activo");
-
-    }
-
-    if (fondo) {
-
-        fondo.classList.add("activo");
-
-    }
-
-}
-
-
-
-            let html = "";
-
-            let total = 0;
-
-            let cantidadTotal = 0;
-
-
-            // ==========================================
-            // MOSTRAR PRODUCTOS
-            // ==========================================
-
-            datos.forEach(
-                producto => {
-
-                    let cantidad =
-                        Number(
-                            producto.Cantidad
-                        );
-
-
-                    let subtotal =
-                        Number(
-                            producto.CostoTotal
-                        );
-
-
-                    total += subtotal;
-
-                    cantidadTotal +=
-                        cantidad;
-
-
-                    html += `
-
-                        <div
-                            class="productoCarrito"
-                        >
-
-                            <h3>
-                                ${producto.NombreProducto}
-                            </h3>
-
-
-                            <p>
-                                Cantidad:
-                                ${cantidad}
-                            </p>
-
-
-                            <p>
-                                Precio:
-                                Bs.
-                                ${Number(
-                                    producto.PrecioProducto
-                                ).toFixed(2)}
-                            </p>
-
-
-                            <p>
-                                Subtotal:
-                                Bs.
-                                ${subtotal.toFixed(2)}
-                            </p>
-
-                        </div>
-
-                    `;
-
-                }
-            );
-
-
-            // ==========================================
-            // SI ESTÁ VACÍO
-            // ==========================================
-
-            if (datos.length === 0) {
-
-                html = `
-
-                    <div class="carritoVacio">
-
-                        <p>
-                            Tu carrito está vacío.
-                        </p>
-
-                    </div>
-
-                `;
-
-            }
-
-
-            // ==========================================
-            // INSERTAR PRODUCTOS
-            // ==========================================
-
-            let contenido =
-                document.getElementById(
-                    "contenidoCarrito"
-                );
-
-
-            if (contenido) {
-
-                contenido.innerHTML =
-                    html;
-
-            }
-
-
-            // ==========================================
-            // CANTIDAD
-            // ==========================================
-
-            let cantidadCarrito =
-                document.getElementById(
-                    "cantidadCarrito"
-                );
-
-
-            if (cantidadCarrito) {
-
-                cantidadCarrito.innerHTML =
-                    cantidadTotal;
-
-            }
-
-
-            // ==========================================
-            // TOTAL
-            // ==========================================
-
-            let totalCarrito =
-                document.getElementById(
-                    "totalCarrito"
-                );
-
-
-            if (totalCarrito) {
-
-                totalCarrito.innerHTML =
-                    "Total: Bs " +
-                    total.toFixed(2);
-
-            }
-
-        })
-
-
-        .catch(error => {
 
             console.log(
-                "Error carrito:",
-                error
+                texto
             );
 
 
@@ -410,7 +179,7 @@ if (abrirCarrito) {
                 title: "¡Oops!",
 
                 text:
-                    "No se pudo cargar el carrito.",
+                    "Hubo un error al cargar el carrito.",
 
                 confirmButtonColor:
                     "#62a38a",
@@ -420,7 +189,267 @@ if (abrirCarrito) {
 
             });
 
+            return;
+
+        }
+
+
+        console.log(
+            "Carrito:",
+            datos
+        );
+
+
+// ==========================================
+// SI NO EXISTE UN PEDIDO ACTIVO
+// ==========================================
+
+        if (!Array.isArray(datos)) {
+
+            Swal.fire({
+
+                icon: "error",
+
+                title:
+                    "¡Primero crea tu pedido!",
+
+                text:
+                    datos.mensaje ||
+                    "No existe un pedido activo.",
+
+                confirmButtonColor:
+                    "#62a38a",
+
+                confirmButtonText:
+                    "Crear pedido"
+
+            })
+
+            .then(() => {
+
+                window.location.href =
+                    rutaCrearPedido;
+
+            });
+
+            return;
+
+        }
+
+
+// ==========================================
+// ABRIR CARRITO
+// ==========================================
+
+        if (abrirCarrito) {
+
+            let sidebar =
+                document.getElementById(
+                    "sidebar"
+                );
+
+
+            let fondo =
+                document.getElementById(
+                    "fondo"
+                );
+
+
+            if (sidebar) {
+
+                sidebar.classList.add(
+                    "activo"
+                );
+
+            }
+
+
+            if (fondo) {
+
+                fondo.classList.add(
+                    "activo"
+                );
+
+            }
+
+        }
+
+
+// ==========================================
+// VARIABLES
+// ==========================================
+
+        let html = "";
+
+        let total = 0;
+
+        let cantidadTotal = 0;
+
+
+// ==========================================
+// MOSTRAR PRODUCTOS
+// ==========================================
+
+        datos.forEach(
+            producto => {
+
+                let cantidad =
+                    Number(
+                        producto.Cantidad
+                    );
+
+
+                let subtotal =
+                    Number(
+                        producto.CostoTotal
+                    );
+
+
+                total += subtotal;
+
+                cantidadTotal +=
+                    cantidad;
+
+
+                html += `
+
+                    <div class="productoCarrito">
+
+                        <h3>
+                            ${producto.NombreProducto}
+                        </h3>
+
+                        <p>
+                            Cantidad:
+                            ${cantidad}
+                        </p>
+
+                        <p>
+                            Precio:
+                            Bs.
+                            ${Number(
+                                producto.PrecioProducto
+                            ).toFixed(2)}
+                        </p>
+
+                        <p>
+                            Subtotal:
+                            Bs.
+                            ${subtotal.toFixed(2)}
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+// ==========================================
+// CARRITO VACÍO
+// ==========================================
+
+        if (datos.length === 0) {
+
+            html = `
+
+                <div class="carritoVacio">
+
+                    <p>
+                        Tu carrito está vacío.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+
+// ==========================================
+// INSERTAR PRODUCTOS
+// ==========================================
+
+        let contenido =
+            document.getElementById(
+                "contenidoCarrito"
+            );
+
+
+        if (contenido) {
+
+            contenido.innerHTML =
+                html;
+
+        }
+
+
+// ==========================================
+// CANTIDAD TOTAL
+// ==========================================
+
+        let cantidadCarrito =
+            document.getElementById(
+                "cantidadCarrito"
+            );
+
+
+        if (cantidadCarrito) {
+
+            cantidadCarrito.innerHTML =
+                cantidadTotal;
+
+        }
+
+
+// ==========================================
+// TOTAL
+// ==========================================
+
+        let totalCarrito =
+            document.getElementById(
+                "totalCarrito"
+            );
+
+
+        if (totalCarrito) {
+
+            totalCarrito.innerHTML =
+                "Total: Bs " +
+                total.toFixed(2);
+
+        }
+
+    })
+
+
+    .catch(error => {
+
+        console.log(
+            "Error carrito:",
+            error
+        );
+
+
+        Swal.fire({
+
+            icon: "error",
+
+            title: "¡Oops!",
+
+            text:
+                "No se pudo cargar el carrito.",
+
+            confirmButtonColor:
+                "#62a38a",
+
+            confirmButtonText:
+                "Entendido"
+
         });
+
+    });
 
 }
 
@@ -446,10 +475,6 @@ if (vaciar) {
 
 
 function vaciarCarrito() {
-
-    // ==========================================
-    // CONFIRMACIÓN CON SWEET ALERT
-    // ==========================================
 
     Swal.fire({
 
@@ -485,12 +510,8 @@ function vaciarCarrito() {
         }
 
 
-        // ==========================================
-        // VACIAR CARRITO
-        // ==========================================
-
         fetch(
-            "../paginasproductos/carrito.php",
+            rutaCarrito,
             {
 
                 method: "POST",
@@ -512,10 +533,6 @@ function vaciarCarrito() {
 
 
         .then(datos => {
-
-            // ==========================================
-            // CARRITO VACIADO CORRECTAMENTE
-            // ==========================================
 
             if (datos.ok) {
 
@@ -543,11 +560,6 @@ function vaciarCarrito() {
                 });
 
             }
-
-
-            // ==========================================
-            // ERROR AL VACIAR
-            // ==========================================
 
             else {
 
@@ -622,10 +634,6 @@ document.addEventListener(
         }
 
 
-        // ==========================================
-        // OBTENER ID PEDIDO DE LA URL
-        // ==========================================
-
         const url =
             new URLSearchParams(
                 window.location.search
@@ -643,10 +651,6 @@ document.addEventListener(
             idPedido
         );
 
-
-        // ==========================================
-        // NO SE ENCONTRÓ ID DEL PEDIDO
-        // ==========================================
 
         if (!idPedido) {
 
@@ -667,18 +671,13 @@ document.addEventListener(
 
             });
 
-
             return;
 
         }
 
 
-        // ==========================================
-        // ENVIAR PEDIDO A PHP
-        // ==========================================
-
         fetch(
-            "../paginasproductos/finalizarpedido.php",
+            rutaFinalizar,
             {
 
                 method: "POST",
@@ -706,7 +705,6 @@ document.addEventListener(
                     "Estado:",
                     respuesta.status
                 );
-
 
                 return respuesta.text();
 
@@ -741,7 +739,6 @@ document.addEventListener(
                         "PHP no devolvió JSON"
                     );
 
-
                     console.log(
                         texto
                     );
@@ -764,15 +761,10 @@ document.addEventListener(
 
                     });
 
-
                     return;
 
                 }
 
-
-                // ==========================================
-                // COMPRA FINALIZADA
-                // ==========================================
 
                 if (datos.ok) {
 
@@ -780,11 +772,6 @@ document.addEventListener(
                         "recibo.php";
 
                 }
-
-
-                // ==========================================
-                // ERROR AL FINALIZAR
-                // ==========================================
 
                 else {
 

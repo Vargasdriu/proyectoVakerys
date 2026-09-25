@@ -21,7 +21,7 @@
     <?php include '../header.php'; ?>
 </header>
 
-<a href="javascript:history.back()" class="volver">
+<a href="productos.php" class="volver" id="volverCatalogo">
     ← Volver al catálogo
 </a>
 
@@ -133,6 +133,20 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="js/producto.js"></script>
+
+<script>
+document.getElementById("volverCatalogo").addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const pedidoActual = new URLSearchParams(window.location.search).get("idPedido");
+
+    if (pedidoActual) {
+        window.location.href = "productos.php?idPedido=" + encodeURIComponent(pedidoActual);
+    } else {
+        window.location.href = "productos.php";
+    }
+});
+</script>
 
 <footer>
     <?php include '../footer.php'; ?>
