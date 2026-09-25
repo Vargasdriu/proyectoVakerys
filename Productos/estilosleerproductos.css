@@ -629,6 +629,18 @@ body{
 
         display:none;
     }
+    .producto-precio{
+
+        grid-column:2;
+        min-width:0;
+        padding:auto;
+    }
+    .producto-precio strong{
+    overflow-wrap:anywhere;
+}
+    .producto-precio, span{
+        padding:0;
+    }
 
 }
 
@@ -638,6 +650,7 @@ body{
 ========================================= */
 
 @media(max-width:900px){
+    
 
     .catalogo-header{
 
@@ -655,16 +668,21 @@ body{
 
     .producto{
 
-        grid-template-columns:
-            120px
-            1fr;
-
-        gap:20px;
+        grid-template-columns:120px minmax(0,1fr);
+        gap:30px;
     }
 
     .producto-precio{
 
         grid-column:2;
+        min-width:0;
+        padding:auto;
+    }
+    .producto-precio strong{
+    overflow-wrap:anywhere;
+}
+    .producto-precio, span{
+        padding:0;
     }
 
     .acciones{

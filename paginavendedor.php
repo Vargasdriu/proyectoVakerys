@@ -2,7 +2,12 @@
 
 session_start();
 
-$conn = new mysqli("localhost", "root", "", "vakerysss");
+$servername = "localhost";
+$username = "root";
+$password = "";
+$bdname = "vakerysss";
+
+$conn = new mysqli($servername, $username, $password, $bdname);
 
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);

@@ -20,6 +20,13 @@ body {
     margin-left: 60px;
     margin-right: 60px;
 }
+.reporte-pedidos {
+    width: 100%;
+}
+
+.reporte-clientes-lista {
+    width: 100%;
+}
 
 .a {
     grid-area: a;
@@ -35,6 +42,7 @@ body {
     overflow: hidden;
     box-shadow: 0 20px 45px rgba(52,78,65,.18);
 }
+
 
 .a::before {
     content: "";
@@ -84,10 +92,12 @@ body {
 }
 
 .bc {
+    grid-area: bc;
     display: flex;
     flex-direction: row;
     gap: 15px;
     padding: 0 35px;
+    width: 100%;
 }
 
 .b {
@@ -360,8 +370,81 @@ body {
 }
 
 @media (max-width: 1000px) {
+    body {
+        display: block;
+        margin-left: 10px;
+        margin-right: 10px;
+        width: auto;
+        overflow-x: hidden;
+    }
+
+    /* =========================
+       TITULO PRINCIPAL
+       ========================= */
+
+    .a {
+        margin-top: 25px;
+        min-height: 180px;
+        padding: 25px 15px;
+        border-radius: 20px;
+    }
+
+    .a h1 {
+        font-size: 25px;
+        line-height: 1.2;
+    }
+
+    .a h1::before {
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+    }
+
+
+    /* =========================
+       CONTENEDOR DE REPORTES
+       ========================= */
+
+    .reporte-clientes {
+        width: 100%;
+        margin: 20px 0;
+        padding: 15px;
+        border-radius: 20px;
+
+        /* IMPORTANTE */
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .reporte-clientes h2 {
+        font-size: 21px;
+        line-height: 1.3;
+    }
+
+    .subtitulo-reporte {
+        font-size: 14px;
+        margin-bottom: 18px;
+    }
+    .reporte-clientes {
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .tabla-clientes {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
     .bc {
-        flex-direction: column;
+        grid-area: bc;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 0 35px;
+    width: 100%;
     }
 
     .b {
@@ -392,6 +475,10 @@ body {
    ========================================= */
 
 @media (max-width: 576px) {
+    .tipoUsuario{
+        padding:auto;
+        font-size: 12px;
+    }
 
     body {
         display: block;

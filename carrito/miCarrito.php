@@ -168,9 +168,52 @@ input[type="number"]{
     align-items:center;
     gap:10px;
 }
+.tabla-contenedor{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
 
 a{
     text-decoration:none;
+}
+@media (max-width:400px){
+    body{
+        padding:12px;
+    }
+    .contenedor{
+        padding:16px;
+        border-radius:18px;
+    }
+    .tabla-estilo{
+        min: width 680px;
+        border
+}
+
+    .tabla-estilo th{
+        padding:9px 7px;
+        font-size:11px;
+        letter-spacing:0;
+    }
+
+    .tabla-estilo td{
+        padding:8px 7px;
+        font-size:11px;
+    }
+
+    .form-agregar{
+        gap:5px;
+    }
+
+    input[type="number"]{
+        width:52px;
+        padding:6px 3px;
+    }
+
+    button{
+        padding:7px 9px;
+        font-size:11px;
+    }
 }
 </style>
 
@@ -185,6 +228,7 @@ a{
 
     <h3 class="total">Total: Bs. <?php echo $total; ?></h3>
 
+    <div class="tabla-contenedor">
     <table class="tabla-estilo">
         <tr>
             <th>Código</th>
@@ -241,6 +285,7 @@ a{
 
         <?php } ?>
     </table>
+    </div>
 
     <div class="boton-centro">
         <a href="../Pedidos/crearpedido.php">
