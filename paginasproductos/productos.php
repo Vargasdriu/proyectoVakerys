@@ -113,8 +113,7 @@
 ========================================== -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script src="productos.js"></script>
-<script src="carrito.js"></script>
+
 <script src="js/productos.js"></script>
 
 <script src="js/carrito.js"></script>

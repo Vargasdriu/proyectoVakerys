@@ -27,13 +27,58 @@ function mostrarAlerta(mensaje, elemento = null, icono = "error") {
 
 
 // ==========================================
+// OBTENER PEDIDO ACTIVO
+// ==========================================
+
+function obtenerIdPedido() {
+
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    let idPedido =
+        parametros.get("idPedido");
+
+
+    if (idPedido) {
+
+        sessionStorage.setItem(
+            "idPedido",
+            idPedido
+        );
+
+    } else {
+
+        idPedido =
+            sessionStorage.getItem(
+                "idPedido"
+            );
+
+    }
+
+
+    return idPedido;
+}
+
+
+// ==========================================
 // CARGAR PRODUCTOS
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    // Guardar el pedido activo al entrar
+    obtenerIdPedido();
+
     mostrarProductos();
+
 });
 
+
+// ==========================================
+// MOSTRAR PRODUCTOS
+// ==========================================
 
 function mostrarProductos() {
 
@@ -85,19 +130,48 @@ function mostrarProductos() {
 
             productos.forEach(producto => {
 
+                const idPedido =
+                    obtenerIdPedido();
+
+
+                let enlaceProducto =
+                    "../paginasproductos/producto.php?Codigo=" +
+                    encodeURIComponent(
+                        producto.Codigo
+                    );
+
+
+                if (idPedido) {
+
+                    enlaceProducto +=
+                        "&idPedido=" +
+                        encodeURIComponent(
+                            idPedido
+                        );
+
+                }
+
+
                 contenedor.innerHTML += `
 
                     <div
                         class="proc"
                         data-codigo="${producto.Codigo}"
                     >
-                        <a href="#" class="enlace-producto">
-                        <img
-                            class="imgb"
-                            src="../Productos/imagenes/${producto.Imagen || ''}"
-                            alt="${producto.NombreProducto}"
+
+                        <a
+                            href="${enlaceProducto}"
+                            class="enlace-producto"
                         >
+
+                            <img
+                                class="imgb"
+                                src="../Productos/imagenes/${producto.Imagen || ''}"
+                                alt="${producto.NombreProducto}"
+                            >
+
                         </a>
+
 
                         <div class="ba">
 
@@ -189,7 +263,6 @@ function mostrarProductos() {
                         "click",
                         function(event) {
 
-
                             if (
                                 event.target.closest(
                                     ".btnCantidad"
@@ -209,7 +282,7 @@ function mostrarProductos() {
 
 
                             const Codigo =
-                                this.dataset.Codigo;
+                                this.dataset.codigo;
 
 
                             if (!Codigo) {
@@ -223,16 +296,8 @@ function mostrarProductos() {
                             }
 
 
-                            const parametros =
-                                new URLSearchParams(
-                                    window.location.search
-                                );
-
-
                             const idPedido =
-                                parametros.get(
-                                    "idPedido"
-                                );
+                                obtenerIdPedido();
 
 
                             let url =
@@ -241,9 +306,6 @@ function mostrarProductos() {
                                     Codigo
                                 );
 
-
-                            // CORREGIDO:
-                            // idPedidos → idPedido
 
                             if (idPedido) {
 
@@ -254,6 +316,12 @@ function mostrarProductos() {
                                     );
 
                             }
+
+
+                            console.log(
+                                "ID DEL PEDIDO:",
+                                idPedido
+                            );
 
 
                             console.log(
@@ -408,11 +476,6 @@ function anadirAlCarrito(
         );
 
 
-    // ==========================================
-    // SWEET ALERT:
-    // NO SE ENCONTRÓ LA CANTIDAD
-    // ==========================================
-
     if (!span) {
 
         mostrarAlerta(
@@ -437,16 +500,12 @@ function anadirAlCarrito(
     }
 
 
-    const parametros =
-        new URLSearchParams(
-            window.location.search
-        );
-
+    // ==========================================
+    // OBTENER PEDIDO ACTIVO
+    // ==========================================
 
     const idPedido =
-        parametros.get(
-            "idPedido"
-        );
+        obtenerIdPedido();
 
 
     console.log(
@@ -468,27 +527,42 @@ function anadirAlCarrito(
 
 
     // ==========================================
-    // SWEET ALERT:
-    // NO SE ENCONTRÓ EL ID DEL PEDIDO
+    // COMPROBAR PEDIDO
     // ==========================================
 
-if (!idPedido) {
+    if (!idPedido) {
 
-    Swal.fire({
-        icon: "error",
-        title: "¡Oops!",
-        text: "No se encontró el ID del pedido.",
-        confirmButtonColor: "#62a38a",
-        confirmButtonText: "Entendido"
-    }).then(() => {
+        Swal.fire({
 
-        window.location.href =
-            "crearpedidocliente.php";
+            icon: "error",
 
-    });
+            title: "¡Oops!",
 
-    return;
-}
+            text:
+                "No se encontró el ID del pedido.",
+
+            confirmButtonColor:
+                "#62a38a",
+
+            confirmButtonText:
+                "Crear pedido"
+
+        }).then(() => {
+
+            window.location.href =
+                "crearpedidocliente.php";
+
+        });
+
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // ENVIAR AL CARRITO
+    // ==========================================
 
     fetch(
         "carrito.php",
@@ -543,11 +617,7 @@ if (!idPedido) {
         .then(texto => {
 
             console.log(
-                "RESPUESTA DE carrito.php:"
-            );
-
-
-            console.log(
+                "RESPUESTA DE carrito.php:",
                 texto
             );
 
