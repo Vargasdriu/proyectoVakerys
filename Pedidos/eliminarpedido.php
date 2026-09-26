@@ -15,13 +15,26 @@ if(!isset($_GET['id']) || empty($_GET['id'])){
     exit;
 }
 
-$id = $conexion->real_escape_string($_GET['id']);
+$id = $_GET['id'] ?? '';
 
-$conexion->query("DELETE FROM carrito WHERE pedidos_id='$id'");
+$stmtCarrito = $conexion->prepare(
+    "DELETE FROM carrito WHERE pedidos_id = ?"
+);
 
-$sql = "DELETE FROM Pedidos WHERE id='$id'";
+$stmtCarrito->bind_param("i", $id);
 
-if($conexion->query($sql) === TRUE){
+$stmtCarrito->execute();
+
+
+$stmtPedido = $conexion->prepare(
+    "DELETE FROM Pedidos WHERE id = ?"
+);
+
+$stmtPedido->bind_param("i", $id);
+
+$resultadoBD = $stmtPedido->execute();
+
+if($resultadoBD){
     $resultado = "exito";
 }else{
     $resultado = "error";

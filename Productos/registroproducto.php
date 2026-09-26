@@ -17,12 +17,23 @@ $DetalleProducto = $_POST['DetalleProducto'];
 $Stock = $_POST['Stock'];
 $CostoProducto = $_POST['CostoProducto'];
 
-$sql = "INSERT INTO productos
-(Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto)
-VALUES
-('$Codigo','$NombreProducto','$PrecioProducto','$DetalleProducto','$Stock','$CostoProducto')";
+$stmt = $conn->prepare(
+    "INSERT INTO productos
+    (Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto)
+    VALUES (?, ?, ?, ?, ?, ?)"
+);
 
-$conn->query($sql);
+$stmt->bind_param(
+    "ssssss",
+    $Codigo,
+    $NombreProducto,
+    $PrecioProducto,
+    $DetalleProducto,
+    $Stock,
+    $CostoProducto
+);
+
+$stmt->execute();
 
 ?>
 

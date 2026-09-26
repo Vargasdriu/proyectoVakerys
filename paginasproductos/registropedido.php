@@ -56,31 +56,35 @@ $Telefono = isset($_POST['Telefono'])
 // CREAR PEDIDO
 // ==========================================
 
-$sql = "INSERT INTO Pedidos
-(
-    Nombre,
-    Fecha,
-    Estado,
-    NombreVendedor,
-    Direccion,
-    Telefono
-)
-VALUES
-(
-    '$Nombre',
-    '$Fecha',
-    '$Estado',
-    '$NombreVendedor',
-    '$Direccion',
-    '$Telefono'
-)";
+$stmt = $conn->prepare(
+    "INSERT INTO Pedidos
+    (
+        Nombre,
+        Fecha,
+        Estado,
+        NombreVendedor,
+        Direccion,
+        Telefono
+    )
+    VALUES (?, ?, ?, ?, ?, ?)"
+);
+
+$stmt->bind_param(
+    "ssssss",
+    $Nombre,
+    $Fecha,
+    $Estado,
+    $NombreVendedor,
+    $Direccion,
+    $Telefono
+);
 
 
 // ==========================================
 // SI SE CREÓ CORRECTAMENTE
 // ==========================================
 
-if ($conn->query($sql)) {
+if ($stmt->execute()) {
 
     // Obtener ID del pedido recién creado
     $idPedido = $conn->insert_id;

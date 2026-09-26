@@ -12,8 +12,15 @@ if ($conexion->connect_error) {
 include '../header.php';
 include_once "validacion.php";
 
-$sql = "UPDATE GestionDeUsuarios SET Estado='activo' WHERE CI='$CI'";
-$conexion->query($sql);
+$stmt = $conexion->prepare(
+    "UPDATE GestionDeUsuarios 
+     SET Estado = 'activo' 
+     WHERE CI = ?"
+);
+
+$stmt->bind_param("s", $CI);
+
+$stmt->execute();
 
 $conexion->close();
 

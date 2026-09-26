@@ -17,14 +17,29 @@ $DetalleProducto = $_POST['DetalleProducto'];
 $Stock = $_POST['Stock'];
 $CostoProducto = $_POST['CostoProducto'];
 
-$sql = "UPDATE Productos SET
-Codigo='$Codigo',
-NombreProducto='$NombreProducto',
-PrecioProducto='$PrecioProducto',
-DetalleProducto='$DetalleProducto',
-CostoProducto='$CostoProducto',
-Stock='$Stock'
-WHERE Codigo='$Codigo'";
+$stmt = $conexion->prepare(
+    "UPDATE Productos SET
+        Codigo = ?,
+        NombreProducto = ?,
+        PrecioProducto = ?,
+        DetalleProducto = ?,
+        CostoProducto = ?,
+        Stock = ?
+     WHERE Codigo = ?"
+);
+
+$stmt->bind_param(
+    "sssssss",
+    $Codigo,
+    $NombreProducto,
+    $PrecioProducto,
+    $DetalleProducto,
+    $CostoProducto,
+    $Stock,
+    $Codigo
+);
+
+$resultado = $stmt->execute();
 ?>
 
 <!DOCTYPE html>

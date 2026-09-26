@@ -10,18 +10,29 @@ if($conn->connect_error){
     die("Conexion fallida: ".$conn->connect_error);
 }
 
-$Nombre = $_POST['Nombre'];
-$Fecha = $_POST['Fecha'];
-$Estado = $_POST['Estado'];
+$Nombre = $_POST['Nombre'] ?? '';
+$Fecha = $_POST['Fecha'] ?? '';
+$Estado = $_POST['Estado'] ?? '';
+$Direccion = $_POST['Direccion'] ?? '';
+$Telefono = $_POST['Telefono'] ?? '';
 
-$Direccion = $_POST['Direccion'];
-$Telefono = $_POST['Telefono'];
 
-$sql = "INSERT INTO Pedidos 
-(Nombre, Fecha, Estado, Direccion, Telefono) VALUES 
-('$Nombre','$Fecha','$Estado',,'$Direccion','$Telefono')";
+$stmt = $conn->prepare(
+    "INSERT INTO Pedidos
+    (Nombre, Fecha, Estado, Direccion, Telefono)
+    VALUES (?, ?, ?, ?, ?)"
+);
 
-if($conn->query($sql)){
+$stmt->bind_param(
+    "sssss",
+    $Nombre,
+    $Fecha,
+    $Estado,
+    $Direccion,
+    $Telefono
+);
+
+if($stmt->execute()){
     header("location:../paginasproductos/productos.php?idPedido=".$conn->insert_id);
 }else{
     echo "Error: " . $conn->error;

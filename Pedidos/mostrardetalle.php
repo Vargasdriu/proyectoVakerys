@@ -16,14 +16,28 @@ if (!isset($_GET['id'])) {
     exit();
 }
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?? '';
+
+$stmt = $conexion->prepare(
+    "SELECT * FROM Pedidos WHERE id = ?"
+);
+
+$stmt->bind_param("i", $id);
+
+$stmt->execute();
+
+$resultado = $stmt->get_result();
 
 
-$sql = "SELECT * FROM Pedidos WHERE id='$id'";
-$resultado = $conexion->query($sql);
+$stmtTotal = $conexion->prepare(
+    "SELECT SUM(CostoTotal) AS total FROM carrito WHERE pedidos_id = ?"
+);
 
-$sqlTotal = "SELECT SUM(CostoTotal) AS total FROM carrito WHERE pedidos_id='$id'";
-$resultadoTotal = $conexion->query($sqlTotal);
+$stmtTotal->bind_param("i", $id);
+
+$stmtTotal->execute();
+
+$resultadoTotal = $stmtTotal->get_result();
 $res = $resultadoTotal->fetch_assoc();
 $total = $res['total'] ?? 0;
 

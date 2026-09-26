@@ -21,15 +21,19 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8");
 
 
-$codigo = $_GET["codigo"];
+$codigo = $_GET["codigo"] ?? '';
 
+$stmt = $conn->prepare(
+    "SELECT *
+     FROM productos
+     WHERE Codigo = ?"
+);
 
+$stmt->bind_param("s", $codigo);
 
-$sql = "SELECT *
-        FROM productos
-        WHERE Codigo = '$codigo'";
+$stmt->execute();
 
-$resultado = $conn->query($sql);
+$resultado = $stmt->get_result();
 
 
 if ($resultado->num_rows == 0) {
@@ -47,11 +51,17 @@ $producto = $resultado->fetch_assoc();
 
 
 
-$sqlImagenes = "SELECT Imagen
-                FROM imagenes
-                WHERE CodigoProducto = '$codigo'";
+$stmtImagenes = $conn->prepare(
+    "SELECT Imagen
+     FROM imagenes
+     WHERE CodigoProducto = ?"
+);
 
-$resultadoImagenes = $conn->query($sqlImagenes);
+$stmtImagenes->bind_param("s", $codigo);
+
+$stmtImagenes->execute();
+
+$resultadoImagenes = $stmtImagenes->get_result();
 
 
 $imagenes = array();

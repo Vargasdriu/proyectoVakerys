@@ -10,11 +10,17 @@ if($conn->connect_error){
     die("Conexion fallida: ".$conn->connect_error);
 }
 
-$Codigo = $_GET['Codigo'];
+$Codigo = $_GET['Codigo'] ?? '';
 
-$sql = "SELECT * FROM Productos WHERE Codigo='$Codigo'";
+$stmt = $conn->prepare(
+    "SELECT * FROM Productos WHERE Codigo = ?"
+);
 
-$resultado = $conn->query($sql);
+$stmt->bind_param("s", $Codigo);
+
+$stmt->execute();
+
+$resultado = $stmt->get_result();
 
 if($resultado->num_rows > 0){
 

@@ -26,13 +26,23 @@ if(
     $Rol = $_POST['Rol'];
     $Estado = $_POST['Estado'];
 
-    $sql = "INSERT INTO GestionDeUsuarios 
+$stmt = $conn->prepare(
+    "INSERT INTO GestionDeUsuarios
     (CI, Nombre, Direccion, Numero, Rol, Estado)
-    
-    VALUES 
-    ('$CI', '$Nombre', '$Direccion', '$Numero', '$Rol', '$Estado')";
+    VALUES (?, ?, ?, ?, ?, ?)"
+);
 
-    $resultado = $conn->query($sql);
+$stmt->bind_param(
+    "ssssss",
+    $CI,
+    $Nombre,
+    $Direccion,
+    $Numero,
+    $Rol,
+    $Estado
+);
+
+$resultado = $stmt->execute();
 
 }else{
     $resultado = false;

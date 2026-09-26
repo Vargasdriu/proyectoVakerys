@@ -9,12 +9,17 @@ if($conexion->connect_error){
 
 if(isset($_GET['CI'])){
 
-    $CI = $_GET['CI'];
+$CI = $_GET['CI'] ?? '';
 
+$stmt = $conexion->prepare(
+    "SELECT * FROM GestionDeUsuarios WHERE CI = ?"
+);
 
-    $sql = "SELECT * FROM GestionDeUsuarios WHERE CI='$CI'";
+$stmt->bind_param("s", $CI);
 
-    $resultado = $conexion->query($sql);
+$stmt->execute();
+
+$resultado = $stmt->get_result();
 
 
     if($resultado->num_rows > 0){
@@ -24,13 +29,25 @@ if(isset($_GET['CI'])){
 
         if($fila['Estado']=="activo"){
 
-            $conexion->query("UPDATE GestionDeUsuarios SET Estado='bloqueado' WHERE CI='$CI'");
+$stmtEstado = $conexion->prepare(
+    "UPDATE GestionDeUsuarios 
+     SET Estado = 'bloqueado' 
+     WHERE CI = ?"
+);
 
+$stmtEstado->bind_param("s", $CI);
+$stmtEstado->execute();
 
         }else{
 
-            $conexion->query("UPDATE GestionDeUsuarios SET Estado='activo' WHERE CI='$CI'");
+$stmtEstado = $conexion->prepare(
+    "UPDATE GestionDeUsuarios 
+     SET Estado = 'activo' 
+     WHERE CI = ?"
+);
 
+$stmtEstado->bind_param("s", $CI);
+$stmtEstado->execute();
         }
 
 

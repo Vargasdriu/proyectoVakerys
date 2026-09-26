@@ -10,14 +10,30 @@ if($conexion->connect_error){
     die("Conexion fallida: ".$conexion->connect_error);
 }
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?? '';
 
-$sql = "SELECT * FROM Pedidos WHERE id='$id'";
+$stmt = $conexion->prepare(
+    "SELECT * FROM Pedidos WHERE id = ?"
+);
 
-$resultado = $conexion->query($sql);
+$stmt->bind_param("i", $id);
 
-$sqlTotal = "SELECT SUM(CostoTotal) AS total FROM carrito WHERE pedidos_id='$id'";
-$resultadoTotal = $conn->query($sqlTotal);
+$stmt->execute();
+
+$resultado = $stmt->get_result();
+
+
+$stmtTotal = $conexion->prepare(
+    "SELECT SUM(CostoTotal) AS total 
+     FROM carrito 
+     WHERE pedidos_id = ?"
+);
+
+$stmtTotal->bind_param("i", $id);
+
+$stmtTotal->execute();
+
+$resultadoTotal = $stmtTotal->get_result();
 $res = $resultadoTotal->fetch_assoc();
 $total = $res['total'] ?? 0;
 ?>
@@ -117,14 +133,19 @@ if($resultado->num_rows > 0){
 
     while($fila = $resultado->fetch_assoc()){
 
-        echo "<p><span>id:</span> ".$fila['id']."</p>";
-        echo "<p><span>Nombre:</span> ".$fila['Nombre']."</p>";
-        echo "<p><span>Fecha:</span> ".$fila['Fecha']."</p>";
-        echo "<p><span>Estado:</span> ".$fila['Estado']."</p>";
-        echo "<p><span>Nombre del Vendedor:</span> ".$fila['NombreVendedor']."</p>";
-        echo "<p><span>Direccion:</span> ".$fila['Direccion']."</p>";
-        echo "<p><span>Telefono:</span> ".$fila['Telefono']."</p>";
+echo "<p><span>id:</span> " . htmlspecialchars($fila['id'], ENT_QUOTES, 'UTF-8') . "</p>";
 
+echo "<p><span>Nombre:</span> " . htmlspecialchars($fila['Nombre'], ENT_QUOTES, 'UTF-8') . "</p>";
+
+echo "<p><span>Fecha:</span> " . htmlspecialchars($fila['Fecha'], ENT_QUOTES, 'UTF-8') . "</p>";
+
+echo "<p><span>Estado:</span> " . htmlspecialchars($fila['Estado'], ENT_QUOTES, 'UTF-8') . "</p>";
+
+echo "<p><span>Nombre del Vendedor:</span> " . htmlspecialchars($fila['NombreVendedor'], ENT_QUOTES, 'UTF-8') . "</p>";
+
+echo "<p><span>Direccion:</span> " . htmlspecialchars($fila['Direccion'], ENT_QUOTES, 'UTF-8') . "</p>";
+
+echo "<p><span>Telefono:</span> " . htmlspecialchars($fila['Telefono'], ENT_QUOTES, 'UTF-8') . "</p>";
     }
 
 }else{

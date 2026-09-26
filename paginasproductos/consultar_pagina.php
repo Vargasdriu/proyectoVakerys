@@ -11,9 +11,15 @@ if ($id == "") {
 
 } else {
 
-    $sql = "SELECT Estado FROM pedidos WHERE id = '$id'";
+$stmt = $conn->prepare(
+    "SELECT Estado FROM pedidos WHERE id = ?"
+);
 
-    $resultado = $conn->query($sql);
+$stmt->bind_param("i", $id);
+
+$stmt->execute();
+
+$resultado = $stmt->get_result();
 
     if ($resultado && $resultado->num_rows > 0) {
 

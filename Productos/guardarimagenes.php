@@ -14,10 +14,17 @@ if ($conn->connect_error) {
 
 $conn->set_charset("utf8");
 
-$CodigoProducto = $_POST["CodigoProducto"];
+$CodigoProducto = $_POST["CodigoProducto"] ?? '';
 
-$sql = "SELECT Codigo FROM productos WHERE Codigo = '$CodigoProducto'";
-$resultado = $conn->query($sql);
+$stmtProducto = $conn->prepare(
+    "SELECT Codigo FROM productos WHERE Codigo = ?"
+);
+
+$stmtProducto->bind_param("s", $CodigoProducto);
+
+$stmtProducto->execute();
+
+$resultado = $stmtProducto->get_result();
 
 if ($resultado->num_rows == 0) {
     die("El producto no existe.");
@@ -31,21 +38,58 @@ if (!file_exists($carpeta)) {
 
 foreach ($_FILES["Imagenes"]["name"] as $i => $nombreArchivo) {
 
-    if ($_FILES["Imagenes"]["error"][$i] == 0) {
+    if ($_FILES["Imagenes"]["error"][$i] != 0) {
+        continue;
+    }
 
-        $nombreTemporal = $_FILES["Imagenes"]["tmp_name"][$i];
+    $nombreTemporal = $_FILES["Imagenes"]["tmp_name"][$i];
 
-        $nuevoNombre = basename($nombreArchivo);
+    // Extensiones permitidas
+    $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'webp'];
 
-        $ruta = $carpeta . $nuevoNombre;
+    $extension = strtolower(
+        pathinfo($nombreArchivo, PATHINFO_EXTENSION)
+    );
 
-        if (move_uploaded_file($nombreTemporal, $ruta)) {
+    // Verificar extensión
+    if (!in_array($extension, $extensionesPermitidas, true)) {
+        continue;
+    }
 
-            $sql = "INSERT INTO imagenes (CodigoProducto, Imagen)
-                    VALUES ('$CodigoProducto', '$ruta')";
+    // Verificar que realmente sea una imagen
+    $tipoMime = mime_content_type($nombreTemporal);
 
-            $conn->query($sql);
-        }
+    $tiposPermitidos = [
+        'image/jpeg',
+        'image/png',
+        'image/webp'
+    ];
+
+    if (!in_array($tipoMime, $tiposPermitidos, true)) {
+        continue;
+    }
+
+    // Crear un nombre nuevo y aleatorio
+    $nuevoNombre = uniqid('img_', true) . '.' . $extension;
+
+    $ruta = $carpeta . $nuevoNombre;
+
+    // Guardar imagen
+    if (move_uploaded_file($nombreTemporal, $ruta)) {
+
+        // Guardar en la base de datos usando consulta preparada
+        $stmtImagen = $conn->prepare(
+            "INSERT INTO imagenes (CodigoProducto, Imagen)
+             VALUES (?, ?)"
+        );
+
+        $stmtImagen->bind_param(
+            "ss",
+            $CodigoProducto,
+            $ruta
+        );
+
+        $stmtImagen->execute();
     }
 }
 

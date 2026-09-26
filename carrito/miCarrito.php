@@ -14,11 +14,29 @@ session_start();
 
 $id_pedido = $_GET['idPedido'] ?? 0;
 
-$sql = "SELECT * FROM productos";
-$resultado = $conn->query($sql);
 
-$sqlTotal = "SELECT SUM(CostoTotal) AS total FROM carrito WHERE pedidos_id='$id_pedido'";
-$resultadoTotal = $conn->query($sqlTotal);
+// Obtener productos
+$stmtProductos = $conn->prepare(
+    "SELECT * FROM productos"
+);
+
+$stmtProductos->execute();
+
+$resultado = $stmtProductos->get_result();
+
+
+// Obtener total del pedido
+$stmtTotal = $conn->prepare(
+    "SELECT SUM(CostoTotal) AS total
+     FROM carrito
+     WHERE pedidos_id = ?"
+);
+
+$stmtTotal->bind_param("i", $id_pedido);
+
+$stmtTotal->execute();
+
+$resultadoTotal = $stmtTotal->get_result();
 $res = $resultadoTotal->fetch_assoc();
 $total = $res['total'] ?? 0;
 ?>
@@ -243,9 +261,9 @@ a{
         <?php while($fila = $resultado->fetch_assoc()){ ?>
 
         <tr>
-            <td><?php echo $fila["Codigo"]; ?></td>
-            <td><?php echo $fila["NombreProducto"]; ?></td>
-            <td><?php echo $fila["DetalleProducto"]; ?></td>
+            <td><?php echo htmlspecialchars($fila["Codigo"], ENT_QUOTES, 'UTF-8'); ?></td>
+            <td><?php echo htmlspecialchars($fila["NombreProducto"], ENT_QUOTES, 'UTF-8'); ?></td>
+            <td><?php echo htmlspecialchars($fila["DetalleProducto"], ENT_QUOTES, 'UTF-8'); ?></td>
             <td>
              <?php
             if($fila["Stock"] <= 5){
@@ -256,7 +274,7 @@ a{
             ?>
 </td>
 
-            <td>Bs. <?php echo $fila["PrecioProducto"]; ?></td>
+            <td>Bs. <?php echo htmlspecialchars($fila["PrecioProducto"], ENT_QUOTES, 'UTF-8'); ?></td>
 
 
 

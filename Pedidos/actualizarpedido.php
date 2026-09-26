@@ -22,8 +22,15 @@ $Telefono = "";
 
 if ($id != "") {
 
-    $sql = "SELECT * FROM Pedidos WHERE id='$id'";
-    $resultado = $conn->query($sql);
+    $stmt = $conn->prepare(
+        "SELECT * FROM Pedidos WHERE id = ?"
+    );
+
+    $stmt->bind_param("i", $id);
+
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
 
     if ($resultado && $resultado->num_rows > 0) {
         while ($fila = $resultado->fetch_assoc()) {
@@ -170,13 +177,13 @@ select#Estado:focus {
 
     <h2>Actualizar Pedido</h2>
 
-    <input type="hidden" name="id" id="id" value="<?=$id?>">
+    <input type="hidden" name="id" id="id" value="<?=htmlspecialchars($id, ENT_QUOTES, 'UTF-8')?>">
 
     <label>Nombre(s):</label>
-    <input type="text" name="Nombre" id="Nombre" value="<?=$Nombre?>">
+    <input type="text" name="Nombre" id="Nombre" value="<?=htmlspecialchars($Nombre, ENT_QUOTES, 'UTF-8')?>">
 
     <label>Fecha:</label>
-    <input type="date" name="Fecha" id="Fecha" value="<?=$Fecha?>" readonly>
+    <input type="date" name="Fecha" id="Fecha" value="<?=htmlspecialchars($Fecha, ENT_QUOTES, 'UTF-8')?>" readonly>
 
     <label>Estado:</label>
 
@@ -188,13 +195,13 @@ select#Estado:focus {
     </select>
 
     <label>Nombre del Vendedor:</label>
-    <input type="text" name="NombreVendedor" id="NombreVendedor" value="<?=$NombreVendedor?>" readonly>
+    <input type="text" name="NombreVendedor" id="NombreVendedor" value="<?=htmlspecialchars($NombreVendedor, ENT_QUOTES, 'UTF-8')?>" readonly>
 
     <label>Dirección:</label>
-    <input type="text" name="Direccion" id="Direccion" value="<?=$Direccion?>">
+    <input type="text" name="Direccion" id="Direccion" value="<?=htmlspecialchars($Direccion, ENT_QUOTES, 'UTF-8')?>">
 
     <label>Teléfono:</label>
-    <input type="number" name="Telefono" id="Telefono" value="<?=$Telefono?>">
+    <input type="number" name="Telefono" id="Telefono" value="<?=htmlspecialchars($Telefono, ENT_QUOTES, 'UTF-8')?>">
 
     <input type="submit" value="Actualizar Pedido" class="boton">
 

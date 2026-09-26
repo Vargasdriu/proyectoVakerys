@@ -12,11 +12,19 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-$Nombre = $_POST['Nombre'];
-$CI = $_POST['CI'];
+$Nombre = $_POST['Nombre'] ?? '';
+$CI = $_POST['CI'] ?? '';
 
-$sql = "SELECT * FROM GestionDeUsuarios WHERE Nombre='$Nombre' AND CI='$CI'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare(
+    "SELECT * FROM GestionDeUsuarios 
+     WHERE Nombre = ? AND CI = ?"
+);
+
+$stmt->bind_param("ss", $Nombre, $CI);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
 

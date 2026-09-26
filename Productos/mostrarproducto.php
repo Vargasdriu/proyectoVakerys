@@ -12,9 +12,15 @@ if($conexion->connect_error){
 
 $Codigo = $_GET['Codigo'];
 
-$sql = "SELECT * FROM Productos WHERE Codigo='$Codigo'";
+$stmt = $conexion->prepare(
+    "SELECT * FROM Productos WHERE Codigo = ?"
+);
 
-$resultado = $conexion->query($sql);
+$stmt->bind_param("s", $Codigo);
+
+$stmt->execute();
+
+$resultado = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>

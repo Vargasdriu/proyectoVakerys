@@ -15,11 +15,17 @@ $usuario = null;
 
 if(isset($_GET['CI'])){
 
-    $CI = $_GET['CI'];
+$CI = $_GET['CI'] ?? '';
 
-    $sql = "SELECT * FROM GestionDeUsuarios WHERE CI='$CI'";
+$stmt = $conexion->prepare(
+    "SELECT * FROM GestionDeUsuarios WHERE CI = ?"
+);
 
-    $resultado = $conexion->query($sql);
+$stmt->bind_param("s", $CI);
+
+$stmt->execute();
+
+$resultado = $stmt->get_result();
 
     if($resultado->num_rows > 0){
         $usuario = $resultado->fetch_assoc();
@@ -125,19 +131,17 @@ h1{
 
 if($usuario){
 
-    echo "<h1>Datos del Usuario</h1>";
+echo "<div class='dato'><span>CI:</span> " . htmlspecialchars($usuario['CI'], ENT_QUOTES, 'UTF-8') . "</div>";
 
-    echo "<div class='dato'><span>CI:</span> " . $usuario['CI'] . "</div>";
+echo "<div class='dato'><span>Nombre:</span> " . htmlspecialchars($usuario['Nombre'], ENT_QUOTES, 'UTF-8') . "</div>";
 
-    echo "<div class='dato'><span>Nombre:</span> " . $usuario['Nombre'] . "</div>";
+echo "<div class='dato'><span>Dirección:</span> " . htmlspecialchars($usuario['Direccion'], ENT_QUOTES, 'UTF-8') . "</div>";
 
-    echo "<div class='dato'><span>Dirección:</span> " . $usuario['Direccion'] . "</div>";
+echo "<div class='dato'><span>Celular:</span> " . htmlspecialchars($usuario['Numero'], ENT_QUOTES, 'UTF-8') . "</div>";
 
-    echo "<div class='dato'><span>Celular:</span> " . $usuario['Numero'] . "</div>";
+echo "<div class='dato'><span>Rol:</span> " . htmlspecialchars($usuario['Rol'], ENT_QUOTES, 'UTF-8') . "</div>";
 
-    echo "<div class='dato'><span>Rol:</span> " . $usuario['Rol'] . "</div>";
-
-    echo "<div class='dato'><span>Estado:</span> " . $usuario['Estado'] . "</div>";
+echo "<div class='dato'><span>Estado:</span> " . htmlspecialchars($usuario['Estado'], ENT_QUOTES, 'UTF-8') . "</div>";
 
 }else{
 
