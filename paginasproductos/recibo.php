@@ -19,7 +19,27 @@ $conn = new mysqli(
 );
 
 if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
+
+    echo '
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        Swal.fire({
+            icon: "error",
+            title: "Error de conexión",
+            text: "No se pudo conectar con la base de datos.",
+            confirmButtonText: "Volver",
+            confirmButtonColor: "#1d3021",
+            background: "#f5f7f2",
+            color: "#45644e",
+            iconColor: "#709775"
+        }).then(() => {
+            window.history.back();
+        });
+    </script>
+    ';
+
+    exit;
 }
 
 $conn->set_charset("utf8");
@@ -29,7 +49,56 @@ $conn->set_charset("utf8");
 // ==========================================
 
 if (!isset($_SESSION["pedido"])) {
-    die("No existe un pedido activo.");
+
+    ?>
+
+    <!DOCTYPE html>
+    <html lang="es">
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Vakery's</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    </head>
+
+    <body>
+    <?php include '../header.php'; ?>
+    <video autoplay muted loop>
+        <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
+    </video>
+        <script>
+
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay un pedido activo',
+                text: 'Primero debes realizar un pedido para poder ver tu recibo.',
+                confirmButtonText: 'Volver a productos',
+                confirmButtonColor: '#1d3021',
+                background: '#f5f7f2',
+                color: '#456851',
+                iconColor: '#709775',
+                borderRadius: '18px'
+            }).then(() => {
+
+                window.location.href = 'nuevoPedido.php';
+
+            });
+
+        </script>
+
+    </body>
+
+    </html>
+
+    <?php
+
+    exit;
 }
 
 $idPedido = $_SESSION["pedido"];
@@ -54,7 +123,27 @@ $sqlPedido = "
 $stmtPedido = $conn->prepare($sqlPedido);
 
 if (!$stmtPedido) {
-    die("Error en la consulta del pedido: " . $conn->error);
+
+    echo '
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        Swal.fire({
+            icon: "error",
+            title: "Error en el pedido",
+            text: "No se pudo realizar la consulta del pedido.",
+            confirmButtonText: "Volver",
+            confirmButtonColor: "#1d3021",
+            background: "#f5f7f2",
+            color: "#475f4e",
+            iconColor: "#709775"
+        }).then(() => {
+            window.history.back();
+        });
+    </script>
+    ';
+
+    exit;
 }
 
 $stmtPedido->bind_param("i", $idPedido);
@@ -63,7 +152,27 @@ $stmtPedido->execute();
 $resultadoPedido = $stmtPedido->get_result();
 
 if ($resultadoPedido->num_rows === 0) {
-    die("No se encontró el pedido.");
+
+    echo '
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        Swal.fire({
+            icon: "warning",
+            title: "Pedido no encontrado",
+            text: "No se encontró la información del pedido.",
+            confirmButtonText: "Volver",
+            confirmButtonColor: "#1d3021",
+            background: "#f5f7f2",
+            color: "#456851",
+            iconColor: "#709775"
+        }).then(() => {
+            window.history.back();
+        });
+    </script>
+    ';
+
+    exit;
 }
 
 $pedido = $resultadoPedido->fetch_assoc();
@@ -91,9 +200,28 @@ $sqlProductos = "
 $stmtProductos = $conn->prepare($sqlProductos);
 
 if (!$stmtProductos) {
-    die("Error en la consulta de productos: " . $conn->error);
-}
 
+    echo '
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        Swal.fire({
+            icon: "error",
+            title: "Error en los productos",
+            text: "No se pudieron cargar los productos del pedido.",
+            confirmButtonText: "Volver",
+            confirmButtonColor: "#1d3021",
+            background: "#f5f7f2",
+            color: "#26332a",
+            iconColor: "#709775"
+        }).then(() => {
+            window.history.back();
+        });
+    </script>
+    ';
+
+    exit;
+}
 $stmtProductos->bind_param("i", $idPedido);
 $stmtProductos->execute();
 
