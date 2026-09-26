@@ -149,22 +149,22 @@ input:focus{
 
     <h2>Actualizar Usuario</h2>
 
-    <input type="hidden" name="CI" id="CI" value="<?=$CI?>">
+<input type="hidden" name="CI" id="CI" value="<?=htmlspecialchars($CI, ENT_QUOTES, 'UTF-8')?>">
 
     <label>Nombre(s):</label>
-    <input type="text" name="Nombre" id="Nombre" value="<?=$Nombre?>">
+    <input type="text" name="Nombre" id="Nombre" value="<?=htmlspecialchars($Nombre, ENT_QUOTES, 'UTF-8')?>">
 
     <label>Dirección:</label>
-    <input type="text" name="Direccion" id="Direccion" value="<?=$Direccion?>">
+    <input type="text" name="Direccion" id="Direccion" value="<?=htmlspecialchars($Direccion, ENT_QUOTES, 'UTF-8')?>">
 
     <label>Celular:</label>
-    <input type="text" name="Numero" id="Numero" value="<?=$Numero?>">
+    <input type="text" name="Numero" id="Numero" value="<?=htmlspecialchars($Numero, ENT_QUOTES, 'UTF-8')?>">
 
     <label>Rol:</label>
-    <input type="text" name="Rol" id="Rol" value="<?=$Rol?>">
+    <input type="text" name="Rol" id="Rol" value="<?=htmlspecialchars($Rol, ENT_QUOTES, 'UTF-8')?>">
 
     <label>Estado:</label>
-    <input type="text" name="Estado" id="Estado" value="<?=$Estado?>">
+    <input type="text" name="Estado" id="Estado" value="<?=htmlspecialchars($Estado, ENT_QUOTES, 'UTF-8')?>">
 
     <input type="submit" value="Actualizar Usuario" class="boton">
 

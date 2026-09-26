@@ -66,7 +66,7 @@ body{
 <?php include '../header.php'; ?>
 
 <?php
-if($conexion->query($sql) == TRUE){
+if($resultado){
 ?>
 
 <script>

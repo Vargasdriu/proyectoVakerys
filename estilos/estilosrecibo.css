@@ -365,3 +365,142 @@ button:first-of-type:hover {
         display: none !important;
     }
 }
+/* ==========================================
+   QR DE PAGO
+========================================== */
+
+.qr-pago {
+    width: 100%;
+    text-align: center;
+    margin: 25px 0;
+    padding: 18px;
+    background: #fbfaf7;
+    border: 1px solid var(--beige);
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.qr-pago h3:first-child {
+    margin: 0 0 12px 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    color: var(--verde);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.qr-pago .qr-imagen {
+    display: block;
+
+    width: 220px !important;
+    height: 220px !important;
+
+    max-width: 220px !important;
+    max-height: 220px !important;
+
+    min-width: 220px !important;
+    min-height: 220px !important;
+
+    object-fit: contain;
+
+    margin: 0 auto !important;
+    padding: 0;
+
+    border: none;
+    box-sizing: border-box;
+}
+
+.qr-pago > p {
+    width: 100%;
+    margin: 10px 0 0;
+    padding: 0;
+
+    text-align: center;
+    font-size: 10px;
+    color: var(--gris);
+}
+
+
+/* ESTADO */
+
+.qr-pago .mensaje-estado {
+    width: auto;
+    margin: 12px auto 0;
+    padding: 8px 12px;
+
+    font-size: 10px;
+    letter-spacing: .5px;
+    text-transform: none;
+
+    border-radius: 8px;
+}
+
+
+/* ==========================================
+   QR EN CELULAR
+========================================== */
+
+@media (max-width: 650px) {
+
+    .qr-pago {
+        padding: 15px;
+    }
+
+    .qr-pago .qr-imagen {
+        width: 100px !important;
+        height: 100px !important;
+
+        max-width: 100px !important;
+        max-height: 100px !important;
+
+        min-width: 100px !important;
+        min-height: 100px !important;
+    }
+}
+
+
+/* ==========================================
+   QR AL IMPRIMIR
+========================================== */
+
+@media print {
+
+    .qr-pago {
+        margin: 15px 0;
+        padding: 10px;
+
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .qr-pago h3:first-child {
+        font-size: 9px;
+        margin-bottom: 6px;
+    }
+
+    .qr-pago .qr-imagen {
+        width: 80px !important;
+        height: 80px !important;
+
+        max-width: 80px !important;
+        max-height: 80px !important;
+
+        min-width: 80px !important;
+        min-height: 80px !important;
+    }
+
+    .qr-pago > p {
+        font-size: 7px;
+        margin-top: 5px;
+    }
+
+    .qr-pago .mensaje-estado {
+        font-size: 7px;
+        padding: 5px 8px;
+        margin-top: 5px;
+    }
+}

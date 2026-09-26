@@ -264,35 +264,44 @@ $total = 0;
             Total: Bs <?php echo $total; ?>
         </h2>
 
-        <!-- QR DE PAGO -->
-    <div class="qr-pago">
+<!-- QR DE PAGO -->
+
+<div class="qr-pago">
+
     <h3>QR de pago</h3>
-<img
+
+    <img
         src="../imagenes/qr_vakerys.PNG"
         alt="QR de pago"
         class="qr-imagen"
     >
+
     <p>Escanea este código para realizar el pago.</p>
 
-<?php if ($pedido["Estado"] === "Aceptado") { ?>
+    <?php if ($pedido["Estado"] === "Aceptado") { ?>
 
-    <h3 class="mensaje-estado aceptado">
-        ✓ ¡Pedido aceptado!
-    </h3>
+        <h3 class="mensaje-estado aceptado">
+            ✓ ¡Pedido aceptado!
+        </h3>
 
-<?php } elseif ($pedido["Estado"] === "Cancelado" || $pedido["Estado"] === "Rechazado") { ?>
+    <?php } elseif (
+        $pedido["Estado"] === "Cancelado" ||
+        $pedido["Estado"] === "Rechazado"
+    ) { ?>
 
-    <h3 class="mensaje-estado rechazado">
-        ✕ Pedido rechazado
-    </h3>
+        <h3 class="mensaje-estado rechazado">
+            ✕ Pedido rechazado
+        </h3>
 
-<?php } else { ?>
+    <?php } else { ?>
 
-    <h3 class="mensaje-estado pendiente">
-        Esperando aprobación del vendedor
-    </h3>
+        <h3 class="mensaje-estado pendiente">
+            Esperando aprobación del vendedor
+        </h3>
 
-<?php } ?>
+    <?php } ?>
+
+</div>
         <!-- ==========================================
              BOTONES
         =========================================== -->

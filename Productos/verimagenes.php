@@ -204,8 +204,7 @@ Producto: <strong><?php echo htmlspecialchars($CodigoProducto, ENT_QUOTES, 'UTF-
 
 <div></div>
 
-<a class="agregar" href="añadirimagen.php?codigo=<?php echo $CodigoProducto; ?>">
-    <i class="fa-solid fa-plus"></i> Añadir imágenes
+<a class="agregar" href="añadirimagen.php?codigo=<?php echo urlencode($CodigoProducto); ?>">    <i class="fa-solid fa-plus"></i> Añadir imágenes
 </a>
 
 </div>
