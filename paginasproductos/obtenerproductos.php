@@ -24,17 +24,43 @@ $sql = "SELECT
         FROM productos
         LEFT JOIN imagenes 
         ON productos.Codigo = imagenes.CodigoProducto
-        GROUP BY productos.Codigo";
+        ORDER BY productos.Codigo";
 
 $resultado = $conn->query($sql);
 
 $productos = array();
 
 while ($fila = $resultado->fetch_assoc()) {
-    $productos[] = $fila;
+
+    $codigo = $fila["Codigo"];
+
+    if (!isset($productos[$codigo])) {
+
+        $productos[$codigo] = array(
+            "Codigo" => $fila["Codigo"],
+            "NombreProducto" => $fila["NombreProducto"],
+            "PrecioProducto" => $fila["PrecioProducto"],
+            "DetalleProducto" => $fila["DetalleProducto"],
+            "Stock" => $fila["Stock"],
+            "CostoProducto" => $fila["CostoProducto"],
+            "Imagen" => "",
+            "Imagenes" => array()
+        );
+    }
+
+    if (!empty($fila["Imagen"])) {
+
+        $productos[$codigo]["Imagenes"][] = $fila["Imagen"];
+
+        if (empty($productos[$codigo]["Imagen"])) {
+            $productos[$codigo]["Imagen"] = $fila["Imagen"];
+        }
+    }
 }
 
-echo json_encode($productos);
+$productos = array_values($productos);
+
+echo json_encode($productos, JSON_UNESCAPED_UNICODE);
 
 $conn->close();
 

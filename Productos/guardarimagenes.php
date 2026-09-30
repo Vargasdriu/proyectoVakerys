@@ -1,4 +1,5 @@
 <?php
+
 include '../header.php';
 
 $servidor = "localhost";
@@ -21,7 +22,6 @@ $stmtProducto = $conn->prepare(
 );
 
 $stmtProducto->bind_param("s", $CodigoProducto);
-
 $stmtProducto->execute();
 
 $resultado = $stmtProducto->get_result();
@@ -30,11 +30,30 @@ if ($resultado->num_rows == 0) {
     die("El producto no existe.");
 }
 
-$carpeta = "imagenes/";
+$stmtProducto->close();
+
+$carpeta = "../imagenes/";
 
 if (!file_exists($carpeta)) {
     mkdir($carpeta, 0777, true);
 }
+
+if (!isset($_FILES["Imagenes"])) {
+    die("No se seleccionaron imágenes.");
+}
+
+$extensionesPermitidas = [
+    'jpg',
+    'jpeg',
+    'png',
+    'webp'
+];
+
+$tiposPermitidos = [
+    'image/jpeg',
+    'image/png',
+    'image/webp'
+];
 
 foreach ($_FILES["Imagenes"]["name"] as $i => $nombreArchivo) {
 
@@ -44,40 +63,32 @@ foreach ($_FILES["Imagenes"]["name"] as $i => $nombreArchivo) {
 
     $nombreTemporal = $_FILES["Imagenes"]["tmp_name"][$i];
 
-    // Extensiones permitidas
-    $extensionesPermitidas = ['jpg', 'jpeg', 'png', 'webp'];
-
     $extension = strtolower(
         pathinfo($nombreArchivo, PATHINFO_EXTENSION)
     );
 
-    // Verificar extensión
     if (!in_array($extension, $extensionesPermitidas, true)) {
         continue;
     }
 
-    // Verificar que realmente sea una imagen
     $tipoMime = mime_content_type($nombreTemporal);
-
-    $tiposPermitidos = [
-        'image/jpeg',
-        'image/png',
-        'image/webp'
-    ];
 
     if (!in_array($tipoMime, $tiposPermitidos, true)) {
         continue;
     }
 
-    // Crear un nombre nuevo y aleatorio
-    $nuevoNombre = uniqid('img_', true) . '.' . $extension;
+    $nombreOriginal = basename($nombreArchivo);
 
-    $ruta = $carpeta . $nuevoNombre;
+    $nombreOriginal = preg_replace(
+        '/[^A-Za-z0-9._-]/',
+        '_',
+        $nombreOriginal
+    );
 
-    // Guardar imagen
-    if (move_uploaded_file($nombreTemporal, $ruta)) {
+    $rutaFisica = $carpeta . $nombreOriginal;
 
-        // Guardar en la base de datos usando consulta preparada
+    if (move_uploaded_file($nombreTemporal, $rutaFisica)) {
+
         $stmtImagen = $conn->prepare(
             "INSERT INTO imagenes (CodigoProducto, Imagen)
              VALUES (?, ?)"
@@ -86,10 +97,12 @@ foreach ($_FILES["Imagenes"]["name"] as $i => $nombreArchivo) {
         $stmtImagen->bind_param(
             "ss",
             $CodigoProducto,
-            $ruta
+            $nombreOriginal
         );
 
         $stmtImagen->execute();
+
+        $stmtImagen->close();
     }
 }
 
@@ -99,59 +112,73 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <title>Guardar imágenes</title>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-body{
-    font-family: 'Poppins', sans-serif;
-}
 
-h2{
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
-    font-weight: 700;
-    color: #344E41;
-    text-align: center;
-    margin-bottom: 20px;
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
 
-label{
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: #344E41;
-}
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #344E41;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-input,
-button{
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-}
+        label {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: #344E41;
+        }
 
-input[type="submit"]{
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-</style>
+        input,
+        button {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+        }
+
+        input[type="submit"] {
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+    </style>
+
 </head>
+
 <body>
+
 <video autoplay muted loop>
     <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
 </video>
+
 <script>
+
 Swal.fire({
     title: "Éxito",
     text: "Las imágenes se subieron correctamente.",
     icon: "success",
     confirmButtonText: "Aceptar"
 }).then(() => {
-    window.location = "verimagenes.php?codigo=<?php echo $CodigoProducto; ?>";
+    window.location.href = "verimagenes.php?codigo=<?php echo urlencode($CodigoProducto); ?>";
 });
+
 </script>
 
 </body>
+
 </html>
