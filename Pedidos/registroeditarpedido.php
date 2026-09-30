@@ -18,14 +18,29 @@ $NombreVendedor = $_POST['NombreVendedor'];
 $Direccion = $_POST['Direccion'];
 $Telefono = $_POST['Telefono'];
 
-$sql = "UPDATE Pedidos SET 
-Nombre='$Nombre',
-Fecha='$Fecha',
-Estado='$Estado',
-NombreVendedor='$NombreVendedor',
-Direccion='$Direccion',
-Telefono='$Telefono'
-WHERE id='$id'";
+$stmt = $conexion->prepare(
+    "UPDATE Pedidos SET
+        Nombre = ?,
+        Fecha = ?,
+        Estado = ?,
+        NombreVendedor = ?,
+        Direccion = ?,
+        Telefono = ?
+     WHERE id = ?"
+);
+
+$stmt->bind_param(
+    "ssssssi",
+    $Nombre,
+    $Fecha,
+    $Estado,
+    $NombreVendedor,
+    $Direccion,
+    $Telefono,
+    $id
+);
+
+$resultado = $stmt->execute();
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +65,7 @@ WHERE id='$id'";
 <?php include '../header.php'; ?>
 
 <?php
-if($conexion->query($sql) == TRUE){
+if($resultado){
 ?>
 
 <script>

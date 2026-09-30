@@ -20,15 +20,19 @@ $idPedido = $_SESSION["pedido"];
 
 try {
 
-    $sqlCarrito = "
-        SELECT
-            productos_Codigo,
-            Cantidad
-        FROM carrito
-        WHERE pedidos_id = '$idPedido'
-    ";
+$stmtCarrito = $conn->prepare(
+    "SELECT
+        productos_Codigo,
+        Cantidad
+     FROM carrito
+     WHERE pedidos_id = ?"
+);
 
-    $resultado = $conn->query($sqlCarrito);
+$stmtCarrito->bind_param("i", $idPedido);
+
+$stmtCarrito->execute();
+
+$resultado = $stmtCarrito->get_result();
 
     if (!$resultado) {
         throw new Exception($conn->error);
@@ -41,13 +45,15 @@ try {
         );
     }
 
-    $sqlPedido = "
-        UPDATE pedidos
-        SET Estado = 'Activo'
-        WHERE id = '$idPedido'
-    ";
+$stmtPedido = $conn->prepare(
+    "UPDATE pedidos
+     SET Estado = 'Activo'
+     WHERE id = ?"
+);
 
-    if (!$conn->query($sqlPedido)) {
+$stmtPedido->bind_param("i", $idPedido);
+
+if (!$stmtPedido->execute())  {
         throw new Exception($conn->error);
     }
 

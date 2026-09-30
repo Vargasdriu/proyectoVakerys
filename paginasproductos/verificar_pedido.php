@@ -13,17 +13,19 @@ if($conn->connect_error){
 
 
 
-$id=$_POST["id"];
+$id = $_POST["id"] ?? 0;
 
+$stmt = $conn->prepare(
+    "SELECT *
+     FROM pedidos
+     WHERE id = ?"
+);
 
-$sql="
-SELECT *
-FROM pedido
-WHERE id='$id'
-";
+$stmt->bind_param("i", $id);
 
+$stmt->execute();
 
-$resultado=$conn->query($sql);
+$resultado = $stmt->get_result();
 
 
 

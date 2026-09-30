@@ -322,6 +322,22 @@ box-shadow:0 9px 20px rgba(112,151,117,.35);
 /* CELULAR */
 
 @media(max-width:900px){
+  .saludo{
+    padding-left:0;
+    margin:30px 20px;
+    width:auto;
+    text-align:center;
+  }
+  .saludo h1{
+    font-size:36px;
+  }
+  .saludo p{
+    font-size:18px;
+  }
+  .a{
+    grid-template-columns:repeat(2, 1fr);
+    padding:20px 30px;
+  }
 
 .b{
 margin:25px 20px;

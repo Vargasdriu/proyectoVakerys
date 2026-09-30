@@ -14,10 +14,17 @@ if ($conn->connect_error) {
 
 $conn->set_charset("utf8");
 
-$CodigoProducto = $_GET["codigo"];
+$CodigoProducto = $_GET["codigo"] ?? '';
 
-$sql = "SELECT * FROM imagenes WHERE CodigoProducto = '$CodigoProducto'";
-$resultado = $conn->query($sql);
+$stmt = $conn->prepare(
+    "SELECT * FROM imagenes WHERE CodigoProducto = ?"
+);
+
+$stmt->bind_param("s", $CodigoProducto);
+
+$stmt->execute();
+
+$resultado = $stmt->get_result();
 
 ?>
 
@@ -191,15 +198,13 @@ h1{
 <h1>Galería de imágenes</h1>
 
 <p class="subtitulo">
-Producto: <strong><?php echo $CodigoProducto; ?></strong>
-</p>
+Producto: <strong><?php echo htmlspecialchars($CodigoProducto, ENT_QUOTES, 'UTF-8'); ?></strong></p>
 
 <div class="barra">
 
 <div></div>
 
-<a class="agregar" href="añadirimagen.php?codigo=<?php echo $CodigoProducto; ?>">
-    <i class="fa-solid fa-plus"></i> Añadir imágenes
+<a class="agregar" href="añadirimagen.php?codigo=<?php echo urlencode($CodigoProducto); ?>">    <i class="fa-solid fa-plus"></i> Añadir imágenes
 </a>
 
 </div>

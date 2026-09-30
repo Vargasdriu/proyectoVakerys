@@ -17,12 +17,28 @@ $NombreVendedor = $_POST['NombreVendedor'];
 $Direccion = $_POST['Direccion'];
 $Telefono = $_POST['Telefono'];
 
-$sql = "INSERT INTO Pedidos 
-(Nombre, Fecha, Estado, NombreVendedor, Direccion, Telefono) VALUES 
-('$Nombre','$Fecha','$Estado','$NombreVendedor','$Direccion','$Telefono')";
+$stmt = $conn->prepare(
+    "INSERT INTO Pedidos
+    (Nombre, Fecha, Estado, NombreVendedor, Direccion, Telefono)
+    VALUES (?, ?, ?, ?, ?, ?)"
+);
 
-if($conn->query($sql)){
-    header("location:../carrito/miCarrito.php?idPedido=".$conn->insert_id);
+$stmt->bind_param(
+    "ssssss",
+    $Nombre,
+    $Fecha,
+    $Estado,
+    $NombreVendedor,
+    $Direccion,
+    $Telefono
+);
+
+if($stmt->execute()){
+
+    header(
+        "location:../carrito/miCarrito.php?idPedido="
+        . $conn->insert_id
+    );
 }else{
     echo "Error: " . $conn->error;
 }
@@ -107,7 +123,7 @@ p{
 
 <?php
 
-if($conn->query($sql) == TRUE){
+if($stmt->execute()){
 
     echo "<h1>✓ Pedido Registrado</h1>";
     echo "<p>El nuevo pedido fue creado con éxito.</p>";

@@ -12,8 +12,15 @@ if ($conn->connect_error) {
 
 $id_pedido = $_GET['id'] ?? 0;
 
-$sqlPedido = "SELECT * FROM pedidos WHERE id = '$id_pedido'";
-$resultadoPedido = $conn->query($sqlPedido);
+$stmtPedido = $conn->prepare(
+    "SELECT * FROM pedidos WHERE id = ?"
+);
+
+$stmtPedido->bind_param("i", $id_pedido);
+
+$stmtPedido->execute();
+
+$resultadoPedido = $stmtPedido->get_result();
 
 if ($resultadoPedido->num_rows == 0) {
     die("Pedido no encontrado.");
@@ -21,26 +28,38 @@ if ($resultadoPedido->num_rows == 0) {
 
 $pedido = $resultadoPedido->fetch_assoc();
 
-$sqlProductos = "SELECT 
-                    p.Codigo,
-                    p.NombreProducto,
-                    p.DetalleProducto,
-                    p.PrecioProducto,
-                    p.Imagen,
-                    c.Cantidad,
-                    c.CostoTotal
-                FROM carrito c
-                INNER JOIN productos p 
-                    ON c.productos_Codigo = p.Codigo
-                WHERE c.pedidos_id = '$id_pedido'";
+$stmtProductos = $conn->prepare(
+    "SELECT 
+        p.Codigo,
+        p.NombreProducto,
+        p.DetalleProducto,
+        p.PrecioProducto,
+        p.Imagen,
+        c.Cantidad,
+        c.CostoTotal
+     FROM carrito c
+     INNER JOIN productos p 
+        ON c.productos_Codigo = p.Codigo
+     WHERE c.pedidos_id = ?"
+);
 
-$resultadoProductos = $conn->query($sqlProductos);
+$stmtProductos->bind_param("i", $id_pedido);
 
-$sqlTotal = "SELECT SUM(CostoTotal) AS total 
-             FROM carrito 
-             WHERE pedidos_id = '$id_pedido'";
+$stmtProductos->execute();
 
-$resultadoTotal = $conn->query($sqlTotal);
+$resultadoProductos = $stmtProductos->get_result();
+
+$stmtTotal = $conn->prepare(
+    "SELECT SUM(CostoTotal) AS total
+     FROM carrito
+     WHERE pedidos_id = ?"
+);
+
+$stmtTotal->bind_param("i", $id_pedido);
+
+$stmtTotal->execute();
+
+$resultadoTotal = $stmtTotal->get_result();
 $filaTotal = $resultadoTotal->fetch_assoc();
 $total = $filaTotal['total'] ?? 0;
 ?>

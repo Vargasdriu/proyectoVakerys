@@ -10,11 +10,24 @@ if($conexion->connect_error){
     die("Conexión fallida: " . $conexion->connect_error);
 }
 
-$Codigo = $_GET['Codigo'];
+$Codigo = $_GET['Codigo'] ?? '';
 
-$conexion->query("DELETE FROM carrito WHERE productos_Codigo='$Codigo'");
+$stmtCarrito = $conexion->prepare(
+    "DELETE FROM carrito WHERE productos_Codigo = ?"
+);
 
-$sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";
+$stmtCarrito->bind_param("s", $Codigo);
+
+$stmtCarrito->execute();
+
+
+$stmtProducto = $conexion->prepare(
+    "DELETE FROM Productos WHERE Codigo = ?"
+);
+
+$stmtProducto->bind_param("s", $Codigo);
+
+$resultado = $stmtProducto->execute();
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +51,7 @@ $sql = "DELETE FROM Productos WHERE Codigo='$Codigo'";
 <?php include '../header.php'; ?>
 
 <?php
-if($conexion->query($sql) === TRUE){
+if($resultado){
 ?>
 
 <script>

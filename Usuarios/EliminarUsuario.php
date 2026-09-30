@@ -9,9 +9,17 @@ $conexion = new mysqli($servername, $username,$password,$bdname);
 if($conexion -> connect_error){
     echo "Hubo un error";
 }
-$CI = $_GET['CI'];
-$sql = "DELETE FROM GestionDeUsuarios WHERE  CI = '$CI'";
-if ($conexion->query($sql) === TRUE) {
+$CI = $_GET['CI'] ?? '';
+
+$stmt = $conexion->prepare(
+    "DELETE FROM GestionDeUsuarios WHERE CI = ?"
+);
+
+$stmt->bind_param("s", $CI);
+
+$resultado = $stmt->execute();
+
+if ($resultado) {
     echo "Usuario eliminado correctamente.";
 }
  else {

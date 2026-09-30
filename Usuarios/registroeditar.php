@@ -19,15 +19,27 @@ $Numero = $_POST['Numero'];
 $Rol = $_POST['Rol'];
 $Estado = $_POST['Estado'];
 
-$sql = "UPDATE GestionDeUsuarios SET 
-    Nombre='$Nombre',
-    Direccion='$Direccion',
-    Numero='$Numero',
-    Rol='$Rol',
-    Estado='$Estado'
-    WHERE CI='$CI'";
+$stmt = $conexion->prepare(
+    "UPDATE GestionDeUsuarios SET
+        Nombre = ?,
+        Direccion = ?,
+        Numero = ?,
+        Rol = ?,
+        Estado = ?
+     WHERE CI = ?"
+);
 
-$resultado = $conexion->query($sql);
+$stmt->bind_param(
+    "ssssss",
+    $Nombre,
+    $Direccion,
+    $Numero,
+    $Rol,
+    $Estado,
+    $CI
+);
+
+$resultado = $stmt->execute();
 
 ?>
 
