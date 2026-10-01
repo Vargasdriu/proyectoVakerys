@@ -310,6 +310,341 @@ transition: transform 0.3s ease, box-shadow 0.3s ease;
 .carro{
     width: 25px;
     height: 25px;
+
+
+}
+
+/* pedido sopresa */
+
+.sorpresa-section{
+    width:100%;
+    background:#cbd1c2;
+    padding:25px 50px 45px 50px;
+}
+
+.sorpresa-contenido{
+    width:100%;
+    background:#dce3d2;
+    border-radius:20px;
+    padding:32px 45px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 5px 15px rgba(29,48,33,.06);
+}
+
+.sorpresa-texto{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.sorpresa-texto span{
+    font-size:11px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:#588157;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+.sorpresa-texto h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:38px;
+    font-weight:600;
+    color:#1d3021;
+    margin:0 0 6px 0;
+}
+
+.sorpresa-texto p{
+    color:#405044;
+    font-size:15px;
+    line-height:1.5;
+    margin:0 0 18px 0;
+}
+
+#btnSorprendeme{
+    border:none;
+    background:#1d3021;
+    color:#fff;
+    padding:13px 25px;
+    border-radius:30px;
+    font-family:'Raleway',sans-serif;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 5px 12px rgba(29,48,33,.18);
+    transition:all .3s ease;
+}
+
+#btnSorprendeme:hover{
+    background:#29432d;
+    transform:translateY(-3px);
+    box-shadow:0 8px 18px rgba(29,48,33,.25);
+}
+
+
+/* modal sorpresa */
+
+.modal-sorpresa{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(15,28,18,.72);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    padding:20px;
+}
+
+.modal-sorpresa.mostrar{
+    display:flex;
+}
+
+.modal-sorpresa-contenido{
+    position:relative;
+    width:100%;
+    max-width:720px;
+    background:#f5f3e9;
+    border-radius:24px;
+    padding:45px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+    animation:aparecerSorpresa .4s ease;
+}
+
+.cerrar-sorpresa{
+    position:absolute;
+    top:18px;
+    right:22px;
+    border:none;
+    background:transparent;
+    color:#344e41;
+    font-size:30px;
+    line-height:1;
+    cursor:pointer;
+    transition:transform .3s ease;
+}
+
+.cerrar-sorpresa:hover{
+    transform:rotate(90deg);
+}
+
+
+/* carga */
+
+#sorpresaCargando{
+    display:block;
+}
+
+.sorpresa-decoracion{
+    display:block;
+    color:#588157;
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+#sorpresaCargando h2,
+#sorpresaResultado h2{
+    font-family:"Cormorant Garamond",serif;
+    color:#1d3021;
+    font-size:38px;
+    font-weight:600;
+    margin:0 0 8px 0;
+}
+
+#sorpresaCargando p{
+    color:#405044;
+    font-size:15px;
+    margin:0;
+}
+
+.sorpresa-imagenes{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+    margin:30px 0 20px 0;
+}
+
+.sorpresa-imagenes div{
+    width:95px;
+    height:95px;
+    border-radius:16px;
+    background:#dce3d2;
+    position:relative;
+    overflow:hidden;
+}
+
+.sorpresa-imagenes div::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.7),
+        transparent
+    );
+    animation:brilloSorpresa 1.2s infinite;
+}
+
+.sorpresa-imagenes div:nth-child(2)::after{
+    animation-delay:.15s;
+}
+
+.sorpresa-imagenes div:nth-child(3)::after{
+    animation-delay:.3s;
+}
+
+.sorpresa-imagenes div:nth-child(4)::after{
+    animation-delay:.45s;
+}
+
+.sorpresa-puntos{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+.sorpresa-puntos span{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#b8c3ae;
+}
+
+.sorpresa-puntos .activo{
+    background:#1d3021;
+}
+
+
+/* resultado */
+
+#sorpresaResultado{
+    display:none;
+}
+
+.sorpresa-resultado{
+    position:relative;
+}
+
+.sorpresa-resultado > img{
+    width:230px;
+    height:230px;
+    object-fit:cover;
+    border-radius:20px;
+    margin:20px auto;
+    display:block;
+}
+
+.sorpresa-info h3{
+    font-family:"Cormorant Garamond",serif;
+    font-size:32px;
+    color:#1d3021;
+    margin:0 0 8px 0;
+}
+
+.sorpresa-info p{
+    max-width:500px;
+    margin:0 auto 12px auto;
+    color:#526052;
+    font-size:15px;
+    line-height:1.6;
+}
+
+#precioSorpresa{
+    display:block;
+    color:#1d4d1d;
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+.sorpresa-botones{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+}
+
+.sorpresa-botones a,
+.sorpresa-botones button{
+    border-radius:30px;
+    padding:12px 22px;
+    font-family:'Raleway',sans-serif;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all .3s ease;
+}
+
+.sorpresa-botones a{
+    border:1.5px solid #344e41;
+    color:#344e41 !important;
+    background:transparent;
+}
+
+.sorpresa-botones a:hover{
+    background:#dce3d2;
+}
+
+.sorpresa-botones button{
+    border:none;
+    background:#1d3021;
+    color:white;
+}
+
+.sorpresa-botones button:hover{
+    background:#29432d;
+    transform:translateY(-2px);
+}
+
+.otra-sorpresa{
+    margin-top:25px;
+    padding-top:18px;
+    border:none;
+    border-top:1px solid #ccd2c4;
+    background:transparent;
+    color:#405044;
+    font-family:'Raleway',sans-serif;
+    font-size:14px;
+    cursor:pointer;
+    transition:color .3s ease;
+}
+
+.otra-sorpresa:hover{
+    color:#1d3021;
+}
+
+
+/* animaciones */
+
+@keyframes aparecerSorpresa{
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+@keyframes brilloSorpresa{
+    0%{
+        left:-100%;
+    }
+
+    100%{
+        left:100%;
+    }
 }
 /* Seccion S - Consulta de Estado de Pedido */
 .s {
