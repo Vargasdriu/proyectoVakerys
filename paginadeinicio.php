@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +14,23 @@
 <img src="imagenes/x.png" alt="Cerrar" class="close-icon">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<link rel="stylesheet" href="estilos/accesibilidad.css">
 </head>
-<body>
+<body class="<?php
+
+if(!empty($_SESSION['textoGrande'])){
+    echo 'texto-grande ';
+}
+
+if(!empty($_SESSION['altoContraste'])){
+    echo 'alto-contraste ';
+}
+
+if(!empty($_SESSION['navegacionTeclado'])){
+    echo 'navegacion-teclado ';
+}
+
+?>">
 
      <?php include 'header.php'; ?>
 

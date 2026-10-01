@@ -1,3 +1,26 @@
+<?php
+session_start();
+
+if(isset($_POST['accion'])){
+
+    if($_POST['accion'] == 'texto'){
+        $_SESSION['textoGrande'] = !empty($_SESSION['textoGrande']) ? false : true;
+    }
+
+    if($_POST['accion'] == 'contraste'){
+        $_SESSION['altoContraste'] = !empty($_SESSION['altoContraste']) ? false : true;
+    }
+
+    if($_POST['accion'] == 'teclado'){
+        $_SESSION['navegacionTeclado'] = !empty($_SESSION['navegacionTeclado']) ? false : true;
+    }
+}
+
+$textoGrande = !empty($_SESSION['textoGrande']);
+$altoContraste = !empty($_SESSION['altoContraste']);
+$navegacionTeclado = !empty($_SESSION['navegacionTeclado']);
+?>
+<?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -25,12 +48,14 @@
             background:#f5f6f1;
             color:#1d3021;
             min-height:100vh;
+            transition:0.2s;
+            margin-top:105px;
         }
 
         .contenedor{
             width:90%;
             max-width:900px;
-            margin:110px auto 50px;
+            margin:60px auto 50px;
         }
 
         .cabecera{
@@ -72,6 +97,7 @@
             cursor:pointer;
             font-family:'Raleway',sans-serif;
             transition:.2s ease;
+            width:100%;
         }
 
         .opcion:hover{
@@ -82,6 +108,11 @@
         .opcion:focus{
             outline:4px solid #f4d35e;
             outline-offset:3px;
+        }
+
+        .opcion.activo{
+            border-color:#3a5a40;
+            background:#e6eadf;
         }
 
         .opcion h2{
@@ -99,6 +130,7 @@
         .icono{
             font-size:28px;
             margin-bottom:10px;
+            font-weight:700;
         }
 
         .estado{
@@ -109,6 +141,7 @@
             color:#1d3021;
             text-align:center;
             font-weight:600;
+            line-height:1.5;
         }
 
         .volver{
@@ -134,18 +167,16 @@
             outline-offset:3px;
         }
 
-        /* TEXTO GRANDE */
-
         body.texto-grande{
-            font-size:30px;
+            font-size:20px;
         }
 
         body.texto-grande .cabecera h1{
-            font-size:54px;
+            font-size:44px;
         }
 
         body.texto-grande .cabecera p{
-            font-size:31px;
+            font-size:21px;
         }
 
         body.texto-grande .opcion h2{
@@ -155,8 +186,6 @@
         body.texto-grande .opcion p{
             font-size:18px;
         }
-
-        /* ALTO CONTRASTE */
 
         body.alto-contraste{
             background:#000;
@@ -184,6 +213,16 @@
             color:#fff;
         }
 
+        body.alto-contraste .opcion.activo{
+            background:#fff;
+            color:#000;
+        }
+
+        body.alto-contraste .opcion.activo h2,
+        body.alto-contraste .opcion.activo p{
+            color:#000;
+        }
+
         body.alto-contraste .estado{
             background:#fff;
             color:#000;
@@ -199,8 +238,6 @@
             outline:4px solid #ffff00;
         }
 
-        /* TECLADO */
-
         body.navegacion-teclado *:focus{
             outline:4px solid #f4d35e !important;
             outline-offset:4px !important;
@@ -209,11 +246,15 @@
         @media(max-width:700px){
 
             .contenedor{
-                margin-top:95px;
+                margin-top:40px;
             }
 
             .cabecera h1{
                 font-size:30px;
+            }
+
+            .cabecera p{
+                font-size:16px;
             }
 
             .opciones{
@@ -230,35 +271,50 @@
 
 </head>
 
-<body>
+<body class="<?php
 
-<?php include "header.php"; ?>
-    <main class="contenedor">
+    if($textoGrande){
+        echo 'texto-grande ';
+    }
 
-        <section class="cabecera">
+    if($altoContraste){
+        echo 'alto-contraste ';
+    }
 
-            <h1>Modo accesible</h1>
+    if($navegacionTeclado){
+        echo 'navegacion-teclado ';
+    }
 
-            <p>
-                Vakery's cuenta con herramientas que facilitan la navegación
-                y el uso de la página para diferentes usuarios.
-            </p>
+?>">
 
-        </section>
+<main class="contenedor">
 
-        <section class="panel" aria-label="Opciones de accesibilidad">
+    <section class="cabecera">
 
-            <div class="opciones">
+        <h1>Modo accesible</h1>
 
-                <button
-                    type="button"
-                    class="opcion"
-                    id="texto"
-                    aria-label="Aumentar tamaño del texto">
+        <p>
+            Vakery's cuenta con herramientas que facilitan la lectura,
+            navegación y uso de la página.
+        </p>
+
+    </section>
+
+    <section class="panel" aria-label="Opciones de accesibilidad">
+
+        <div class="opciones">
+
+            <form method="POST">
+
+                <input type="hidden" name="accion" value="texto">
+
+                <button type="submit" class="opcion <?php echo $textoGrande ? 'activo' : ''; ?>">
 
                     <div class="icono">A+</div>
 
-                    <h2>Texto más grande</h2>
+                    <h2>
+                        <?php echo $textoGrande ? 'Texto grande activado' : 'Texto más grande'; ?>
+                    </h2>
 
                     <p>
                         Aumenta el tamaño del texto para facilitar su lectura.
@@ -266,16 +322,19 @@
 
                 </button>
 
+            </form>
 
-                <button
-                    type="button"
-                    class="opcion"
-                    id="contraste"
-                    aria-label="Activar alto contraste">
+            <form method="POST">
+
+                <input type="hidden" name="accion" value="contraste">
+
+                <button type="submit" class="opcion <?php echo $altoContraste ? 'activo' : ''; ?>">
 
                     <div class="icono">◐</div>
 
-                    <h2>Alto contraste</h2>
+                    <h2>
+                        <?php echo $altoContraste ? 'Alto contraste activado' : 'Alto contraste'; ?>
+                    </h2>
 
                     <p>
                         Cambia los colores de la página para mejorar la visibilidad.
@@ -283,197 +342,119 @@
 
                 </button>
 
+            </form>
 
-                <button
-                    type="button"
-                    class="opcion"
-                    id="escuchar"
-                    aria-label="Escuchar información de la página">
+            <button type="button" class="opcion" id="escuchar">
 
-                    <div class="icono">🔊</div>
+                <div class="icono">🔊</div>
 
-                    <h2>Escuchar</h2>
+                <h2>Escuchar</h2>
 
-                    <p>
-                        Lee en voz alta la información principal de esta página.
-                    </p>
+                <p>
+                    Lee en voz alta la información de esta página.
+                </p>
 
-                </button>
+            </button>
 
+            <form method="POST">
 
-                <button
-                    type="button"
-                    class="opcion"
-                    id="teclado"
-                    aria-label="Activar navegación con teclado">
+                <input type="hidden" name="accion" value="teclado">
+
+                <button type="submit" class="opcion <?php echo $navegacionTeclado ? 'activo' : ''; ?>">
 
                     <div class="icono">TAB</div>
 
-                    <h2>Navegación con teclado</h2>
+                    <h2>
+                        <?php echo $navegacionTeclado ? 'Navegación activada' : 'Navegación con teclado'; ?>
+                    </h2>
 
                     <p>
-                        Permite recorrer las opciones utilizando TAB y seleccionar
-                        con ENTER o ESPACIO.
+                        Permite recorrer las opciones utilizando TAB,
+                        SHIFT + TAB, ENTER y ESPACIO.
                     </p>
 
                 </button>
 
-            </div>
+            </form>
 
-            <div
-                id="estado"
-                class="estado"
-                role="status"
-                aria-live="polite">
+        </div>
 
-                Selecciona una opción para activar una herramienta.
+        <div class="estado" role="status" aria-live="polite">
 
-            </div>
+            <?php
 
-        </section>
+            if($textoGrande || $altoContraste || $navegacionTeclado){
 
-        <a
-            href="/proyectovakerys/paginadeinicio.php"
-            class="volver">
+                echo "Tienes activadas las siguientes opciones: ";
 
-            Volver a Vakery's
+                $activadas = [];
 
-        </a>
->
-    </main>
-<?php include "footer.php"; ?>
+                if($textoGrande){
+                    $activadas[] = "texto grande";
+                }
 
-    <script>
+                if($altoContraste){
+                    $activadas[] = "alto contraste";
+                }
 
-        const botonTexto = document.getElementById("texto");
-        const botonContraste = document.getElementById("contraste");
-        const botonEscuchar = document.getElementById("escuchar");
-        const botonTeclado = document.getElementById("teclado");
-        const estado = document.getElementById("estado");
+                if($navegacionTeclado){
+                    $activadas[] = "navegación con teclado";
+                }
 
-
-        botonTexto.addEventListener("click", function(){
-
-            document.body.classList.toggle("texto-grande");
-
-            if(document.body.classList.contains("texto-grande")){
-
-                estado.textContent =
-                    "Texto grande activado.";
-
-                botonTexto.setAttribute(
-                    "aria-label",
-                    "Desactivar texto grande"
-                );
+                echo implode(", ", $activadas) . ".";
 
             }else{
 
-                estado.textContent =
-                    "Texto grande desactivado.";
-
-                botonTexto.setAttribute(
-                    "aria-label",
-                    "Activar texto grande"
-                );
+                echo "No tienes ninguna opción de accesibilidad activada.";
 
             }
 
-        });
+            ?>
 
+        </div>
 
-        botonContraste.addEventListener("click", function(){
+    </section>
 
-            document.body.classList.toggle("alto-contraste");
+    <a href="/proyectovakerys/paginadeinicio.php" class="volver">
+        Volver a Vakery's
+    </a>
 
-            if(document.body.classList.contains("alto-contraste")){
+</main>
 
-                estado.textContent =
-                    "Alto contraste activado.";
+<script>
 
-                botonContraste.setAttribute(
-                    "aria-label",
-                    "Desactivar alto contraste"
-                );
+document.getElementById("escuchar").addEventListener("click", function(){
 
-            }else{
+    if(!("speechSynthesis" in window)){
 
-                estado.textContent =
-                    "Alto contraste desactivado.";
+        alert("La función de lectura por voz no está disponible en este navegador.");
 
-                botonContraste.setAttribute(
-                    "aria-label",
-                    "Activar alto contraste"
-                );
+        return;
 
-            }
+    }
 
-        });
+    speechSynthesis.cancel();
 
+    const texto =
+        "Bienvenido al modo accesible de Vakery's. " +
+        "En esta página puedes activar texto grande, alto contraste " +
+        "y navegación con teclado. " +
+        "Para navegar con teclado utiliza TAB para avanzar, " +
+        "SHIFT más TAB para retroceder y ENTER o ESPACIO para seleccionar.";
 
-        botonTeclado.addEventListener("click", function(){
+    const mensaje = new SpeechSynthesisUtterance(texto);
 
-            document.body.classList.toggle("navegacion-teclado");
+    mensaje.lang = "es-ES";
+    mensaje.rate = 0.9;
+    mensaje.pitch = 1;
+    mensaje.volume = 1;
 
-            if(document.body.classList.contains("navegacion-teclado")){
+    speechSynthesis.speak(mensaje);
 
-                estado.textContent =
-                    "Navegación con teclado activada. Usa TAB para avanzar y SHIFT + TAB para retroceder.";
+});
 
-                botonTeclado.setAttribute(
-                    "aria-label",
-                    "Desactivar navegación con teclado"
-                );
-
-            }else{
-
-                estado.textContent =
-                    "Navegación con teclado desactivada.";
-
-                botonTeclado.setAttribute(
-                    "aria-label",
-                    "Activar navegación con teclado"
-                );
-
-            }
-
-        });
-
-
-        botonEscuchar.addEventListener("click", function(){
-
-            if(!("speechSynthesis" in window)){
-
-                estado.textContent =
-                    "La función de lectura por voz no está disponible en este navegador.";
-
-                return;
-
-            }
-
-            speechSynthesis.cancel();
-
-            const texto =
-                "Bienvenido al modo accesible de Vakery's. " +
-                "En esta página puedes aumentar el tamaño del texto, " +
-                "activar el alto contraste y utilizar la navegación con teclado. " +
-                "Para navegar con teclado utiliza TAB para avanzar, " +
-                "SHIFT más TAB para retroceder y ENTER o ESPACIO para seleccionar.";
-
-            const mensaje = new SpeechSynthesisUtterance(texto);
-
-            mensaje.lang = "es-ES";
-            mensaje.rate = 0.9;
-            mensaje.pitch = 1;
-
-            speechSynthesis.speak(mensaje);
-
-            estado.textContent =
-                "Reproduciendo información mediante voz.";
-
-        });
-
-    </script>
+</script>
 
 </body>
-
+<?php include 'footer.php'; ?>
 </html>
