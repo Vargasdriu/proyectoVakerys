@@ -4,21 +4,27 @@ session_start();
 if(isset($_POST['accion'])){
 
     if($_POST['accion'] == 'texto'){
-        $_SESSION['textoGrande'] = !empty($_SESSION['textoGrande']) ? false : true;
+        $_SESSION['textoGrande'] = !($_SESSION['textoGrande'] ?? false);
     }
 
     if($_POST['accion'] == 'contraste'){
-        $_SESSION['altoContraste'] = !empty($_SESSION['altoContraste']) ? false : true;
+        $_SESSION['altoContraste'] = !($_SESSION['altoContraste'] ?? false);
     }
 
     if($_POST['accion'] == 'teclado'){
-        $_SESSION['navegacionTeclado'] = !empty($_SESSION['navegacionTeclado']) ? false : true;
+        $_SESSION['navegacionTeclado'] = !($_SESSION['navegacionTeclado'] ?? false);
+    }
+
+    if($_POST['accion'] == 'voz'){
+        $_SESSION['voz'] = !($_SESSION['voz'] ?? false);
     }
 }
 
-$textoGrande = !empty($_SESSION['textoGrande']);
-$altoContraste = !empty($_SESSION['altoContraste']);
-$navegacionTeclado = !empty($_SESSION['navegacionTeclado']);
+$textoGrande = $_SESSION['textoGrande'] ?? false;
+$altoContraste = $_SESSION['altoContraste'] ?? false;
+$navegacionTeclado = $_SESSION['navegacionTeclado'] ?? false;
+
+$voz = $_SESSION['voz'] ?? false;
 ?>
 <?php include 'header.php'; ?>
 <!DOCTYPE html>
@@ -344,17 +350,25 @@ $navegacionTeclado = !empty($_SESSION['navegacionTeclado']);
 
             </form>
 
-            <button type="button" class="opcion" id="escuchar">
+            <form method="POST">
 
-                <div class="icono">🔊</div>
+    <input type="hidden" name="accion" value="voz">
 
-                <h2>Escuchar</h2>
+    <button type="submit" class="opcion <?php echo $voz ? 'activo' : ''; ?>" id="escuchar">
 
-                <p>
-                    Lee en voz alta la información de esta página.
-                </p>
+        <div class="icono">🔊</div>
 
-            </button>
+        <h2>
+            <?php echo $voz ? 'Lectura por voz activada' : 'Escuchar'; ?>
+        </h2>
+
+        <p>
+            Lee en voz alta la información de las páginas.
+        </p>
+
+    </button>
+
+</form>
 
             <form method="POST">
 
@@ -421,39 +435,6 @@ $navegacionTeclado = !empty($_SESSION['navegacionTeclado']);
 
 </main>
 
-<script>
-
-document.getElementById("escuchar").addEventListener("click", function(){
-
-    if(!("speechSynthesis" in window)){
-
-        alert("La función de lectura por voz no está disponible en este navegador.");
-
-        return;
-
-    }
-
-    speechSynthesis.cancel();
-
-    const texto =
-        "Bienvenido al modo accesible de Vakery's. " +
-        "En esta página puedes activar texto grande, alto contraste " +
-        "y navegación con teclado. " +
-        "Para navegar con teclado utiliza TAB para avanzar, " +
-        "SHIFT más TAB para retroceder y ENTER o ESPACIO para seleccionar.";
-
-    const mensaje = new SpeechSynthesisUtterance(texto);
-
-    mensaje.lang = "es-ES";
-    mensaje.rate = 0.9;
-    mensaje.pitch = 1;
-    mensaje.volume = 1;
-
-    speechSynthesis.speak(mensaje);
-
-});
-
-</script>
 <script src="accesibilidad.js"></script>
 </body>
 <?php include 'footer.php'; ?>

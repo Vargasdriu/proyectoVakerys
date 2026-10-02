@@ -1,25 +1,10 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-    const botonEscuchar = document.getElementById("escuchar");
+    if(document.body.classList.contains("voz-activa")){
 
-    if(botonEscuchar){
+        const contenido = document.querySelector("main");
 
-        botonEscuchar.addEventListener("click", function(){
-
-            if(!("speechSynthesis" in window)){
-
-                alert("La función de lectura por voz no está disponible en este navegador.");
-
-                return;
-            }
-
-            speechSynthesis.cancel();
-
-            const contenido = document.querySelector("main");
-
-            if(!contenido){
-                return;
-            }
+        if(contenido && "speechSynthesis" in window){
 
             const elementos = contenido.querySelectorAll(
                 "h1, h2, h3, p, label, strong, li"
@@ -37,29 +22,26 @@ document.addEventListener("DOMContentLoaded", function(){
 
             });
 
-            if(texto.trim() === ""){
+            if(texto.trim() !== ""){
 
-                alert("No hay información disponible para leer.");
+                const mensaje = new SpeechSynthesisUtterance(texto);
 
-                return;
+                mensaje.lang = "es-ES";
+                mensaje.rate = 0.9;
+                mensaje.pitch = 1;
+                mensaje.volume = 1;
+
+                speechSynthesis.speak(mensaje);
+
             }
 
-            const mensaje = new SpeechSynthesisUtterance(texto);
-
-            mensaje.lang = "es-ES";
-            mensaje.rate = 0.9;
-            mensaje.pitch = 1;
-            mensaje.volume = 1;
-
-            speechSynthesis.speak(mensaje);
-
-        });
+        }
 
     }
 
     document.addEventListener("keydown", function(event){
 
-        if(event.key === "Escape"){
+        if(event.key === "Escape" && "speechSynthesis" in window){
             speechSynthesis.cancel();
         }
 

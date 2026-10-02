@@ -1,6 +1,12 @@
 <?php
 session_start();
+
+$textoGrande = $_SESSION['textoGrande'] ?? false;
+$altoContraste = $_SESSION['altoContraste'] ?? false;
+$navegacionTeclado = $_SESSION['navegacionTeclado'] ?? false;
+$voz = $_SESSION['voz'] ?? false;
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -29,115 +35,133 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 
-<body>
+<body class="<?php
+
+    if($textoGrande){
+        echo 'texto-grande ';
+    }
+
+    if($altoContraste){
+        echo 'alto-contraste ';
+    }
+
+    if($navegacionTeclado){
+        echo 'navegacion-teclado ';
+    }
+
+    if($voz){
+        echo 'voz-activa ';
+    }
+
+?>">
 
     <?php include 'header.php'; ?>
 
     <nav class="espace"></nav>
 
-    <section class="a">
-        <video src="imagenes/vdcookie.mp4" autoplay muted loop></video>
-        <video src="imagenes/vdapplepie.mp4" autoplay muted loop></video>
+    <main>
 
-        <h1>Excelencia en cada bocado</h1>
-        <p>Donde el buen gusto se encuentra con el buen sabor.</p>
+        <section class="a">
+            <video src="imagenes/vdcookie.mp4" autoplay muted loop></video>
+            <video src="imagenes/vdapplepie.mp4" autoplay muted loop></video>
 
-        <a href="paginasproductos/productos.php">Pedir ahora</a>
-    </section>
-
-    <section class="b">
-        <h2>Mas Vendidos</h2>
-
-        <img class="pie" src="imagenes/applepie.png" alt="">
-
-        <div class="b1">
-            <h3 class="pname">Apple Pie</h3>
-
-            <p class="pdes">
-                Delicada tarta elaborada con manzanas frescas cortadas en finas láminas, suavemente cocidas con <br>
-                azúcar y canela para resaltar su dulzura natural. Todo el relleno se envuelve en una masa casera, crujiente <br>
-                y dorada, que se hornea lentamente hasta alcanzar una textura perfecta. Cada bocado combina lo frutal y lo <br>
-                especiado con el toque artesanal de una receta tradicional.
-            </p>
+            <h1>Excelencia en cada bocado</h1>
+            <p>Donde el buen gusto se encuentra con el buen sabor.</p>
 
             <a href="paginasproductos/productos.php">Pedir ahora</a>
-        </div>
+        </section>
 
-        <img class="cookie" src="imagenes/cookie.png" alt="">
+        <section class="b">
+            <h2>Mas Vendidos</h2>
 
-        <div class="b2">
-            <h3 class="cname">Chocolate Chips Cookie</h3>
+            <img class="pie" src="imagenes/applepie.png" alt="">
 
-            <p class="cdes">
-                Galletas caseras, suaves por dentro y ligeramente crujientes por fuera, cargadas con abundantes
-                chips <br>
-                de chocolate que se derriten al primer mordisco. Su aroma dulce y mantecoso envuelve los sentidos, <br>
-                mientras cada bocado equilibra lo tierno de la masa con el intenso sabor del chocolate. Un clásico irresistible <br>
-                que nunca pasa de moda.
-            </p>
+            <div class="b1">
+                <h3 class="pname">Apple Pie</h3>
 
-            <a href="paginasproductos/productos.php">Pedir ahora</a>
-        </div>
+                <p class="pdes">
+                    Delicada tarta elaborada con manzanas frescas cortadas en finas láminas, suavemente cocidas con <br>
+                    azúcar y canela para resaltar su dulzura natural. Todo el relleno se envuelve en una masa casera, crujiente <br>
+                    y dorada, que se hornea lentamente hasta alcanzar una textura perfecta. Cada bocado combina lo frutal y lo <br>
+                    especiado con el toque artesanal de una receta tradicional.
+                </p>
 
-        <img class="brownie" src="imagenes/browniesolo.png" alt="">
-
-        <div class="b3">
-            <h3 class="bname">Brownie</h3>
-
-            <p class="bdes">
-                Suave, húmedo y con un corazón intensamente chocolatoso, este clásico horneado combina una textura densa con <br>
-                un sabor profundo a cacao. Cada porción ofrece un equilibrio perfecto entre lo compacto y lo esponjoso, con un <br>
-                toque de dulzura que se derrite en la boca. Ideal para quienes buscan una experiencia rica y reconfortante en cada <br>
-                bocado.
-            </p>
-
-            <a href="paginasproductos/productos.php">Pedir ahora</a>
-        </div>
-    </section>
-
-    <div class="h">
-
-        <div class="titulo">
-            <h1>¿Por qué Vakery's?</h1>
-            <p>Somos una repostería artesanal dedicada a crear momentos dulces e inolvidables</p>
-        </div>
-
-        <div class="contenedor-hh">
-
-            <div class="hh">
-                <img class="ih" src="imagenes/corazon.png" alt="">
-                <h2>Hecho con amor</h2>
-                <p>Cada producto es elaborado con dedicación y los mejores ingredientes</p>
+                <a href="paginasproductos/productos.php">Pedir ahora</a>
             </div>
 
-            <div class="hh">
-                <img class="ih" src="imagenes/insignia.png" alt="">
-                <h2>Calidad Premium</h2>
-                <p>Comprometidos con la excelencia en cada creación</p>
+            <img class="cookie" src="imagenes/cookie.png" alt="">
+
+            <div class="b2">
+                <h3 class="cname">Chocolate Chips Cookie</h3>
+
+                <p class="cdes">
+                    Galletas caseras, suaves por dentro y ligeramente crujientes por fuera, cargadas con abundantes
+                    chips <br>
+                    de chocolate que se derriten al primer mordisco. Su aroma dulce y mantecoso envuelve los sentidos, <br>
+                    mientras cada bocado equilibra lo tierno de la masa con el intenso sabor del chocolate. Un clásico irresistible <br>
+                    que nunca pasa de moda.
+                </p>
+
+                <a href="paginasproductos/productos.php">Pedir ahora</a>
             </div>
 
-            <div class="hh">
-                <img class="ih" src="imagenes/reloj.png" alt="">
-                <h2>Siempre Fresco</h2>
-                <p>Productos horneados diariamente para garantizar frescura</p>
+            <img class="brownie" src="imagenes/browniesolo.png" alt="">
+
+            <div class="b3">
+                <h3 class="bname">Brownie</h3>
+
+                <p class="bdes">
+                    Suave, húmedo y con un corazón intensamente chocolatoso, este clásico horneado combina una textura densa con <br>
+                    un sabor profundo a cacao. Cada porción ofrece un equilibrio perfecto entre lo compacto y lo esponjoso, con un <br>
+                    toque de dulzura que se derrite en la boca. Ideal para quienes buscan una experiencia rica y reconfortante en cada <br>
+                    bocado.
+                </p>
+
+                <a href="paginasproductos/productos.php">Pedir ahora</a>
+            </div>
+        </section>
+
+        <section class="h">
+
+            <div class="titulo">
+                <h1>¿Por qué Vakery's?</h1>
+                <p>Somos una repostería artesanal dedicada a crear momentos dulces e inolvidables</p>
             </div>
 
-        </div>
+            <div class="contenedor-hh">
 
-        <div class="botones-vakery">
-            <a href="paginanosotros.php">Leer más</a>
-            <a href="Comentarios/formulario.php">Danos tu Opinion</a>
-        </div>
+                <div class="hh">
+                    <img class="ih" src="imagenes/corazon.png" alt="">
+                    <h2>Hecho con amor</h2>
+                    <p>Cada producto es elaborado con dedicación y los mejores ingredientes</p>
+                </div>
 
-    </div>
+                <div class="hh">
+                    <img class="ih" src="imagenes/insignia.png" alt="">
+                    <h2>Calidad Premium</h2>
+                    <p>Comprometidos con la excelencia en cada creación</p>
+                </div>
 
-  
+                <div class="hh">
+                    <img class="ih" src="imagenes/reloj.png" alt="">
+                    <h2>Siempre Fresco</h2>
+                    <p>Productos horneados diariamente para garantizar frescura</p>
+                </div>
+
+            </div>
+
+            <div class="botones-vakery">
+                <a href="paginanosotros.php">Leer más</a>
+                <a href="Comentarios/formulario.php">Danos tu Opinion</a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="accesibilidad.js"></script>
+
+    <?php include 'footer.php'; ?>
 
 </body>
 </html>
-<div style="background:red; color:white; padding:30px; text-align:center;">
-    PRUEBA FOOTER
-</div>
-
-<?php include 'footer.php'; ?>
-   
