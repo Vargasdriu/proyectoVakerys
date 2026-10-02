@@ -1,0 +1,152 @@
+
+body {
+    background-color: #000;
+    color: #fff;
+}
+
+.a {
+    background-color: #000;
+}
+
+.a h1,
+.a p {
+    color: #fff;
+    text-shadow: none;
+}
+
+.a a {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #fff;
+}
+
+.a a:hover {
+    background-color: #ffff00;
+    color: #000;
+    border-color: #ffff00;
+}
+
+.b {
+    background-color: #000;
+    color: #fff;
+}
+
+.b > h2 {
+    color: #fff;
+}
+
+.pname,
+.cname,
+.bname {
+    color: #fff;
+}
+
+.pdes,
+.cdes,
+.bdes {
+    color: #fff;
+}
+
+.b1,
+.b2,
+.b3 {
+    background-color: #000;
+    color: #fff;
+}
+
+.b1:hover,
+.b2:hover,
+.b3:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 8px 25px rgba(255,255,255,.35);
+}
+
+.b1:hover .pname,
+.b1:hover .pdes,
+.b2:hover .cname,
+.b2:hover .cdes,
+.b3:hover .bname,
+.b3:hover .bdes {
+    color: #000;
+}
+
+.b1 > a,
+.b2 > a,
+.b3 > a {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.b1 > a:hover,
+.b2 > a:hover,
+.b3 > a:hover {
+    background-color: #ffff00;
+    color: #000;
+    border-color: #ffff00;
+}
+
+.h {
+    background-color: #000;
+    color: #fff;
+}
+
+.titulo h1,
+.titulo p {
+    color: #fff;
+}
+
+.contenedor-hh {
+    background-color: #000;
+    border: 2px solid #fff;
+}
+
+.hh {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+    box-shadow: none;
+}
+
+.hh:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 10px 25px rgba(255,255,255,.35);
+}
+
+.hh h2,
+.hh p {
+    color: #fff;
+}
+
+.hh:hover h2,
+.hh:hover p {
+    color: #000;
+}
+
+.ih {
+    background-color: #fff;
+}
+
+.h a {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #fff;
+    box-shadow: none;
+}
+
+.h a:hover {
+    background-color: #ffff00;
+    color: #000;
+    border-color: #ffff00;
+}
+
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 4px solid #ffff00;
+    outline-offset: 4px;
+}

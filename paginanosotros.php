@@ -15,22 +15,22 @@ session_start();
     <title>Vakery's - Nosotros</title>
 
     <link rel="stylesheet" href="estilos/nosotros.css">
-    <link rel="stylesheet" href="estilos/accesibilidad.css">
+   
+
+    <?php if (!empty($_SESSION['textoGrande'])) { ?>
+        <link rel="stylesheet" href="estilosaccesibilidad/texto-grandepn.css">
+    <?php } ?>
+
+    <?php if (!empty($_SESSION['altoContraste'])) { ?>
+        <link rel="stylesheet" href="estilosaccesibilidad/alto-contrastepn.css">
+    <?php } ?>
 
 </head>
 
 <body class="<?php
 
-if(!empty($_SESSION['textoGrande'])){
-    echo 'texto-grande ';
-}
-
-if(!empty($_SESSION['altoContraste'])){
-    echo 'alto-contraste ';
-}
-
-if(!empty($_SESSION['navegacionTeclado'])){
-    echo 'navegacion-teclado ';
+if (!empty($_SESSION['navegacionTeclado'])) {
+    echo 'navegacion-teclado';
 }
 
 ?>">

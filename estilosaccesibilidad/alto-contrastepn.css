@@ -1,0 +1,307 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: #000000 !important;
+}
+
+body {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+body a {
+    color: #b7d49b !important;
+}
+
+.extra {
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.94),
+            rgba(0, 0, 0, 0.94)
+        ),
+        url('../imagenes/fondooo.png') !important;
+
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.extra p {
+    color: #b7d49b !important;
+}
+
+.extra h1 {
+    color: #ffffff !important;
+}
+
+.extra h3 {
+    color: #ffffff !important;
+}
+
+.historia {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.texto h1 {
+    color: #b7d49b !important;
+}
+
+.texto h1::after {
+    background-color: #b7d49b !important;
+}
+
+.texto p {
+    color: #ffffff !important;
+}
+
+.historia img {
+    border: 4px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.misionvision {
+    background-color: #000000 !important;
+}
+
+.misionvision section {
+    background-color: #000000 !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.misionvision section:hover {
+    border-color: #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.titulo img {
+    background-color: #b7d49b !important;
+}
+
+.titulo h1 {
+    color: #b7d49b !important;
+}
+
+.misionvision p {
+    color: #ffffff !important;
+}
+
+.h {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.titulo-h h1 {
+    color: #b7d49b !important;
+}
+
+.titulo-h p {
+    color: #ffffff !important;
+}
+
+.hh {
+    background-color: #000000 !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.hh:hover {
+    background-color: #182018 !important;
+    border-color: #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.ih {
+    background-color: #b7d49b !important;
+}
+
+.hh h2 {
+    color: #b7d49b !important;
+}
+
+.hh p {
+    color: #ffffff !important;
+}
+
+.img {
+    background-color: #000000 !important;
+}
+
+.img img {
+    border: 4px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.def {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+.tex p {
+    background: #b7d49b !important;
+    color: #000000 !important;
+}
+
+.tex h2 {
+    color: #b7d49b !important;
+}
+
+.cc {
+    background: #000000 !important;
+    border: 3px solid #ffffff !important;
+    border-top: 6px solid #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.cc:hover {
+    border-color: #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.cc h3 {
+    color: #b7d49b !important;
+}
+
+.cc p {
+    color: #ffffff !important;
+}
+
+.galeria {
+    background: #000000 !important;
+}
+
+.foto {
+    border: 4px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.ambiental {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+.ambiental h1 {
+    color: #b7d49b !important;
+}
+
+.ambiental p {
+    color: #ffffff !important;
+}
+
+.ambiental img {
+    border: 4px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.boton-ambiental {
+    background: #b7d49b !important;
+    color: #000000 !important;
+    border: 3px solid #b7d49b !important;
+    text-decoration: none !important;
+}
+
+.boton-ambiental:hover {
+    background: #000000 !important;
+    color: #b7d49b !important;
+    border-color: #b7d49b !important;
+}
+
+.listoo {
+    background: #000000 !important;
+}
+
+.listo {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.la {
+    color: #b7d49b !important;
+}
+
+.listo h3 {
+    color: #ffffff !important;
+}
+
+.botones a {
+    text-decoration: none !important;
+}
+
+.botones a:first-child {
+    background: #b7d49b !important;
+    color: #000000 !important;
+    border: 3px solid #b7d49b !important;
+}
+
+.botones a:first-child:hover {
+    background: #000000 !important;
+    color: #b7d49b !important;
+    border-color: #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.botones a:last-child {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 3px solid #b7d49b !important;
+}
+
+.botones a:last-child:hover {
+    background: #b7d49b !important;
+    color: #000000 !important;
+    border-color: #b7d49b !important;
+}
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 4px solid #b7d49b !important;
+    outline-offset: 4px !important;
+}
+
+::selection {
+    background: #b7d49b !important;
+    color: #000000 !important;
+}
+
+@media (max-width: 768px) {
+
+    .extra {
+        background:
+            linear-gradient(
+                rgba(0, 0, 0, 0.94),
+                rgba(0, 0, 0, 0.94)
+            ),
+            url('../imagenes/fondooo.png') !important;
+
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    .historia,
+    .misionvision,
+    .img,
+    .def,
+    .ambiental,
+    .listoo {
+        background-color: #000000 !important;
+    }
+
+    .misionvision section,
+    .hh,
+    .cc,
+    .listo {
+        background-color: #000000 !important;
+    }
+
+    .foto {
+        border-color: #ffffff !important;
+        box-shadow: none !important;
+    }
+}

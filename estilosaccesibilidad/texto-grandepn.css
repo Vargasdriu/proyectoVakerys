@@ -1,0 +1,244 @@
+body {
+font-size: 20px !important;
+}
+.extra {
+min-height: 600px !important;
+height: auto !important;
+padding-top: 100px !important;
+padding-bottom: 100px !important;
+}
+
+.extra h1 {
+font-size: 6.5rem !important;
+line-height: 1.05 !important;
+margin-bottom: 25px !important;
+}
+
+.extra p {
+font-size: 24px !important;
+line-height: 1.7 !important;
+margin-bottom: 25px !important;
+}
+
+.extra h3 {
+font-size: 1.8rem !important;
+line-height: 1.5 !important;
+}
+
+@media (max-width: 768px) {
+.extra {
+min-height: 550px !important;
+height: auto !important;
+padding-top: 80px !important;
+padding-bottom: 80px !important;
+}
+
+.extra h1 {
+    font-size: 3.5rem !important;
+    line-height: 1.1 !important;
+}
+
+.extra p {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+
+.extra h3 {
+    font-size: 1.4rem !important;
+    line-height: 1.5 !important;
+}
+
+}
+
+
+.texto h1 {
+font-size: 4.2rem !important;
+line-height: 1.1 !important;
+}
+
+.texto p {
+font-size: 1.55rem !important;
+line-height: 1.9 !important;
+}
+
+.titulo h1 {
+font-size: 3rem !important;
+line-height: 1.2 !important;
+}
+
+.misionvision p {
+font-size: 1.45rem !important;
+line-height: 1.9 !important;
+}
+
+.titulo-h h1 {
+font-size: 65px !important;
+line-height: 1.1 !important;
+}
+
+.titulo-h p {
+font-size: 26px !important;
+line-height: 1.8 !important;
+}
+
+.hh h2 {
+font-size: 38px !important;
+line-height: 1.2 !important;
+}
+
+.hh p {
+font-size: 22px !important;
+line-height: 1.8 !important;
+}
+
+.tex p {
+font-size: 21px !important;
+line-height: 1.8 !important;
+}
+
+.tex h2 {
+font-size: 56px !important;
+line-height: 1.1 !important;
+}
+
+.cc h3 {
+font-size: 30px !important;
+line-height: 1.2 !important;
+}
+
+.cc p {
+font-size: 20px !important;
+line-height: 1.8 !important;
+}
+
+.ambiental h1 {
+font-size: 4.2rem !important;
+line-height: 1.1 !important;
+}
+
+.ambiental p {
+font-size: 1.55rem !important;
+line-height: 1.9 !important;
+}
+
+.boton-ambiental {
+font-size: 21px !important;
+}
+
+.la {
+font-size: 4.2rem !important;
+line-height: 1.1 !important;
+}
+
+.listo h3 {
+font-size: 1.6rem !important;
+line-height: 1.8 !important;
+}
+
+.botones a {
+font-size: 21px !important;
+}
+
+@media (max-width: 768px) {
+
+body {
+    font-size: 18px !important;
+}
+
+.extra p {
+    font-size: 18px !important;
+    line-height: 1.7 !important;
+}
+
+.extra h1 {
+    font-size: 3.5rem !important;
+    line-height: 1.1 !important;
+}
+
+.extra h3 {
+    font-size: 1.4rem !important;
+    line-height: 1.5 !important;
+}
+
+.texto h1 {
+    font-size: 3rem !important;
+    line-height: 1.15 !important;
+}
+
+.texto p {
+    font-size: 1.3rem !important;
+    line-height: 1.9 !important;
+}
+
+.titulo h1 {
+    font-size: 2.2rem !important;
+}
+
+.misionvision p {
+    font-size: 1.25rem !important;
+    line-height: 1.8 !important;
+}
+
+.titulo-h h1 {
+    font-size: 3rem !important;
+    line-height: 1.1 !important;
+}
+
+.titulo-h p {
+    font-size: 1.3rem !important;
+    line-height: 1.7 !important;
+}
+
+.hh h2 {
+    font-size: 2rem !important;
+}
+
+.hh p {
+    font-size: 1.2rem !important;
+    line-height: 1.8 !important;
+}
+
+.tex p {
+    font-size: 18px !important;
+}
+
+.tex h2 {
+    font-size: 2.8rem !important;
+}
+
+.cc h3 {
+    font-size: 1.7rem !important;
+}
+
+.cc p {
+    font-size: 1.15rem !important;
+    line-height: 1.8 !important;
+}
+
+.ambiental h1 {
+    font-size: 3rem !important;
+}
+
+.ambiental p {
+    font-size: 1.3rem !important;
+    line-height: 1.9 !important;
+}
+
+.boton-ambiental {
+    font-size: 18px !important;
+}
+
+.la {
+    font-size: 3rem !important;
+}
+
+.listo h3 {
+    font-size: 1.25rem !important;
+    line-height: 1.8 !important;
+}
+
+.botones a {
+    font-size: 18px !important;
+}
+
+}
