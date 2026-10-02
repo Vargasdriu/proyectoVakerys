@@ -1,0 +1,89 @@
+html,
+body {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+}
+
+body {
+    filter: none !important;
+}
+
+.tra {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    border: 3px solid #FFFFFF !important;
+    box-shadow: none !important;
+    border-radius: 30px;
+}
+
+.tra h1,
+.tra h2,
+.tra h3,
+.tra p,
+.tra label,
+.tra span {
+    color: #FFFFFF !important;
+}
+
+.tra input,
+.tra select,
+.tra textarea {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    border: 3px solid #FFFFFF !important;
+    box-shadow: none !important;
+}
+
+.tra input::placeholder,
+.tra textarea::placeholder {
+    color: #FFFFFF !important;
+    opacity: 1 !important;
+}
+
+.tra input:focus,
+.tra select:focus,
+.tra textarea:focus {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    border: 4px solid #FFFF00 !important;
+    outline: 3px solid #FFFF00 !important;
+    outline-offset: 2px !important;
+}
+
+.tra button,
+.tra .button {
+    background: #FFFF00 !important;
+    color: #000000 !important;
+    border: 3px solid #FFFFFF !important;
+    box-shadow: none !important;
+    font-weight: 700 !important;
+}
+
+.tra button:hover,
+.tra .button:hover {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    border: 3px solid #FFFF00 !important;
+}
+
+.tra button:focus,
+.tra .button:focus {
+    background: #FFFF00 !important;
+    color: #000000 !important;
+    outline: 4px solid #FFFFFF !important;
+    outline-offset: 3px !important;
+}
+
+.capa {
+    background: #000000 !important;
+    opacity: 1 !important;
+}
+
+video {
+    opacity: 0 !important;
+}
+
+*:focus {
+    outline: 3px solid #FFFF00 !important;
+    outline-offset: 2px !important;
+}

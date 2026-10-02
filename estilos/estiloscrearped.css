@@ -1,0 +1,65 @@
+ .swal2-popup,
+        .swal2-title,
+        .swal2-html-container,
+        .swal2-confirm,
+        .swal2-cancel {
+
+            font-family:
+                'Poppins',
+                sans-serif !important;
+
+        }
+
+
+        select#Estado {
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 12px;
+
+            margin-bottom: 18px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.12);
+
+            color: white;
+
+            font-family:
+                'Poppins',
+                sans-serif;
+
+            font-size: 14px;
+
+            outline: none;
+
+            backdrop-filter:
+                blur(4px);
+
+            box-sizing: border-box;
+
+            cursor: pointer;
+
+        }
+
+
+        select#Estado option {
+
+            background: #344E41;
+
+            color: #DAD7CD;
+
+        }
+
+
+        select#Estado:focus {
+
+            background:
+                rgba(255,255,255,0.18);
+
+        }

@@ -1,0 +1,71 @@
+body.texto-grande {
+    font-size: 18px !important;
+}
+
+body.texto-grande .tra {
+    font-size: 18px !important;
+}
+
+body.texto-grande .tra h1 {
+    font-size: 34px !important;
+    line-height: 1.25 !important;
+}
+
+body.texto-grande .tra h2 {
+    font-size: 28px !important;
+    line-height: 1.3 !important;
+}
+
+body.texto-grande .tra h3 {
+    font-size: 23px !important;
+    line-height: 1.3 !important;
+}
+
+body.texto-grande .tra p {
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+}
+
+body.texto-grande .tra label {
+    font-size: 18px !important;
+    line-height: 1.4 !important;
+}
+
+body.texto-grande .tra span {
+    font-size: 18px !important;
+}
+
+body.texto-grande .tra input,
+body.texto-grande .tra select,
+body.texto-grande .tra textarea {
+    font-size: 18px !important;
+    min-height: 50px !important;
+    padding: 12px 14px !important;
+}
+
+body.texto-grande .tra textarea {
+    min-height: 120px !important;
+}
+
+body.texto-grande .tra button,
+body.texto-grande .tra .button {
+    font-size: 18px !important;
+    min-height: 52px !important;
+    padding: 12px 20px !important;
+}
+
+body.texto-grande .tra {
+    line-height: 1.5 !important;
+}
+
+body.texto-grande .tra > div {
+    margin-bottom: 12px;
+}
+
+body.texto-grande .tra input[type="date"] {
+    min-height: 50px !important;
+}
+
+body.texto-grande .tra select {
+    min-height: 50px !important;
+}

@@ -1,18 +1,15 @@
 <?php
-session_start();
-?>
 
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
 
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>NUEVO PEDIDO</title>
 
@@ -20,6 +17,20 @@ session_start();
         rel="stylesheet"
         href="../Usuarios/estiloscrear.css"
     >
+
+    <?php if (!empty($_SESSION['textoGrande'])) { ?>
+        <link
+            rel="stylesheet"
+            href="../estilosaccesibilidad/texto-grandefp.css"
+        >
+    <?php } ?>
+
+    <?php if (!empty($_SESSION['altoContraste'])) { ?>
+        <link
+            rel="stylesheet"
+            href="../estilosaccesibilidad/alto-contrastefp.css"
+        >
+    <?php } ?>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
@@ -33,79 +44,58 @@ session_start();
         .swal2-html-container,
         .swal2-confirm,
         .swal2-cancel {
-
-            font-family:
-                'Poppins',
-                sans-serif !important;
-
+            font-family:'Poppins', sans-serif !important;
         }
-
 
         select#Estado {
-
-            width: 100%;
-
-            padding: 14px;
-
-            margin-top: 12px;
-
-            margin-bottom: 18px;
-
-            border: none;
-
-            border-radius: 14px;
-
-            background:
-                rgba(255,255,255,0.12);
-
-            color: white;
-
-            font-family:
-                'Poppins',
-                sans-serif;
-
-            font-size: 14px;
-
-            outline: none;
-
-            backdrop-filter:
-                blur(4px);
-
-            box-sizing: border-box;
-
-            cursor: pointer;
-
+            width:100%;
+            padding:14px;
+            margin-top:12px;
+            margin-bottom:18px;
+            border:none;
+            border-radius:14px;
+            background:rgba(255,255,255,0.12);
+            color:white;
+            font-family:'Poppins', sans-serif;
+            font-size:14px;
+            outline:none;
+            backdrop-filter:blur(4px);
+            box-sizing:border-box;
+            cursor:pointer;
         }
-
 
         select#Estado option {
-
-            background: #344E41;
-
-            color: #DAD7CD;
-
+            background:#344E41;
+            color:#DAD7CD;
         }
 
-
         select#Estado:focus {
-
-            background:
-                rgba(255,255,255,0.18);
-
+            background:rgba(255,255,255,0.18);
         }
 
     </style>
 
 </head>
+<?php include '../header.php'; ?>
+<body class="<?php
 
+if (!empty($_SESSION['navegacionTeclado'])) {
+    echo 'navegacion-teclado ';
+}
 
-<body>
+if (!empty($_SESSION['altoContraste'])) {
+    echo 'alto-contraste ';
+}
+
+if (!empty($_SESSION['textoGrande'])) {
+    echo 'texto-grande';
+}
+
+?>">
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-<?php include '../header.php'; ?>
 
 
 <video autoplay muted loop>
@@ -117,105 +107,47 @@ session_start();
 
 </video>
 
-
 <div class="capa"></div>
-
 
 <br>
 
+<div class="tra" style="margin-top:80px;">
 
-<div
-    class="tra"
-    style="margin-top: 80px;"
->
-
-    <form
-        action="registropedido.php"
-        method="post"
-        id="crearpedido"
-    >
+    <form action="registropedido.php" method="post" id="crearpedido" >
 
         <h2>Nuevo Pedido</h2>
 
-
-        <input
-            type="hidden"
-            name="id"
-            id="id"
-        >
-
+        <input type="hidden" name="id" id="id">
 
         <label>Nombre:</label>
 
-        <input
-            type="text"
-            placeholder="NOMBRE"
-            name="Nombre"
-            id="Nombre"
-        >
-
+        <input type="text" placeholder="NOMBRE" name="Nombre" id="Nombre">
 
         <label>Fecha:</label>
 
-        <input
-            type="date"
-            name="Fecha"
-            id="Fecha"
-            value="<?php echo date('Y-m-d'); ?>"
-            readonly
-        >
+        <input type="date" name="Fecha" id="Fecha" value="<?php echo date('Y-m-d'); ?>" readonly>
 
-
-        <input
-            type="hidden"
-            name="Estado"
-            id="Estado"
-            value="Pendiente"
-        >
-
+        <input type="hidden" name="Estado" id="Estado"  value="Pendiente">
 
         <label>Dirección:</label>
 
-        <input
-            type="text"
-            placeholder="DIRECCIÓN"
-            name="Direccion"
-            id="Direccion"
-        >
-
+        <input type="text" placeholder="DIRECCIÓN" name="Direccion" id="Direccion">
 
         <label>Teléfono:</label>
 
-        <input
-            type="number"
-            placeholder="TELÉFONO"
-            name="Telefono"
-            id="Telefono"
-        >
+        <input type="number" placeholder="TELÉFONO" name="Telefono" id="Telefono">
 
+        <input class="button" type="submit" value="Registrar" >
 
-        <input
-            class="button"
-            type="submit"
-            value="Registrar"
-        >
-
-
-        <input
-            class="button"
-            type="button"
-            value="Ir atrás"
-            id="irAtras"
-        >
+        <input class="button" type="button" value="Ir atrás" id="irAtras" >
 
     </form>
 
+</div>
 
 <script>
 
-document.getElementById(
-    "irAtras"
-).addEventListener(
+document.getElementById("irAtras").addEventListener(
     "click",
     function() {
 
@@ -224,24 +156,16 @@ document.getElementById(
                 window.location.search
             );
 
-
         const idPedido =
-            parametros.get(
-                "idPedido"
-            );
-
+            parametros.get("idPedido");
 
         if (idPedido) {
 
             window.location.href =
                 "productos.php?idPedido=" +
-                encodeURIComponent(
-                    idPedido
-                );
+                encodeURIComponent(idPedido);
 
-        }
-
-        else {
+        } else {
 
             window.location.href =
                 "productos.php";
@@ -252,48 +176,29 @@ document.getElementById(
 );
 
 
-document.getElementById(
-    "crearpedido"
-).addEventListener(
+document.getElementById("crearpedido").addEventListener(
     "submit",
     function(event) {
 
         event.preventDefault();
 
-
         var a =
-            document.getElementById(
-                "Nombre"
-            );
-
+            document.getElementById("Nombre");
 
         var b =
-            document.getElementById(
-                "Fecha"
-            );
-
+            document.getElementById("Fecha");
 
         var c =
-            document.getElementById(
-                "Estado"
-            );
-
+            document.getElementById("Estado");
 
         var d =
-            document.getElementById(
-                "Direccion"
-            );
-
+            document.getElementById("Direccion");
 
         var e =
-            document.getElementById(
-                "Telefono"
-            );
-
+            document.getElementById("Telefono");
 
         var ex =
             /^[0-9]*$/;
-
 
         var expRegNombre =
             /^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
@@ -306,20 +211,15 @@ document.getElementById(
 
             Swal.fire({
 
-                icon:
-                    "error",
+                icon:"error",
 
-                title:
-                    "¡Oops!",
+                title:"¡Oops!",
 
-                text:
-                    mensaje,
+                text:mensaje,
 
-                confirmButtonColor:
-                    "#3085d6",
+                confirmButtonColor:"#3085d6",
 
-                confirmButtonText:
-                    "Entendido"
+                confirmButtonText:"Entendido"
 
             }).then(() => {
 
@@ -330,9 +230,7 @@ document.getElementById(
         }
 
 
-        if (
-            a.value.trim() == ""
-        ) {
+        if (a.value.trim() == "") {
 
             mostrarAlerta(
                 "El campo Nombre no puede ir vacío",
@@ -344,11 +242,7 @@ document.getElementById(
         }
 
 
-        if (
-            !expRegNombre.exec(
-                a.value
-            )
-        ) {
+        if (!expRegNombre.exec(a.value)) {
 
             mostrarAlerta(
                 "Introduce solo letras en el Nombre",
@@ -360,9 +254,7 @@ document.getElementById(
         }
 
 
-        if (
-            b.value.trim() == ""
-        ) {
+        if (b.value.trim() == "") {
 
             mostrarAlerta(
                 "El campo Fecha no puede ir vacío",
@@ -374,9 +266,7 @@ document.getElementById(
         }
 
 
-        if (
-            c.value.trim() == ""
-        ) {
+        if (c.value.trim() == "") {
 
             mostrarAlerta(
                 "El campo Estado no puede ir vacío",
@@ -388,9 +278,7 @@ document.getElementById(
         }
 
 
-        if (
-            d.value.trim() == ""
-        ) {
+        if (d.value.trim() == "") {
 
             mostrarAlerta(
                 "El campo Dirección no puede ir vacío",
@@ -402,9 +290,7 @@ document.getElementById(
         }
 
 
-        if (
-            e.value.trim() == ""
-        ) {
+        if (e.value.trim() == "") {
 
             mostrarAlerta(
                 "El campo Teléfono no puede ir vacío",
@@ -416,11 +302,7 @@ document.getElementById(
         }
 
 
-        if (
-            !ex.exec(
-                e.value
-            )
-        ) {
+        if (!ex.exec(e.value)) {
 
             mostrarAlerta(
                 "Introduce solo números en el Teléfono",
@@ -434,33 +316,24 @@ document.getElementById(
 
         Swal.fire({
 
-            title:
-                "¡LISTO!",
+            title:"¡LISTO!",
 
-            text:
-                "Ahora puedes pedir y añadir productos a tu carrito. ¡Disfruta de nuestros productos!",
+            text:"Ahora puedes pedir y añadir productos a tu carrito. ¡Disfruta de nuestros productos!",
 
-            icon:
-                "success",
+            icon:"success",
 
-            confirmButtonText:
-                "¡Empezar a pedir!",
+            confirmButtonText:"¡Empezar a pedir!",
 
-            confirmButtonColor:
-                "#62a38a",
+            confirmButtonColor:"#62a38a",
 
-            background:
-                "#ffffff",
+            background:"#ffffff",
 
-            color:
-                "#304936"
+            color:"#304936"
 
         }).then(
             (result) => {
 
-                if (
-                    result.isConfirmed
-                ) {
+                if (result.isConfirmed) {
 
                     this.submit();
 
@@ -473,10 +346,6 @@ document.getElementById(
 );
 
 </script>
-
-
-</div>
-
 
 </body>
 
