@@ -1,0 +1,359 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: #000000 !important;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: #b7d49b !important;
+    text-decoration: none !important;
+}
+
+a * {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+.a {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+.b {
+    background: #000000 !important;
+}
+
+.subtitulo {
+    color: #b7d49b !important;
+}
+
+.a h1 {
+    color: #ffffff !important;
+}
+
+.a p {
+    color: #ffffff !important;
+}
+
+.c {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+.c a {
+    background: #b7d49b !important;
+    color: #000000 !important;
+    border: 3px solid #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.c a h2 {
+    color: #000000 !important;
+}
+
+.c a:hover {
+    background: #000000 !important;
+    color: #b7d49b !important;
+    border-color: #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.c a:hover h2 {
+    color: #b7d49b !important;
+}
+
+.c h3 {
+    color: #ffffff !important;
+}
+
+.proc {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.proc:hover {
+    border-color: #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.tag {
+    background: #b7d49b !important;
+    color: #000000 !important;
+}
+
+.ba h1 {
+    color: #b7d49b !important;
+}
+
+.ba p {
+    color: #ffffff !important;
+}
+
+.precio {
+    color: #b7d49b !important;
+}
+
+.cantidad {
+    background: #000000 !important;
+    border: 3px solid #ffffff !important;
+}
+
+.cantidad button {
+    background: #b7d49b !important;
+    color: #000000 !important;
+}
+
+.cantidad button:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+.cantidad span {
+    color: #ffffff !important;
+}
+
+.anadir {
+    background: #b7d49b !important;
+    color: #000000 !important;
+    border: 3px solid #b7d49b !important;
+}
+
+.anadir:hover {
+    background: #000000 !important;
+    color: #b7d49b !important;
+    border-color: #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.sorpresa-section {
+    background: #000000 !important;
+}
+
+.sorpresa-contenido {
+    background: #000000 !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.sorpresa-texto span {
+    color: #b7d49b !important;
+}
+
+.sorpresa-texto h2 {
+    color: #b7d49b !important;
+}
+
+.sorpresa-texto p {
+    color: #ffffff !important;
+}
+
+#btnSorprendeme {
+    background: #b7d49b !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    border: 3px solid #b7d49b !important;
+}
+
+#btnSorprendeme:hover {
+    background: #000000 !important;
+    color: #b7d49b !important;
+    border-color: #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.modal-sorpresa {
+    background: rgba(0, 0, 0, 0.92) !important;
+}
+
+.modal-sorpresa-contenido {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.cerrar-sorpresa {
+    color: #b7d49b !important;
+}
+
+.sorpresa-decoracion {
+    color: #b7d49b !important;
+}
+
+#sorpresaCargando h2,
+#sorpresaResultado h2 {
+    color: #b7d49b !important;
+}
+
+#sorpresaCargando p {
+    color: #ffffff !important;
+}
+
+.sorpresa-imagenes div {
+    background: #181818 !important;
+    border: 2px solid #ffffff !important;
+}
+
+.sorpresa-imagenes div::after {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent
+    ) !important;
+}
+
+.sorpresa-puntos span {
+    background: #ffffff !important;
+}
+
+.sorpresa-puntos .activo {
+    background: #b7d49b !important;
+}
+
+.sorpresa-resultado > img {
+    border: 4px solid #ffffff !important;
+}
+
+.sorpresa-info h3 {
+    color: #b7d49b !important;
+}
+
+.sorpresa-info p {
+    color: #ffffff !important;
+}
+
+#precioSorpresa {
+    color: #b7d49b !important;
+}
+
+.sorpresa-botones a {
+    background: #000000 !important;
+    color: #b7d49b !important;
+    border: 3px solid #b7d49b !important;
+}
+
+.sorpresa-botones a:hover {
+    background: #b7d49b !important;
+    color: #000000 !important;
+}
+
+.sorpresa-botones button {
+    background: #b7d49b !important;
+    color: #000000 !important;
+    border: 3px solid #b7d49b !important;
+}
+
+.sorpresa-botones button:hover {
+    background: #000000 !important;
+    color: #b7d49b !important;
+}
+
+.otra-sorpresa {
+    color: #ffffff !important;
+    border-top: 2px solid #ffffff !important;
+}
+
+.otra-sorpresa:hover {
+    color: #b7d49b !important;
+}
+
+.s {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+.s h2 {
+    color: #b7d49b !important;
+}
+
+.s input[type="number"],
+.s input#numeroPedido {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+.s input[type="number"]:focus {
+    border-color: #b7d49b !important;
+    box-shadow: 0 0 0 4px #b7d49b !important;
+}
+
+.s button,
+.s button#consultar {
+    background: #b7d49b !important;
+    color: #000000 !important;
+    border: 3px solid #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.s button:hover {
+    background: #000000 !important;
+    color: #b7d49b !important;
+    border-color: #b7d49b !important;
+    box-shadow: none !important;
+}
+
+.s #resultado {
+    color: #ffffff !important;
+}
+
+::selection {
+    background: #b7d49b !important;
+    color: #000000 !important;
+}
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 4px solid #b7d49b !important;
+    outline-offset: 4px !important;
+}
+
+@media (max-width: 768px) {
+
+    .a,
+    .b,
+    .c,
+    .s,
+    .sorpresa-section {
+        background: #000000 !important;
+    }
+
+    .proc {
+        background: #000000 !important;
+        border-color: #ffffff !important;
+    }
+
+    .cantidad {
+        background: #000000 !important;
+        border-color: #ffffff !important;
+    }
+
+    .sorpresa-contenido {
+        background: #000000 !important;
+        border-color: #ffffff !important;
+    }
+
+    .modal-sorpresa-contenido {
+        background: #000000 !important;
+        border-color: #ffffff !important;
+    }
+}

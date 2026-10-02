@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -8,6 +14,14 @@
     <title>Producto | Vakery's</title>
 
     <link rel="stylesheet" href="estilosproductos.css">
+
+    <?php if (!empty($_SESSION['textoGrande'])) { ?>
+        <link rel="stylesheet" href="../estilosaccesibilidad/texto-grandeppi.css">
+    <?php } ?>
+
+    <?php if (!empty($_SESSION['altoContraste'])) { ?>
+        <link rel="stylesheet" href="../estilosaccesibilidad/alto-contrasteppi.css">
+    <?php } ?>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

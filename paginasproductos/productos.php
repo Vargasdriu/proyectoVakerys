@@ -1,17 +1,38 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Productos | Vakery's</title>
+
     <link rel="stylesheet" href="../estilos/estilosproductos.css">
+
+    <?php if (!empty($_SESSION['textoGrande'])) { ?>
+        <link rel="stylesheet" href="../estilosaccesibilidad/texto-grandepp.css">
+    <?php } ?>
+
+    <?php if (!empty($_SESSION['altoContraste'])) { ?>
+        <link rel="stylesheet" href="../estilosaccesibilidad/alto-contrastepp.css">
+    <?php } ?>
+
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
-<body>
-
 <?php include '../header.php'; ?>
+<body class="<?php
+if (!empty($_SESSION['navegacionTeclado'])) {
+    echo 'navegacion-teclado';
+}
+?>">
+
+
 
 <div class="a">
     <span class="subtitulo">
@@ -70,7 +91,7 @@
     <h2>Consulta el estado de tu pedido</h2>
 
     <form action="consultar_pagina.php" method="GET">
-        <input type="number" name="id" placeholder="Número de pedido" min="1" required >
+        <input type="number" name="id" placeholder="Número de pedido" min="1" required>
 
         <br>
 

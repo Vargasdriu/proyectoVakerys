@@ -1,0 +1,210 @@
+.a {
+    padding-top: 90px !important;
+    padding-bottom: 90px !important;
+}
+
+.subtitulo {
+    font-size: 20px !important;
+    line-height: 1.5 !important;
+}
+
+.a h1 {
+    font-size: 6.5rem !important;
+    line-height: 1.05 !important;
+    margin-bottom: 25px !important;
+}
+
+.a p {
+    font-size: 26px !important;
+    line-height: 1.7 !important;
+    max-width: 750px !important;
+}
+
+.c {
+    padding: 50px 60px !important;
+}
+
+.c a h2 {
+    font-size: 32px !important;
+}
+
+.c h3 {
+    font-size: 24px !important;
+    line-height: 1.6 !important;
+}
+
+.sorpresa-texto span {
+    font-size: 20px !important;
+    line-height: 1.5 !important;
+}
+
+.sorpresa-texto h2 {
+    font-size: 48px !important;
+    line-height: 1.15 !important;
+}
+
+.sorpresa-texto p {
+    font-size: 24px !important;
+    line-height: 1.7 !important;
+}
+
+#btnSorprendeme {
+    font-size: 22px !important;
+    padding: 16px 28px !important;
+}
+
+.ba h1 {
+    font-size: 38px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 14px !important;
+}
+
+.ba p {
+    font-size: 25px !important;
+    line-height: 1.6 !important;
+    min-height: auto !important;
+    height: auto !important;
+    margin-bottom: 20px !important;
+    overflow: visible !important;
+}
+
+.bb {
+    min-height: 100px !important;
+    height: auto !important;
+    align-items: center !important;
+    gap: 18px !important;
+}
+
+.proc {
+    height: auto !important;
+    min-height: 570px !important;
+}
+.precio {
+    font-size: 26px !important;
+}
+
+.cantidad {
+    font-size: 22px !important;
+}
+
+.cantidad button {
+    font-size: 24px !important;
+}
+
+.cantidad span {
+    font-size: 22px !important;
+}
+
+.anadir {
+    font-size: 21px !important;
+}
+
+.s h2 {
+    font-size: 30px !important;
+    line-height: 1.4 !important;
+}
+
+.s input[type="number"],
+.s input#numeroPedido {
+    font-size: 22px !important;
+}
+
+.s button,
+.s button#consultar {
+    font-size: 21px !important;
+}
+
+.modal-sorpresa-contenido {
+    font-size: 20px !important;
+}
+
+#sorpresaCargando h2,
+#sorpresaResultado h2 {
+    font-size: 38px !important;
+    line-height: 1.2 !important;
+}
+
+#sorpresaCargando p {
+    font-size: 22px !important;
+    line-height: 1.6 !important;
+}
+
+.sorpresa-info h3 {
+    font-size: 30px !important;
+}
+
+.sorpresa-info p {
+    font-size: 21px !important;
+    line-height: 1.7 !important;
+}
+
+#precioSorpresa {
+    font-size: 25px !important;
+}
+
+.sorpresa-botones a,
+.sorpresa-botones button {
+    font-size: 20px !important;
+}
+
+.otra-sorpresa {
+    font-size: 19px !important;
+    line-height: 1.6 !important;
+}
+
+@media (max-width: 768px) {
+
+    .a {
+        padding: 70px 25px !important;
+    }
+
+    .subtitulo {
+        font-size: 17px !important;
+    }
+
+    .a h1 {
+        font-size: 3.8rem !important;
+        line-height: 1.1 !important;
+    }
+
+    .a p {
+        font-size: 20px !important;
+        line-height: 1.7 !important;
+    }
+
+    .c {
+        padding: 40px 25px !important;
+    }
+
+    .c a h2 {
+        font-size: 27px !important;
+    }
+
+    .c h3 {
+        font-size: 20px !important;
+    }
+
+    .sorpresa-texto h2 {
+        font-size: 36px !important;
+    }
+
+    .sorpresa-texto p {
+        font-size: 20px !important;
+    }
+
+    .ba h1 {
+        font-size: 29px !important;
+    }
+
+    .ba p {
+        font-size: 19px !important;
+    }
+
+    .s h2 {
+        font-size: 25px !important;
+    }
+
+    .modal-sorpresa-contenido {
+        font-size: 18px !important;
+    }
+}
