@@ -1,0 +1,28 @@
+
+body.texto-grande {
+    font-size: 18px;
+}
+
+body.texto-grande h2 {
+    font-size: 30px !important;
+}
+
+body.texto-grande label {
+    font-size: 20px !important;
+}
+
+body.texto-grande input,
+body.texto-grande select,
+body.texto-grande textarea {
+    font-size: 18px !important;
+}
+
+body.texto-grande .boton-enviar {
+    font-size: 18px !important;
+    padding: 12px 20px !important;
+}
+
+body.texto-grande option {
+    font-size: 18px;
+}
+

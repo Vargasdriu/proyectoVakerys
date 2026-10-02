@@ -1,9 +1,5 @@
 <?php
 session_start();
-
-echo '<div style="position:fixed;top:0;left:0;z-index:999999;background:red;color:white;padding:20px;font-size:25px;">
-PRUEBA COMENTARIOS
-</div>';
 ?>
 <!DOCTYPE html>
 
@@ -19,29 +15,7 @@ PRUEBA COMENTARIOS
 
     <link rel="stylesheet" href="comentarios.css">
 
-    <?php if (!empty($_SESSION['textoGrande'])): ?>
-        <link rel="stylesheet" href="../estilosaccesibilidad/texto-grandecom.css">
-    <?php endif; ?>
-
-    <?php if (!empty($_SESSION['altoContraste'])): ?>
-        <link rel="stylesheet" href="../estilosaccesibilidad/alto-contrastecom.css">
-    <?php endif; ?>
-
-</head>
-
-<body class="<?php
-    if (!empty($_SESSION['navegacionTeclado'])) {
-        echo 'navegacion-teclado ';
-    }
-
-    if (!empty($_SESSION['altoContraste'])) {
-        echo 'alto-contraste ';
-    }
-
-    if (!empty($_SESSION['textoGrande'])) {
-        echo 'texto-grande';
-    }
-?>">
+   >
 
 <?php include '../header.php'; ?>
 

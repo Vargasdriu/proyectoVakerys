@@ -1,132 +1,77 @@
-
 body.alto-contraste {
     background: #000000 !important;
     color: #ffffff !important;
 }
 
-/* Video de fondo */
 body.alto-contraste video {
     opacity: 0 !important;
     visibility: hidden !important;
 }
 
-/* Capa */
 body.alto-contraste .capa {
     background: #000000 !important;
     opacity: 1 !important;
 }
 
-/* Contenedor principal */
-body.alto-contraste .contenedor-tres-columnas {
-    background: #000000 !important;
-    color: #ffffff !important;
-}
-
-/* Columnas */
-body.alto-contraste .columna {
+/* Contenedor del formulario */
+body.alto-contraste .contenedor-formulario {
     background: #000000 !important;
     color: #ffffff !important;
     border: 3px solid #ffffff !important;
 }
 
-/* Títulos */
-body.alto-contraste h2,
-body.alto-contraste h3,
-body.alto-contraste p,
-body.alto-contraste span,
-body.alto-contraste strong,
-body.alto-contraste small,
-body.alto-contraste li {
+/* Título y etiquetas */
+body.alto-contraste .contenedor-formulario h2,
+body.alto-contraste .contenedor-formulario label {
     color: #ffffff !important;
 }
 
-/* Botones de clientes */
-body.alto-contraste .boton-comentario {
+/* Campos */
+body.alto-contraste .contenedor-formulario input,
+body.alto-contraste .contenedor-formulario select,
+body.alto-contraste .contenedor-formulario textarea {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+/* Placeholder */
+body.alto-contraste .contenedor-formulario input::placeholder,
+body.alto-contraste .contenedor-formulario textarea::placeholder {
+    color: #ffffff !important;
+}
+
+/* Opciones de los select */
+body.alto-contraste .contenedor-formulario option {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* Botones */
+body.alto-contraste .contenedor-formulario .boton-enviar {
     background: #000000 !important;
     color: #ffff00 !important;
     border: 3px solid #ffffff !important;
 }
 
-body.alto-contraste .boton-comentario:hover,
-body.alto-contraste .boton-comentario:focus {
+body.alto-contraste .contenedor-formulario .boton-enviar:hover,
+body.alto-contraste .contenedor-formulario .boton-enviar:focus {
     background: #ffffff !important;
     color: #000000 !important;
     border-color: #ffff00 !important;
 }
 
-/* Tarjeta de información */
-body.alto-contraste .tarjeta-info {
-    background: #000000 !important;
-    color: #ffffff !important;
-    border: 3px solid #ffffff !important;
-}
-
-/* Línea horizontal */
-body.alto-contraste hr {
-    border-top: 3px solid #ffffff !important;
-}
-
-/* Chat */
-body.alto-contraste .chat-container {
-    background: #000000 !important;
-    color: #ffffff !important;
-}
-
-/* Burbujas */
-body.alto-contraste .burbuja-chat {
-    background: #000000 !important;
-    color: #ffffff !important;
-    border: 3px solid #ffffff !important;
-}
-
-/* Autor */
-body.alto-contraste .autor-chat {
-    color: #00ffff !important;
-    font-weight: bold !important;
-}
-
-/* Fecha */
-body.alto-contraste .fecha-chat {
+/* Enlaces únicamente dentro del formulario */
+body.alto-contraste .contenedor-formulario a {
     color: #ffff00 !important;
 }
 
-/* Texto de comentarios */
-body.alto-contraste .burbuja-chat p {
-    color: #ffffff !important;
-}
-
-/* Enlaces */
-body.alto-contraste a {
-    color: #ffff00 !important;
-}
-
-/* Foco para navegación con teclado */
-body.alto-contraste a:focus,
-body.alto-contraste button:focus,
-body.alto-contraste input:focus,
-body.alto-contraste select:focus,
-body.alto-contraste textarea:focus {
+/* Foco únicamente dentro del formulario */
+body.alto-contraste .contenedor-formulario a:focus,
+body.alto-contraste .contenedor-formulario button:focus,
+body.alto-contraste .contenedor-formulario input:focus,
+body.alto-contraste .contenedor-formulario select:focus,
+body.alto-contraste .contenedor-formulario textarea:focus {
     outline: 4px solid #00ffff !important;
     outline-offset: 3px !important;
-}
-
-/* Mensajes cuando no hay información */
-body.alto-contraste [style*="color:#DAD7CD"],
-body.alto-contraste [style*="color: #DAD7CD"] {
-    color: #ffffff !important;
-}
-
-/* Estilos inline que podrían interferir */
-body.alto-contraste [style*="color"] {
-    color: #ffffff !important;
-}
-
-/* Excepción: colores importantes de botones/enlaces */
-body.alto-contraste .boton-comentario {
-    color: #ffff00 !important;
-}
-
-body.alto-contraste .boton-comentario:hover,
-body.alto-contraste .boton-comentario:focus {
-    color: #000000 !important;
 }
