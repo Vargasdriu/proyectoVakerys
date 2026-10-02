@@ -454,7 +454,7 @@ document.getElementById("escuchar").addEventListener("click", function(){
 });
 
 </script>
-
+<script src="accesibilidad.js"></script>
 </body>
 <?php include 'footer.php'; ?>
 </html>
