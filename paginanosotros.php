@@ -2,6 +2,11 @@
 
 session_start();
 
+$textoGrande = $_SESSION['textoGrande'] ?? false;
+$altoContraste = $_SESSION['altoContraste'] ?? false;
+$navegacionTeclado = $_SESSION['navegacionTeclado'] ?? false;
+$voz = $_SESSION['voz'] ?? false;
+
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +20,6 @@ session_start();
     <title>Vakery's - Nosotros</title>
 
     <link rel="stylesheet" href="estilos/nosotros.css">
-   
 
     <?php if (!empty($_SESSION['textoGrande'])) { ?>
         <link rel="stylesheet" href="estilosaccesibilidad/texto-grandepn.css">
@@ -29,13 +33,27 @@ session_start();
 
 <body class="<?php
 
-if (!empty($_SESSION['navegacionTeclado'])) {
-    echo 'navegacion-teclado';
+if($textoGrande){
+    echo 'texto-grande ';
+}
+
+if($altoContraste){
+    echo 'alto-contraste ';
+}
+
+if($navegacionTeclado){
+    echo 'navegacion-teclado ';
+}
+
+if($voz){
+    echo 'voz-activa ';
 }
 
 ?>">
 
 <?php include 'header.php'; ?>
+
+<main>
 
 <section class="extra">
 
@@ -311,6 +329,10 @@ if (!empty($_SESSION['navegacionTeclado'])) {
     </section>
 
 </section>
+
+</main>
+
+<script src="accesibilidad.js"></script>
 
 <?php include 'footer.php'; ?>
 

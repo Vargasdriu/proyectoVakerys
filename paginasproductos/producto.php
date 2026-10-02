@@ -29,11 +29,13 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="<?php echo !empty($_SESSION['voz']) ? 'voz-activa' : ''; ?>">
 
 <header>
     <?php include '../header.php'; ?>
 </header>
+
+<main>
 
 <a href="productos.php" class="volver" id="volverCatalogo">
     ← Volver al catálogo
@@ -145,6 +147,8 @@ session_start();
 
 </section>
 
+</main>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="js/producto.js"></script>
 
@@ -161,6 +165,8 @@ document.getElementById("volverCatalogo").addEventListener("click", function(eve
     }
 });
 </script>
+
+<script src="../accesibilidad.js"></script>
 
 <footer>
     <?php include '../footer.php'; ?>
