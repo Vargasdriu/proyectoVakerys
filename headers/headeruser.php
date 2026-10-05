@@ -400,13 +400,13 @@ nav{
                     Iniciar sesión
                 </a>
             </li>
-
+    <!--
             <li>
                 <a name="modoaccesible" href="/proyectovakerys/modoaccesible.php"  class="modoaccesible" aria-label="Abrir modo accesible">
                     Modo accesible
                 </a>
             </li>
-
+-->
         </ul>
 
     </nav>

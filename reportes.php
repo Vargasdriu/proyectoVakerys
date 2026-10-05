@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -17,18 +18,20 @@ include("header.php");
 $fechas = [];
 $ventas = [];
 
-$sql = "SELECT p.Fecha, COUNT(*) AS ventas
+$sql = "SELECT DATE(p.Fecha) AS Fecha, COUNT(*) AS ventas
         FROM ventas v
         INNER JOIN pedidos p ON v.pedidos_id = p.id
         WHERE v.Estado = 'Finalizado'
-        GROUP BY p.Fecha
-        ORDER BY p.Fecha";
+        GROUP BY DATE(p.Fecha)
+        ORDER BY DATE(p.Fecha)";
 
 $resultado = $conn->query($sql);
 
-while ($fila = $resultado->fetch_assoc()) {
-    $fechas[] = $fila["Fecha"];
-    $ventas[] = $fila["ventas"];
+if ($resultado) {
+    while ($fila = $resultado->fetch_assoc()) {
+        $fechas[] = $fila["Fecha"];
+        $ventas[] = $fila["ventas"];
+    }
 }
 
 
@@ -48,43 +51,49 @@ $sql = "SELECT p.NombreProducto, SUM(c.Cantidad) AS TotalVendido
 
 $resultado = $conn->query($sql);
 
-while ($fila = $resultado->fetch_assoc()) {
-    $productos[] = $fila["NombreProducto"];
-    $cantidades[] = $fila["TotalVendido"];
+if ($resultado) {
+    while ($fila = $resultado->fetch_assoc()) {
+        $productos[] = $fila["NombreProducto"];
+        $cantidades[] = $fila["TotalVendido"];
+    }
 }
 
 
-$ingresos = [];
+/* INGRESOS */
 
 $sql = "SELECT
             (SELECT COALESCE(SUM(v.costoTotal), 0)
              FROM ventas v
              INNER JOIN pedidos p ON v.pedidos_id = p.id
-             WHERE p.Fecha = CURDATE()) AS dia,
+             WHERE DATE(p.Fecha) = CURDATE()
+             AND v.Estado = 'Finalizado') AS dia,
 
             (SELECT COALESCE(SUM(v.costoTotal), 0)
              FROM ventas v
              INNER JOIN pedidos p ON v.pedidos_id = p.id
-             WHERE YEARWEEK(p.Fecha, 1) = YEARWEEK(CURDATE(), 1)) AS semana,
+             WHERE YEARWEEK(p.Fecha, 1) = YEARWEEK(CURDATE(), 1)
+             AND v.Estado = 'Finalizado') AS semana,
 
             (SELECT COALESCE(SUM(v.costoTotal), 0)
              FROM ventas v
              INNER JOIN pedidos p ON v.pedidos_id = p.id
              WHERE YEAR(p.Fecha) = YEAR(CURDATE())
-             AND MONTH(p.Fecha) = MONTH(CURDATE())) AS mes,
+             AND MONTH(p.Fecha) = MONTH(CURDATE())
+             AND v.Estado = 'Finalizado') AS mes,
 
             (SELECT COALESCE(SUM(v.costoTotal), 0)
              FROM ventas v
              INNER JOIN pedidos p ON v.pedidos_id = p.id
-             WHERE YEAR(p.Fecha) = YEAR(CURDATE())) AS anio,
+             WHERE YEAR(p.Fecha) = YEAR(CURDATE())
+             AND v.Estado = 'Finalizado') AS anio,
 
             (SELECT COALESCE(SUM(v.costoTotal), 0)
              FROM ventas v
-             ) AS total";
+             WHERE v.Estado = 'Finalizado') AS total";
 
 $resultado = $conn->query($sql);
 
-$fila = $resultado->fetch_assoc();
+$fila = $resultado ? $resultado->fetch_assoc() : [];
 
 $ingresosDia = $fila["dia"] ?? 0;
 $ingresosSemana = $fila["semana"] ?? 0;
@@ -92,13 +101,40 @@ $ingresosMes = $fila["mes"] ?? 0;
 $ingresosAnio = $fila["anio"] ?? 0;
 $ingresosTotales = $fila["total"] ?? 0;
 
-$ingresosGrafico = [
-    $ingresosDia,
-    $ingresosSemana,
-    $ingresosMes,
-    $ingresosAnio
-];
 
+/* INGRESOS DE LOS ULTIMOS 7 DIAS */
+
+$fechasIngresos = [];
+$ingresosDiarios = [];
+
+for ($i = 6; $i >= 0; $i--) {
+
+    $fecha = date("Y-m-d", strtotime("-$i days"));
+
+    $fechasIngresos[] = $fecha;
+
+    $sqlIngresosDia = "SELECT COALESCE(SUM(v.costoTotal), 0) AS ingreso
+                       FROM ventas v
+                       INNER JOIN pedidos p ON v.pedidos_id = p.id
+                       WHERE DATE(p.Fecha) = '$fecha'
+                       AND v.Estado = 'Finalizado'";
+
+    $resultadoIngreso = $conn->query($sqlIngresosDia);
+
+    if ($resultadoIngreso) {
+
+        $filaIngreso = $resultadoIngreso->fetch_assoc();
+
+        $ingresosDiarios[] = $filaIngreso["ingreso"] ?? 0;
+
+    } else {
+
+        $ingresosDiarios[] = 0;
+    }
+}
+
+
+/* STOCK */
 
 $productosStock = [];
 $stock = [];
@@ -109,11 +145,15 @@ $sql = "SELECT NombreProducto, Stock
 
 $resultado = $conn->query($sql);
 
-while ($fila = $resultado->fetch_assoc()) {
-    $productosStock[] = $fila["NombreProducto"];
-    $stock[] = $fila["Stock"];
+if ($resultado) {
+    while ($fila = $resultado->fetch_assoc()) {
+        $productosStock[] = $fila["NombreProducto"];
+        $stock[] = $fila["Stock"];
+    }
 }
 
+
+/* PEDIDOS: MAXIMO 10 */
 
 $sqlPedidosClientes = "SELECT
                             p.id AS IdPedido,
@@ -124,11 +164,13 @@ $sqlPedidosClientes = "SELECT
                             p.Direccion,
                             p.Telefono AS NumeroCliente
                        FROM pedidos p
-                       ORDER BY p.id DESC";
+                       ORDER BY p.id DESC
+                       LIMIT 5";
 
 $resultadoPedidosClientes = $conn->query($sqlPedidosClientes);
 
 
+/* CANTIDAD DE PEDIDOS POR CLIENTE */
 
 $sqlCantidadPedidos = "SELECT
                             Nombre AS Cliente,
@@ -137,42 +179,41 @@ $sqlCantidadPedidos = "SELECT
                        WHERE Nombre IS NOT NULL
                        AND TRIM(Nombre) <> ''
                        GROUP BY Nombre
-                       ORDER BY CantidadPedidos DESC, Cliente ASC";
+                       ORDER BY CantidadPedidos DESC, Cliente ASC
+                       LIMIT 5";
 
 $resultadoCantidadPedidos = $conn->query($sqlCantidadPedidos);
 
+$clientesPedidos = [];
 $clientesFrecuentes = [];
 $cantidadPedidosFrecuente = 0;
 
 if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 
-    $clientesPedidos = [];
-
     while ($fila = $resultadoCantidadPedidos->fetch_assoc()) {
         $clientesPedidos[] = $fila;
     }
 
-    $cantidadPedidosFrecuente = $clientesPedidos[0]["CantidadPedidos"];
+    if (!empty($clientesPedidos)) {
 
-    foreach ($clientesPedidos as $cliente) {
+        $cantidadPedidosFrecuente = $clientesPedidos[0]["CantidadPedidos"];
 
-        if ($cliente["CantidadPedidos"] == $cantidadPedidosFrecuente) {
+        foreach ($clientesPedidos as $cliente) {
 
-            $clientesFrecuentes[] = $cliente["Cliente"];
-
+            if ($cliente["CantidadPedidos"] == $cantidadPedidosFrecuente) {
+                $clientesFrecuentes[] = $cliente["Cliente"];
+            }
         }
     }
 }
 ?>
 
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Reportes</title>
@@ -183,160 +224,160 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 
 <style>
 
+.reporte-clientes {
+    width: 92%;
+    margin: 45px auto;
+    padding: 32px;
+    background: #F8F7F3;
+    border-radius: 28px;
+    box-shadow: 0 10px 30px rgba(52, 78, 65, 0.12);
+}
+
+.reporte-clientes h2 {
+    text-align: center;
+    color: #344E41;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.subtitulo-reporte {
+    text-align: center;
+    color: #588157;
+    font-size: 17px;
+    margin-bottom: 28px;
+}
+
+.tabla-clientes {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 6px 20px rgba(52, 78, 65, 0.10);
+}
+
+.tabla-clientes th {
+    background: #344E41;
+    color: #F8F7F3;
+    padding: 17px 14px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    border: none;
+}
+
+.tabla-clientes th:first-child {
+    border-top-left-radius: 18px;
+}
+
+.tabla-clientes th:last-child {
+    border-top-right-radius: 18px;
+}
+
+.tabla-clientes td {
+    padding: 15px 14px;
+    text-align: center;
+    color: #344E41;
+    font-size: 18px;
+    border-bottom: 1px solid #E5E5DE;
+    background: #FFFFFF;
+    transition: .25s ease;
+}
+
+.tabla-clientes tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-clientes tr:hover td {
+    background: #EEF1EA;
+}
+
+.tabla-clientes td:first-child {
+    font-weight: 600;
+    color: #588157;
+}
+
+.cliente-encontrado {
+    color: #344E41 !important;
+    font-weight: 600;
+}
+
+.tabla-clientes td:nth-child(3) {
+    color: #588157;
+    font-weight: 500;
+}
+
+.tabla-clientes td:nth-child(5) {
+    font-weight: 500;
+}
+
+.cliente-no-encontrado {
+    color: #A3A3A3 !important;
+    font-style: italic;
+    font-size: 18px;
+}
+
+.tabla-clientes tr {
+    transition: .25s ease;
+}
+
+.tabla-clientes tr:hover {
+    transform: scale(1.002);
+}
+
+.fila-cliente-frecuente td {
+    font-weight: 700 !important;
+    background: #EEF1EA !important;
+    color: #344E41 !important;
+    border-top: 2px solid #588157;
+}
+
+.producto-mas-vendido {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 25px;
+    padding: 20px;
+    background: white;
+    border-radius: 18px;
+}
+
+.producto-mas-vendido img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+.producto-mas-vendido h3 {
+    color: #344E41;
+    font-size: 24px;
+    margin: 0 0 10px;
+}
+
+.producto-mas-vendido p {
+    color: #588157;
+    font-size: 18px;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+
     .reporte-clientes {
-        width: 92%;
-        margin: 45px auto;
-        padding: 32px;
-        background: #F8F7F3;
-        border-radius: 28px;
-        box-shadow: 0 10px 30px rgba(52, 78, 65, 0.12);
-    }
-
-    .reporte-clientes h2 {
-        text-align: center;
-        color: #344E41;
-        font-size: 30px;
-        font-weight: 600;
-        margin-bottom: 8px;
-    }
-
-    .subtitulo-reporte {
-        text-align: center;
-        color: #588157;
-        font-size: 17px;
-        margin-bottom: 28px;
+        width: 96%;
+        padding: 20px;
+        overflow-x: auto;
     }
 
     .tabla-clientes {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        overflow: hidden;
-        border-radius: 18px;
-        background: white;
-        box-shadow: 0 6px 20px rgba(52, 78, 65, 0.10);
+        min-width: 750px;
     }
 
-    .tabla-clientes th {
-        background: #344E41;
-        color: #F8F7F3;
-        padding: 17px 14px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: .5px;
-        border: none;
-    }
-
-    .tabla-clientes th:first-child {
-        border-top-left-radius: 18px;
-    }
-
-    .tabla-clientes th:last-child {
-        border-top-right-radius: 18px;
-    }
-
-    .tabla-clientes td {
-        padding: 15px 14px;
-        text-align: center;
-        color: #344E41;
-        font-size: 18px;
-        border-bottom: 1px solid #E5E5DE;
-        background: #FFFFFF;
-        transition: .25s ease;
-    }
-
-    .tabla-clientes tr:last-child td {
-        border-bottom: none;
-    }
-
-    .tabla-clientes tr:hover td {
-        background: #EEF1EA;
-    }
-
-    .tabla-clientes td:first-child {
-        font-weight: 600;
-        color: #588157;
-    }
-
-    .cliente-encontrado {
-        color: #344E41 !important;
-        font-weight: 600;
-    }
-
-    .tabla-clientes td:nth-child(3) {
-        color: #588157;
-        font-weight: 500;
-    }
-
-    .tabla-clientes td:nth-child(5) {
-        font-weight: 500;
-    }
-
-    .cliente-no-encontrado {
-        color: #A3A3A3 !important;
-        font-style: italic;
-        font-size: 18px;
-    }
-
-    .tabla-clientes tr {
-        transition: .25s ease;
-    }
-
-    .tabla-clientes tr:hover {
-        transform: scale(1.002);
-    }
-
-    .fila-cliente-frecuente td {
-        font-weight: 700 !important;
-        background: #EEF1EA !important;
-        color: #344E41 !important;
-        border-top: 2px solid #588157;
-    }
-
-    .producto-mas-vendido {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 25px;
-        margin-top: 25px;
-        padding: 20px;
-        background: white;
-        border-radius: 18px;
-    }
-
-    .producto-mas-vendido img {
-        width: 140px;
-        height: 140px;
-        object-fit: cover;
-        border-radius: 18px;
-    }
-
-    .producto-mas-vendido h3 {
-        color: #344E41;
-        font-size: 24px;
-        margin: 0 0 10px;
-    }
-
-    .producto-mas-vendido p {
-        color: #588157;
-        font-size: 18px;
-        margin: 0;
-    }
-
-    @media (max-width: 900px) {
-
-        .reporte-clientes {
-            width: 96%;
-            padding: 20px;
-            overflow-x: auto;
-        }
-
-        .tabla-clientes {
-            min-width: 750px;
-        }
-
-    }
+}
 
 </style>
 
@@ -350,12 +391,15 @@ if ($resultadoCantidadPedidos && $resultadoCantidadPedidos->num_rows > 0) {
 
 </section>
 
+
 <section class="reporte-clientes">
 
 <h2>Pedidos registrados y clientes</h2>
+
 <p class="subtitulo-reporte">
-   Relación de pedidos y clientes:
+    Últimos 10 pedidos registrados:
 </p>
+
 <?php
 
 if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
@@ -373,17 +417,9 @@ if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
     </tr>
     ";
 
-    $contadorPedidos = 0;
-
     while ($pedido = $resultadoPedidosClientes->fetch_assoc()) {
 
-        $contadorPedidos++;
-
-        $claseFila = ($contadorPedidos > 4)
-            ? "fila-extra-pedido"
-            : "";
-
-        echo "<tr class='$claseFila'>";
+        echo "<tr>";
 
         echo "<td>"
             . htmlspecialchars($pedido["IdPedido"])
@@ -404,7 +440,6 @@ if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
             echo "<td class='cliente-no-encontrado'>
                     Cliente no relacionado
                   </td>";
-
         }
 
         echo "<td>"
@@ -424,18 +459,6 @@ if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
 
     echo "</table>";
 
-    if ($contadorPedidos > 4) {
-
-        echo "
-        <button type='button'
-                class='boton-ver-mas'
-                onclick='mostrarPedidos()'
-                id='botonPedidos'>
-            Ver más
-        </button>
-        ";
-    }
-
 } else {
 
     echo "<p style='text-align:center;'>
@@ -443,22 +466,21 @@ if ($resultadoPedidosClientes && $resultadoPedidosClientes->num_rows > 0) {
           </p>";
 }
 
-
 ?>
 
 </section>
 
+
 <br>
+
 
 <section class="reporte-clientes">
 
 <h2>Cantidad de pedidos por cliente</h2>
 
 <p class="subtitulo-reporte">
-    Cantidad de pedidos realizados por cada cliente :
+    Cantidad de pedidos realizados por cada cliente:
 </p>
-
-
 
 <?php
 
@@ -473,75 +495,58 @@ if (!empty($clientesPedidos)) {
     </tr>
     ";
 
-   $contadorClientes = 0;
+    foreach ($clientesPedidos as $cliente) {
 
-foreach ($clientesPedidos as $cliente) {
+        echo "<tr>";
 
-    $contadorClientes++;
+        echo "<td class='cliente-encontrado'>"
+            . htmlspecialchars($cliente["Cliente"])
+            . "</td>";
 
-    $claseFila = ($contadorClientes > 4)
-        ? "fila-extra-cliente"
-        : "";
+        echo "<td>"
+            . htmlspecialchars($cliente["CantidadPedidos"])
+            . "</td>";
 
-    echo "<tr class='$claseFila'>";
-
-    echo "<td class='cliente-encontrado'>"
-        . htmlspecialchars($cliente["Cliente"])
-        . "</td>";
-
-    echo "<td>"
-        . htmlspecialchars($cliente["CantidadPedidos"])
-        . "</td>";
-
-    echo "</tr>";
-}
-
-    echo "<tr class='fila-cliente-frecuente'>";
-
-    if (count($clientesFrecuentes) > 1) {
-
-        echo "<td>
-                Cliente(s) con la mayor cantidad de pedidos
-              </td>";
-
-        echo "<td>";
-
-        echo htmlspecialchars(implode(" y ", $clientesFrecuentes))
-            . " tienen la misma cantidad de pedidos: "
-            . htmlspecialchars($cantidadPedidosFrecuente);
-
-        echo "</td>";
-
-    } else {
-
-        echo "<td>
-                Cliente con la mayor cantidad de pedidos
-              </td>";
-
-        echo "<td>";
-
-        echo htmlspecialchars($clientesFrecuentes[0])
-            . " tiene la mayor cantidad de pedidos: "
-            . htmlspecialchars($cantidadPedidosFrecuente);
-
-        echo "</td>";
+        echo "</tr>";
     }
 
-    echo "</tr>";
+    if (!empty($clientesFrecuentes)) {
+
+        echo "<tr class='fila-cliente-frecuente'>";
+
+        if (count($clientesFrecuentes) > 1) {
+
+            echo "<td>
+                    Clientes con la mayor cantidad de pedidos
+                  </td>";
+
+            echo "<td>";
+
+            echo htmlspecialchars(implode(" y ", $clientesFrecuentes))
+                . " tienen la misma cantidad de pedidos: "
+                . htmlspecialchars($cantidadPedidosFrecuente);
+
+            echo "</td>";
+
+        } else {
+
+            echo "<td>
+                    Cliente con la mayor cantidad de pedidos
+                  </td>";
+
+            echo "<td>";
+
+            echo htmlspecialchars($clientesFrecuentes[0])
+                . " tiene la mayor cantidad de pedidos: "
+                . htmlspecialchars($cantidadPedidosFrecuente);
+
+            echo "</td>";
+        }
+
+        echo "</tr>";
+    }
 
     echo "</table>";
-    if ($contadorClientes > 4) {
-
-    echo "
-    <button type='button'
-            class='boton-ver-mas'
-            onclick='mostrarClientes()'
-            id='botonClientes'>
-        Ver más
-    </button>
-    ";
-}
-
 
 } else {
 
@@ -551,7 +556,9 @@ foreach ($clientesPedidos as $cliente) {
 }
 
 ?>
+
 </section>
+
 
 <section class="bc">
 
@@ -580,11 +587,8 @@ foreach ($clientesPedidos as $cliente) {
         echo "<tr>";
 
         echo "<th>Codigo</th>";
-
         echo "<th>Producto</th>";
-
         echo "<th>Stock</th>";
-
         echo "<th>Acciones</th>";
 
         echo "</tr>";
@@ -594,27 +598,26 @@ foreach ($clientesPedidos as $cliente) {
             echo "<tr>";
 
             echo "<td>"
-                . $producto["Codigo"]
+                . htmlspecialchars($producto["Codigo"])
                 . "</td>";
 
             echo "<td>"
-                . $producto["NombreProducto"]
+                . htmlspecialchars($producto["NombreProducto"])
                 . "</td>";
 
             echo "<td>"
-                . $producto["Stock"]
+                . htmlspecialchars($producto["Stock"])
                 . "</td>";
 
             echo "<td>
                     <a href='Productos/actualizarproducto.php?Codigo="
-                . $producto["Codigo"]
+                . urlencode($producto["Codigo"])
                 . "'>
-                        + Reponer stock
-                    </a>
+                    + Reponer stock
+                  </a>
                   </td>";
 
             echo "</tr>";
-
         }
 
         echo "</table>";
@@ -622,12 +625,12 @@ foreach ($clientesPedidos as $cliente) {
     } else {
 
         echo "No hay productos con bajo stock.";
-
     }
 
     ?>
 
 </section>
+
 
 <section class="c">
 
@@ -641,18 +644,20 @@ foreach ($clientesPedidos as $cliente) {
 
     <?php
 
-    $sql = "SELECT p.NombreProducto, p.Imagen, SUM(c.Cantidad) AS TotalVendido
+    $sql = "SELECT p.NombreProducto, i.Imagen, SUM(c.Cantidad) AS TotalVendido
             FROM ventas v
             INNER JOIN carrito c
                 ON v.pedidos_id = c.pedidos_id
             INNER JOIN productos p
                 ON c.productos_Codigo = p.Codigo
+            LEFT JOIN imagenes i
+                ON i.CodigoProducto = p.Codigo
             INNER JOIN pedidos pe
                 ON v.pedidos_id = pe.id
             WHERE MONTH(pe.Fecha) = MONTH(CURDATE())
             AND YEAR(pe.Fecha) = YEAR(CURDATE())
             AND v.Estado = 'Finalizado'
-            GROUP BY p.Codigo, p.NombreProducto, p.Imagen
+            GROUP BY p.Codigo, p.NombreProducto, i.Imagen
             ORDER BY TotalVendido DESC
             LIMIT 1";
 
@@ -664,11 +669,15 @@ foreach ($clientesPedidos as $cliente) {
 
         echo "<div class='producto-mas-vendido'>";
 
-        echo "<img src='Productos/imagenes/"
-            . htmlspecialchars($producto["Imagen"])
-            . "' alt='"
-            . htmlspecialchars($producto["NombreProducto"])
-            . "'>";
+        if (!empty($producto["Imagen"])) {
+
+            echo "<img src='Productos/imagenes/"
+                . htmlspecialchars($producto["Imagen"])
+                . "' alt='"
+                . htmlspecialchars($producto["NombreProducto"])
+                . "'>";
+
+        }
 
         echo "<div>";
 
@@ -687,7 +696,6 @@ foreach ($clientesPedidos as $cliente) {
     } else {
 
         echo "No hay ventas registradas este mes.";
-
     }
 
     ?>
@@ -695,6 +703,7 @@ foreach ($clientesPedidos as $cliente) {
 </section>
 
 </section>
+
 
 <section class="d">
 
@@ -705,7 +714,7 @@ foreach ($clientesPedidos as $cliente) {
     <span>Ingreso del día</span>
 
     <strong>
-        <?php echo $ingresosDia; ?> Bs
+        <?php echo number_format($ingresosDia, 2); ?> Bs
     </strong>
 
 </section>
@@ -715,7 +724,7 @@ foreach ($clientesPedidos as $cliente) {
     <span>Ingreso de la semana</span>
 
     <strong>
-        <?php echo $ingresosSemana; ?> Bs
+        <?php echo number_format($ingresosSemana, 2); ?> Bs
     </strong>
 
 </section>
@@ -725,7 +734,7 @@ foreach ($clientesPedidos as $cliente) {
     <span>Ingreso del mes</span>
 
     <strong>
-        <?php echo $ingresosMes; ?> Bs
+        <?php echo number_format($ingresosMes, 2); ?> Bs
     </strong>
 
 </section>
@@ -735,7 +744,7 @@ foreach ($clientesPedidos as $cliente) {
     <span>Ingreso del año</span>
 
     <strong>
-        <?php echo $ingresosAnio; ?> Bs
+        <?php echo number_format($ingresosAnio, 2); ?> Bs
     </strong>
 
 </section>
@@ -745,12 +754,13 @@ foreach ($clientesPedidos as $cliente) {
     <span>Ingresos totales</span>
 
     <strong>
-        <?php echo $ingresosTotales; ?> Bs
+        <?php echo number_format($ingresosTotales, 2); ?> Bs
     </strong>
 
 </section>
 
 </section>
+
 
 <section class="e">
 
@@ -762,15 +772,17 @@ foreach ($clientesPedidos as $cliente) {
 
 </section>
 
+
 <section class="graf">
 
-    <h2>Gráfico de ingresos</h2>
+    <h2>Ingresos de los últimos 7 días</h2>
 
     <canvas id="graficoIngresos"></canvas>
 
 </section>
 
 </section>
+
 
 <section class="f">
 
@@ -784,31 +796,21 @@ foreach ($clientesPedidos as $cliente) {
 
 </section>
 
+
 <script>
 
 const fechas = <?php echo json_encode($fechas); ?>;
-
 const ventas = <?php echo json_encode($ventas); ?>;
-
 const productos = <?php echo json_encode($productos); ?>;
-
 const cantidades = <?php echo json_encode($cantidades); ?>;
-
-const ingresos = <?php echo json_encode($ingresosGrafico); ?>;
-
+const fechasIngresos = <?php echo json_encode($fechasIngresos); ?>;
+const ingresosDiarios = <?php echo json_encode($ingresosDiarios); ?>;
 const productosStock = <?php echo json_encode($productosStock); ?>;
+const stock = <?php echo json_encode($stock); ?>;
 
-const stock = <?php echo json_encode($stock); ?>
-
-
-const contextoProductos =
-    document.getElementById("graficoProductos");
-
-const contextoIngresos =
-    document.getElementById("graficoIngresos");
-
-const contextoStock =
-    document.getElementById("graficoStock");
+const contextoProductos = document.getElementById("graficoProductos");
+const contextoIngresos = document.getElementById("graficoIngresos");
+const contextoStock = document.getElementById("graficoStock");
 
 
 new Chart(contextoProductos, {
@@ -831,49 +833,53 @@ new Chart(contextoProductos, {
 
     options: {
 
-        responsive: true,
-
-        scales: {
-
-            y: {
-
-                beginAtZero: true
-
-            }
-
-        }
+        responsive: true
 
     }
 
 });
 
 
-const periodos = [
-
-    "Día",
-
-    "Semana",
-
-    "Mes",
-
-    "Año"
-
+const nombresDias = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado"
 ];
+
+const etiquetasIngresos = fechasIngresos.map(function(fecha) {
+
+    const partes = fecha.split("-");
+
+    const fechaObj = new Date(
+        partes[0],
+        partes[1] - 1,
+        partes[2]
+    );
+
+    const dia = nombresDias[fechaObj.getDay()];
+
+    return dia + " " + partes[2] + "/" + partes[1];
+
+});
 
 
 new Chart(contextoIngresos, {
 
-    type: "bar",
+    type: "line",
 
     data: {
 
-        labels: periodos,
+        labels: etiquetasIngresos,
 
         datasets: [{
 
             label: "Ingresos en Bs",
 
-            data: ingresos
+            data: ingresosDiarios
 
         }]
 
@@ -887,7 +893,27 @@ new Chart(contextoIngresos, {
 
             y: {
 
-                beginAtZero: true
+                beginAtZero: true,
+
+                title: {
+
+                    display: true,
+
+                    text: "Ingresos en Bs"
+
+                }
+
+            },
+
+            x: {
+
+                title: {
+
+                    display: true,
+
+                    text: "Días"
+
+                }
 
             }
 
@@ -954,59 +980,12 @@ new Chart(contextoStock, {
 
 });
 
-
-
-function mostrarPedidos() {
-
-    const filas = document.querySelectorAll(".fila-extra-pedido");
-    const boton = document.getElementById("botonPedidos");
-
-    filas.forEach(function(fila) {
-
-        if (fila.style.display === "none" || fila.style.display === "") {
-            fila.style.display = "table-row";
-            boton.textContent = "Ver menos";
-        } else {
-            fila.style.display = "none";
-            boton.textContent = "Ver más";
-        }
-
-    });
-
-}
-
-
-
-
-function mostrarClientes() {
-
-    const filas = document.querySelectorAll(".fila-extra-cliente");
-    const boton = document.getElementById("botonClientes");
-
-    filas.forEach(function(fila) {
-
-        if (fila.style.display === "none" || fila.style.display === "") {
-            fila.style.display = "table-row";
-            boton.textContent = "Ver menos";
-        } else {
-            fila.style.display = "none";
-            boton.textContent = "Ver más";
-        }
-
-    });
-
-}
-
 </script>
-
-
-</script>
-
-
 
 </body>
 
 </html>
+
 <?php
 
 $conn->close();

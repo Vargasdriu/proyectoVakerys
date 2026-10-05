@@ -56,7 +56,6 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`productos` (
   `DetalleProducto` VARCHAR(100) NULL,
   `Stock` INT NULL,
   `CostoProducto` INT NULL,
-  `Imagen` VARCHAR(255) NULL,
   PRIMARY KEY (`Codigo`)
 )
 ENGINE = InnoDB;
@@ -137,158 +136,181 @@ USE vakerysss;
 INSERT INTO gestiondeusuarios
 (CI, Nombre, Direccion, Numero, Rol, Estado)
 VALUES
-(1, 'Valeria Munoz', 'Centro', 123, 'administrador', 'Activo'),
+(1, 'Valeria Munoz', 'Tupuraya', 123, 'administrador', 'Activo'),
 (2, 'Keith Rojas', 'Queru Queru', 234, 'vendedor', 'Activo'),
 (3, 'Matias Saravia', 'Cala Cala', 345, 'vendedor', 'Activo'),
 (4, 'Briana Rojas', 'Recoleta', 456, 'administrador', 'Activo'),
 (5, 'Joel Vargas', 'Sarco', 567, 'administrador', 'Activo');
 
--- -----------------------------------------------------
--- Productos
--- -----------------------------------------------------
+
+
+-- =========================================
+-- PRODUCTOS
+-- =========================================
 
 INSERT INTO productos
-(Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto, Imagen)
+(Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto)
 VALUES
-('P001', 'Chocolate chips Cookies', 10, 'Galletas artesanales suaves y crujientes con abundantes trozos de chocolate.', 30, 5, 'cookieproc.png'),
+('Paaa', 'Apple Pie', 65, 'Pie de manzana entero elaborado con manzanas frescas, canela y una masa artesanal crujiente', 6, 35),
+('Paab', 'Brownie', 45, 'Brownie entero de chocolate intenso, con textura suave y húmeda en el centro y una superficie ligeramente crujiente', 4, 23),
+('Paac', 'Carrot Cake', 120, 'Torta entera de zanahoria preparada con nueces, especias y una suave cobertura cremosa', 3, 65),
+('Paad', 'Cheesecake', 150, 'Cheesecake entero de textura cremosa y suave, acompañado de una base crujiente y un delicado acabado dulce', 2, 80),
+('Paae', 'Cinnamon Roll', 15, 'Roll de canela suave y esponjoso, relleno con canela y azúcar y cubierto con un delicado glaseado', 15, 7),
+('Paaf', 'Cookie', 10, 'Cookie artesanal horneada hasta quedar dorada y suave, preparada con chispas de chocolate', 20, 4),
+('Paag', 'Lemon Pie', 70, 'Pie de limón entero con una base crujiente, relleno cremoso de limón y un delicado acabado dulce', 5, 38),
+('Paah', 'Roll', 20, 'Roll dulce artesanal de masa suave y esponjosa, preparado con un delicioso relleno y acabado de repostería', 7, 13),
+('Paai', 'Tiramisu', 140, 'Tiramisú entero elaborado con capas suaves de bizcocho, crema de mascarpone y un delicado toque de café y cacao', 3, 75);
 
-('P002', 'Brownie', 15, 'Postre de chocolate suave y húmedo, con intenso sabor a cacao y textura densa.', 20, 9, 'brownieproc.png'),
-
-('P003', 'Cheesecake de Maracuya', 25, 'Postre cremoso de queso y maracuyá con base de galleta y sabor dulce y refrescante.', 12, 16, 'cheesecakeproc.jpg'),
-
-('P004', 'Apple pie', 20, 'Postre de manzana con canela y especias, cubierto con una masa dorada y crujiente.', 15, 12, 'applepieproc.jpg'),
-
-('P005', 'Lemon pie', 20, 'Postre fresco con base crujiente y relleno cremoso de limón, dulce y ligeramente ácido.', 15, 12, 'lemonpieproc.jpg'),
-
-('P006', 'Cinnamon Roll', 18, 'Rollo de masa suave con canela y azúcar, horneado y cubierto con un delicado glaseado.', 15, 10, 'cinnamonrollproc.png'),
-
-('P007', 'Carrot Cake', 25, 'Pastel húmedo de zanahoria, canela y especias, acompañado de una cremosa cobertura.', 12, 16, 'carrotcakeproc.jpg'),
-
-('P008', 'Tiramisu', 28, 'Postre italiano con bizcocho, café y crema de mascarpone, terminado con cacao.', 10, 18, 'tiramisuproc.jpg');
-
--- -----------------------------------------------------
--- Imágenes
--- -----------------------------------------------------
+-- =========================================
+-- IMÁGENES
+-- =========================================
 
 INSERT INTO imagenes
 (CodigoProducto, Imagen)
 VALUES
-('P001', 'cookieproc.png'),
-('P001', 'cookie2.jpg'),
+('P001', 'applepie2.jpg'),
+('P001', 'applepie3.jpg'),
+('P001', 'applepieproc.jpg'),
 
-('P002', 'brownieproc.png'),
 ('P002', 'brownie2.jpg'),
 ('P002', 'brownie3.jpg'),
+('P002', 'brownieproc.png'),
 ('P002', 'browniesolo.png'),
 
-('P003', 'cheesecakeproc.jpg'),
-('P003', 'cheesecake2.jpg'),
-('P003', 'cheesecake3.jpg'),
+('P003', 'carrotcake2.jpg'),
+('P003', 'carrotcake3.jpg'),
+('P003', 'carrotcakeproc.jpg'),
 
-('P004', 'applepieproc.jpg'),
-('P004', 'applepie2.jpg'),
-('P004', 'applepie3.jpg'),
+('P004', 'cheesecake2.jpg'),
+('P004', 'cheesecake3.jpg'),
+('P004', 'cheesecakeproc.jpg'),
 
-('P005', 'lemonpieproc.jpg'),
+('P005', 'cinnamonrollproc.png'),
 
-('P006', 'cinnamonrollproc.png'),
-('P006', 'roll2.jpg'),
-('P006', 'roll3.jpg'),
+('P006', 'cookie2.jpg'),
+('P006', 'cookieproc.png'),
 
-('P007', 'carrotcakeproc.jpg'),
-('P007', 'carrotcake2.jpg'),
-('P007', 'carrotcake3.jpg'),
+('P007', 'lemonpieproc.jpg'),
 
-('P008', 'tiramisuproc.jpg'),
-('P008', 'tiramisu2.jpg'),
-('P008', 'tiramisu3.jpg');
+('P008', 'roll2.jpg'),
+('P008', 'roll3.jpg'),
 
--- -----------------------------------------------------
--- Pedidos
--- -----------------------------------------------------
+('P009', 'tiramisu2.jpg'),
+('P009', 'tiramisu3.jpg'),
+('P009', 'tiramisuproc.jpg');
+
+-- =========================================
+-- 15 PEDIDOS
+-- =========================================
 
 INSERT INTO pedidos
 (Nombre, Fecha, Estado, NombreVendedor, Direccion, Telefono)
 VALUES
-('Taylor Swift', '2026-09-10', 'Finalizado', 'Maria Perez', 'Centro', 76543215),
-('Tom Holland', '2026-09-07', 'Aceptado', 'Luis Fernandez', 'Recoleta', 76543216),
-('Taylor Swift', '2026-09-06', 'En espera', 'Maria Perez', 'Queru Queru', 76543215),
-('Robert Downey Jr.', '2026-09-03', 'Rechazado', 'Luis Fernandez', 'Cala Cala', 76543218),
-('Taylor Swift', '2026-08-29', 'Aceptado', 'Maria Perez', 'Sarco', 76543215),
-('Chris Hemsworth', '2026-08-25', 'Finalizado', 'Luis Fernandez', 'Centro', 76543220),
-('Taylor Swift', '2026-08-18', 'En espera', 'Maria Perez', 'Recoleta', 76543215),
-('Jenna Ortega', '2026-08-12', 'Aceptado', 'Luis Fernandez', 'Sarco', 76543222),
-('Taylor Swift', '2026-08-05', 'Rechazado', 'Maria Perez', 'Centro', 76543215),
-('Zendaya', '2026-07-28', 'Finalizado', 'Luis Fernandez', 'Recoleta', 76543223),
-('Taylor Swift', '2026-07-20', 'Aceptado', 'Maria Perez', 'Queru Queru', 76543215),
-('Timothee Chalamet', '2026-07-14', 'En espera', 'Luis Fernandez', 'Cala Cala', 76543224),
-('Taylor Swift', '2026-07-08', 'Finalizado', 'Maria Perez', 'Sarco', 76543215),
-('Tom Holland', '2026-06-30', 'Rechazado', 'Luis Fernandez', 'Centro', 76543216);
+('Taylor Swift', '2026-09-29', 'Finalizado', 'Keith Rojas', 'Queru Queru', 70123456),
+('Lionel Messi', '2026-09-30', 'Finalizado', 'Matias Saravia', 'Cala Cala', 70234567),
+('Zendaya', '2026-10-01', 'Finalizado', 'Keith Rojas', 'Recoleta', 70345678),
+('Chris Hemsworth', '2026-10-02', 'Finalizado', 'Matias Saravia', 'Sarco', 70456789),
+('Sofia Fernandez', '2026-10-03', 'Finalizado', 'Keith Rojas', 'Centro', 70567890),
+('Tom Holland', '2026-10-04', 'Finalizado', 'Matias Saravia', 'Norte', 70678901),
+('Taylor Swift', '2026-10-05', 'Finalizado', 'Keith Rojas', 'Queru Queru', 70123456),
+('Selena Gomez', '2026-10-05', 'En proceso', 'Matias Saravia', 'Recoleta', 70789012),
+('Robert Downey Jr.', '2026-10-05', 'En espera', 'Keith Rojas', 'Cala Cala', 70890123),
+('Sofia Fernandez', '2026-10-05', 'Finalizado', 'Matias Saravia', 'Centro', 70567890),
+('Dwayne Johnson', '2026-10-04', 'En proceso', 'Keith Rojas', 'Sarco', 70901234),
+('Emma Watson', '2026-10-03', 'Finalizado', 'Matias Saravia', 'Queru Queru', 71012345),
+('Cristiano Ronaldo', '2026-10-02', 'Finalizado', 'Keith Rojas', 'Norte', 71123456),
+('Ariana Grande', '2026-10-01', 'En espera', 'Matias Saravia', 'Centro', 71234567),
+('Pedro Pascal', '2026-09-30', 'Finalizado', 'Keith Rojas', 'Recoleta', 71345678);
 
--- -----------------------------------------------------
--- Carrito
--- -----------------------------------------------------
+-- =========================================
+-- CARRITO
+-- Los productos grandes se venden enteros
+-- =========================================
 
 INSERT INTO carrito
 (productos_Codigo, pedidos_id, Cantidad, CostoTotal)
 VALUES
-('P001', 1, 3, 30),
-('P002', 1, 1, 15),
 
-('P003', 2, 1, 25),
-('P004', 2, 2, 40),
+-- Taylor Swift
+('P002', 1, 1, 45),
+('P005', 1, 4, 60),
 
-('P001', 3, 2, 20),
-('P005', 3, 3, 60),
+-- Lionel Messi
+('P004', 2, 1, 150),
+('P006', 2, 6, 60),
 
-('P002', 4, 2, 30),
+-- Zendaya
+('P003', 3, 1, 120),
+('P005', 3, 4, 60),
 
-('P001', 5, 4, 40),
+-- Chris Hemsworth
+('P009', 4, 1, 140),
+('P001', 4, 1, 65),
 
-('P003', 6, 1, 25),
+-- Sofia Fernandez
+('P002', 5, 1, 45),
+('P006', 5, 5, 50),
+('P005', 5, 2, 30),
 
-('P006', 7, 2, 36),
-('P001', 7, 3, 30),
+-- Tom Holland
+('P004', 6, 1, 150),
+('P003', 6, 1, 120),
 
-('P002', 8, 2, 30),
-('P008', 8, 1, 28),
+-- Taylor Swift
+('P002', 7, 2, 90),
+('P005', 7, 3, 45),
 
-('P007', 9, 2, 50),
-('P003', 9, 1, 25),
+-- Selena Gomez
+('P009', 8, 1, 140),
+('P007', 8, 1, 70),
 
-('P004', 10, 2, 40),
-('P002', 10, 1, 15),
+-- Robert Downey Jr.
+('P004', 9, 1, 150),
+('P008', 9, 1, 55),
 
-('P006', 11, 1, 18),
-('P005', 11, 2, 40),
+-- Sofia Fernandez
+('P002', 10, 1, 45),
+('P006', 10, 4, 40),
 
-('P008', 12, 2, 56),
-('P003', 12, 1, 25),
+-- Dwayne Johnson
+('P003', 11, 1, 120),
+('P001', 11, 1, 65),
 
-('P007', 13, 1, 25),
-('P001', 13, 4, 40),
+-- Emma Watson
+('P005', 12, 6, 90),
+('P007', 12, 1, 70),
 
-('P004', 14, 1, 20),
-('P006', 14, 2, 36);
+-- Cristiano Ronaldo
+('P009', 13, 1, 140),
+('P002', 13, 1, 45),
 
--- -----------------------------------------------------
--- Ventas
--- -----------------------------------------------------
+-- Ariana Grande
+('P004', 14, 1, 150),
+('P006', 14, 3, 30),
+
+-- Pedro Pascal
+('P002', 15, 1, 45),
+('P005', 15, 4, 60);
+
+-- =========================================
+-- VENTAS
+-- =========================================
 
 INSERT INTO ventas
 (pedidos_id, costoTotal, Estado, Metodo)
 VALUES
-(1, 45, 'Entregado', 'QR'),
-(2, 65, 'En Proceso', 'Efectivo'),
-(3, 80, 'Finalizado', 'QR'),
-(4, 30, 'En Espera', 'Tarjeta'),
-(5, 40, 'Entregado', 'QR'),
-(6, 25, 'En Proceso', 'Efectivo'),
-(7, 66, 'Finalizado', 'QR'),
-(8, 58, 'En Espera', 'Tarjeta'),
-(9, 75, 'Entregado', 'Efectivo'),
-(10, 55, 'En Proceso', 'QR'),
-(11, 58, 'Finalizado', 'Efectivo'),
-(12, 81, 'Entregado', 'QR'),
-(13, 65, 'En Espera', 'Tarjeta'),
-(14, 56, 'En Proceso', 'Efectivo');
+(1, 105, 'Finalizado', 'QR'),
+(2, 210, 'Finalizado', 'Tarjeta'),
+(3, 180, 'Finalizado', 'Efectivo'),
+(4, 205, 'Finalizado', 'QR'),
+(5, 125, 'Finalizado', 'Efectivo'),
+(6, 270, 'Finalizado', 'Tarjeta'),
+(7, 135, 'Finalizado', 'QR'),
+(8, 210, 'En proceso', 'QR'),
+(9, 205, 'En espera', 'Efectivo'),
+(10, 85, 'Finalizado', 'Tarjeta'),
+(11, 185, 'En proceso', 'QR'),
+(12, 160, 'Finalizado', 'Efectivo'),
+(13, 185, 'Finalizado', 'QR'),
+(14, 180, 'En espera', 'Tarjeta'),
+(15, 105, 'Finalizado', 'Efectivo');

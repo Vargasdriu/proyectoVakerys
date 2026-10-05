@@ -57,3 +57,24 @@ PUNTUACIÓN: 4 Estrellas
 FECHA: 11/09/2026 12:19
 COMENTARIO: buen trabajo
 -----------------------------------
+NOMBRE: juan
+EMAIL: juan@gmail.com
+ASUNTO: Queja (Queja al Repartidor)
+PUNTUACIÓN: 3 Estrellas
+FECHA: 05/10/2026 09:29
+COMENTARIO: Hacer la entrega más rápido.
+-----------------------------------
+NOMBRE: juan
+EMAIL: juan@gmail.com
+ASUNTO: Recomendaciones (Recomendación al Servicio)
+PUNTUACIÓN: 4 Estrellas
+FECHA: 05/10/2026 09:32
+COMENTARIO: Apurarse más a la hora de entregar el pedido.
+-----------------------------------
+NOMBRE: juan
+EMAIL: juan@gmail.com
+ASUNTO: Recomendaciones (Recomendación al Producto)
+PUNTUACIÓN: 4 Estrellas
+FECHA: 05/10/2026 09:42
+COMENTARIO: Menos azúcar, esta muy dulce
+-----------------------------------

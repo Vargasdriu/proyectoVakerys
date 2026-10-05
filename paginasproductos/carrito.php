@@ -9,8 +9,6 @@ header(
 );
 
 
-
-
 if ($conn->connect_error) {
 
     echo json_encode(array(
@@ -28,21 +26,19 @@ if ($conn->connect_error) {
 }
 
 
-
 if (
     isset($_POST["idPedidos"]) &&
     $_POST["idPedidos"] != ""
 ) {
 
-    $idPedidos =
+    $idPedido =
         intval($_POST["idPedidos"]);
 
 
     $_SESSION["pedido"] =
-        $idPedidos;
+        $idPedido;
 
 }
-
 
 
 elseif (
@@ -71,12 +67,15 @@ else {
 }
 
 
-
 $accion =
     isset($_POST["accion"])
     ? $_POST["accion"]
     : "";
 
+
+// ==========================================
+// AGREGAR PRODUCTO
+// ==========================================
 
 if ($accion == "agregar") {
 
@@ -191,7 +190,6 @@ if ($accion == "agregar") {
         intval($stock);
 
 
-
     if ($cantidadNueva > $stock) {
 
         echo json_encode(array(
@@ -206,7 +204,6 @@ if ($accion == "agregar") {
         exit;
 
     }
-
 
 
     $sql = "
@@ -267,8 +264,6 @@ if ($accion == "agregar") {
             intval($cantidadActual) +
             $cantidadNueva;
 
-
-        // Comprobar stock total
 
         if ($cantidadTotal > $stock) {
 
@@ -472,9 +467,7 @@ elseif ($accion == "mostrar") {
 
             p.NombreProducto,
 
-            p.PrecioProducto,
-
-            p.Imagen
+            p.PrecioProducto
 
         FROM carrito c
 
@@ -527,9 +520,7 @@ elseif ($accion == "mostrar") {
 
         $nombreProducto,
 
-        $precioProducto,
-
-        $imagen
+        $precioProducto
 
     );
 
@@ -554,10 +545,7 @@ elseif ($accion == "mostrar") {
                 $nombreProducto,
 
             "PrecioProducto" =>
-                $precioProducto,
-
-            "Imagen" =>
-                $imagen
+                $precioProducto
 
         );
 

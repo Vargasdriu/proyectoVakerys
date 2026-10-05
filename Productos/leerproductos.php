@@ -6,8 +6,8 @@ $bdname = "vakerysss";
 
 $conn = new mysqli($servername, $username, $password, $bdname);
 
-if($conn->connect_error){
-    die("Conexion fallida: ".$conn->connect_error);
+if ($conn->connect_error) {
+    die("Conexion fallida: " . $conn->connect_error);
 }
 
 $conn->set_charset("utf8");
@@ -27,6 +27,8 @@ $resultado = $conn->query($sql);
     <title>Productos | Vakery's</title>
 
     <link rel="stylesheet" href="estilosleerproductos.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -50,49 +52,64 @@ $resultado = $conn->query($sql);
         </a>
 
     </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <div class="linea"></div>
 
     <section class="lista">
 
         <?php
 
-        if($resultado && $resultado->num_rows > 0){
+        if ($resultado && $resultado->num_rows > 0) {
 
-            while($fila = $resultado->fetch_assoc()){
+            while ($fila = $resultado->fetch_assoc()) {
 
                 $Codigo = $fila["Codigo"];
                 $Stock = (int)$fila["Stock"];
 
-                if($Stock <= 0){
+                if ($Stock <= 0) {
                     $estado = "Agotado";
                     $clase = "agotado";
-                }elseif($Stock < 5){
+                } elseif ($Stock < 5) {
                     $estado = "Stock bajo";
                     $clase = "bajo";
-                }else{
+                } else {
                     $estado = "Disponible";
                     $clase = "disponible";
+                }
+
+                $CodigoSeguro = $conn->real_escape_string($Codigo);
+
+                $sqlImagen = "SELECT Imagen 
+                              FROM imagenes 
+                              WHERE CodigoProducto = '$CodigoSeguro'
+                              LIMIT 1";
+
+                $resultadoImagen = $conn->query($sqlImagen);
+
+                $imagen = null;
+
+                if ($resultadoImagen && $resultadoImagen->num_rows > 0) {
+                    $filaImagen = $resultadoImagen->fetch_assoc();
+                    $imagen = $filaImagen["Imagen"];
                 }
 
                 echo "<article class='producto'>";
 
                 echo "<div class='producto-imagen'>";
 
-                if(!empty($fila["Imagen"])){
+                if (!empty($imagen)) {
 
                     echo "<img src='../imagenes/"
-                        .htmlspecialchars($fila["Imagen"])
-                        ."' alt='"
-                        .htmlspecialchars($fila["NombreProducto"])
-                        ."'>";
+                        . htmlspecialchars($imagen)
+                        . "' alt='"
+                        . htmlspecialchars($fila["NombreProducto"])
+                        . "'>";
 
-                }else{
+                } else {
 
                     echo "<div class='sin-imagen'>
                             Sin imagen
                           </div>";
-
                 }
 
                 echo "</div>";
@@ -102,22 +119,22 @@ $resultado = $conn->query($sql);
                 echo "<div class='producto-cabecera'>";
 
                 echo "<span class='codigo'>"
-                    .htmlspecialchars($Codigo)
-                    ."</span>";
+                    . htmlspecialchars($Codigo)
+                    . "</span>";
 
-                echo "<span class='estado ".$clase."'>"
-                    .$estado.
+                echo "<span class='estado " . $clase . "'>"
+                    . $estado .
                     "</span>";
 
                 echo "</div>";
 
                 echo "<h2>"
-                    .htmlspecialchars($fila["NombreProducto"])
-                    ."</h2>";
+                    . htmlspecialchars($fila["NombreProducto"])
+                    . "</h2>";
 
                 echo "<p>"
-                    .htmlspecialchars($fila["DetalleProducto"])
-                    ."</p>";
+                    . htmlspecialchars($fila["DetalleProducto"])
+                    . "</p>";
 
                 echo "</div>";
 
@@ -127,8 +144,8 @@ $resultado = $conn->query($sql);
 
                 echo "<strong>
                         Bs "
-                        .htmlspecialchars($fila["PrecioProducto"])
-                        ."
+                    . htmlspecialchars($fila["PrecioProducto"])
+                    . "
                       </strong>";
 
                 echo "</div>";
@@ -138,42 +155,53 @@ $resultado = $conn->query($sql);
                 echo "<span>Stock</span>";
 
                 echo "<strong>"
-                    .$Stock.
+                    . $Stock .
                     "</strong>";
 
                 echo "</div>";
 
                 echo "<div class='acciones'>";
 
-                echo "<a href='mostrarproducto.php?Codigo=".$Codigo."' class='ver'>
+                echo "<a href='mostrarproducto.php?Codigo="
+                    . urlencode($Codigo)
+                    . "' class='ver'>
                         Ver
                       </a>";
 
-                echo "<a href='actualizarproducto.php?Codigo=".$Codigo."'>
+                echo "<a href='actualizarproducto.php?Codigo="
+                    . urlencode($Codigo)
+                    . "'>
                         Editar
                       </a>";
 
-                echo "<a href='verimagenes.php?codigo=".$Codigo."'>
+                echo "<a href='verimagenes.php?codigo="
+                    . urlencode($Codigo)
+                    . "'>
                         Imágenes
                       </a>";
 
-                echo "<a href='añadirimagen.php?codigo=".$Codigo."'>
+                echo "<a href='añadirimagen.php?codigo="
+                    . urlencode($Codigo)
+                    . "'>
                         + Imagen
                       </a>";
 
-                echo "<a href='eliminarproducto.php?Codigo=".$Codigo."' 
-        class='eliminar'
-        onclick=\"return confirmarEliminacion(event, '".$Codigo."');\">
-        Eliminar
-      </a>";
-
+                echo "<a href='eliminarproducto.php?Codigo="
+                    . urlencode($Codigo)
+                    . "' 
+                    class='eliminar'
+                    onclick=\"return confirmarEliminacion(event, '" 
+                    . htmlspecialchars($Codigo, ENT_QUOTES) 
+                    . "');\">
+                    Eliminar
+                  </a>";
 
                 echo "</div>";
 
                 echo "</article>";
             }
 
-        }else{
+        } else {
 
             echo "<div class='vacio'>
                     <h2>No hay productos registrados</h2>
@@ -183,7 +211,6 @@ $resultado = $conn->query($sql);
                         Agregar producto
                     </a>
                   </div>";
-
         }
 
         ?>
@@ -192,9 +219,6 @@ $resultado = $conn->query($sql);
 
 </main>
 
-</body>
-
-</html>
 <script>
 function confirmarEliminacion(event, Codigo) {
 
@@ -221,6 +245,11 @@ function confirmarEliminacion(event, Codigo) {
     return false;
 }
 </script>
+
+</body>
+
+</html>
+
 <?php
 $conn->close();
 ?>

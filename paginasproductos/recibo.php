@@ -68,10 +68,13 @@ if (!isset($_SESSION["pedido"])) {
     </head>
 
     <body>
+
     <?php include '../header.php'; ?>
+
     <video autoplay muted loop>
         <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
     </video>
+
         <script>
 
             Swal.fire({
@@ -189,8 +192,7 @@ $sqlProductos = "
         c.Cantidad,
         c.CostoTotal,
         p.NombreProducto,
-        p.PrecioProducto,
-        p.Imagen
+        p.PrecioProducto
     FROM carrito c
     INNER JOIN productos p
         ON c.productos_Codigo = p.Codigo
@@ -222,6 +224,7 @@ if (!$stmtProductos) {
 
     exit;
 }
+
 $stmtProductos->bind_param("i", $idPedido);
 $stmtProductos->execute();
 
@@ -286,9 +289,7 @@ $total = 0;
             <strong>Teléfono:</strong>
             <?php echo htmlspecialchars($pedido["Telefono"]); ?>
         </p>
-        <!-- ==========================================
-             ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        =========================================== -->
+
         <p>
             <strong>Estado:</strong>
             <?php echo htmlspecialchars($pedido["Estado"]); ?>
@@ -392,44 +393,47 @@ $total = 0;
             Total: Bs <?php echo $total; ?>
         </h2>
 
-<!-- QR DE PAGO -->
+        <!-- QR DE PAGO -->
 
-<div class="qr-pago">
+        <div class="qr-pago">
 
-    <h3>QR de pago</h3>
+            <h3>QR de pago</h3>
 
-    <img
-        src="../imagenes/qr_vakerys.PNG"
-        alt="QR de pago"
-        class="qr-imagen"
-    >
+            <img
+                src="../imagenes/qr_vakerys.PNG"
+                alt="QR de pago"
+                class="qr-imagen"
+            >
 
-    <p>Escanea este código para realizar el pago.</p>
+            <p>
+                Escanea este código para realizar el pago.
+            </p>
 
-    <?php if ($pedido["Estado"] === "Aceptado") { ?>
+            <?php if ($pedido["Estado"] === "Aceptado") { ?>
 
-        <h3 class="mensaje-estado aceptado">
-            ✓ ¡Pedido aceptado!
-        </h3>
+                <h3 class="mensaje-estado aceptado">
+                    ✓ ¡Pedido aceptado!
+                </h3>
 
-    <?php } elseif (
-        $pedido["Estado"] === "Cancelado" ||
-        $pedido["Estado"] === "Rechazado"
-    ) { ?>
+            <?php } elseif (
+                $pedido["Estado"] === "Cancelado" ||
+                $pedido["Estado"] === "Rechazado"
+            ) { ?>
 
-        <h3 class="mensaje-estado rechazado">
-            ✕ Pedido rechazado
-        </h3>
+                <h3 class="mensaje-estado rechazado">
+                    ✕ Pedido rechazado
+                </h3>
 
-    <?php } else { ?>
+            <?php } else { ?>
 
-        <h3 class="mensaje-estado pendiente">
-            Esperando aprobación del vendedor
-        </h3>
+                <h3 class="mensaje-estado pendiente">
+                    Esperando aprobación del vendedor
+                </h3>
 
-    <?php } ?>
+            <?php } ?>
 
-</div>
+        </div>
+
         <!-- ==========================================
              BOTONES
         =========================================== -->
@@ -441,26 +445,14 @@ $total = 0;
             🖨 Imprimir
         </button>
 
-       <button
-    type="button"
-    onclick="window.location.href='nuevoPedido.php'">
-
+        <button
+            type="button"
+            onclick="window.location.href='nuevoPedido.php'"
+        >
             Volver a Productos
         </button>
 
     </div>
-
-    <script>
-
-        document
-    .getElementById("volverProductos")
-    .addEventListener("click", function () {
-
-        window.location.href = "productos.php";
-
-    });
-
-    </script>
 
 </body>
 

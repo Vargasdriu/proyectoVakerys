@@ -17,7 +17,6 @@ $stmtPedido = $conn->prepare(
 );
 
 $stmtPedido->bind_param("i", $id_pedido);
-
 $stmtPedido->execute();
 
 $resultadoPedido = $stmtPedido->get_result();
@@ -34,7 +33,12 @@ $stmtProductos = $conn->prepare(
         p.NombreProducto,
         p.DetalleProducto,
         p.PrecioProducto,
-        p.Imagen,
+        (
+            SELECT i.Imagen
+            FROM imagenes i
+            WHERE i.CodigoProducto = p.Codigo
+            LIMIT 1
+        ) AS Imagen,
         c.Cantidad,
         c.CostoTotal
      FROM carrito c
@@ -44,7 +48,6 @@ $stmtProductos = $conn->prepare(
 );
 
 $stmtProductos->bind_param("i", $id_pedido);
-
 $stmtProductos->execute();
 
 $resultadoProductos = $stmtProductos->get_result();
@@ -56,7 +59,6 @@ $stmtTotal = $conn->prepare(
 );
 
 $stmtTotal->bind_param("i", $id_pedido);
-
 $stmtTotal->execute();
 
 $resultadoTotal = $stmtTotal->get_result();

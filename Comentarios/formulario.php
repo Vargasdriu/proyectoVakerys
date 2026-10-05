@@ -65,7 +65,7 @@ session_start();
 
     <form action="validar.php" method="POST">
 
-        <h2>Dejar un Comentario</h2>
+        <h2>Tu opinión nos importa</h2>
 
 
         <label for="nom">
@@ -134,9 +134,6 @@ session_start();
                     Seleccione el tipo de queja
                 </option>
 
-                <option value="Queja al Cliente">
-                    Queja al cliente
-                </option>
 
                 <option value="Queja al Repartidor">
                     Queja al repartidor

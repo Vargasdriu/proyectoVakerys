@@ -62,13 +62,8 @@ $nombre = $_SESSION['Nombre'];
 <label>Fecha:</label>
 <input type="date" placeholder="FECHA" name="Fecha" id="Fecha" value="<?php echo date ('Y-m-d'); ?>"readonly>
 <label>Estado:</label>
+        <input type="text" name="Estado" id="Estado"  value="Pendiente">
 
-<select name="Estado" id="Estado">
-    <option value="">Seleccionar estado</option>
-    <option value="Pendiente">Pendiente</option>
-    <option value="Aceptado">Aceptado</option>
-    <option value="Rechazado">Rechazado</option>
-</select>
 <label>Nombre Vendedor:</label>
 <input type="text" placeholder="NOMBRE DE VENDEDOR" name="NombreVendedor" id="NombreVendedor" value="<?php echo $nombre; ?>"readonly>
 <label>Dirección:</label>

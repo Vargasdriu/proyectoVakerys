@@ -20,7 +20,7 @@ $conn->set_charset("utf8");
 
 session_start();
 
-$sql = "SELECT * FROM pedidos ORDER BY id DESC";
+$sql = "SELECT * FROM pedidos ORDER BY id DESC LIMIT 10";
 $pedidos = mysqli_query($conn, $sql);
 
 $sqlProductosRegistrados = "SELECT COUNT(*) AS total FROM productos";
