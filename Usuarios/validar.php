@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 $servername = "localhost";
@@ -6,21 +7,19 @@ $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
-$conn = new mysqli($servername,$username, $password,$bdname);
+$conn = new mysqli($servername, $username, $password, $bdname);
 
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-$Nombre = $_POST['Nombre'] ?? '';
-$CI = $_POST['CI'] ?? '';
+$Nombre = $_POST['Nombre'];
+$CI = $_POST['CI'];
 
 $stmt = $conn->prepare(
     "SELECT * FROM GestionDeUsuarios 
-     WHERE Nombre = ? AND CI = ?"
+     WHERE Nombre = '$Nombre' AND CI = '$CI'"
 );
-
-$stmt->bind_param("ss", $Nombre, $CI);
 
 $stmt->execute();
 
@@ -42,10 +41,12 @@ if ($result->num_rows > 0) {
         $_SESSION['Rol'] = $fila['Rol'];
 
         if ($fila['Rol'] == "administrador") {
+
             header("Location: ../paginaadmin.php");
             exit();
 
         } elseif ($fila['Rol'] == "vendedor") {
+
             header("Location: ../paginavendedor.php");
             exit();
 
@@ -59,9 +60,7 @@ if ($result->num_rows > 0) {
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Iniciar Sesion</title>
-
                 <link rel="stylesheet" href="logininicio.css">
-
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                 <style>
@@ -97,9 +96,7 @@ if ($result->num_rows > 0) {
                 </video>
 
                 <header>
-
                     <div class="capa"></div>
-
                 </header>
 
                 <?php include '../footer.php'; ?>
@@ -117,7 +114,6 @@ if ($result->num_rows > 0) {
                 </script>
 
             </body>
-
             </html>
 
             <?php
@@ -126,7 +122,6 @@ if ($result->num_rows > 0) {
     }
 
 } else {
-
     ?>
 
     <!DOCTYPE html>
@@ -136,9 +131,7 @@ if ($result->num_rows > 0) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Iniciar Sesion</title>
-
         <link rel="stylesheet" href="logininicio.css">
-
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <style>
@@ -174,9 +167,7 @@ if ($result->num_rows > 0) {
         </video>
 
         <header>
-
             <div class="capa"></div>
-
         </header>
 
         <script>
@@ -200,4 +191,5 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
+
 ?>
