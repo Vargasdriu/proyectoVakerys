@@ -1,24 +1,12 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
--- Schema vakerysss
--- -----------------------------------------------------
-
 CREATE SCHEMA IF NOT EXISTS `vakerysss` DEFAULT CHARACTER SET utf8;
-
 USE `vakerysss`;
 
--- -----------------------------------------------------
--- Table `vakerysss`.`gestiondeusuarios`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS `vakerysss`.`gestiondeusuarios` (
+-- Tabla gestiondeusuarios
+CREATE TABLE IF NOT EXISTS `gestiondeusuarios` (
   `CI` INT NOT NULL,
   `Nombre` VARCHAR(45) NULL,
   `Direccion` VARCHAR(45) NULL,
@@ -26,14 +14,10 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`gestiondeusuarios` (
   `Rol` VARCHAR(45) NULL,
   `Estado` VARCHAR(45) NULL,
   PRIMARY KEY (`CI`)
-)
-ENGINE = InnoDB;
+) ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `vakerysss`.`pedidos`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS `vakerysss`.`pedidos` (
+-- Tabla pedidos
+CREATE TABLE IF NOT EXISTS `pedidos` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(200) NULL,
   `Fecha` DATE NULL,
@@ -42,14 +26,10 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`pedidos` (
   `Direccion` VARCHAR(45) NULL,
   `Telefono` INT NULL,
   PRIMARY KEY (`id`)
-)
-ENGINE = InnoDB;
+) ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `vakerysss`.`productos`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS `vakerysss`.`productos` (
+-- Tabla productos
+CREATE TABLE IF NOT EXISTS `productos` (
   `Codigo` VARCHAR(45) NOT NULL,
   `NombreProducto` VARCHAR(45) NULL,
   `PrecioProducto` INT NULL,
@@ -57,14 +37,10 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`productos` (
   `Stock` INT NULL,
   `CostoProducto` INT NULL,
   PRIMARY KEY (`Codigo`)
-)
-ENGINE = InnoDB;
+) ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `vakerysss`.`imagenes`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS `vakerysss`.`imagenes` (
+-- Tabla imagenes
+CREATE TABLE IF NOT EXISTS `imagenes` (
   `idImagen` INT NOT NULL AUTO_INCREMENT,
   `CodigoProducto` VARCHAR(45) NOT NULL,
   `Imagen` VARCHAR(255) NOT NULL,
@@ -72,17 +48,13 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`imagenes` (
   INDEX `fk_imagenes_productos_idx` (`CodigoProducto`),
   CONSTRAINT `fk_imagenes_productos`
     FOREIGN KEY (`CodigoProducto`)
-    REFERENCES `vakerysss`.`productos` (`Codigo`)
+    REFERENCES `productos` (`Codigo`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
-)
-ENGINE = InnoDB;
+) ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `vakerysss`.`carrito`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS `vakerysss`.`carrito` (
+-- Tabla carrito
+CREATE TABLE IF NOT EXISTS `carrito` (
   `productos_Codigo` VARCHAR(45) NOT NULL,
   `pedidos_id` INT NOT NULL,
   `Cantidad` INT NULL,
@@ -92,22 +64,18 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`carrito` (
   INDEX `fk_productos_has_pedidos_productos_idx` (`productos_Codigo` ASC),
   CONSTRAINT `fk_productos_has_pedidos_productos`
     FOREIGN KEY (`productos_Codigo`)
-    REFERENCES `vakerysss`.`productos` (`Codigo`)
+    REFERENCES `productos` (`Codigo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_productos_has_pedidos_pedidos1`
     FOREIGN KEY (`pedidos_id`)
-    REFERENCES `vakerysss`.`pedidos` (`id`)
+    REFERENCES `pedidos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-)
-ENGINE = InnoDB;
+) ENGINE=InnoDB;
 
--- -----------------------------------------------------
--- Table `vakerysss`.`ventas`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS `vakerysss`.`ventas` (
+-- Tabla ventas
+CREATE TABLE IF NOT EXISTS `ventas` (
   `pedidos_id` INT NOT NULL,
   `costoTotal` INT NULL,
   `Estado` VARCHAR(45) NULL,
@@ -115,42 +83,25 @@ CREATE TABLE IF NOT EXISTS `vakerysss`.`ventas` (
   PRIMARY KEY (`pedidos_id`),
   CONSTRAINT `fk_ventas_pedidos1`
     FOREIGN KEY (`pedidos_id`)
-    REFERENCES `vakerysss`.`pedidos` (`id`)
+    REFERENCES `pedidos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE
-)
-ENGINE = InnoDB;
+) ENGINE=InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
-
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
--- -----------------------------------------------------
--- Datos
--- -----------------------------------------------------
-
-USE vakerysss;
-
-INSERT INTO gestiondeusuarios
-(CI, Nombre, Direccion, Numero, Rol, Estado)
-VALUES
+-- Datos de usuarios
+INSERT INTO `gestiondeusuarios` (`CI`, `Nombre`, `Direccion`, `Numero`, `Rol`, `Estado`) VALUES
 (1, 'Valeria Munoz', 'Tupuraya', 123, 'administrador', 'Activo'),
 (2, 'Keith Rojas', 'Queru Queru', 234, 'vendedor', 'Activo'),
 (3, 'Matias Saravia', 'Cala Cala', 345, 'vendedor', 'Activo'),
 (4, 'Briana Rojas', 'Recoleta', 456, 'administrador', 'Activo'),
 (5, 'Joel Vargas', 'Sarco', 567, 'administrador', 'Activo');
 
-
-
--- =========================================
--- PRODUCTOS
--- =========================================
-
-INSERT INTO productos
-(Codigo, NombreProducto, PrecioProducto, DetalleProducto, Stock, CostoProducto)
-VALUES
+-- Productos
+INSERT INTO `productos` (`Codigo`, `NombreProducto`, `PrecioProducto`, `DetalleProducto`, `Stock`, `CostoProducto`) VALUES
 ('Paaa', 'Apple Pie', 65, 'Pie de manzana entero elaborado con manzanas frescas, canela y una masa artesanal crujiente', 6, 35),
 ('Paab', 'Brownie', 45, 'Brownie entero de chocolate intenso, con textura suave y húmeda en el centro y una superficie ligeramente crujiente', 4, 23),
 ('Paac', 'Carrot Cake', 120, 'Torta entera de zanahoria preparada con nueces, especias y una suave cobertura cremosa', 3, 65),
@@ -161,51 +112,33 @@ VALUES
 ('Paah', 'Roll', 20, 'Roll dulce artesanal de masa suave y esponjosa, preparado con un delicioso relleno y acabado de repostería', 7, 13),
 ('Paai', 'Tiramisu', 140, 'Tiramisú entero elaborado con capas suaves de bizcocho, crema de mascarpone y un delicado toque de café y cacao', 3, 75);
 
--- =========================================
--- IMÁGENES
--- =========================================
+-- Imágenes: CodigoProducto coincide con productos.Codigo
+INSERT INTO `imagenes` (`CodigoProducto`, `Imagen`) VALUES
+('Paaa', 'applepie2.jpg'),
+('Paaa', 'applepie3.jpg'),
+('Paaa', 'applepieproc.jpg'),
+('Paab', 'brownie2.jpg'),
+('Paab', 'brownie3.jpg'),
+('Paab', 'brownieproc.png'),
+('Paab', 'browniesolo.png'),
+('Paac', 'carrotcake2.jpg'),
+('Paac', 'carrotcake3.jpg'),
+('Paac', 'carrotcakeproc.jpg'),
+('Paad', 'cheesecake2.jpg'),
+('Paad', 'cheesecake3.jpg'),
+('Paad', 'cheesecakeproc.jpg'),
+('Paae', 'cinnamonrollproc.png'),
+('Paaf', 'cookie2.jpg'),
+('Paaf', 'cookieproc.png'),
+('Paag', 'lemonpieproc.jpg'),
+('Paah', 'roll2.jpg'),
+('Paah', 'roll3.jpg'),
+('Paai', 'tiramisu2.jpg'),
+('Paai', 'tiramisu3.jpg'),
+('Paai', 'tiramisuproc.jpg');
 
-INSERT INTO imagenes
-(CodigoProducto, Imagen)
-VALUES
-('P001', 'applepie2.jpg'),
-('P001', 'applepie3.jpg'),
-('P001', 'applepieproc.jpg'),
-
-('P002', 'brownie2.jpg'),
-('P002', 'brownie3.jpg'),
-('P002', 'brownieproc.png'),
-('P002', 'browniesolo.png'),
-
-('P003', 'carrotcake2.jpg'),
-('P003', 'carrotcake3.jpg'),
-('P003', 'carrotcakeproc.jpg'),
-
-('P004', 'cheesecake2.jpg'),
-('P004', 'cheesecake3.jpg'),
-('P004', 'cheesecakeproc.jpg'),
-
-('P005', 'cinnamonrollproc.png'),
-
-('P006', 'cookie2.jpg'),
-('P006', 'cookieproc.png'),
-
-('P007', 'lemonpieproc.jpg'),
-
-('P008', 'roll2.jpg'),
-('P008', 'roll3.jpg'),
-
-('P009', 'tiramisu2.jpg'),
-('P009', 'tiramisu3.jpg'),
-('P009', 'tiramisuproc.jpg');
-
--- =========================================
--- 15 PEDIDOS
--- =========================================
-
-INSERT INTO pedidos
-(Nombre, Fecha, Estado, NombreVendedor, Direccion, Telefono)
-VALUES
+-- 15 pedidos
+INSERT INTO `pedidos` (`Nombre`, `Fecha`, `Estado`, `NombreVendedor`, `Direccion`, `Telefono`) VALUES
 ('Taylor Swift', '2026-09-29', 'Finalizado', 'Keith Rojas', 'Queru Queru', 70123456),
 ('Lionel Messi', '2026-09-30', 'Finalizado', 'Matias Saravia', 'Cala Cala', 70234567),
 ('Zendaya', '2026-10-01', 'Finalizado', 'Keith Rojas', 'Recoleta', 70345678),
@@ -222,83 +155,57 @@ VALUES
 ('Ariana Grande', '2026-10-01', 'En espera', 'Matias Saravia', 'Centro', 71234567),
 ('Pedro Pascal', '2026-09-30', 'Finalizado', 'Keith Rojas', 'Recoleta', 71345678);
 
--- =========================================
--- CARRITO
--- Los productos grandes se venden enteros
--- =========================================
-
-INSERT INTO carrito
-(productos_Codigo, pedidos_id, Cantidad, CostoTotal)
-VALUES
-
+-- Carrito: productos_Codigo coincide con productos.Codigo
 -- Taylor Swift
-('P002', 1, 1, 45),
-('P005', 1, 4, 60),
-
+INSERT INTO `carrito` (`productos_Codigo`, `pedidos_id`, `Cantidad`, `CostoTotal`) VALUES
+('Paab', 1, 1, 45),
+('Paae', 1, 4, 60),
 -- Lionel Messi
-('P004', 2, 1, 150),
-('P006', 2, 6, 60),
-
+('Paad', 2, 1, 150),
+('Paaf', 2, 6, 60),
 -- Zendaya
-('P003', 3, 1, 120),
-('P005', 3, 4, 60),
-
+('Paac', 3, 1, 120),
+('Paae', 3, 4, 60),
 -- Chris Hemsworth
-('P009', 4, 1, 140),
-('P001', 4, 1, 65),
-
+('Paai', 4, 1, 140),
+('Paaa', 4, 1, 65),
 -- Sofia Fernandez
-('P002', 5, 1, 45),
-('P006', 5, 5, 50),
-('P005', 5, 2, 30),
-
+('Paab', 5, 1, 45),
+('Paaf', 5, 5, 50),
+('Paae', 5, 2, 30),
 -- Tom Holland
-('P004', 6, 1, 150),
-('P003', 6, 1, 120),
-
+('Paad', 6, 1, 150),
+('Paac', 6, 1, 120),
 -- Taylor Swift
-('P002', 7, 2, 90),
-('P005', 7, 3, 45),
-
+('Paab', 7, 2, 90),
+('Paae', 7, 3, 45),
 -- Selena Gomez
-('P009', 8, 1, 140),
-('P007', 8, 1, 70),
-
+('Paai', 8, 1, 140),
+('Paag', 8, 1, 70),
 -- Robert Downey Jr.
-('P004', 9, 1, 150),
-('P008', 9, 1, 55),
-
+('Paad', 9, 1, 150),
+('Paah', 9, 1, 55),
 -- Sofia Fernandez
-('P002', 10, 1, 45),
-('P006', 10, 4, 40),
-
+('Paab', 10, 1, 45),
+('Paaf', 10, 4, 40),
 -- Dwayne Johnson
-('P003', 11, 1, 120),
-('P001', 11, 1, 65),
-
+('Paac', 11, 1, 120),
+('Paaa', 11, 1, 65),
 -- Emma Watson
-('P005', 12, 6, 90),
-('P007', 12, 1, 70),
-
+('Paae', 12, 6, 90),
+('Paag', 12, 1, 70),
 -- Cristiano Ronaldo
-('P009', 13, 1, 140),
-('P002', 13, 1, 45),
-
+('Paai', 13, 1, 140),
+('Paab', 13, 1, 45),
 -- Ariana Grande
-('P004', 14, 1, 150),
-('P006', 14, 3, 30),
-
+('Paad', 14, 1, 150),
+('Paaf', 14, 3, 30),
 -- Pedro Pascal
-('P002', 15, 1, 45),
-('P005', 15, 4, 60);
+('Paab', 15, 1, 45),
+('Paae', 15, 4, 60);
 
--- =========================================
--- VENTAS
--- =========================================
-
-INSERT INTO ventas
-(pedidos_id, costoTotal, Estado, Metodo)
-VALUES
+-- Ventas
+INSERT INTO `ventas` (`pedidos_id`, `costoTotal`, `Estado`, `Metodo`) VALUES
 (1, 105, 'Finalizado', 'QR'),
 (2, 210, 'Finalizado', 'Tarjeta'),
 (3, 180, 'Finalizado', 'Efectivo'),
