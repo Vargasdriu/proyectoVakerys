@@ -334,6 +334,174 @@ nav{
     outline-offset:3px;
 }
 
+
+/* ===== CONSULTAR PEDIDO INTEGRADO AL MENÚ ===== */
+
+.s {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+
+    width: 100% !important;
+    padding: 14px 15px !important;
+    margin: 0 !important;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+}
+.s #mensaje-consulta {
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    text-align: left !important;
+}
+/* Título integrado con los enlaces del menú */
+.s p {
+    margin: 0 !important;
+    padding: 0 0 8px !important;
+
+    color: #ffffff !important;
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    text-align: left !important;
+}
+
+/* Sin adornos ni tarjetas */
+.s p::after {
+    display: none !important;
+}
+
+/* Formulario compacto */
+.s form {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 9px !important;
+
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+.s form br {
+    display: none !important;
+}
+
+/* Campo sencillo */
+.s input[type="number"],
+.s input#numeroPedido {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 39px !important;
+
+    padding: 0 11px !important;
+    margin: 0 !important;
+
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 12px !important;
+
+    border: 1px solid rgba(175, 193, 148, 0.35) !important;
+    border-radius: 7px !important;
+    outline: none !important;
+    box-shadow: none !important;
+
+    box-sizing: border-box !important;
+    transition: .25s ease !important;
+}
+
+.s input[type="number"]::placeholder {
+    color: #d0d8c9 !important;
+    opacity: 1 !important;
+}
+
+.s input[type="number"]:focus {
+    background: rgba(255, 255, 255, 0.13) !important;
+    border-color: #afc194 !important;
+    box-shadow: 0 0 0 2px rgba(175, 193, 148, 0.12) !important;
+}
+
+.s input[type="number"]::-webkit-inner-spin-button,
+.s input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.s input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* Botón discreto, a juego con el menú */
+.s button,
+.s button#consultar {
+    width: 100% !important;
+    min-height: 37px !important;
+    padding: 9px 10px !important;
+    margin: 0 !important;
+
+    background: #afc194 !important;
+    color: #1d3021 !important;
+
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    border: none !important;
+    border-radius: 7px !important;
+    box-shadow: none !important;
+
+    cursor: pointer !important;
+    transition: background .25s ease !important;
+}
+
+.s button:hover {
+    background: #d0dbbd !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Resultado sin una caja grande */
+.s #resultado {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 8px 0 !important;
+
+    background: transparent !important;
+    color: #f5f7f2 !important;
+
+    border: none !important;
+    border-top: 1px solid rgba(175, 193, 148, 0.25) !important;
+    border-radius: 0 !important;
+
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+    overflow-wrap: anywhere !important;
+
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 576px) {
+    .s {
+        padding: 12px 15px !important;
+        gap: 9px !important;
+    }
+
+    .s p {
+        font-size: 13px !important;
+    }
+}
+
+
 @media (max-width:576px){
 
     .sidebar{
@@ -407,6 +575,35 @@ nav{
                 </a>
             </li>
 -->
+            <li>
+    <div class="s">
+  <p id="mensaje-consulta">
+   ✦ ¿TIENES UN PEDIDO PENDIENTE?
+  </p>
+    <p>
+        Consulta el estado de tu pedido
+    </p>
+
+    <form action="/proyectovakerys/paginasproductos/consultar_pagina.php" method="GET">
+
+        <input
+            type="number"
+            name="id"
+            placeholder="Número de pedido"
+            min="1"
+            required
+        >
+
+        <br>
+
+        <button type="submit">
+            Consultar pedido
+        </button>
+
+    </form>
+
+</div>
+            </li>
         </ul>
 
     </nav>
