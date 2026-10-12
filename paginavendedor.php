@@ -99,6 +99,7 @@ $sqlPedidos = "
     OR p.Estado NOT IN ('Aceptado', 'Cancelado')
     GROUP BY p.id
     ORDER BY p.id DESC
+    lIMIT 8
 ";
 
 $resPedidos = $conn->query($sqlPedidos);
