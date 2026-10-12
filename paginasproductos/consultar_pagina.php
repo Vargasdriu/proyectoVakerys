@@ -366,12 +366,10 @@ body.alto-contraste .volver:focus {
 
         <?php endif; ?>
 
-        <a
-            href="productos.php"
-            class="volver"
-        >
-            Volver a productos
-        </a>
+
+<a href="javascript:history.back()" class="volver">
+    Volver
+</a>
 
     </div>
 

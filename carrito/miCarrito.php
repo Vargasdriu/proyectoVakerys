@@ -234,18 +234,13 @@ a{
     }
 }
 </style>
-
 </head>
 <body>
  <?php include '../header.php'; ?>
-
 <div class="contenedor">
-
     <h1>Carrito</h1>
     <p class="subtitulo">Gestión de productos para pedidos</p>
-
     <h3 class="total">Total: Bs. <?php echo $total; ?></h3>
-
     <div class="tabla-contenedor">
     <table class="tabla-estilo">
         <tr>
@@ -254,13 +249,8 @@ a{
             <th>Descripción</th>
             <th>Stock</th>
             <th>Precio</th>
-      
             <th>Agregar al carrito</th>
-        </tr>
-
-        <?php while($fila = $resultado->fetch_assoc()){ ?>
-
-        <tr>
+        </tr><?php while($fila = $resultado->fetch_assoc()){ ?> <tr>
             <td><?php echo htmlspecialchars($fila["Codigo"], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?php echo htmlspecialchars($fila["NombreProducto"], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?php echo htmlspecialchars($fila["DetalleProducto"], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -269,49 +259,35 @@ a{
             if($fila["Stock"] <= 5){
              echo "<span style='color:#D46A6A; font-weight:bold;'>".$fila["Stock"]."</span>";
             }else{
-            echo $fila["Stock"];
-            }
-            ?>
-</td>
-
+            echo $fila["Stock"];}
+            ?></td>
             <td>Bs. <?php echo htmlspecialchars($fila["PrecioProducto"], ENT_QUOTES, 'UTF-8'); ?></td>
-
-
-
             <td>
                 <form action="agregarCarrito.php" method="post" class="form-agregar">
-
                     <input type="hidden" name="codigo" value="<?php echo $fila['Codigo']; ?>">
                     <input type="hidden" name="idpedido" value="<?php echo $id_pedido; ?>">
                     <input type="hidden" name="precio" value="<?php echo $fila['PrecioProducto']; ?>">
-
                     <input
                         type="number"
                         name="cantidad"
                         value="1"
                         min="1"
-                        required
-                    >
-
+                        required>
                     <button type="submit" class="editar">
                         Agregar
                     </button>
-
                 </form>
             </td>
         </tr>
-
         <?php } ?>
     </table>
     </div>
-
     <div class="boton-centro">
         <a href="../Pedidos/crearpedido.php">
             <button class="nuevo">
                 Generar Nuevo Pedido
             </button>
         </a>
-
        <a href="../Pedidos/leerpedido.php">
             <button class="nuevo">
                 Ver Todos Los Pedidos
