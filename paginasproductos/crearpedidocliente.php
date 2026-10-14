@@ -147,31 +147,11 @@ if (!empty($_SESSION['textoGrande'])) {
 
 <script>
 
+
 document.getElementById("irAtras").addEventListener(
     "click",
     function() {
-
-        const parametros =
-            new URLSearchParams(
-                window.location.search
-            );
-
-        const idPedido =
-            parametros.get("idPedido");
-
-        if (idPedido) {
-
-            window.location.href =
-                "productos.php?idPedido=" +
-                encodeURIComponent(idPedido);
-
-        } else {
-
-            window.location.href =
-                "productos.php";
-
-        }
-
+        window.history.back();
     }
 );
 

@@ -256,7 +256,9 @@ function agregarAlCarrito() {
             icon: "warning",
             title: "¡Primero crea tu pedido!",
             text: "No se encontró el pedido actual."
-        });
+     }).then(() => {
+        window.location.href = "crearpedidocliente.php";
+    });
 
         return;
     }
