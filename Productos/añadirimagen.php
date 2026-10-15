@@ -4,7 +4,7 @@ $codigo = "";
 if (isset($_GET["codigo"])) {
     $codigo = $_GET["codigo"];
 }
-include("restricciones/accesoadmnin.php");
+include("proyectovakerys/restricciones/accesoadmin.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
