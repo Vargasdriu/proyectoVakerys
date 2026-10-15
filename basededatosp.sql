@@ -139,21 +139,21 @@ INSERT INTO `imagenes` (`CodigoProducto`, `Imagen`) VALUES
 
 -- 15 pedidos
 INSERT INTO `pedidos` (`Nombre`, `Fecha`, `Estado`, `NombreVendedor`, `Direccion`, `Telefono`) VALUES
-('Taylor Swift', '2026-09-29', 'Finalizado', 'Keith Rojas', 'Queru Queru', 70123456),
-('Lionel Messi', '2026-09-30', 'Finalizado', 'Matias Saravia', 'Cala Cala', 70234567),
-('Zendaya', '2026-10-01', 'Finalizado', 'Keith Rojas', 'Recoleta', 70345678),
-('Chris Hemsworth', '2026-10-02', 'Finalizado', 'Matias Saravia', 'Sarco', 70456789),
-('Sofia Fernandez', '2026-10-03', 'Finalizado', 'Keith Rojas', 'Centro', 70567890),
-('Tom Holland', '2026-10-04', 'Finalizado', 'Matias Saravia', 'Norte', 70678901),
-('Taylor Swift', '2026-10-05', 'Finalizado', 'Keith Rojas', 'Queru Queru', 70123456),
-('Selena Gomez', '2026-10-05', 'En proceso', 'Matias Saravia', 'Recoleta', 70789012),
-('Robert Downey Jr.', '2026-10-05', 'En espera', 'Keith Rojas', 'Cala Cala', 70890123),
-('Sofia Fernandez', '2026-10-05', 'Finalizado', 'Matias Saravia', 'Centro', 70567890),
-('Dwayne Johnson', '2026-10-04', 'En proceso', 'Keith Rojas', 'Sarco', 70901234),
-('Emma Watson', '2026-10-03', 'Finalizado', 'Matias Saravia', 'Queru Queru', 71012345),
-('Cristiano Ronaldo', '2026-10-02', 'Finalizado', 'Keith Rojas', 'Norte', 71123456),
-('Ariana Grande', '2026-10-01', 'En espera', 'Matias Saravia', 'Centro', 71234567),
-('Pedro Pascal', '2026-09-30', 'Finalizado', 'Keith Rojas', 'Recoleta', 71345678);
+('Taylor Swift', '2026-09-29', 'Aceptado', 'Keith Rojas', 'Queru Queru', 70123456),
+('Lionel Messi', '2026-09-30', 'Aceptado', 'Matias Saravia', 'Cala Cala', 70234567),
+('Zendaya', '2026-10-01', 'Aceptado', 'Keith Rojas', 'Recoleta', 70345678),
+('Chris Hemsworth', '2026-10-02', 'Aceptado', 'Matias Saravia', 'Sarco', 70456789),
+('Sofia Fernandez', '2026-10-03', 'Rechazado', 'Keith Rojas', 'Centro', 70567890),
+('Tom Holland', '2026-10-04', 'Rechazado', 'Matias Saravia', 'Norte', 70678901),
+('Taylor Swift', '2026-10-05', 'Rechazado', 'Keith Rojas', 'Queru Queru', 70123456),
+('Selena Gomez', '2026-10-05', 'Rechazado', 'Matias Saravia', 'Recoleta', 70789012),
+('Robert Downey Jr.', '2026-10-05', 'Pendiente', 'Keith Rojas', 'Cala Cala', 70890123),
+('Sofia Fernandez', '2026-10-05', 'Pendiente', 'Matias Saravia', 'Centro', 70567890),
+('Dwayne Johnson', '2026-10-04', 'Pendiente', 'Keith Rojas', 'Sarco', 70901234),
+('Emma Watson', '2026-10-03', 'Pendiente', 'Matias Saravia', 'Queru Queru', 71012345),
+('Cristiano Ronaldo', '2026-10-02', 'Pendiente', 'Keith Rojas', 'Norte', 71123456),
+('Ariana Grande', '2026-10-01', 'Rechazado', 'Matias Saravia', 'Centro', 71234567),
+('Pedro Pascal', '2026-09-30', 'Aceptado', 'Keith Rojas', 'Recoleta', 71345678);
 
 -- Carrito: productos_Codigo coincide con productos.Codigo
 -- Taylor Swift
