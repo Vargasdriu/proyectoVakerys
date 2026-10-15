@@ -1,5 +1,8 @@
 <?php
-include("restricciones/admnistradoryvendedor.php");
+require_once __DIR__ . "/restricciones/administradoryvendedor.php";
+?>
+<?php
+
 session_start();
 
 $servername = "localhost";

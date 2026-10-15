@@ -4,7 +4,9 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $bdname = "vakerysss";
+
 $conn = new mysqli($servername,$username, $password,$bdname);
+
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
