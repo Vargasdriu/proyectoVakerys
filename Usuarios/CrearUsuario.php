@@ -13,7 +13,7 @@ require_once __DIR__ . "/../restricciones/accesoadmin.php";
 <body>
    
     <?php
-session_start();
+
 
 
 
