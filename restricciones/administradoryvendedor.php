@@ -22,8 +22,8 @@ if (isset($_SESSION['Rol'])) {
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
-                    title: "Acceso denegado",
-                    text: "Debes iniciar sesión para ingresar",
+                    title:"Acceso denegado",
+                    text : "Debes iniciar sesión para ingresar",
                     icon: "error",
                     confirmButtonText: "Aceptar"
                 }).then(function() {
