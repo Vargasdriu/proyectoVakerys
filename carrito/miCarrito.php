@@ -6,7 +6,7 @@ $servidor = "localhost";
 $usuario = "root";
 $contrasena = "";
 $bd = "vakerysss";
-include("restricciones/admnistradoryvendedor.php");
+
 
 $conn = new mysqli($servidor, $usuario, $contrasena, $bd);
 
@@ -14,7 +14,7 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
-session_start();
+
 
 $id_pedido = $_GET['idPedido'] ?? 0;
 
