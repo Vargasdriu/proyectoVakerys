@@ -1,7 +1,7 @@
 
 <?php
-session_start();
 
+include("restricciones/accesoadmin.php");
 $servidor = "localhost";
 $usuario = "root";
 $contrasena = "";

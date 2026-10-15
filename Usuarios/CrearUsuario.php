@@ -1,3 +1,7 @@
+
+<?php
+require_once __DIR__ . "/../restricciones/accesoadmin.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +12,12 @@
 </head>
 <body>
    
-    
+    <?php
+session_start();
+
+
+
+?>
 <html lang="es">
 <head>
     <meta charset="UTF-8">

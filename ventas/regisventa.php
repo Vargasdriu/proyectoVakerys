@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . "/../restricciones/administradoryvendedor.php";
+?>
+<?php
 session_start();
 $servidor = "localhost";
 $usuario = "root";

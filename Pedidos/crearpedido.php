@@ -1,6 +1,11 @@
 <?php
+require_once __DIR__ . "/../restricciones/administradoryvendedor.php";
+?>
+<?php
 session_start();
 $nombre = $_SESSION['Nombre'];
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

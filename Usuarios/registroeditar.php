@@ -1,4 +1,7 @@
-```php
+
+<?php
+require_once __DIR__ . "/../restricciones/accesoadmin.php";
+?>
 <?php
 
 $servername = "localhost";
@@ -112,4 +115,4 @@ $conexion->close();
 
 </body>
 </html>
-```
+

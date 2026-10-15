@@ -1,8 +1,12 @@
 <?php
+require_once __DIR__ . "/../restricciones/administradoryvendedor.php";
+?>
+<?php
 $servidor = "localhost";
 $usuario = "root";
 $contrasena = "";
 $bd = "vakerysss";
+include("restricciones/admnistradoryvendedor.php");
 
 $conn = new mysqli($servidor, $usuario, $contrasena, $bd);
 

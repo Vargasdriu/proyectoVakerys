@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . "/../restricciones/administradoryvendedor.php";
+?>
+<?php
 $servername = "localhost";
 $username = "root";
 $password = "";

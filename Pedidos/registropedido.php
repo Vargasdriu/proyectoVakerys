@@ -3,6 +3,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $bdname = "vakerysss";
+include("restricciones/admnistradoryvendedor.php");
 
 $conn = new mysqli($servername, $username, $password, $bdname);
 

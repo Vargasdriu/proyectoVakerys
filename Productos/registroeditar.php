@@ -4,6 +4,7 @@ $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
+
 $conexion = new mysqli($servername, $username, $password, $bdname);
 
 if($conexion->connect_error){

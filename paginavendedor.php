@@ -1,5 +1,5 @@
 <?php
-
+include("restricciones/admnistradoryvendedor.php");
 session_start();
 
 $servername = "localhost";

@@ -1,5 +1,8 @@
-<?php
 
+<?php
+require_once __DIR__ . "/../restricciones/accesoadmin.php";
+?>
+<?php
 include '../header.php';
 
 $servidor = "localhost";

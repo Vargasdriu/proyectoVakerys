@@ -1,3 +1,7 @@
+
+<?php
+require_once __DIR__ . "/../restricciones/accesoadmin.php";
+?>
 <?php
 $servername = "localhost";
 $username = "root";

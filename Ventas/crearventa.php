@@ -1,3 +1,6 @@
+<?php
+require_once __DIR__ . "/../restricciones/administradoryvendedor.php";
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

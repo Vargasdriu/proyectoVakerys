@@ -1,41 +1,16 @@
-<?php
-session_start();
-?>
-<!DOCTYPE html>
-
-<html lang="es">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Panel de Administración - Comentarios</title>
-
-    <link rel="stylesheet" href="comentarios.css">
-
-   >
-
-<?php include '../header.php'; ?>
-
-<video autoplay muted loop>
-
-    <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
-
-</video>
-
-<div class="capa"></div>
 
 <?php
+require_once __DIR__ . "/../restricciones/accesoadmin.php";
 
-// 1. LEER Y AGRUPAR LOS COMENTARIOS POR CORREO
+
 
 $clientes = array();
 
-if (file_exists("coment.txt")) {
+$archivo = __DIR__ . "/coment.txt";
 
-    $lineas = file("coment.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+if (file_exists($archivo)) {
+
+    $lineas = file($archivo, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
     $nombre = "";
     $email = "";
@@ -62,7 +37,7 @@ if (file_exists("coment.txt")) {
 
         } elseif (strpos($linea, "PUNTUACIÓN:") === 0) {
 
-            $puntuacion = trim(substr($linea, 12));
+            $puntuacion = trim(substr($linea, strlen("PUNTUACIÓN:")));
 
         } elseif (strpos($linea, "FECHA:") === 0) {
 
@@ -105,16 +80,35 @@ if (file_exists("coment.txt")) {
             $puntuacion = "";
             $fecha = "";
             $comentario = "";
-
         }
-
     }
-
 }
 
 $lista_clientes = array_values($clientes);
-
 ?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panel de Administración - Comentarios</title>
+
+    <link rel="stylesheet" href="comentarios.css">
+</head>
+
+<body>
+
+<?php include '../header.php'; ?>
+
+<video autoplay muted loop>
+    <source src="../imagenes/vdapplepie.mp4" type="video/mp4">
+</video>
+
+<div class="capa"></div>
 
 <div class="contenedor-tres-columnas">
 
@@ -144,7 +138,8 @@ $lista_clientes = array_values($clientes);
 
                 <span style="display:block; font-size:11px; font-weight:normal; opacity:0.8;">
 
-                    (<?php echo $cantidad_mensajes; ?> <?php echo ($cantidad_mensajes == 1) ? 'mensaje' : 'mensajes'; ?>)
+                    (<?php echo $cantidad_mensajes; ?>
+                    <?php echo ($cantidad_mensajes == 1) ? 'mensaje' : 'mensajes'; ?>)
 
                 </span>
 
@@ -178,9 +173,15 @@ $lista_clientes = array_values($clientes);
 
             <h3>👤 <?php echo htmlspecialchars($cliente_actual["nombre"]); ?></h3>
 
-            <p style="margin-top:10px;"><strong>Correo:</strong><br><?php echo htmlspecialchars($cliente_actual["email"]); ?></p>
+            <p style="margin-top:10px;">
+                <strong>Correo:</strong><br>
+                <?php echo htmlspecialchars($cliente_actual["email"]); ?>
+            </p>
 
-            <p><strong>Total Mensajes:</strong> <?php echo count($cliente_actual["mensajes"]); ?></p>
+            <p>
+                <strong>Total Mensajes:</strong>
+                <?php echo count($cliente_actual["mensajes"]); ?>
+            </p>
 
             <hr style="border: 0; border-top: 1px solid #344E41; margin: 15px 0;">
 
@@ -192,9 +193,14 @@ $lista_clientes = array_values($clientes);
 
                     <li style="margin-bottom: 8px;">
 
-                        <strong><?php echo htmlspecialchars($msg["asunto"]); ?></strong><br>
+                        <strong>
+                            <?php echo htmlspecialchars($msg["asunto"]); ?>
+                        </strong><br>
 
-                        <small>Puntuación: <?php echo htmlspecialchars($msg["puntuacion"]); ?></small>
+                        <small>
+                            Puntuación:
+                            <?php echo htmlspecialchars($msg["puntuacion"]); ?>
+                        </small>
 
                     </li>
 
@@ -216,11 +222,17 @@ $lista_clientes = array_values($clientes);
 
                 <div class="burbuja-chat">
 
-                    <span class="autor-chat"><?php echo htmlspecialchars($cliente_actual["nombre"]); ?></span>
+                    <span class="autor-chat">
+                        <?php echo htmlspecialchars($cliente_actual["nombre"]); ?>
+                    </span>
 
-                    <p style="margin: 5px 0; font-size: 14px;"><?php echo htmlspecialchars($msg["comentario"]); ?></p>
+                    <p style="margin: 5px 0; font-size: 14px;">
+                        <?php echo htmlspecialchars($msg["comentario"]); ?>
+                    </p>
 
-                    <span class="fecha-chat">🕒 <?php echo htmlspecialchars($msg["fecha"]); ?></span>
+                    <span class="fecha-chat">
+                        🕒 <?php echo htmlspecialchars($msg["fecha"]); ?>
+                    </span>
 
                 </div>
 
@@ -234,13 +246,17 @@ $lista_clientes = array_values($clientes);
 
         <div class="columna col-2">
 
-            <p style="color:#DAD7CD; text-align:center;">Sin detalles.</p>
+            <p style="color:#DAD7CD; text-align:center;">
+                Sin detalles.
+            </p>
 
         </div>
 
         <div class="columna col-3">
 
-            <p style="color:#DAD7CD; text-align:center;">Sin comentarios.</p>
+            <p style="color:#DAD7CD; text-align:center;">
+                Sin comentarios.
+            </p>
 
         </div>
 
@@ -249,5 +265,4 @@ $lista_clientes = array_values($clientes);
 </div>
 
 </body>
-
 </html>

@@ -1,3 +1,7 @@
+
+<?php
+require_once __DIR__ . "/../restricciones/accesoadmin.php";
+?>
 <?php
 $servername = "localhost";
 $username = "root";
@@ -25,6 +29,8 @@ if ($resultado) {
  else {
     echo "Error: " . $conexion->error;
 }
+
+include("restricciones/accesoadmnin.php");
 ?>
 
 <!DOCTYPE html>

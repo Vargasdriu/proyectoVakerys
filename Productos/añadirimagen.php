@@ -4,6 +4,7 @@ $codigo = "";
 if (isset($_GET["codigo"])) {
     $codigo = $_GET["codigo"];
 }
+include("restricciones/accesoadmnin.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">

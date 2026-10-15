@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+include("restricciones/accesoadmin.php");
 
 if (isset($_GET['salir'])) {
 

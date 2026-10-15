@@ -1,276 +1,313 @@
+
 <?php
-$servername  = "localhost";
+require_once __DIR__ . "/../restricciones/accesoadmin.php";
+
+$servername = "localhost";
 $username = "root";
 $password = "";
 $bdname = "vakerysss";
 
 $conn = new mysqli($servername, $username, $password, $bdname);
 
-if($conn->connect_error){
-    die("Conexion fallida: ".$conn->connect_error);
+if ($conn->connect_error) {
+    die("Conexion fallida: " . $conn->connect_error);
 }
 
-$Codigo = $_GET['Codigo'] ?? '';
+$Codigo = "";
+
+if (isset($_GET['Codigo'])) {
+    $Codigo = $_GET['Codigo'];
+}
+
+if ($Codigo == "") {
+    header("Location: productos.php");
+    exit();
+}
 
 $stmt = $conn->prepare(
     "SELECT * FROM Productos WHERE Codigo = ?"
 );
 
 $stmt->bind_param("s", $Codigo);
-
 $stmt->execute();
 
 $resultado = $stmt->get_result();
 
-if($resultado->num_rows > 0){
+if ($resultado->num_rows > 0) {
 
-    while($fila = $resultado->fetch_assoc()){
+    $fila = $resultado->fetch_assoc();
 
-        $NombreProducto = $fila['NombreProducto'];
-        $PrecioProducto = $fila['PrecioProducto'];
-        $DetalleProducto = $fila['DetalleProducto'];
-        $Stock = $fila['Stock'];
-        $CostoProducto = $fila['CostoProducto'];
+    $NombreProducto = $fila['NombreProducto'];
+    $PrecioProducto = $fila['PrecioProducto'];
+    $DetalleProducto = $fila['DetalleProducto'];
+    $Stock = $fila['Stock'];
+    $CostoProducto = $fila['CostoProducto'];
 
-    }
-
+} else {
+    header("Location: productos.php");
+    exit();
 }
+
+$stmt->close();
+$conn->close();
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Actualizar Producto</title>
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    background-image:url("../imagenes/fondooo.png");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
+body {
+    background-image: url("../imagenes/fondooo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    min-height:100vh;
-
-    padding:30px;
-
-    font-family:'Raleway',sans-serif;
+    min-height: 100vh;
+    padding: 30px;
+    font-family: 'Raleway', sans-serif;
 }
-body::before{
-    content:"";
-    position:fixed;
 
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
-
-    background:rgba(0,0,0,.35);
-
-    z-index:-1;
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.35);
+    z-index: -1;
 }
-form{
-    width:450px;
 
-    background:rgba(52,78,65,.96);
+form {
+    width: 450px;
+    background: rgba(52,78,65,.96);
+    padding: 40px 35px;
+    border-radius: 30px;
 
-    padding:40px 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 
-    border-radius:30px;
+    color: white;
 
-    display:flex;
-    flex-direction:column;
-
-    gap:14px;
-
-    color:white;
-
-    box-shadow:0 15px 35px rgba(0,0,0,.2);
-
-    border:2px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.2);
+    border: 2px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(8px);
     opacity: 70%;
 }
 
-h2{
-    text-align:center;
-
-    font-size:34px;
-
-    margin-bottom:15px;
-
-    color:white;
+h2 {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 15px;
+    color: white;
 }
 
-label{
-    font-size:17px;
-
-    font-weight:600;
-
-    opacity:.9;
+label {
+    font-size: 17px;
+    font-weight: 600;
+    opacity: .9;
 }
 
-input{
-    padding:14px 16px;
-
-    border:none;
-
-    border-radius:14px;
-
-    outline:none;
-
-    font-size:16px;
-
-    background:#f5f5f5;
-
-    transition:.3s;
+input {
+    padding: 14px 16px;
+    border: none;
+    border-radius: 14px;
+    outline: none;
+    font-size: 16px;
+    background: #f5f5f5;
+    transition: .3s;
 }
 
-input:focus{
-    transform:scale(1.02);
-
-    box-shadow:0 0 0 3px rgba(136,160,122,.45);
+input:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(136,160,122,.45);
 }
 
-input[type="submit"]{
-    background:#88a07a;
-
-    color:white;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    margin-top:10px;
-
-    transition:.3s;
+input[type="submit"] {
+    background: #88a07a;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: .3s;
 }
 
-input[type="submit"]:hover{
-    background:white;
-
-    color:rgb(52,78,65);
-
-    transform:translateY(-3px);
-
-    box-shadow:0 10px 20px rgba(0,0,0,.15);
+input[type="submit"]:hover {
+    background: white;
+    color: rgb(52,78,65);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,.15);
 }
 
-@media(max-width:600px){
-
-    form{
-        width:100%;
-        padding:30px 20px;
+@media(max-width:600px) {
+    form {
+        width: 100%;
+        padding: 30px 20px;
     }
 
-    h2{
-        font-size:28px;
+    h2 {
+        font-size: 28px;
     }
-
 }
+
 .swal2-container {
-            z-index: 99999 !important;
-        }
-
+    z-index: 99999 !important;
+}
 </style>
 
 </head>
 
 <body>
+
 <?php include '../header.php'; ?>
-  
-<form action="registroeditar.php" method="post"  id="ActualizarProducto">
+
+<form action="registroeditar.php" method="post" id="ActualizarProducto">
 
     <h2>Actualizar Producto</h2>
 
-    <input type="hidden" name="Codigo" id="Codigo" value="<?=$Codigo?>">
+    <input
+        type="hidden"
+        name="Codigo"
+        id="Codigo"
+        value="<?php echo htmlspecialchars($Codigo); ?>"
+    >
 
     <label>Nombre del Producto:</label>
-    <input type="text" name="NombreProducto" value="<?=$NombreProducto?>" id="Producto">
+    <input
+        type="text"
+        name="NombreProducto"
+        value="<?php echo htmlspecialchars($NombreProducto); ?>"
+        id="Producto"
+    >
 
     <label>Precio del Producto:</label>
-    <input type="number" name="PrecioProducto" value="<?=$PrecioProducto?>" id="Precio" >
+    <input
+        type="number"
+        name="PrecioProducto"
+        value="<?php echo htmlspecialchars($PrecioProducto); ?>"
+        id="Precio"
+        min="0"
+        step="0.01"
+    >
 
     <label>Detalle del Producto:</label>
-    <input type="text" name="DetalleProducto" value="<?=$DetalleProducto?>" id="Detalle" >
+    <input
+        type="text"
+        name="DetalleProducto"
+        value="<?php echo htmlspecialchars($DetalleProducto); ?>"
+        id="Detalle"
+    >
 
     <label>Stock:</label>
-    <input type="number" name="Stock" value="<?=$Stock?>" id="Stock" >
+    <input
+        type="number"
+        name="Stock"
+        value="<?php echo htmlspecialchars($Stock); ?>"
+        id="Stock"
+        min="0"
+        step="1"
+    >
 
     <label>Costo del Producto:</label>
-    <input type="number" name="CostoProducto" value="<?=$CostoProducto?>" id="Costo">
+    <input
+        type="number"
+        name="CostoProducto"
+        value="<?php echo htmlspecialchars($CostoProducto); ?>"
+        id="Costo"
+        min="0"
+        step="0.01"
+    >
 
     <input type="submit" value="Actualizar Producto">
 
 </form>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
+document.getElementById("ActualizarProducto").addEventListener("submit", function(event) {
 
-    document.getElementById("ActualizarProducto").addEventListener("submit", function(event) {
-        
-        event.preventDefault();
-        
+    event.preventDefault();
 
-    var b=document.getElementById("Producto");
-    var c=document.getElementById("Precio");
-    var d=document.getElementById("Detalle");
-    var e=document.getElementById("Stock");
-    var f=document.getElementById("Costo");
-    var expRegNombre=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+    var b = document.getElementById("Producto");
+    var c = document.getElementById("Precio");
+    var d = document.getElementById("Detalle");
+    var e = document.getElementById("Stock");
+    var f = document.getElementById("Costo");
 
-     function mostrarAlerta(mensaje, elemento) {
-            Swal.fire({
-                icon: 'error',
-                title: '¡Oops!',
-                text: mensaje,
-                confirmButtonColor: '#62a38a',
-                confirmButtonText: 'Entendido'
-            }).then(() => {
-                elemento.focus(); 
-            });
-        }
-    
+    function mostrarAlerta(mensaje, elemento) {
+        Swal.fire({
+            icon: 'error',
+            title: '¡Oops!',
+            text: mensaje,
+            confirmButtonColor: '#62a38a',
+            confirmButtonText: 'Entendido'
+        }).then(function() {
+            elemento.focus();
+        });
+    }
 
-       
-           if (b.value.trim() == "") {
-            mostrarAlerta("El campo Producto no puede ir vacío", b);
-            return;
-        }
-           if (c.value.trim() == "") {
-            mostrarAlerta("El campo Precio de Venta no puede ir vacío", c);
-            return;
-        }
-        if (d.value.trim() == "") {
-            mostrarAlerta("El campo Detalle no puede ir vacío", d);
-            return;
-        }
-        if (e.value.trim() == "") {
-            mostrarAlerta("El campo Stock no puede ir vacío", e);
-            return;
-        }
-        if (f.value.trim() == "") {
-            mostrarAlerta("El campo Costo no puede ir vacío", f);
-            return;
-        }
+    if (b.value.trim() == "") {
+        mostrarAlerta("El campo Producto no puede ir vacío", b);
+        return;
+    }
 
-        this.submit();
-    });
+    if (c.value.trim() == "") {
+        mostrarAlerta("El campo Precio de Venta no puede ir vacío", c);
+        return;
+    }
+
+    if (d.value.trim() == "") {
+        mostrarAlerta("El campo Detalle no puede ir vacío", d);
+        return;
+    }
+
+    if (e.value.trim() == "") {
+        mostrarAlerta("El campo Stock no puede ir vacío", e);
+        return;
+    }
+
+    if (f.value.trim() == "") {
+        mostrarAlerta("El campo Costo no puede ir vacío", f);
+        return;
+    }
+
+    if (Number(c.value) < 0) {
+        mostrarAlerta("El precio no puede ser negativo", c);
+        return;
+    }
+
+    if (Number(e.value) < 0 || !Number.isInteger(Number(e.value))) {
+        mostrarAlerta("El stock debe ser un número entero positivo o cero", e);
+        return;
+    }
+
+    if (Number(f.value) < 0) {
+        mostrarAlerta("El costo no puede ser negativo", f);
+        return;
+    }
+
+    this.submit();
+});
 </script>
+
 </body>
 </html>

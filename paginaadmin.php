@@ -1,5 +1,5 @@
 <?php
-
+include("restricciones/accesoadmin.php");
 $servidor = "localhost";
 $usuario = "root";
 $contrasena = "";
@@ -18,7 +18,9 @@ if ($conn->connect_error) {
 
 $conn->set_charset("utf8");
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 $sql = "SELECT * FROM pedidos ORDER BY id DESC LIMIT 10";
 $pedidos = mysqli_query($conn, $sql);
