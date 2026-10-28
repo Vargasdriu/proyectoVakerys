@@ -1,66 +1,89 @@
+/* MODO ALTO CONTRASTE */
 
+html,
 body {
-    background-color: #000;
-    color: #fff;
+    background-color: #000 !important;
+    color: #fff !important;
+    margin: 0;
+    padding: 0;
 }
 
+/* SECCIÓN A */
+
 .a {
-    background-color: #000;
+    background-color: #000 !important;
+    color: #fff !important;
 }
 
 .a h1,
+.a h2,
 .a p {
-    color: #fff;
-    text-shadow: none;
+    color: #fff !important;
+    text-shadow: none !important;
 }
 
 .a a {
-    background-color: #fff;
-    color: #000;
-    border: 2px solid #fff;
+    background-color: #fff !important;
+    color: #000 !important;
+    border: 2px solid #fff !important;
 }
 
 .a a:hover {
-    background-color: #ffff00;
-    color: #000;
-    border-color: #ffff00;
+    background-color: #ffff00 !important;
+    color: #000 !important;
+    border-color: #ffff00 !important;
 }
 
+/* SECCIÓN B */
+
 .b {
-    background-color: #000;
-    color: #fff;
+    background-color: #000 !important;
+    color: #fff !important;
 }
 
 .b > h2 {
-    color: #fff;
+    color: #fff !important;
 }
+
+.b > img.pie {
+    transform: translateY(-80px) !important;
+}
+
+/* NOMBRES Y DESCRIPCIONES */
 
 .pname,
 .cname,
 .bname {
-    color: #fff;
+    color: #fff !important;
 }
 
 .pdes,
 .cdes,
 .bdes {
-    color: #fff;
+    color: #fff !important;
 }
+
+/* TARJETAS */
 
 .b1,
 .b2,
 .b3 {
-    background-color: #000;
-    color: #fff;
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
 }
+
+/* EFECTO HOVER DE TARJETAS */
 
 .b1:hover,
 .b2:hover,
 .b3:hover {
-    background-color: #fff;
-    color: #000;
-    box-shadow: 0 8px 25px rgba(255,255,255,.35);
+    background-color: #fff !important;
+    color: #000 !important;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
 }
+
+/* TEXTOS AL PASAR EL MOUSE */
 
 .b1:hover .pname,
 .b1:hover .pdes,
@@ -68,85 +91,182 @@ body {
 .b2:hover .cdes,
 .b3:hover .bname,
 .b3:hover .bdes {
-    color: #000;
+    color: #000 !important;
 }
+
+/* BOTONES DE TARJETAS */
 
 .b1 > a,
 .b2 > a,
 .b3 > a {
-    background-color: #000;
-    color: #fff;
-    border: 2px solid #fff;
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
 }
+
+/* BOTONES CUANDO LA TARJETA ESTÁ EN HOVER */
+
+.b1:hover > a,
+.b2:hover > a,
+.b3:hover > a {
+    background-color: #000 !important;
+    color: #fff !important;
+    border-color: #000 !important;
+}
+
+/* HOVER DE BOTONES */
 
 .b1 > a:hover,
 .b2 > a:hover,
-.b3 > a:hover {
-    background-color: #ffff00;
-    color: #000;
-    border-color: #ffff00;
+.b3 > a:hover,
+.b1:hover > a:hover,
+.b2:hover > a:hover,
+.b3:hover > a:hover {
+    background-color: #ffff00 !important;
+    color: #000 !important;
+    border-color: #000 !important;
 }
 
+/* SECCIÓN H */
+
 .h {
-    background-color: #000;
-    color: #fff;
+    background-color: #000 !important;
+    color: #fff !important;
 }
+
+/* TÍTULOS */
 
 .titulo h1,
 .titulo p {
-    color: #fff;
+    color: #fff !important;
 }
+
+/* CONTENEDOR */
 
 .contenedor-hh {
-    background-color: #000;
-    border: 2px solid #fff;
+    background-color: #000 !important;
+    border: 2px solid #fff !important;
 }
 
+/* TARJETAS HH */
+
 .hh {
-    background-color: #000;
-    color: #fff;
-    border: 2px solid #fff;
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
     box-shadow: none;
 }
 
+/* HOVER DE TARJETAS HH */
+
 .hh:hover {
-    background-color: #fff;
-    color: #000;
-    box-shadow: 0 10px 25px rgba(255,255,255,.35);
+    background-color: #fff !important;
+    color: #000 !important;
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.35);
 }
+
+/* TEXTOS DE TARJETAS HH */
 
 .hh h2,
 .hh p {
-    color: #fff;
+    color: #fff !important;
 }
+
+/* TEXTOS EN HOVER */
 
 .hh:hover h2,
 .hh:hover p {
-    color: #000;
+    color: #000 !important;
 }
+
+/* IMÁGENES O ELEMENTOS IH */
 
 .ih {
-    background-color: #fff;
+    background-color: #fff !important;
 }
 
+/* ENLACES DE SECCIÓN H */
+
 .h a {
-    background-color: #fff;
-    color: #000;
-    border: 2px solid #fff;
+    background-color: #fff !important;
+    color: #000 !important;
+    border: 2px solid #fff !important;
     box-shadow: none;
 }
 
+/* HOVER DE ENLACES */
+
 .h a:hover {
-    background-color: #ffff00;
-    color: #000;
-    border-color: #ffff00;
+    background-color: #ffff00 !important;
+    color: #000 !important;
+    border-color: #ffff00 !important;
 }
 
-a:focus,
-button:focus,
-input:focus,
-textarea:focus,
-select:focus {
-    outline: 4px solid #ffff00;
+/* FORMULARIOS */
+
+input,
+textarea,
+select {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+
+/* PLACEHOLDERS */
+
+input::placeholder,
+textarea::placeholder {
+    color: #fff !important;
+    opacity: 1;
+}
+
+/* BOTONES GENERALES */
+
+button {
+    background-color: #fff !important;
+    color: #000 !important;
+    border: 2px solid #fff !important;
+    cursor: pointer;
+}
+
+/* HOVER DE BOTONES */
+
+button:hover {
+    background-color: #ffff00 !important;
+    color: #000 !important;
+    border-color: #ffff00 !important;
+}
+
+/* ENLACES GENERALES */
+
+a {
+    color: #ffff00;
+}
+
+/* ACCESIBILIDAD CON TECLADO */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 4px solid #ffff00 !important;
     outline-offset: 4px;
+}
+
+/* SELECCIÓN DE TEXTO */
+
+::selection {
+    background-color: #ffff00;
+    color: #000;
+}
+
+/* CORRECCIÓN GENERAL DE ALTO CONTRASTE */
+
+[hidden] {
+    display: none !important;
+}
+
+header {
+    margin-bottom: 0;
 }

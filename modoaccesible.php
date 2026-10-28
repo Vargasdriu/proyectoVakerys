@@ -2,19 +2,12 @@
 session_start();
 
 if(isset($_POST['accion'])){
-
     if($_POST['accion'] == 'texto'){
         $_SESSION['textoGrande'] = !($_SESSION['textoGrande'] ?? false);
     }
-
     if($_POST['accion'] == 'contraste'){
         $_SESSION['altoContraste'] = !($_SESSION['altoContraste'] ?? false);
     }
-
-    if($_POST['accion'] == 'teclado'){
-        $_SESSION['navegacionTeclado'] = !($_SESSION['navegacionTeclado'] ?? false);
-    }
-
     if($_POST['accion'] == 'voz'){
         $_SESSION['voz'] = !($_SESSION['voz'] ?? false);
     }
@@ -22,27 +15,20 @@ if(isset($_POST['accion'])){
 
 $textoGrande = $_SESSION['textoGrande'] ?? false;
 $altoContraste = $_SESSION['altoContraste'] ?? false;
-$navegacionTeclado = $_SESSION['navegacionTeclado'] ?? false;
-
 $voz = $_SESSION['voz'] ?? false;
 ?>
-<?php include 'header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Modo accesible | Vakery's</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-
         *{
             margin:0;
             padding:0;
@@ -55,13 +41,13 @@ $voz = $_SESSION['voz'] ?? false;
             color:#1d3021;
             min-height:100vh;
             transition:0.2s;
-            margin-top:105px;
+            padding-top:105px;
         }
 
         .contenedor{
-            width:90%;
-            max-width:900px;
-            margin:60px auto 50px;
+            width:95%;
+            max-width:1150px;
+            margin:60px auto 70px;
         }
 
         .cabecera{
@@ -90,8 +76,14 @@ $voz = $_SESSION['voz'] ?? false;
 
         .opciones{
             display:grid;
-            grid-template-columns:repeat(2,1fr);
+            grid-template-columns:repeat(3,minmax(0,1fr));
             gap:18px;
+        }
+
+        .opciones form{
+            width:100%;
+            min-width:0;
+            display:flex;
         }
 
         .opcion{
@@ -104,6 +96,7 @@ $voz = $_SESSION['voz'] ?? false;
             font-family:'Raleway',sans-serif;
             transition:.2s ease;
             width:100%;
+            height:100%;
         }
 
         .opcion:hover{
@@ -125,6 +118,7 @@ $voz = $_SESSION['voz'] ?? false;
             font-size:19px;
             margin-bottom:8px;
             color:#1d3021;
+            line-height:1.4;
         }
 
         .opcion p{
@@ -193,6 +187,11 @@ $voz = $_SESSION['voz'] ?? false;
             font-size:18px;
         }
 
+        body.texto-grande .estado,
+        body.texto-grande .volver{
+            font-size:19px;
+        }
+
         body.alto-contraste{
             background:#000;
             color:#fff;
@@ -244,14 +243,13 @@ $voz = $_SESSION['voz'] ?? false;
             outline:4px solid #ffff00;
         }
 
-        body.navegacion-teclado *:focus{
-            outline:4px solid #f4d35e !important;
-            outline-offset:4px !important;
-        }
-
-        @media(max-width:700px){
+        @media(max-width:850px){
+            .opciones{
+                grid-template-columns:1fr;
+            }
 
             .contenedor{
+                width:90%;
                 margin-top:40px;
             }
 
@@ -263,179 +261,95 @@ $voz = $_SESSION['voz'] ?? false;
                 font-size:16px;
             }
 
-            .opciones{
-                grid-template-columns:1fr;
-            }
-
             .panel{
                 padding:20px;
             }
-
         }
-
     </style>
-
 </head>
 
 <body class="<?php
-
-    if($textoGrande){
-        echo 'texto-grande ';
-    }
-
-    if($altoContraste){
-        echo 'alto-contraste ';
-    }
-
-    if($navegacionTeclado){
-        echo 'navegacion-teclado ';
-    }
-
+if($textoGrande){
+    echo 'texto-grande ';
+}
+if($altoContraste){
+    echo 'alto-contraste ';
+}
+if($voz){
+    echo 'voz-activa ';
+}
 ?>">
 
+<?php include 'header.php'; ?>
+
 <main class="contenedor">
-
     <section class="cabecera">
-
         <h1>Modo accesible</h1>
-
-        <p>
-            Vakery's cuenta con herramientas que facilitan la lectura,
-            navegación y uso de la página.
-        </p>
-
+        <p>Vakery's cuenta con herramientas que facilitan la lectura y el uso de la página.</p>
     </section>
 
     <section class="panel" aria-label="Opciones de accesibilidad">
-
         <div class="opciones">
 
             <form method="POST">
-
                 <input type="hidden" name="accion" value="texto">
-
                 <button type="submit" class="opcion <?php echo $textoGrande ? 'activo' : ''; ?>">
-
                     <div class="icono">A+</div>
-
-                    <h2>
-                        <?php echo $textoGrande ? 'Texto grande activado' : 'Texto más grande'; ?>
-                    </h2>
-
-                    <p>
-                        Aumenta el tamaño del texto para facilitar su lectura.
-                    </p>
-
+                    <h2><?php echo $textoGrande ? 'Texto grande activado' : 'Texto más grande'; ?></h2>
+                    <p>Aumenta el tamaño del texto para facilitar su lectura.</p>
                 </button>
-
             </form>
 
             <form method="POST">
-
                 <input type="hidden" name="accion" value="contraste">
-
                 <button type="submit" class="opcion <?php echo $altoContraste ? 'activo' : ''; ?>">
-
                     <div class="icono">◐</div>
-
-                    <h2>
-                        <?php echo $altoContraste ? 'Alto contraste activado' : 'Alto contraste'; ?>
-                    </h2>
-
-                    <p>
-                        Cambia los colores de la página para mejorar la visibilidad.
-                    </p>
-
+                    <h2><?php echo $altoContraste ? 'Alto contraste activado' : 'Alto contraste'; ?></h2>
+                    <p>Cambia los colores de la página para mejorar la visibilidad.</p>
                 </button>
-
             </form>
 
             <form method="POST">
-
-    <input type="hidden" name="accion" value="voz">
-
-    <button type="submit" class="opcion <?php echo $voz ? 'activo' : ''; ?>" id="escuchar">
-
-        <div class="icono">🔊</div>
-
-        <h2>
-            <?php echo $voz ? 'Lectura por voz activada' : 'Escuchar'; ?>
-        </h2>
-
-        <p>
-            Lee en voz alta la información de las páginas.
-        </p>
-
-    </button>
-
-</form>
-
-            <form method="POST">
-
-                <input type="hidden" name="accion" value="teclado">
-
-                <button type="submit" class="opcion <?php echo $navegacionTeclado ? 'activo' : ''; ?>">
-
-                    <div class="icono">TAB</div>
-
-                    <h2>
-                        <?php echo $navegacionTeclado ? 'Navegación activada' : 'Navegación con teclado'; ?>
-                    </h2>
-
-                    <p>
-                        Permite recorrer las opciones utilizando TAB,
-                        SHIFT + TAB, ENTER y ESPACIO.
-                    </p>
-
+                <input type="hidden" name="accion" value="voz">
+                <button type="submit" class="opcion <?php echo $voz ? 'activo' : ''; ?>" id="escuchar">
+                    <div class="icono">♫</div>
+                    <h2><?php echo $voz ? 'Lectura por voz activada' : 'Escuchar'; ?></h2>
+                    <p>Lee en voz alta la información de las páginas.</p>
                 </button>
-
             </form>
 
         </div>
 
         <div class="estado" role="status" aria-live="polite">
-
             <?php
-
-            if($textoGrande || $altoContraste || $navegacionTeclado){
-
+            if($textoGrande || $altoContraste || $voz){
                 echo "Tienes activadas las siguientes opciones: ";
-
                 $activadas = [];
 
                 if($textoGrande){
                     $activadas[] = "texto grande";
                 }
-
                 if($altoContraste){
                     $activadas[] = "alto contraste";
                 }
-
-                if($navegacionTeclado){
-                    $activadas[] = "navegación con teclado";
+                if($voz){
+                    $activadas[] = "lectura por voz";
                 }
 
                 echo implode(", ", $activadas) . ".";
-
             }else{
-
                 echo "No tienes ninguna opción de accesibilidad activada.";
-
             }
-
             ?>
-
         </div>
-
     </section>
 
-    <a href="/proyectovakerys/paginadeinicio.php" class="volver">
-        Volver a Vakery's
-    </a>
-
+    <a href="/proyectovakerys/paginadeinicio.php" class="volver">Volver a Vakery's</a>
 </main>
 
-<script src="accesibilidad.js"></script>
-</body>
 <?php include 'footer.php'; ?>
+
+<script src="accesibilidad.js"></script>
+
+</body>
 </html>

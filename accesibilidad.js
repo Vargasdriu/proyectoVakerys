@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function leerPagina(){
 
-        const contenido = document.querySelector("main");
+        const contenido = document.querySelector("main") || document.body;
 
         if(!contenido){
             return;
@@ -17,6 +17,10 @@ document.addEventListener("DOMContentLoaded", function(){
         let texto = "";
 
         elementos.forEach(function(elemento){
+
+            if(elemento.closest("header, footer, nav, .sidebar, .fondo")){
+                return;
+            }
 
             const contenidoTexto = elemento.innerText.trim();
 

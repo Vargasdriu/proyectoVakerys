@@ -4,7 +4,6 @@ session_start();
 
 $textoGrande = $_SESSION['textoGrande'] ?? false;
 $altoContraste = $_SESSION['altoContraste'] ?? false;
-$navegacionTeclado = $_SESSION['navegacionTeclado'] ?? false;
 $voz = $_SESSION['voz'] ?? false;
 
 ?>
