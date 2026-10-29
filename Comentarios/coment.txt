@@ -78,3 +78,10 @@ PUNTUACIÓN: 4 Estrellas
 FECHA: 05/10/2026 09:42
 COMENTARIO: Menos azúcar, esta muy dulce
 -----------------------------------
+NOMBRE: Juan
+EMAIL: juan@gmail.com
+ASUNTO: Queja (Queja al Producto)
+PUNTUACIÓN: 4 Estrellas
+FECHA: 28/10/2026 19:57
+COMENTARIO: Un poco dulce
+-----------------------------------

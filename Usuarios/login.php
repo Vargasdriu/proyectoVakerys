@@ -26,8 +26,8 @@
                 <label>Nombre: </label>
                 <input type="text" placeholder="NOMBRE(S)" name="Nombre" id="nombre" required>
 
-                <label>CI: </label>
-                <input type="number" placeholder="CARNET DE IDENTIDAD" name="CI" id="CI" required>
+                <label>Contraseña: </label>
+                <input type="number" placeholder="CONTRASEÑA" name="CI" id="CI" required>
 
                 <input class="button" type="submit" value="Iniciar Sesion">
 
