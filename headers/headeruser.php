@@ -454,13 +454,13 @@ nav{
 <?php } ?>
 <header class="main-header">
     <a href="/proyectovakerys/paginadeinicio.php">
-        <img src="/proyectovakerys/imagenes/logo.png" alt="Logo Vakery's">
+        <img src="/imagenes/logo.png" alt="Logo Vakery's">
     </a>
     <label for="btn-nav" class="btn-nav">
-        <img src="/proyectovakerys/imagenes/menu.png" alt="Abrir menú de navegación">
+        <img src="/imagenes/menu.png" alt="Abrir menú de navegación">
     </label>
     <a href="#" name="carrito" id="carrito" class="carrito" aria-label="Abrir carrito">
-        <img src="/proyectovakerys/imagenes/anadir-al-carrito.png" alt="Carrito">
+        <img src="/imagenes/anadir-al-carrito.png" alt="Carrito">
     </a>
     <input type="checkbox" id="btn-nav">
     <nav aria-label="Menú principal">
