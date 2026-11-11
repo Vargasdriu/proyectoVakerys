@@ -1,9 +1,9 @@
 <?php
 
-$servidor = "localhost";
-$usuario = "root";
-$contrasena = "";
-$bd = "vakerysss";
+$servername = getenv('DB_HOST');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASS');
+$bdname = getenv('DB_NAME');
 
 $conn = new mysqli($servidor, $usuario, $contrasena, $bd);
 
