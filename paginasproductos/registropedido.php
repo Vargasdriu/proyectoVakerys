@@ -2,10 +2,10 @@
 session_start();
 date_default_timezone_set('America/La_Paz');
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$bdname = "vakerysss";
+$servername = getenv('DB_HOST');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASS');
+$bdname = getenv('DB_NAME');
 
 $conn = new mysqli($servername, $username, $password, $bdname);
 
