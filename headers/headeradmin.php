@@ -197,43 +197,43 @@ nav {
         <ul class="menu">
 
             <li>
-                <a href="/proyectovakerys/paginaadmin.php">
+                <a href="/paginaadmin.php">
                     Panel
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/reportes.php">
+                <a href="/reportes.php">
                     Reportes
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/Productos/leerproductos.php">
+                <a href="/Productos/leerproductos.php">
                     Productos
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/Pedidos/leerpedido.php">
+                <a href="/Pedidos/leerpedido.php">
                     Pedidos
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/Ventas/leerventa.php">
+                <a href="/Ventas/leerventa.php">
                     Ventas
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/Usuarios/leerusuario.php">
+                <a href="/Usuarios/leerusuario.php">
                     Usuarios
                 </a>
             </li>
 
             <li>
-                <a href="/proyectovakerys/Usuarios/cerrarsesion.php">
+                <a href="/Usuarios/cerrarsesion.php">
                     Cerrar sesión
                 </a>
             </li>

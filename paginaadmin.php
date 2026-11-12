@@ -1,9 +1,9 @@
 <?php
 include("restricciones/accesoadmin.php");
-$servidor = "localhost";
-$usuario = "root";
-$contrasena = "";
-$bd = "vakerysss";
+$servidor = getenv('DB_HOST');
+$usuario = getenv('DB_USER');
+$contrasena = getenv('DB_PASS');
+$bd = getenv('DB_NAME');
 
 $conn = new mysqli(
     $servidor,
