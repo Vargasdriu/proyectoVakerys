@@ -6,10 +6,11 @@ session_start();
 // CONEXIÓN A LA BASE DE DATOS
 // ==========================================
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$bdname = "vakerysss";
+$servername = getenv('DB_HOST');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASS');
+$bdname = getenv('DB_NAME');
+
 
 $conn = new mysqli(
     $servername,
