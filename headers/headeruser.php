@@ -466,27 +466,27 @@ nav{
     <nav aria-label="Menú principal">
         <ul class="menu">
             <li>
-                <a href="/proyectovakerys/paginadeinicio.php">
+                <a href="/paginadeinicio.php">
                     Inicio
                 </a>
             </li>
             <li>
-                <a href="/proyectovakerys/paginanosotros.php">
+                <a href="/paginanosotros.php">
                     Quiénes somos
                 </a>
             </li>
             <li>
-                <a href="/proyectovakerys/paginasproductos/productos.php">
+                <a href="/paginasproductos/productos.php">
                     Productos
                 </a>
             </li>
             <li>
-                <a href="/proyectovakerys/usuarios/login.php">
+                <a href="/usuarios/login.php">
                     Iniciar sesión
                 </a>
             </li>
             <li>
-                <a name="modoaccesible" href="/proyectovakerys/modoaccesible.php"  class="modoaccesible" aria-label="Abrir modo accesible">
+                <a name="modoaccesible" href="/modoaccesible.php"  class="modoaccesible" aria-label="Abrir modo accesible">
                     Modo accesible
                 </a>
             </li>
@@ -498,7 +498,7 @@ nav{
     <p>
         Consulta el estado de tu pedido
     </p>
-    <form action="/proyectovakerys/paginasproductos/consultar_pagina.php" method="GET">
+    <form action="/paginasproductos/consultar_pagina.php" method="GET">
         <input
             type="number"
             name="id"
